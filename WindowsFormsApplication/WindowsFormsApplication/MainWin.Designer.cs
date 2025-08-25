@@ -28,46 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ImpExcelDBC = new System.Windows.Forms.Button();
-            this.MsglistView = new System.Windows.Forms.ListView();
+            this.Btn_ImpExcelDBC = new System.Windows.Forms.Button();
+            this.Btn_DisplayCanMatix = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // ImpExcelDBC
+            // Btn_ImpExcelDBC
             // 
-            this.ImpExcelDBC.Location = new System.Drawing.Point(121, 58);
-            this.ImpExcelDBC.Name = "ImpExcelDBC";
-            this.ImpExcelDBC.Size = new System.Drawing.Size(75, 23);
-            this.ImpExcelDBC.TabIndex = 0;
-            this.ImpExcelDBC.Text = "导入Excel";
-            this.ImpExcelDBC.UseVisualStyleBackColor = true;
-            this.ImpExcelDBC.Click += new System.EventHandler(this.ImpExcelDBC_Click);
+            this.Btn_ImpExcelDBC.Location = new System.Drawing.Point(121, 58);
+            this.Btn_ImpExcelDBC.Name = "Btn_ImpExcelDBC";
+            this.Btn_ImpExcelDBC.Size = new System.Drawing.Size(75, 23);
+            this.Btn_ImpExcelDBC.TabIndex = 0;
+            this.Btn_ImpExcelDBC.Text = "导入Excel";
+            this.Btn_ImpExcelDBC.UseVisualStyleBackColor = true;
+            this.Btn_ImpExcelDBC.Click += new System.EventHandler(this.Btn_ImpExcelDBC_Click);
             // 
-            // MsglistView
+            // Btn_DisplayCanMatix
             // 
-            this.MsglistView.HideSelection = false;
-            this.MsglistView.Location = new System.Drawing.Point(95, 181);
-            this.MsglistView.Name = "MsglistView";
-            this.MsglistView.Size = new System.Drawing.Size(121, 97);
-            this.MsglistView.TabIndex = 1;
-            this.MsglistView.UseCompatibleStateImageBehavior = false;
+            this.Btn_DisplayCanMatix.Location = new System.Drawing.Point(108, 115);
+            this.Btn_DisplayCanMatix.Name = "Btn_DisplayCanMatix";
+            this.Btn_DisplayCanMatix.Size = new System.Drawing.Size(99, 23);
+            this.Btn_DisplayCanMatix.TabIndex = 2;
+            this.Btn_DisplayCanMatix.Text = "显示CAN协议";
+            this.Btn_DisplayCanMatix.UseVisualStyleBackColor = true;
+            this.Btn_DisplayCanMatix.Click += new System.EventHandler(this.Btn_DisplayCanMatix_Click);
             // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1073, 635);
-            this.Controls.Add(this.MsglistView);
-            this.Controls.Add(this.ImpExcelDBC);
+            this.Controls.Add(this.Btn_DisplayCanMatix);
+            this.Controls.Add(this.Btn_ImpExcelDBC);
             this.Name = "MainWin";
-            this.Text = "Form1";
+            this.Text = "MainWin";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button ImpExcelDBC;
-        private System.Windows.Forms.ListView MsglistView;
+        private System.Windows.Forms.Button Btn_ImpExcelDBC;
+        private System.Windows.Forms.Button Btn_DisplayCanMatix;
     }
 }
 

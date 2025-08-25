@@ -31,3 +31,4 @@ D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplica
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.exe
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.pdb
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.MainWin.resources
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.Win_CanMsgMatrix.resources
