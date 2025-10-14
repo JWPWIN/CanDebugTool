@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 //信号代码及索引
 public class SigCode
@@ -14,6 +15,59 @@ public class CanCodeGenerate
 {
     static string fourSpace = "    ";
     static string changeLine = "\r\n";
+
+    /// <summary>
+    /// 生成所有Can信号代码
+    /// </summary>
+    static public void GenerateAllCanCode()
+    {
+        FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+        folderBrowser.SelectedPath = ".";
+        folderBrowser.Description = "请选择保存目录";
+
+        if (folderBrowser.ShowDialog() == DialogResult.OK)
+        {
+            //自动生成代码
+            string dbcContent = "";
+            string savePath = folderBrowser.SelectedPath;
+
+            //生成报文具体信号策略文件
+            foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+            {
+                //如果是OBC和DCDC发送的，则按照发送信号代码模板生成，否则按照接收模板生成
+                if (item.Value.transmitter == "OBC" || item.Value.transmitter == "DCDC")
+                {
+                    dbcContent = CanCodeGenerate.Gnt_MsgFunFile_Tx_ByCfg(item.Value);
+                }
+                else
+                {
+                    dbcContent = CanCodeGenerate.Gnt_MsgFunFile_Rx(item.Value);
+                }
+
+                if (dbcContent == null)
+                {
+                    return;
+                }
+                string fileName = "AppCanMsgFun" + item.Value.msgId.ToString("x3").ToUpper();
+                TextOperation.WriteData(savePath, fileName, FileType.C_Code, dbcContent);
+            }
+
+            //生成CanMsgLocal配置.h文件
+            dbcContent = CanCodeGenerate.Gnt_CanMsgLocal_H();
+            string name1 = "CanMsgLocal";
+            TextOperation.WriteData(savePath, name1, FileType.C_Head, dbcContent);
+
+            //生成CanMsgInterface配置.h文件
+            dbcContent = CanCodeGenerate.Gnt_CanMsgInterface_H();
+            string name2 = "CanMsgInterface";
+            TextOperation.WriteData(savePath, name2, FileType.C_Head, dbcContent);
+            //生成CanMsgCfg配置.c文件
+            dbcContent = CanCodeGenerate.Gnt_CanMsgCfg_C();
+            string name3 = "CanMsgInterface";
+            TextOperation.WriteData(savePath, name3, FileType.C_Code, dbcContent);
+
+        }
+    }
 
     /// <summary>
     /// 获取发送报文生成内容
@@ -59,7 +113,7 @@ public class CanCodeGenerate
     }
 
     //通过信号配置生成发送代码
-    static public string Gnt_MsgFunFile_Tx_ByCfg(CanMessage msg, List<SigCode> sigCodeList)
+    static public string Gnt_MsgFunFile_Tx_ByCfg(CanMessage msg /*, List<SigCode> sigCodeList*/)
     {
         string retVal = "";
         //生成文件头，包含版本信息和生成时间,
@@ -88,13 +142,14 @@ public class CanCodeGenerate
             //生成具体发送代码的策略
             string spaceStr = fourSpace + fourSpace + fourSpace;
             string codeStr = "";
-            foreach (var item1 in sigCodeList)
-            {
-                if (item1.msgId == msg.msgId && item1.sigName == item.sigName)
-                {
-                    codeStr = item1.codeStr;
-                }
-            }
+            //发送函数代码块，有需求可以实现
+            //foreach (var item1 in sigCodeList)
+            //{
+            //    if (item1.msgId == msg.msgId && item1.sigName == item.sigName)
+            //    {
+            //        codeStr = item1.codeStr;
+            //    }
+            //}
             string[] bufferAry = codeStr.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (codeStr == "")

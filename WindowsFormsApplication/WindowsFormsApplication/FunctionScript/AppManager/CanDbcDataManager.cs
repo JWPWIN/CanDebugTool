@@ -89,7 +89,11 @@ public class CanDbcDataManager
         Dictionary<string, List<List<string>>> excelAllData = ExcelManager.ImportData();
 
         //默认使用第一个sheet数据
-        List<List<string>> usedSheet = excelAllData.First().Value;
+        List<List<string>> usedSheet = null;
+        if (excelAllData != null) 
+        {
+            usedSheet = excelAllData.First().Value;
+        }
 
         //如果没有读到数据，则退出
         if (usedSheet == null)

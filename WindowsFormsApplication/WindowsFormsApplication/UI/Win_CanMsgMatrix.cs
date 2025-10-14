@@ -45,12 +45,13 @@ namespace WindowsFormsApplication
                 //添加表数据（行）
                 foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
                 {
-                    DataRow dr = dt.NewRow();
                     foreach (var item1 in item.signals)
                     {
+                        DataRow dr = dt.NewRow();
+                        
                         dr["SigName"] = item1.sigName;
                         dr["MsgName"] = item.msgName;
-                        dr["MsgID"] = item.msgId.ToString();
+                        dr["MsgID"] = "0x" + item.msgId.ToString("x3");
                         dr["MsgSize"] = item.msgSize.ToString();
                         dr["MsgCycle"] = item.msgCycle.ToString();
                         dr["SigDesc"] = item1.sigDesc;
@@ -63,8 +64,10 @@ namespace WindowsFormsApplication
                         dr["ValueType"] = item1.valueType.ToString();
                         dr["SendNode"] = item.transmitter;
                         dr["RecvNode"] = item1.recvNode;
+
+                        dt.Rows.Add(dr);
                     }
-                    dt.Rows.Add(dr);
+
                 }
 
                 this.MsgGridView.DataSource = dt;
