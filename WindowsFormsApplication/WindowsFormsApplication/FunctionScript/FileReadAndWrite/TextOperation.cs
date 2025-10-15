@@ -8,7 +8,8 @@ public enum FileType
 { 
     Text,
     C_Code,
-    C_Head
+    C_Head,
+    DBC
 }
 
 public class TextOperation
@@ -35,9 +36,17 @@ public class TextOperation
         {
             suffix = ".h";
         }
+        else if (type == FileType.DBC)
+        {
+            suffix = ".dbc";
+        }
+        else
+        {
+            suffix = ".txt";
+        }
 
-        //选取保存文件路径
-        FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            //选取保存文件路径
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
         folderBrowser.SelectedPath = ".";
         folderBrowser.Description = "请选择保存目录";
 

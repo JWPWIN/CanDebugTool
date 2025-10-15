@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 635);
+            this.ClientSize = new System.Drawing.Size(500, 500);
             this.Controls.Add(this.Btn_GntCanCode);
             this.Controls.Add(this.Btn_ExportDbc);
             this.Controls.Add(this.Btn_DisplayCanMatix);

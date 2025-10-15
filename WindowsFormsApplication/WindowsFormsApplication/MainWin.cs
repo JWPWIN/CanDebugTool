@@ -45,7 +45,7 @@ namespace WindowsFormsApplication
             string dbc = GenerateDBC.GenerateDbcForCanMatrix();
             if (dbc != null)
             {
-                TextOperation.WriteData("GenerateDbc",FileType.Text, dbc);
+                TextOperation.WriteData("GenerateDbc",FileType.DBC, dbc);
                 MessageBox.Show("导出DBC成功");
             }
         }

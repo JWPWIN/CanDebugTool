@@ -48,7 +48,7 @@ public class CanCodeGenerate
                 {
                     return;
                 }
-                string fileName = "AppCanMsgFun" + item.Value.msgId.ToString("x3").ToUpper();
+                string fileName = "CanMsgFun" + item.Value.msgId.ToString("x3").ToUpper();
                 TextOperation.WriteData(savePath, fileName, FileType.C_Code, dbcContent);
             }
 
@@ -63,7 +63,7 @@ public class CanCodeGenerate
             TextOperation.WriteData(savePath, name2, FileType.C_Head, dbcContent);
             //生成CanMsgCfg配置.c文件
             dbcContent = CanCodeGenerate.Gnt_CanMsgCfg_C();
-            string name3 = "CanMsgInterface";
+            string name3 = "CanMsgCfg";
             TextOperation.WriteData(savePath, name3, FileType.C_Code, dbcContent);
 
         }
@@ -78,10 +78,10 @@ public class CanCodeGenerate
     {
         string retVal = "";
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
         //生成头文件包含
         retVal += GntCommentRow(" Includes ");
-        retVal += "#include \"AppCanMsgLocal.h\"" + changeLine;
+        retVal += "#include \"CanMsgLocal.h\"" + changeLine;
         retVal += "#include \"CanMsgInterface.h\"" + changeLine;
         //生成信号值存贮的变量
         retVal += GntCommentRow(" Private variable ");
@@ -117,10 +117,10 @@ public class CanCodeGenerate
     {
         string retVal = "";
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
         //生成头文件包含
         retVal += GntCommentRow(" Includes ");
-        retVal += "#include \"AppCanMsgLocal.h\"" + changeLine;
+        retVal += "#include \"CanMsgLocal.h\"" + changeLine;
         retVal += "#include \"CanMsgInterface.h\"" + changeLine;
         //生成信号值存贮的变量
         retVal += GntCommentRow(" Private variable ");
@@ -129,7 +129,7 @@ public class CanCodeGenerate
 
 
         //生成报文发送函数
-        retVal += "u32 MsgFun" + msg.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam)" + changeLine;
+        retVal += "u32 MsgFun" + "_" + msg.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam)" + changeLine;
         retVal += "{" + changeLine;
         retVal += fourSpace + "u32 ulRetValue = 0;" + changeLine;
         retVal += fourSpace + "switch (ulIndex)" + changeLine;
@@ -180,10 +180,10 @@ public class CanCodeGenerate
     {
         string retVal = "";
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
         //生成头文件包含
         retVal += GntCommentRow(" Includes ");
-        retVal += "#include \"AppCanMsgLocal.h\"" + changeLine;
+        retVal += "#include \"CanMsgLocal.h\"" + changeLine;
         retVal += "#include \"CanMsgInterface.h\"" + changeLine;
         //生成信号值存贮的变量
         retVal += GntCommentRow(" Private variable ");
@@ -192,7 +192,7 @@ public class CanCodeGenerate
 
 
         //生成报文发送函数
-        retVal += "u32 MsgFun" + msg.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam)" + changeLine;
+        retVal += "u32 MsgFun"  + "_" + msg.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam)" + changeLine;
         retVal += "{" + changeLine;
         retVal += fourSpace + "u32 ulRetValue = 0;" + changeLine;
         retVal += fourSpace + "switch (ulIndex)" + changeLine;
@@ -202,7 +202,7 @@ public class CanCodeGenerate
         {
             string sigType = GetSigValueTypeByLen(item.sigLen);
             retVal += fourSpace + fourSpace + "case " + msg.transmitter.ToUpper() + "_" + item.sigName + ":" + changeLine;
-            retVal += fourSpace + fourSpace + fourSpace + msg.transmitter + msg.msgId.ToString("x3") + "Msg" + "." + sigType + item.sigName + "= ulParam;"+ changeLine;
+            retVal += fourSpace + fourSpace + fourSpace + msg.transmitter + msg.msgId.ToString("x3") + "Msg" + "." + sigType + item.sigName + "= (" + sigType + ")ulParam;" + changeLine;
             retVal += fourSpace + fourSpace + fourSpace + "break;" + changeLine;
         }
         retVal += fourSpace + fourSpace + "default:" + changeLine;
@@ -232,7 +232,7 @@ public class CanCodeGenerate
         string retVal = "";
 
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
 
         //生成 .h文件包含宏定义
         retVal += "#ifndef _CAMMSG_LOCAL_H_" + changeLine;
@@ -240,6 +240,7 @@ public class CanCodeGenerate
 
         //生成头文件包含
         retVal += GntCommentRow(" Includes ");
+        retVal += "#include \"SysTypes.h\"" + changeLine;
 
         //生成信号枚举
         retVal += GntCommentRow(" Enum ");
@@ -282,9 +283,20 @@ public class CanCodeGenerate
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
             //生成信号结构体注释
-            retVal += GntCommentRow(" @brief The " + item.msgId.ToString().ToUpper() + " Signal sent by " + item.transmitter);
+            retVal += GntCommentRow(" @brief The " + "0x" + item.msgId.ToString("x3") + " Signal sent by " + item.transmitter);
 
-            retVal += "typedef struct" + changeLine;
+            retVal += "typedef struct ";
+
+            if (item.transmitter == "DCDC" || item.transmitter == "OBC")
+            {
+                retVal += "tag" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_TX_SIG" + changeLine;
+            }
+            else
+            {
+                retVal += "tag" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_RX_SIG" + changeLine;
+
+            }
+
             retVal += "{" + changeLine;
 
             foreach (var item1 in item.signals)
@@ -295,11 +307,11 @@ public class CanCodeGenerate
 
             if (item.transmitter == "DCDC" || item.transmitter == "OBC")
             {
-                retVal += "}" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_TX_SIG " + ";" + changeLine;
+                retVal += "}" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_TX_SIG" + ";" + changeLine;
             }
             else
             {
-                retVal += "}" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_RX_SIG " + ";" + changeLine;
+                retVal += "}" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_RX_SIG" + ";" + changeLine;
 
             }
 
@@ -324,7 +336,7 @@ public class CanCodeGenerate
         string retVal = "";
 
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
 
         //生成 .h文件包含宏定义
         retVal += "#ifndef _CAMMSG_INTERFACE_H_" + changeLine;
@@ -345,7 +357,7 @@ public class CanCodeGenerate
         retVal += "{" + changeLine;
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
-            retVal += fourSpace + GetStringWithAssignLen("CAN_CLIENT_ID_" + item.transmitter + item.msgId.ToString("x3").ToUpper() ,30)
+            retVal += fourSpace + GetStringWithAssignLen("CAN_CLIENT_ID_" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() ,30)
                 + " = 0x00000" + item.msgId.ToString("x3").ToUpper() + "UL," + changeLine;
         }
         retVal += "};" + changeLine;
@@ -374,7 +386,7 @@ public class CanCodeGenerate
     {
         string retVal = "";
         //生成文件头，包含版本信息和生成时间,
-        retVal += GntCommentRow(" (C) Copyright, GoldWei.Ltd. " + "Time:" + System.DateTime.Now.ToString());
+        retVal += GntCommentRow(" (C) Copyright, JWPENG. " + "Time:" + System.DateTime.Now.ToString());
 
         //生成包含头文件
         retVal += GntCommentRow(" Includes ");
@@ -425,16 +437,16 @@ public class CanCodeGenerate
             retVal += fourSpace + "{";
             retVal += tmpNum.ToString() + ", ";
             retVal += GetStringWithAssignLen("\"" + item.msgName + "\"", 20) + ",";
-            retVal += GetStringWithAssignLen("CAN_CLIENT_ID_" + item.transmitter + item.msgId.ToString("x3").ToUpper(), 30) + " ， ";
+            retVal += GetStringWithAssignLen("CAN_CLIENT_ID_" + item.transmitter+ "_" + item.msgId.ToString("x3").ToUpper(), 30) + ",";
             retVal += GetStringWithAssignLen(item.msgCycle.ToString(), 10) + ",";
             retVal += GetStringWithAssignLen(item.msgSize.ToString(), 10) + ", ";
             retVal += "MOTOROLA_LSB, ";
             retVal += (item.transmitter == "OBC" || item.transmitter == "DCDC") ? "CANMSG_TYPE_T, " : "CANMSG_TYPE_R, ";
             retVal += "CANFD_BRS_FRAME_TYPE_STANDARD, ";
             retVal += "CAN_ID_MASK0, ";
-            retVal += GetStringWithAssignLen("DBC_" + item.transmitter + item.msgId.ToString("x3").ToUpper(), 20) + ",";
-            retVal += "sizeof(" + "DBC_" + item.transmitter + item.msgId.ToString("x3").ToUpper() + ")/"
-                        + "sizeof(" + "DBC_" + item.transmitter + item.msgId.ToString("x3").ToUpper() + "[0]), ";
+            retVal += GetStringWithAssignLen("DBC_" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper(), 20) + ",";
+            retVal += "sizeof(" + "DBC_" + item.transmitter + "_"+ item.msgId.ToString("x3").ToUpper() + ")/"
+                        + "sizeof(" + "DBC_" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "[0]), ";
             retVal += "NULL";
             retVal += "}," + changeLine;
 
