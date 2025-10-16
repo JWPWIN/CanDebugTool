@@ -32,6 +32,7 @@
             this.Btn_DisplayCanMatix = new System.Windows.Forms.Button();
             this.Btn_ExportDbc = new System.Windows.Forms.Button();
             this.Btn_GntCanCode = new System.Windows.Forms.Button();
+            this.Btn_ExportXml = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_ImpExcelDBC
@@ -66,19 +67,30 @@
             // 
             // Btn_GntCanCode
             // 
-            this.Btn_GntCanCode.Location = new System.Drawing.Point(3, 129);
+            this.Btn_GntCanCode.Location = new System.Drawing.Point(3, 174);
             this.Btn_GntCanCode.Name = "Btn_GntCanCode";
             this.Btn_GntCanCode.Size = new System.Drawing.Size(108, 39);
             this.Btn_GntCanCode.TabIndex = 4;
-            this.Btn_GntCanCode.Text = "生成Can代码";
+            this.Btn_GntCanCode.Text = "生成CAN模板代码";
             this.Btn_GntCanCode.UseVisualStyleBackColor = true;
             this.Btn_GntCanCode.Click += new System.EventHandler(this.Btn_GntCanCode_Click);
+            // 
+            // Btn_ExportXml
+            // 
+            this.Btn_ExportXml.Location = new System.Drawing.Point(3, 129);
+            this.Btn_ExportXml.Name = "Btn_ExportXml";
+            this.Btn_ExportXml.Size = new System.Drawing.Size(108, 39);
+            this.Btn_ExportXml.TabIndex = 5;
+            this.Btn_ExportXml.Text = "导出Xml";
+            this.Btn_ExportXml.UseVisualStyleBackColor = true;
+            this.Btn_ExportXml.Click += new System.EventHandler(this.Btn_ExportXml_Click);
             // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 500);
+            this.Controls.Add(this.Btn_ExportXml);
             this.Controls.Add(this.Btn_GntCanCode);
             this.Controls.Add(this.Btn_ExportDbc);
             this.Controls.Add(this.Btn_DisplayCanMatix);
@@ -95,6 +107,7 @@
         private System.Windows.Forms.Button Btn_DisplayCanMatix;
         private System.Windows.Forms.Button Btn_ExportDbc;
         private System.Windows.Forms.Button Btn_GntCanCode;
+        private System.Windows.Forms.Button Btn_ExportXml;
     }
 }
 

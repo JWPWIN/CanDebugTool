@@ -60,5 +60,17 @@ namespace WindowsFormsApplication
             }
 
         }
+
+        private void Btn_ExportXml_Click(object sender, EventArgs e)
+        {
+            //如果DBC数据加载成功，才可以生成Xml
+            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
+            {
+                GenerateXml.GenerateXmlForCanMatrix();
+                MessageBox.Show("CanXml文件生成成功");
+            }
+
+
+        }
     }
 }

@@ -9,7 +9,8 @@ public enum FileType
     Text,
     C_Code,
     C_Head,
-    DBC
+    DBC,
+    XML
 }
 
 public class TextOperation
@@ -39,6 +40,10 @@ public class TextOperation
         else if (type == FileType.DBC)
         {
             suffix = ".dbc";
+        }
+        else if (type == FileType.XML)
+        {
+            suffix = ".xml";
         }
         else
         {

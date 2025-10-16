@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionScript\SaveCfgToDbc\CanOrderTool.cs" />
+    <Compile Include="FunctionScript\SaveCfgToXrXml\GenerateXml.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
