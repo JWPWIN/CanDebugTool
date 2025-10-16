@@ -69,6 +69,12 @@ public class GenerateDBC
             }
         }
 
+        //默认设置报文为Canfd标准帧格式
+        allTxt += "\r\n";
+        allTxt += "BA_DEF_ BO_  \"VFrameFormat\" INT 0 15;" + "\r\n";
+        allTxt += "BA_DEF_DEF_  \"VFrameFormat\" 14;" + "\r\n";
+        allTxt += "\r\n";
+
         //生成信号值列表
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
         {
@@ -177,7 +183,7 @@ public class GenerateDBC
 
         SG_ += sig.sigName + " ";
         SG_ += ":" + " ";   //暂不支持生成复用信号位
-        SG_ += sig.sigStartBit.ToString() + "|";
+        SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb((int)sig.sigStartBit,(int)sig.sigLen).ToString() + "|";
         SG_ += sig.sigLen.ToString() + "@";
         SG_ += sig.sigOrderType + " ";
         SG_ += ((sig.valueType == 0) ? "+" : "-") + " ";
