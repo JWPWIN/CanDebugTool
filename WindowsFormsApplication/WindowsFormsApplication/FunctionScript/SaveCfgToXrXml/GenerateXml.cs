@@ -27,9 +27,50 @@ static public class GenerateXml
         canBus.RxMessages = new List<Message>();
         canBus.TxMessages = new List<Message>();
 
-
         int msgCount = 1;
         int sigCount = 1;
+        //默认添加诊断开启调试报文
+        Message debugMsg = new Message();
+        debugMsg.Flag = msgCount;
+        msgCount++;
+        debugMsg.Name = "AAA_Report";
+        debugMsg.ECU = "UDS";
+        debugMsg.ID = 2022;//0x7E6
+        debugMsg.CycleTime = 1000;
+        debugMsg.DLC = 8;
+        debugMsg.Extern = 0;
+        debugMsg.CANFD = 1;
+        debugMsg.MultiplexingBit = 0;
+        debugMsg.MultiplexingLength = 0;
+        debugMsg.MultiplexingData = 0;
+        debugMsg.Field = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+
+        debugMsg.signals = new List<Signal>();
+        Signal debugSig= new Signal();
+        debugSig.Flag = sigCount;
+        sigCount++;
+        debugSig.SingalType = 1;//0：常数；1：Enum
+        debugSig.Name = "AAA_Report";
+        debugSig.Description = "AAA调试报文开启";
+        debugSig.Unit = "";
+        debugSig.BitOrder = 0;
+        debugSig.Signed = 0;
+        debugSig.StartBit = 0;
+        debugSig.BitLength = 32;
+        debugSig.Resolution = 1;
+        debugSig.Offset = 0;
+        debugSig.MinData = 0;
+        debugSig.MaxData = 1;
+        debugSig.DefaultData = 0;
+        debugSig.ChecksumAlgorithm = 0;
+
+        debugSig.EnumStrings = new List<EnumString>();
+        debugSig.EnumStrings.Add(new EnumString() {Data= 108547,String = "Report_AAA",Color = 16777215 });
+        debugSig.EnumStrings.Add(new EnumString() {Data = 43011,String = "No_Report_AAA",Color = 16777215 });
+
+        debugMsg.signals.Add(debugSig);
+        canBus.TxMessages.Add(debugMsg);
+
         //从导入的Can矩阵中获取Can通信协议信息
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
@@ -71,7 +112,7 @@ static public class GenerateXml
                 sig.DefaultData = 0;
                 sig.ChecksumAlgorithm = 0;
 
-                sig.EnumStrings = new List<EnumTable>();
+                sig.EnumStrings = new List<EnumString>();
                 //设置值枚举信息
                 if ((item1.sigValueTable != null) && (item1.sigValueTable.Count > 0))
                 {
@@ -79,7 +120,7 @@ static public class GenerateXml
 
                     foreach (var item2 in item1.sigValueTable)
                     {
-                        EnumTable enumTable = new EnumTable();
+                        EnumString enumTable = new EnumString();
 
                         enumTable.Data = item2.Key;
                         enumTable.String = item2.Value;
@@ -255,12 +296,12 @@ public class Signal
     public int ChecksumAlgorithm { get; set; }
 
     [XmlArrayAttribute("EnumStrings")]
-    public List<EnumTable> EnumStrings { get; set; }
+    public List<EnumString> EnumStrings { get; set; }
 
 }
 
 [XmlRootAttribute("EnumString", IsNullable = false)]
-public class EnumTable
+public class EnumString
 {
     [XmlAttribute("Data")]
     public int Data { get; set; }
