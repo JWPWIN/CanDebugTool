@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\generatedbc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtodbc\\generatedbc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\appmanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\appmanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\filereadandwrite\\textoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\filereadandwrite\\textoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\generatedbc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtodbc\\generatedbc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\functionscript\\appmanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\appmanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\mainwin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
@@ -90,8 +90,16 @@
               "IsPinned": true
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "GenerateXml.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
@@ -103,18 +111,6 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "CanOrderTool.cs",
@@ -124,7 +120,8 @@
               "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\CanOrderTool.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T02:02:06.538Z"
+              "WhenOpened": "2025-10-16T02:02:06.538Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -139,19 +136,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "CanCodeGenerate.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
               "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
-              "ViewState": "AgIAALIAAAAAAAAAAAAEwMwAAACLAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAnwD4AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T09:36:54.243Z"
+              "WhenOpened": "2025-07-07T09:36:54.243Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GenerateDBC.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\GenerateDBC.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\GenerateDBC.cs",
@@ -164,7 +162,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "TextOperation.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAMwFcAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T09:38:23.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "CanDbcDataManager.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppManager\\CanDbcDataManager.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\AppManager\\CanDbcDataManager.cs",
@@ -173,18 +188,6 @@
               "ViewState": "AgIAALMAAAAAAAAAAAAAAMkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T08:07:59.151Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TextOperation.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAkwCwAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T09:38:23.507Z"
             },
             {
               "$type": "Document",

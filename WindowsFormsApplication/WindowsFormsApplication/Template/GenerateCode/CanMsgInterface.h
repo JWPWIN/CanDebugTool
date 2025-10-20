@@ -1,4 +1,4 @@
-/*  (C) Copyright, GoldWei.Ltd. Time:2025/10/15 1:47:59**************************/
+/*  (C) Copyright, JWPENG. Time:2025/10/20 10:25:50******************************/
 #ifndef _CAMMSG_INTERFACE_H_
 #define _CAMMSG_INTERFACE_H_
 /*  Includes ********************************************************************/
@@ -9,35 +9,52 @@ u32 getCanPublicMsgObjSize(void);
 /*  Export ENUM *****************************************************************/
 enum CAN_CLIENT_ID_CanMsg
 {
-    CAN_CLIENT_ID_OBC233            = 0x00000233UL,
-    CAN_CLIENT_ID_OBC234            = 0x00000234UL,
-    CAN_CLIENT_ID_OBC333            = 0x00000333UL,
-    CAN_CLIENT_ID_VCU433            = 0x00000433UL,
-    CAN_CLIENT_ID_VCU434            = 0x00000434UL,
+    CAN_CLIENT_ID_DCDC_0C4          = 0x000000C4UL,
+    CAN_CLIENT_ID_EXECU_30A         = 0x0000030AUL,
+    CAN_CLIENT_ID_EXECU_340         = 0x00000340UL,
+    CAN_CLIENT_ID_DCDC_344          = 0x00000344UL,
+    CAN_CLIENT_ID_EXECU_372         = 0x00000372UL,
+    CAN_CLIENT_ID_DCDC_59C          = 0x0000059CUL,
 };
-/*  @brief The 233 Signal sent by OBC********************************************/
-u08 APP_CAN_u08GetOBC_ObcChgOutVolt(void);
-u08 APP_CAN_u08GetOBC_ObcChgOutCur(void);
-u08 APP_CAN_u08GetOBC_ObcChgInVolt(void);
-u08 APP_CAN_u08GetOBC_ObcChgInCur(void);
+/*  @brief The 0C4 Signal sent by DCDC*******************************************/
+u16 APP_CAN_u16GetDCDC_DCDC2_OutputCurrent(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_InputCurrent(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_OutputVoltage(void);
+u16 APP_CAN_u16GetDCDC_DCDC2_InputVolt(void);
+u08 APP_CAN_u08GetDCDC_RollingCounterC4(void);
+u08 APP_CAN_u08GetDCDC_ChecksumC4(void);
 
-/*  @brief The 234 Signal sent by OBC********************************************/
-u08 APP_CAN_u08GetOBC_ObcDisChgOutVolt(void);
-u08 APP_CAN_u08GetOBC_ObcDisChgOutCur(void);
-u08 APP_CAN_u08GetOBC_ObcDisChgInVolt(void);
-u08 APP_CAN_u08GetOBC_ObcDisChgInCur(void);
+/*  @brief The 30A Signal sent by EXECU******************************************/
+u08 APP_CAN_u08GetEXECU_OTA_ModeSt(void);
+u08 APP_CAN_u08GetEXECU_OTA_EstimatedUpgradeTime(void);
+u08 APP_CAN_u08GetEXECU_RollingCounter30A(void);
+u08 APP_CAN_u08GetEXECU_Checksum30A(void);
 
-/*  @brief The 333 Signal sent by OBC********************************************/
-u08 APP_CAN_u08GetOBC_DcdcOutVolt(void);
-u08 APP_CAN_u08GetOBC_DcdcOutCur(void);
-u08 APP_CAN_u08GetOBC_DcdcInVolt(void);
-u08 APP_CAN_u08GetOBC_DcdcInCur(void);
+/*  @brief The 340 Signal sent by EXECU******************************************/
+u16 APP_CAN_u16GetEXECU_BCM_BattVolt_EBS2(void);
+u08 APP_CAN_u08GetEXECU_BCM_12VChrgReq(void);
 
-/*  @brief The 433 Signal sent by VCU********************************************/
-u08 APP_CAN_u08GetVCU_ObcChgOutVoltReq(void);
-u08 APP_CAN_u08GetVCU_ObcChgOuCurReq(void);
+/*  @brief The 344 Signal sent by DCDC*******************************************/
+u08 APP_CAN_u08GetDCDC_DCDC2_Temperature(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_Fault(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_Efficiency(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_HighVoltCnctAllowed(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_State(void);
+u08 APP_CAN_u08GetDCDC_DCDC2_OverTempSt(void);
+u08 APP_CAN_u08GetDCDC_RollingCounter344(void);
+u08 APP_CAN_u08GetDCDC_Checksum344(void);
 
-/*  @brief The 434 Signal sent by VCU********************************************/
-u08 APP_CAN_u08GetVCU_ObcWorkModeReq(void);
+/*  @brief The 372 Signal sent by EXECU******************************************/
+u08 APP_CAN_u08GetEXECU_PDCU_DCDC2VolReq(void);
+u08 APP_CAN_u08GetEXECU_PDCU_DCDC2Enable(void);
+
+/*  @brief The 59C Signal sent by DCDC*******************************************/
+u08 APP_CAN_u08GetDCDC_NMNode(void);
+u08 APP_CAN_u08GetDCDC_ActiveWakeupBit(void);
+u08 APP_CAN_u08GetDCDC_RepeatMessageRequestBit(void);
+u08 APP_CAN_u08GetDCDC_RepeatSts(void);
+u08 APP_CAN_u08GetDCDC_NMWakeupStype(void);
+u08 APP_CAN_u08GetDCDC_NMWakeupPower(void);
+u08 APP_CAN_u08GetDCDC_NMWakeupSource(void);
 
 #endif

@@ -194,7 +194,6 @@ public class CanCodeGenerate
         //生成报文发送函数
         retVal += "u32 MsgFun"  + "_" + msg.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam)" + changeLine;
         retVal += "{" + changeLine;
-        retVal += fourSpace + "u32 ulRetValue = 0;" + changeLine;
         retVal += fourSpace + "switch (ulIndex)" + changeLine;
         retVal += fourSpace + "{" + changeLine;
         //生成每个信号发送的代码

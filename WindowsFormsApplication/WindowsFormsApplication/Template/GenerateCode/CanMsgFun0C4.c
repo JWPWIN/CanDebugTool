@@ -1,25 +1,31 @@
-/*  (C) Copyright, GoldWei.Ltd. Time:2025/10/15 1:47:59**************************/
+/*  (C) Copyright, JWPENG. Time:2025/10/20 10:25:50******************************/
 /*  Includes ********************************************************************/
-#include "AppCanMsgLocal.h"
+#include "CanMsgLocal.h"
 #include "CanMsgInterface.h"
 /*  Private variable ************************************************************/
-static OBC_233_TX_SIG OBC233Msg = {0};
+static DCDC_0C4_TX_SIG DCDC0c4Msg = {0};
 
-u32 MsgFun233(u32 ulIndex, u32 ulParam)
+u32 MsgFun_0C4(u32 ulIndex, u32 ulParam)
 {
     u32 ulRetValue = 0;
     switch (ulIndex)
     {
-        case OBC_ObcChgOutVolt:
+        case DCDC_DCDC2_OutputCurrent:
             ulRetValue = 0;
             break;
-        case OBC_ObcChgOutCur:
+        case DCDC_DCDC2_InputCurrent:
             ulRetValue = 0;
             break;
-        case OBC_ObcChgInVolt:
+        case DCDC_DCDC2_OutputVoltage:
             ulRetValue = 0;
             break;
-        case OBC_ObcChgInCur:
+        case DCDC_DCDC2_InputVolt:
+            ulRetValue = 0;
+            break;
+        case DCDC_RollingCounterC4:
+            ulRetValue = 0;
+            break;
+        case DCDC_ChecksumC4:
             ulRetValue = 0;
             break;
         default:
