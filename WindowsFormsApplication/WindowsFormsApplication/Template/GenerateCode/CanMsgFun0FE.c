@@ -3,14 +3,14 @@
 #include "CanMsgLocal.h"
 #include "CanMsgInterface.h"
 /*  Private variable ************************************************************/
-static EXECU_340_RX_SIG EXECU340Msg = {0};
+static EXECU_0FE_RX_SIG EXECU0feMsg = {0};
 
-u32 MsgFun_340(u32 ulIndex, u32 ulParam)
+u32 MsgFun_0FE(u32 ulIndex, u32 ulParam)
 {
     switch (ulIndex)
     {
-        case EXECU_BCM_BattVolt_EBS2:
-            EXECU340Msg.u16BCM_BattVolt_EBS2= (u16)ulParam;
+        case EXECU_PDCU_DriveReady:
+            EXECU0feMsg.u08PDCU_DriveReady= (u08)ulParam;
             break;
         default:
             break;
@@ -18,8 +18,8 @@ u32 MsgFun_340(u32 ulIndex, u32 ulParam)
     return 0;
 }
 
-u16 APP_CAN_u16GetEXECU_BCM_BattVolt_EBS2(void)
+u08 APP_CAN_u08GetEXECU_PDCU_DriveReady(void)
 {
-    return EXECU340Msg.u16BCM_BattVolt_EBS2;
+    return EXECU0feMsg.u08PDCU_DriveReady;
 }
 

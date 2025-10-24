@@ -105,8 +105,8 @@ static public class GenerateXml
                 sig.Signed = 0;
                 sig.StartBit = (int)item1.sigStartBit;
                 sig.BitLength = (int)item1.sigLen;
-                sig.Resolution = (int)item1.sigFactor;
-                sig.Offset = (int)item1.sigOffset;
+                sig.Resolution = item1.sigFactor;
+                sig.Offset = item1.sigOffset;
                 sig.MinData = 0;
                 sig.MaxData = 1;
                 sig.DefaultData = 0;
@@ -278,10 +278,10 @@ public class Signal
     public int BitLength { get; set; }
 
     [XmlAttribute("Resolution")]
-    public int Resolution { get; set; }
+    public double Resolution { get; set; }
 
     [XmlAttribute("Offset")]
-    public int Offset { get; set; }
+    public double Offset { get; set; }
 
     [XmlAttribute("MinData")]
     public int MinData { get; set; }

@@ -34,6 +34,8 @@ public class CanCodeGenerate
             //生成报文具体信号策略文件
             foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
             {
+                //非应用报文不生成代码
+                if (item.Value.msgType != 0) continue;
                 //如果是OBC和DCDC发送的，则按照发送信号代码模板生成，否则按照接收模板生成
                 if (item.Value.transmitter == "OBC" || item.Value.transmitter == "DCDC")
                 {
@@ -248,6 +250,9 @@ public class CanCodeGenerate
         int maxSigNameLen = 0;//最长信号名长度
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             foreach (var item1 in item.signals)
             {
                 if (item1.sigName.Length > maxSigNameLen)
@@ -263,6 +268,9 @@ public class CanCodeGenerate
         //根据信号枚举生成代码
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             m = 0;
             retVal += "enum CAN_CLIENT_SIGNAL_" + item.transmitter.ToUpper() + item.msgId.ToString("x3").ToUpper() + changeLine;
             retVal += "{" + changeLine;
@@ -281,6 +289,9 @@ public class CanCodeGenerate
         //根据DBC生成信号结构体
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             //生成信号结构体注释
             retVal += GntCommentRow(" @brief The " + "0x" + item.msgId.ToString("x3") + " Signal sent by " + item.transmitter);
 
@@ -322,6 +333,9 @@ public class CanCodeGenerate
         retVal += GntCommentRow(" Private Function ");
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             retVal += "u32 MsgFun_" + item.msgId.ToString("x3").ToUpper() + "(u32 ulIndex, u32 ulParam);" + changeLine;
         }
 
@@ -356,6 +370,9 @@ public class CanCodeGenerate
         retVal += "{" + changeLine;
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             retVal += fourSpace + GetStringWithAssignLen("CAN_CLIENT_ID_" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() ,30)
                 + " = 0x00000" + item.msgId.ToString("x3").ToUpper() + "UL," + changeLine;
         }
@@ -364,6 +381,9 @@ public class CanCodeGenerate
         //生成接收函数
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             retVal += GntCommentRow(" @brief The " + item.msgId.ToString("x3").ToUpper() + " Signal sent by " + item.transmitter);
 
             foreach (var item1 in item.signals)
@@ -396,6 +416,9 @@ public class CanCodeGenerate
         int maxSigNameLen = 0;//最长信号名长度
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             foreach (var item1 in item.signals)
             {
                 if (item1.sigName.Length > maxSigNameLen)
@@ -411,6 +434,9 @@ public class CanCodeGenerate
         retVal += GntCommentRow(" Private variables ");
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             retVal += "static const " + "TS_CANMSG_OBJ " + "DBC_" + item.transmitter + "_" + 
                 item.msgId.ToString("x3").ToUpper() + "[" + item.signals.Count + "]" + " =" + changeLine;
 
@@ -428,11 +454,23 @@ public class CanCodeGenerate
         }
 
         //生成通信总配置表
-        retVal += "static const TS_CANMSG canMsgTab" + "[" + CanDbcDataManager.GetInstance().canMsgSet.Count + "] = " + changeLine;
+        int msgCounter = 0;
+        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
+        {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
+            msgCounter++;
+        }
+
+        retVal += "static const TS_CANMSG canMsgTab" + "[" + msgCounter + "] = " + changeLine;
         retVal += "{" + changeLine;
         int tmpNum = 0;
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
         {
+            //非应用报文不生成代码
+            if (item.msgType != 0) continue;
+
             retVal += fourSpace + "{";
             retVal += tmpNum.ToString() + ", ";
             retVal += GetStringWithAssignLen("\"" + item.msgName + "\"", 20) + ",";

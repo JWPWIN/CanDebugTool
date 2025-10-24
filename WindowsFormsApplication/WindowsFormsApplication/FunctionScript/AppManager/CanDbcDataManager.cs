@@ -13,6 +13,7 @@ public class CanMessage
     public string msgName = "";
     public uint msgSize = 0;
     public string transmitter = "";
+    public uint msgType = 0;//(0:APP; 1:NM)
     public List<CanSignal> signals = new List<CanSignal>();
 }
 
@@ -49,6 +50,7 @@ public enum CanDbcRows
     ValueType,
     SendNode,
     RecvNode,
+    MsgType,
 
     MaxNum
 }
@@ -143,6 +145,9 @@ public class CanDbcDataManager
                         break;
                     case CanDbcRows.SendNode:
                         msg.transmitter = value;
+                        break;
+                    case CanDbcRows.MsgType:
+                        msg.msgType = uint.Parse(value);
                         break;
                     default:
                         break;

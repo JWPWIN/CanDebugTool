@@ -1,9 +1,15 @@
-/*  (C) Copyright, JWPENG. Time:2025/10/20 10:25:50******************************/
+/*  (C) Copyright, JWPENG. Time:2025/10/23 15:08:31******************************/
 #ifndef _CAMMSG_LOCAL_H_
 #define _CAMMSG_LOCAL_H_
 /*  Includes ********************************************************************/
 #include "SysTypes.h"
 /*  Enum ************************************************************************/
+enum CAN_CLIENT_SIGNAL_EXECU0A0
+{
+    EXECU_ESC_VehSpdValidFlag           = 0UL,
+    EXECU_ESC_VehSpd                    = 1UL,
+};
+
 enum CAN_CLIENT_SIGNAL_DCDC0C4
 {
     DCDC_DCDC2_OutputCurrent            = 0UL,
@@ -14,6 +20,11 @@ enum CAN_CLIENT_SIGNAL_DCDC0C4
     DCDC_ChecksumC4                     = 5UL,
 };
 
+enum CAN_CLIENT_SIGNAL_EXECU0FE
+{
+    EXECU_PDCU_DriveReady               = 0UL,
+};
+
 enum CAN_CLIENT_SIGNAL_EXECU30A
 {
     EXECU_OTA_ModeSt                    = 0UL,
@@ -22,10 +33,19 @@ enum CAN_CLIENT_SIGNAL_EXECU30A
     EXECU_Checksum30A                   = 3UL,
 };
 
+enum CAN_CLIENT_SIGNAL_EXECU320
+{
+    EXECU_IC_TotalOdmeter               = 0UL,
+};
+
+enum CAN_CLIENT_SIGNAL_EXECU33C
+{
+    EXECU_BCM_IgnitionSt                = 0UL,
+};
+
 enum CAN_CLIENT_SIGNAL_EXECU340
 {
     EXECU_BCM_BattVolt_EBS2             = 0UL,
-    EXECU_BCM_12VChrgReq                = 1UL,
 };
 
 enum CAN_CLIENT_SIGNAL_DCDC344
@@ -46,16 +66,24 @@ enum CAN_CLIENT_SIGNAL_EXECU372
     EXECU_PDCU_DCDC2Enable              = 1UL,
 };
 
-enum CAN_CLIENT_SIGNAL_DCDC59C
+enum CAN_CLIENT_SIGNAL_EXECU4DA
 {
-    DCDC_NMNode                         = 0UL,
-    DCDC_ActiveWakeupBit                = 1UL,
-    DCDC_RepeatMessageRequestBit        = 2UL,
-    DCDC_RepeatSts                      = 3UL,
-    DCDC_NMWakeupStype                  = 4UL,
-    DCDC_NMWakeupPower                  = 5UL,
-    DCDC_NMWakeupSource                 = 6UL,
+    EXECU_MP5_TBOX_Time_Year            = 0UL,
+    EXECU_MP5_TBOX_Time_Month           = 1UL,
+    EXECU_MP5_TBOX_Time_Date            = 2UL,
+    EXECU_MP5_TBOX_Time_Hour            = 3UL,
+    EXECU_MP5_TBOX_Time_Minute          = 4UL,
+    EXECU_MP5_TBOX_Time_Second          = 5UL,
+    EXECU_MP5_TBOX_Time_YearMark        = 6UL,
+    EXECU_MP5_TBOX_Time_Valid           = 7UL,
 };
+
+/*  @brief The 0x0a0 Signal sent by EXECU****************************************/
+typedef struct tagEXECU_0A0_RX_SIG
+{
+    u08 u08ESC_VehSpdValidFlag;
+    u16 u16ESC_VehSpd;
+}EXECU_0A0_RX_SIG;
 
 /*  @brief The 0x0c4 Signal sent by DCDC*****************************************/
 typedef struct tagDCDC_0C4_TX_SIG
@@ -68,6 +96,12 @@ typedef struct tagDCDC_0C4_TX_SIG
     u08 u08ChecksumC4;
 }DCDC_0C4_TX_SIG;
 
+/*  @brief The 0x0fe Signal sent by EXECU****************************************/
+typedef struct tagEXECU_0FE_RX_SIG
+{
+    u08 u08PDCU_DriveReady;
+}EXECU_0FE_RX_SIG;
+
 /*  @brief The 0x30a Signal sent by EXECU****************************************/
 typedef struct tagEXECU_30A_RX_SIG
 {
@@ -77,11 +111,22 @@ typedef struct tagEXECU_30A_RX_SIG
     u08 u08Checksum30A;
 }EXECU_30A_RX_SIG;
 
+/*  @brief The 0x320 Signal sent by EXECU****************************************/
+typedef struct tagEXECU_320_RX_SIG
+{
+    u32 u32IC_TotalOdmeter;
+}EXECU_320_RX_SIG;
+
+/*  @brief The 0x33c Signal sent by EXECU****************************************/
+typedef struct tagEXECU_33C_RX_SIG
+{
+    u08 u08BCM_IgnitionSt;
+}EXECU_33C_RX_SIG;
+
 /*  @brief The 0x340 Signal sent by EXECU****************************************/
 typedef struct tagEXECU_340_RX_SIG
 {
     u16 u16BCM_BattVolt_EBS2;
-    u08 u08BCM_12VChrgReq;
 }EXECU_340_RX_SIG;
 
 /*  @brief The 0x344 Signal sent by DCDC*****************************************/
@@ -104,23 +149,28 @@ typedef struct tagEXECU_372_RX_SIG
     u08 u08PDCU_DCDC2Enable;
 }EXECU_372_RX_SIG;
 
-/*  @brief The 0x59c Signal sent by DCDC*****************************************/
-typedef struct tagDCDC_59C_TX_SIG
+/*  @brief The 0x4da Signal sent by EXECU****************************************/
+typedef struct tagEXECU_4DA_RX_SIG
 {
-    u08 u08NMNode;
-    u08 u08ActiveWakeupBit;
-    u08 u08RepeatMessageRequestBit;
-    u08 u08RepeatSts;
-    u08 u08NMWakeupStype;
-    u08 u08NMWakeupPower;
-    u08 u08NMWakeupSource;
-}DCDC_59C_TX_SIG;
+    u08 u08MP5_TBOX_Time_Year;
+    u08 u08MP5_TBOX_Time_Month;
+    u08 u08MP5_TBOX_Time_Date;
+    u08 u08MP5_TBOX_Time_Hour;
+    u08 u08MP5_TBOX_Time_Minute;
+    u08 u08MP5_TBOX_Time_Second;
+    u08 u08MP5_TBOX_Time_YearMark;
+    u08 u08MP5_TBOX_Time_Valid;
+}EXECU_4DA_RX_SIG;
 
 /*  Private Function ************************************************************/
+u32 MsgFun_0A0(u32 ulIndex, u32 ulParam);
 u32 MsgFun_0C4(u32 ulIndex, u32 ulParam);
+u32 MsgFun_0FE(u32 ulIndex, u32 ulParam);
 u32 MsgFun_30A(u32 ulIndex, u32 ulParam);
+u32 MsgFun_320(u32 ulIndex, u32 ulParam);
+u32 MsgFun_33C(u32 ulIndex, u32 ulParam);
 u32 MsgFun_340(u32 ulIndex, u32 ulParam);
 u32 MsgFun_344(u32 ulIndex, u32 ulParam);
 u32 MsgFun_372(u32 ulIndex, u32 ulParam);
-u32 MsgFun_59C(u32 ulIndex, u32 ulParam);
+u32 MsgFun_4DA(u32 ulIndex, u32 ulParam);
 #endif
