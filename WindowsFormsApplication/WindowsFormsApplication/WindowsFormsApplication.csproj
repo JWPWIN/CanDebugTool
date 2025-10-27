@@ -105,6 +105,18 @@
     <Compile Include="UI\Win_CanMsgMatrix.Designer.cs">
       <DependentUpon>Win_CanMsgMatrix.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win_ComUpper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Win_ComUpper.Designer.cs">
+      <DependentUpon>Win_ComUpper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Win_DbcDataManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Win_DbcDataManager.Designer.cs">
+      <DependentUpon>Win_DbcDataManager.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +132,12 @@
     </Compile>
     <EmbeddedResource Include="UI\Win_CanMsgMatrix.resx">
       <DependentUpon>Win_CanMsgMatrix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Win_ComUpper.resx">
+      <DependentUpon>Win_ComUpper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Win_DbcDataManager.resx">
+      <DependentUpon>Win_DbcDataManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication.UI;
 
 namespace WindowsFormsApplication
 {
     public partial class MainWin : Form
     {
-        Win_CanMsgMatrix win_CanMsgMatrix;
+        Win_DbcDataManager win_DbcDataManager;//Dbc数据管理窗口
+        Win_ComUpper win_ComUpper;//Can通信上位机窗口
+
 
         public MainWin()
         {
@@ -22,55 +25,16 @@ namespace WindowsFormsApplication
             CanDbcDataManager canDbcDataManager = new CanDbcDataManager();
         }
 
-        private void Btn_ImpExcelDBC_Click(object sender, EventArgs e)
+        private void Btn_DisplayDbcDataManager_Click(object sender, EventArgs e)
         {
-            CanDbcDataManager.GetInstance().LoadCanMatrixFromExcel();
-
-            //如果DBC数据加载成功，按钮显示绿色
-            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-            { 
-                this.Btn_ImpExcelDBC.BackColor = System.Drawing.Color.Green;
-            }
-
+            win_DbcDataManager = new Win_DbcDataManager();
+            win_DbcDataManager.Show();
         }
 
-        private void Btn_DisplayCanMatix_Click(object sender, EventArgs e)
+        private void Btn_DisplayComUpper_Click(object sender, EventArgs e)
         {
-            win_CanMsgMatrix = new Win_CanMsgMatrix();
-            win_CanMsgMatrix.ShowDialog();
-        }
-
-        private void Btn_ExportDbc_Click(object sender, EventArgs e)
-        {
-            string dbc = GenerateDBC.GenerateDbcForCanMatrix();
-            if (dbc != null)
-            {
-                TextOperation.WriteData("GenerateDbc",FileType.DBC, dbc);
-                MessageBox.Show("导出DBC成功");
-            }
-        }
-
-        private void Btn_GntCanCode_Click(object sender, EventArgs e)
-        {
-            //如果DBC数据加载成功，才可以生成Can代码
-            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-            {
-                CanCodeGenerate.GenerateAllCanCode();
-                MessageBox.Show("Can代码生成成功");
-            }
-
-        }
-
-        private void Btn_ExportXml_Click(object sender, EventArgs e)
-        {
-            //如果DBC数据加载成功，才可以生成Xml
-            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-            {
-                GenerateXml.GenerateXmlForCanMatrix();
-                MessageBox.Show("CanXml文件生成成功");
-            }
-
-
+            win_ComUpper = new Win_ComUpper();
+            win_ComUpper.Show();
         }
     }
 }
