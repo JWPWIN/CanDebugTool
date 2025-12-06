@@ -66,3 +66,5 @@ C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFor
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.pdb
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.UI.Win_DbcDataManager.resources
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.UI.Win_ComUpper.resources
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.UI.Win_ComUpper.resources
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.UI.Win_DbcDataManager.resources

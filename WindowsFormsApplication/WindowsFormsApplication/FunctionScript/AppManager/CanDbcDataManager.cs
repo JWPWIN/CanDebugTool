@@ -13,7 +13,7 @@ public class CanMessage
     public string msgName = "";
     public uint msgSize = 0;
     public string transmitter = "";
-    public uint msgType = 0;//(0:APP; 1:NM)
+    public uint msgType = 0;//(0:APP; 1:NM; 2:Debug-复用帧)
     public List<CanSignal> signals = new List<CanSignal>();
 }
 
@@ -30,6 +30,7 @@ public class CanSignal
     public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //信号值列表<信号意义，信号值>
     public uint valueType; //值类型：1-有符号，0：无符号
     public string recvNode;//接收节点
+    public uint reuseFrameID;//复用帧ID，报文类型为Debug模式时启用
 }
 
 //excel配置文件中每列代表的含义
@@ -50,9 +51,18 @@ public enum CanDbcRows
     ValueType,
     SendNode,
     RecvNode,
+    ReuseFrameID,
     MsgType,
 
     MaxNum
+}
+
+//报文类型
+public enum CanMsgType
+{
+    APP,//应用报文
+    NM,//网络管理报文
+    DEBUG//调试报文-复用帧
 }
 
 public class CanDbcDataManager
@@ -128,7 +138,7 @@ public class CanDbcDataManager
                     case CanDbcRows.MsgId:
                         string str = value.Remove(0, 2);//移除前面两个字符0x
                         msg.msgId = UInt32.Parse(str, System.Globalization.NumberStyles.HexNumber);
-                        //已经读取相同ID报文信息
+                        //已经读取相同ID报文信息,不再重复添加到报文集合
                         if (canMsgSet.ContainsKey(msg.msgId))
                         {
                             flag = false;
@@ -220,6 +230,9 @@ public class CanDbcDataManager
                         break;
                     case CanDbcRows.RecvNode:
                         tmpSig.recvNode = value;
+                        break;
+                    case CanDbcRows.ReuseFrameID:
+                        tmpSig.reuseFrameID = uint.Parse(value);
                         break;
                 }
             }

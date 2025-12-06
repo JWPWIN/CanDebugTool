@@ -40,6 +40,7 @@ namespace WindowsFormsApplication
                 dt.Columns.Add("ValueType");
                 dt.Columns.Add("SendNode");
                 dt.Columns.Add("RecvNode");
+                dt.Columns.Add("ReuseFrameID");
                 dt.Columns.Add("MsgType");
                 //添加表格数据
                 dt.Rows.Clear();
@@ -65,6 +66,7 @@ namespace WindowsFormsApplication
                         dr["ValueType"] = item1.valueType.ToString();
                         dr["SendNode"] = item.transmitter;
                         dr["RecvNode"] = item1.recvNode;
+                        dr["ReuseFrameID"] = item1.reuseFrameID;
                         dr["MsgType"] = item.msgType;
                         dt.Rows.Add(dr);
                     }

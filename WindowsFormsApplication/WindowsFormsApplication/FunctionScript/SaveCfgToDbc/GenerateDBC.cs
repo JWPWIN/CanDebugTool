@@ -53,7 +53,7 @@ public class GenerateDBC
             foreach (var item1 in item.Value.signals)
             {
                 allTxt += " ";
-                allTxt += GntSG_(item1);
+                allTxt += GntSG_(item1,item.Value);
             }
 
             allTxt += "\n";
@@ -84,6 +84,13 @@ public class GenerateDBC
                 allTxt += GntVAL_(item.Value.msgId, item1);
             }
         }
+
+        //如果使用Debug-复用帧模式 DBC需要添加信号组数据
+        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        {
+            if(item.Value.msgType == (uint)CanMsgType.DEBUG)
+                allTxt += GntSigGroup_ReuseFrame(item.Value);
+        };
 
         //生成DBC文档
         return allTxt;
@@ -177,13 +184,28 @@ public class GenerateDBC
     /// </summary>
     /// <param name="sig">CAN信号结构体</param>
     /// <returns></returns>
-    static private string GntSG_(CanSignal sig)
+    static private string GntSG_(CanSignal sig,CanMessage msg)
     {
         string SG_ = "SG_ ";
 
         SG_ += sig.sigName + " ";
-        SG_ += ":" + " ";   //暂不支持生成复用信号位
-        SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb((int)sig.sigStartBit,(int)sig.sigLen).ToString() + "|";
+        //调试报文需要添加复用帧信息
+        if (msg.msgType == (uint)CanMsgType.DEBUG)
+        {
+            SG_ += "m" + sig.reuseFrameID + " ";
+        }
+        SG_ += ":" + " ";
+        //Motorola/Intel起始位计算
+        if (sig.sigOrderType == 0)
+        {
+            //Motorol
+            SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb((int)sig.sigStartBit, (int)sig.sigLen).ToString() + "|";
+        }
+        else
+        {
+            //Intel
+            SG_ += sig.sigStartBit.ToString() + "|";
+        }
         SG_ += sig.sigLen.ToString() + "@";
         SG_ += sig.sigOrderType + " ";
         SG_ += ((sig.valueType == 0) ? "+" : "-") + " ";
@@ -265,5 +287,34 @@ public class GenerateDBC
         return VAL_;
     }
 
+    /// <summary>
+    /// 适用复用帧，生成复用帧信号组信息
+    /// </summary>
+    static private string GntSigGroup_ReuseFrame(CanMessage msg)
+    {
+        string SIG_GROUP_ = "";
+
+        //确认最大复用帧ID
+        uint maxFrameID = 0;
+        foreach (var item in msg.signals)
+        {
+            if (item.reuseFrameID >= maxFrameID) 
+                maxFrameID = item.reuseFrameID;
+        }
+
+        //遍历复用帧报文数据，按照帧ID进行信号分组
+        for (int i = 0; i < maxFrameID; i++)
+        {
+            SIG_GROUP_ += "SIG_GROUP_" + " " + msg.msgId.ToString() + " " + "Signal_Group_" + i + " 1 :";
+            foreach (var item in msg.signals)
+            {
+                if (item.reuseFrameID == i)
+                    SIG_GROUP_ += " " + item.sigName;
+            }
+            SIG_GROUP_ += ";\r\n";
+        }
+
+        return SIG_GROUP_;
+    }
 
 }

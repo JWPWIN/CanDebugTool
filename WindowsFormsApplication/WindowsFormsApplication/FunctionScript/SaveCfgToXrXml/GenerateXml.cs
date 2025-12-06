@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using System;
+using System.Linq;
 
 static public class GenerateXml
 {
@@ -72,7 +73,69 @@ static public class GenerateXml
         canBus.TxMessages.Add(debugMsg);
 
         //从导入的Can矩阵中获取Can通信协议信息
+        List<CanMessage> _debugMsgs = new List<CanMessage>();
+        List<CanMessage> _appMsgs = new List<CanMessage>();
         foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
+        {
+            //复用帧报文xml生成
+            if (item.msgType == (uint)CanMsgType.DEBUG)
+            {
+                //确认最大复用帧ID
+                uint _maxFrameID = 0;
+                foreach (var item1 in item.signals)
+                {
+                    if (item1.reuseFrameID >= _maxFrameID)
+                        _maxFrameID = item1.reuseFrameID;
+                }
+
+                //遍历复用帧报文数据，按照帧ID进行信号分组
+                for (int i = 0; i < _maxFrameID; i++)
+                {
+                    CanMessage message = new CanMessage();
+                    message.msgName = "AAA_" + i.ToString();
+                    message.msgId = item.msgId;
+                    message.msgCycle = item.msgCycle;
+                    message.isExternId = item.isExternId;
+                    message.msgSize = item.msgSize;
+                    message.transmitter = item.transmitter;
+                    message.msgType = item.msgType;
+                    message.signals = new List<CanSignal>();
+
+                    for (int j = 0; j < item.signals.Count; j++)
+                    {
+                        if (item.signals[j].reuseFrameID == i)
+                        {
+                            message.signals.Add(item.signals[j]);
+                        }
+
+                    }
+
+                    _debugMsgs.Add(message);
+                }
+            }
+            else
+            {
+                _appMsgs.Add(item);
+            }
+        }
+
+        List<CanMessage> _xmlDbcMsgs = new List<CanMessage>();
+        int _xmlMsgType = 0;//0:APP; 1: Debug-复用帧
+
+        //判断第一个报文为复用帧调试报文，则默认全部帧按照复用帧格式生成
+        if (CanDbcDataManager.GetInstance().canMsgSet.First().Value.msgType == (uint)CanMsgType.DEBUG)
+        {
+            _xmlDbcMsgs = _debugMsgs;
+            _xmlMsgType =1;
+        }
+        else 
+        {
+            _xmlDbcMsgs = _appMsgs;
+            _xmlMsgType = 0;
+        }
+
+        //生成xml文本数据
+        foreach (var item in _xmlDbcMsgs)
         {
             //设置报文信息
             Message msg = new Message();
@@ -84,10 +147,28 @@ static public class GenerateXml
             msg.CycleTime = (int)item.msgCycle;
             msg.DLC = (int)item.msgSize;
             msg.Extern = item.isExternId ? 1 : 0;
-            msg.CANFD = 1;
-            msg.MultiplexingBit = 0;
-            msg.MultiplexingLength = 0;
-            msg.MultiplexingData = 0;
+            //设置帧格式
+            if (item.msgType == 0)
+            {
+                msg.CANFD = 1;
+            }
+            else
+            {
+                msg.CANFD = 0;
+            }
+            //设置复用帧信息
+            if (_xmlMsgType == 0)
+            {
+                msg.MultiplexingBit = 0;
+                msg.MultiplexingLength = 0;
+                msg.MultiplexingData = 0;
+            }
+            else
+            {
+                msg.MultiplexingBit = 56;
+                msg.MultiplexingLength = 8;
+                msg.MultiplexingData = (int)item.signals[0].reuseFrameID;
+            }
             msg.Field = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
             //设置信号信息
