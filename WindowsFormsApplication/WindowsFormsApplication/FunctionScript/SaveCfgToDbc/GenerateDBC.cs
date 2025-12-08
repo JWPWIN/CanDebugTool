@@ -303,7 +303,7 @@ public class GenerateDBC
         }
 
         //遍历复用帧报文数据，按照帧ID进行信号分组
-        for (int i = 0; i < maxFrameID; i++)
+        for (int i = 0; i <= maxFrameID; i++)
         {
             SIG_GROUP_ += "SIG_GROUP_" + " " + msg.msgId.ToString() + " " + "Signal_Group_" + i + " 1 :";
             foreach (var item in msg.signals)

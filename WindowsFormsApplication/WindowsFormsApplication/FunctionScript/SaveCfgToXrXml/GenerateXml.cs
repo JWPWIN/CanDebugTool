@@ -89,7 +89,7 @@ static public class GenerateXml
                 }
 
                 //遍历复用帧报文数据，按照帧ID进行信号分组
-                for (int i = 0; i < _maxFrameID; i++)
+                for (int i = 0; i <= _maxFrameID; i++)
                 {
                     CanMessage message = new CanMessage();
                     message.msgName = "AAA_" + i.ToString();
@@ -146,16 +146,11 @@ static public class GenerateXml
             msg.ID = (int)item.msgId;
             msg.CycleTime = (int)item.msgCycle;
             msg.DLC = (int)item.msgSize;
-            msg.Extern = item.isExternId ? 1 : 0;
+            msg.Extern = 0;
             //设置帧格式
-            if (item.msgType == 0)
-            {
-                msg.CANFD = 1;
-            }
-            else
-            {
-                msg.CANFD = 0;
-            }
+            if (item.msgType == 0) msg.CANFD = 1;
+            else msg.CANFD = 0;
+
             //设置复用帧信息
             if (_xmlMsgType == 0)
             {
@@ -168,6 +163,7 @@ static public class GenerateXml
                 msg.MultiplexingBit = 56;
                 msg.MultiplexingLength = 8;
                 msg.MultiplexingData = (int)item.signals[0].reuseFrameID;
+                msg.Extern = 1;
             }
             msg.Field = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
@@ -182,7 +178,10 @@ static public class GenerateXml
                 sig.Name = item1.sigName;
                 sig.Description = item1.sigDesc;
                 sig.Unit = "";
-                sig.BitOrder = 1;
+                //设置复用帧信息
+                if (_xmlMsgType == 0) sig.BitOrder = 1;
+                else sig.BitOrder = 0;
+
                 sig.Signed = 0;
                 sig.StartBit = (int)item1.sigStartBit;
                 sig.BitLength = (int)item1.sigLen;
