@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 public class GenerateDBC
 {
@@ -55,6 +56,10 @@ public class GenerateDBC
                 allTxt += " ";
                 allTxt += GntSG_(item1,item.Value);
             }
+            if (item.Value.msgType == (uint)CanMsgType.DEBUG)
+            {
+                allTxt += " SG_ Group_Signal M : 56|8@1+ (1,0) [0|0] \"\"  Shinry";
+            }
 
             allTxt += "\n";
         }
@@ -65,7 +70,7 @@ public class GenerateDBC
             foreach (var item1 in item.Value.signals)
             {
                 //生成报文信息
-                allTxt += GntCM_(item.Value.msgId, item1);
+                allTxt += GntCM_(item.Value, item1);
             }
         }
 
@@ -81,7 +86,7 @@ public class GenerateDBC
             foreach (var item1 in item.Value.signals)
             {
                 //生成报文信息
-                allTxt += GntVAL_(item.Value.msgId, item1);
+                allTxt += GntVAL_(item.Value, item1);
             }
         }
 
@@ -234,7 +239,17 @@ public class GenerateDBC
     {
         string BO_ = "BO_ ";
 
-        BO_ += msg.msgId.ToString() + " ";
+        string _id = string.Empty;
+        if (msg.msgType == (uint)CanMsgType.DEBUG)
+        {
+            _id = (msg.msgId + 0x80000000).ToString();
+        }
+        else
+        {
+            _id = msg.msgId.ToString();
+        }
+           
+        BO_ += _id + " ";
         BO_ += msg.msgName+ ":" + " ";
         BO_ += msg.msgSize.ToString() + " ";
         BO_ += msg.transmitter;
@@ -246,12 +261,22 @@ public class GenerateDBC
     /// <summary>
     /// 生成DBC信号注释行
     /// </summary>
-    static private string GntCM_(uint msgid, CanSignal sig)
+    static private string GntCM_(CanMessage msg, CanSignal sig)
     {
         string CM_ = "CM_ ";
 
         CM_ += "SG_" + " ";
-        CM_ += msgid.ToString() + " ";
+        string _id = string.Empty;
+        if (msg.msgType == (uint)CanMsgType.DEBUG)
+        {
+            _id = (msg.msgId + 0x80000000).ToString();
+        }
+        else
+        {
+            _id = msg.msgId.ToString();
+        }
+
+        CM_ += _id + " ";
         CM_ += sig.sigName + " ";
         CM_ += "\"" + sig.sigDesc + "\"" + ";";
         CM_ += "\r\n";//换行
@@ -262,14 +287,24 @@ public class GenerateDBC
     /// <summary>
     /// 生成DBC信号值列表
     /// </summary>
-    static private string GntVAL_(uint msgid, CanSignal sig)
+    static private string GntVAL_(CanMessage msg, CanSignal sig)
     {
         string VAL_ = "";
 
         if (sig.sigValueTable != null)
         {
             VAL_ = "VAL_ ";
-            VAL_ += msgid.ToString() + " ";
+
+            string _id = string.Empty;
+            if (msg.msgType == (uint)CanMsgType.DEBUG)
+            {
+                _id = (msg.msgId + 0x80000000).ToString();
+            }
+            else
+            {
+                _id = msg.msgId.ToString();
+            }
+            VAL_ += _id + " ";
             VAL_ += sig.sigName + " ";
             foreach (var item in sig.sigValueTable)
             {
@@ -305,7 +340,7 @@ public class GenerateDBC
         //遍历复用帧报文数据，按照帧ID进行信号分组
         for (int i = 0; i <= maxFrameID; i++)
         {
-            SIG_GROUP_ += "SIG_GROUP_" + " " + msg.msgId.ToString() + " " + "Signal_Group_" + i + " 1 :";
+            SIG_GROUP_ += "SIG_GROUP_" + " " + (msg.msgId + 0x80000000).ToString() + " " + "Signal_Group_" + i + " 1 :";
             foreach (var item in msg.signals)
             {
                 if (item.reuseFrameID == i)
