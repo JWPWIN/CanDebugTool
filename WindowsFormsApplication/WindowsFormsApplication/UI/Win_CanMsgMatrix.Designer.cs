@@ -46,6 +46,9 @@ namespace WindowsFormsApplication
             this.MsgGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;//不可编辑
             //this.MsgGridView.ColumnHeadersVisible = false;
             this.MsgGridView.RowHeadersVisible = false;//列头隐藏
+            this.MsgGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;//单元格行宽自调节
+            this.MsgGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;//单元格列宽自调节
+            this.MsgGridView.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;//单元格使能多行显示
             // 
             // Win_CanMsgMatrix
             // 

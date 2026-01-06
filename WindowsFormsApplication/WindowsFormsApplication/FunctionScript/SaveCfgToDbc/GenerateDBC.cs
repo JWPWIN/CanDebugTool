@@ -212,7 +212,7 @@ public class GenerateDBC
             SG_ += sig.sigStartBit.ToString() + "|";
         }
         SG_ += sig.sigLen.ToString() + "@";
-        SG_ += sig.sigOrderType + " ";
+        SG_ += sig.sigOrderType;
         SG_ += ((sig.valueType == 0) ? "+" : "-") + " ";
         SG_ += "(" + sig.sigFactor + "," + sig.sigOffset + ")" + " "; 
         SG_ += "[" + "0"+ "|" +  System.Math.Pow(2, sig.sigLen)*sig.sigFactor + "]" + " ";

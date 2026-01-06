@@ -33,6 +33,7 @@
             this.Btn_ExportDbc = new System.Windows.Forms.Button();
             this.Btn_DisplayCanMatix = new System.Windows.Forms.Button();
             this.Btn_ImpExcelDBC = new System.Windows.Forms.Button();
+            this.button_ImportTxtDbc = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_ExportXml
@@ -85,11 +86,22 @@
             this.Btn_ImpExcelDBC.UseVisualStyleBackColor = true;
             this.Btn_ImpExcelDBC.Click += new System.EventHandler(this.Btn_ImpExcelDBC_Click);
             // 
+            // button_ImportTxtDbc
+            // 
+            this.button_ImportTxtDbc.Location = new System.Drawing.Point(256, 43);
+            this.button_ImportTxtDbc.Name = "button_ImportTxtDbc";
+            this.button_ImportTxtDbc.Size = new System.Drawing.Size(108, 33);
+            this.button_ImportTxtDbc.TabIndex = 11;
+            this.button_ImportTxtDbc.Text = "导入DBC数据";
+            this.button_ImportTxtDbc.UseVisualStyleBackColor = true;
+            this.button_ImportTxtDbc.Click += new System.EventHandler(this.button_ImportTxtDbc_Click);
+            // 
             // Win_DbcDataManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 300);
+            this.Controls.Add(this.button_ImportTxtDbc);
             this.Controls.Add(this.Btn_ExportXml);
             this.Controls.Add(this.Btn_GntCanCode);
             this.Controls.Add(this.Btn_ExportDbc);
@@ -108,5 +120,6 @@
         private System.Windows.Forms.Button Btn_ExportDbc;
         private System.Windows.Forms.Button Btn_DisplayCanMatix;
         private System.Windows.Forms.Button Btn_ImpExcelDBC;
+        private System.Windows.Forms.Button button_ImportTxtDbc;
     }
 }

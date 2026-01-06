@@ -133,7 +133,7 @@ public class TextOperation
         string allData = "";
         //选取读取文件路径
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Txt Files (*.txt)|*.txt";
+        openFileDialog.Filter = "Txt Files (*)|*";
         openFileDialog.FilterIndex = 1;
         openFileDialog.Multiselect = false;
 

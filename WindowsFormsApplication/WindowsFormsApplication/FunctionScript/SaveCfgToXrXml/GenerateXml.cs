@@ -95,7 +95,7 @@ static public class GenerateXml
                     message.msgName = "AAA_" + i.ToString();
                     message.msgId = item.msgId;
                     message.msgCycle = item.msgCycle;
-                    message.isExternId = item.isExternId;
+                    message.isExtended = item.isExtended;
                     message.msgSize = item.msgSize;
                     message.transmitter = item.transmitter;
                     message.msgType = item.msgType;

@@ -9,7 +9,8 @@ public class CanMessage
 {
     public uint msgId = 0;
     public uint msgCycle = 0;
-    public bool isExternId = false;
+    public bool isExtended = false;
+    public bool isCanfd = false;
     public string msgName = "";
     public uint msgSize = 0;
     public string transmitter = "";
@@ -38,6 +39,7 @@ public enum CanDbcRows
 { 
     SigName,
     MsgName,
+    MsgFrameType,
     MsgId,
     MsgSize,
     MsgCycle,
@@ -159,6 +161,35 @@ public class CanDbcDataManager
                     case CanDbcRows.MsgType:
                         msg.msgType = uint.Parse(value);
                         break;
+                    case CanDbcRows.MsgFrameType:
+                        string msgFrameTypeStr = value.Replace(" ","");
+
+                        if (msgFrameTypeStr == "0")//standard-can
+                        {
+                            msg.isExtended = false;
+                            msg.isCanfd = false;
+                        }
+                        else if (msgFrameTypeStr == "1")//externed-can
+                        {
+                            msg.isExtended = true;
+                            msg.isCanfd = false;
+                        }
+                        else if (msgFrameTypeStr == "14")//standard-canfd
+                        {
+                            msg.isExtended = false;
+                            msg.isCanfd = true;
+                        }
+                        else if (msgFrameTypeStr == "15")//externed-canfd
+                        {
+                            msg.isExtended = true;
+                            msg.isCanfd = true;
+                        }
+                        else 
+                        {
+                            msg.isExtended = false;
+                            msg.isCanfd = false;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -248,6 +279,7 @@ public class CanDbcDataManager
         //选择DBC文件并读取数据
         string dbcInfo = TextOperation.ReadData();
         string[] bufferAry = dbcInfo.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] bufferAry_CheckErrLine = dbcInfo.Split(new string[] { "\r\n"},StringSplitOptions.None);//用于检测错误行数的原始分隔数据,包含空行
 
         if (dbcInfo == null)
         {
@@ -281,42 +313,85 @@ public class CanDbcDataManager
             {
                 case "VAL_":
                     {
-                        //格式举例：VAL_ 1072 HEVC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp"; 
-                        uint tmpId = uint.Parse(lineAry[1]);
-                        if (canMsgSet.ContainsKey(tmpId))
+                        try
                         {
-                            foreach (var item in canMsgSet[tmpId].signals)
+                            //格式举例：VAL_ 1072 HEVC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp"; 
+                            uint tmpId = uint.Parse(lineAry[1]);
+                            if (canMsgSet.ContainsKey(tmpId))
                             {
-                                if (lineAry[2] == item.sigName)
+                                foreach (var item in canMsgSet[tmpId].signals)
                                 {
-                                    string[] tmpArr = bufferAry[i].Replace(";",string.Empty).Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
-                                    tmpArr[0] = tmpArr[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[3];
-                                    int tmpNum = 0;
-                                    while (tmpNum < tmpArr.Length)
+                                    if (lineAry[2] == item.sigName)
                                     {
-                                        item.sigValueTable.Add(int.Parse(tmpArr[tmpNum]),tmpArr[tmpNum + 1]);
+                                        //取值表段字符串
+                                        string _valueTableStr = string.Empty;
+                                        for (int j = 3; j < lineAry.Length; j++)
+                                        {
+                                            _valueTableStr += lineAry[j];
+                                        }
 
-                                        tmpNum = tmpNum + 2;
+                                        string[] tmpArr = _valueTableStr.Replace(";", string.Empty).Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
+                                        int tmpNum = 0;
+                                        while (tmpNum < tmpArr.Length)
+                                        {
+                                            int _tmpValue = int.Parse(tmpArr[tmpNum].Replace(" ", ""));
+                                            string _tmpDesc = tmpArr[tmpNum + 1];
+                                            //添加value值表
+                                            item.sigValueTable.Add(_tmpValue, _tmpDesc);
+
+                                            tmpNum = tmpNum + 2;
+                                        }
                                     }
                                 }
                             }
                         }
+                        catch(Exception)
+                        {
+                            string errorLineStr = bufferAry[i];
+                            int errorLineNum = 0;
+                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                            {
+                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                            }
+                            MessageBox.Show("解析VAL_字段格式失败！" +  "\r\n"
+                                             + "错误字段行数：" + errorLineNum + "\r\n"
+                                             + "错误字段数据：" + errorLineStr + "\r\n"
+                                             + "请检查是否满足格式举例：VAL_ 1072 HEVC_WakeUpSleepCommand 0 \"Go to Sleep\" 1 \"reserved0\" 2 \"reserved1\" 3 \"WakeUp\";");
+                        }
+
                         break;
                     }
                 case "CM_":
                     {
-                        //格式举例： CM_ SG_ 129 HVCurrentRequest "充电输出电流请求";
-                        uint tmpId = uint.Parse(lineAry[2]);
-                        if (canMsgSet.ContainsKey(tmpId))
+                        try 
                         {
-                            foreach (var item in canMsgSet[tmpId].signals)
+                            //格式举例： CM_ SG_ 129 HVCurrentRequest "充电输出电流请求";
+                            uint tmpId = uint.Parse(lineAry[2]);
+                            if (canMsgSet.ContainsKey(tmpId))
                             {
-                                if (lineAry[3] == item.sigName)
+                                foreach (var item in canMsgSet[tmpId].signals)
                                 {
-                                    item.sigDesc = lineAry[4].Replace("\"", string.Empty).Replace(";", string.Empty);
+                                    if (lineAry[3] == item.sigName)
+                                    {
+                                        item.sigDesc = lineAry[4].Replace("\"", string.Empty).Replace(";", string.Empty);
+                                    }
                                 }
                             }
                         }
+                        catch(Exception)
+                        {
+                            string errorLineStr = bufferAry[i];
+                            int errorLineNum = 0;
+                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                            {
+                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                            }
+                            MessageBox.Show("解析CM_字段格式失败！" + "\r\n"
+                                             + "错误字段行数：" + errorLineNum + "\r\n"
+                                             + "错误字段数据：" + errorLineStr + "\r\n"
+                                             + "请检查是否满足格式举例：CM_ SG_ 129 HVCurrentRequest \"充电输出电流请求\";");
+                        }
+
                         break;
                     }
                 case "BU_:":
@@ -329,110 +404,230 @@ public class CanDbcDataManager
                     }
                 case "BO_":
                     {
-                        CanMessage message = new CanMessage();
-                        uint id = Convert.ToUInt32(lineAry[1]);
-                        //跳过默认的消息
-                        if (id == 0xC0000000)
+                        try
                         {
-                            isMessageValid = false;
-                            break;
-                        }
-                        else
-                        {
-                            isMessageValid = true;
-                        }
-                        //最高位为1的为扩展帧
-                        if ((id & 0x80000000) != 0)
-                        {
-                            id &= 0x7FFFFFFF;
-                            message.isExternId = true;
-                        }
-                        else
-                        {
-                            message.isExternId = false;
-                        }
-                        message.msgId = id;
-                        message.msgName = lineAry[2].Substring(0, lineAry[2].Length - 1);
-                        message.msgSize = Convert.ToUInt32(lineAry[3]);
-                        message.transmitter = lineAry[4];
+                            //格式举例：BO_ 1127 CDU_DCDC_1: 24 CDU
+                            CanMessage message = new CanMessage();
+                            uint id = Convert.ToUInt32(lineAry[1]);
+                            //跳过默认的消息
+                            if (id == 0xC0000000)
+                            {
+                                isMessageValid = false;
+                                break;
+                            }
+                            else
+                            {
+                                isMessageValid = true;
+                            }
+                            //最高位为1的为扩展帧
+                            if ((id & 0x80000000) != 0)
+                            {
+                                id &= 0x7FFFFFFF;
+                                message.isExtended = true;
+                            }
+                            else
+                            {
+                                message.isExtended = false;
+                            }
+                            message.msgId = id;
+                            message.msgName = lineAry[2].Substring(0, lineAry[2].Length - 1);
+                            message.msgSize = Convert.ToUInt32(lineAry[3]);
+                            message.transmitter = lineAry[4];
 
-                        canMsgSet.Add(message.msgId, message);
-                        lastMsgId = message.msgId;
+                            canMsgSet.Add(message.msgId, message);
+                            lastMsgId = message.msgId;
+                        }
+                        catch (Exception)
+                        {
+                            string errorLineStr = bufferAry[i];
+                            int errorLineNum = 0;
+                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                            {
+                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                            }
+                            MessageBox.Show("解析BO_字段格式失败！" + "\r\n"
+                                             + "错误字段行数：" + errorLineNum + "\r\n"
+                                             + "错误字段数据：" + errorLineStr + "\r\n"
+                                             + "请检查是否满足格式举例：BO_ 1127 CDU_DCDC_1: 24 CDU");
+                        }
+
                         break;
                     }
                 case "SG_":
                     {
-                        if (isMessageValid)
+                        try
                         {
-                            uint byteOffset = 0;
-                            CanSignal signal = new CanSignal();
+                            //格式举例：
+                            //普通帧信号格式： SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] "A"  Vector__XXX
+                            //复用帧信号格式： SG_ AAA00_DcdcInputVolt m0 : 0|16@1+ (0.1,0) [0|6553.6] "" EXECU
+                            if (isMessageValid)
+                            {
+                                uint byteOffset = 0;
+                                CanSignal signal = new CanSignal();
 
-                            signal.sigName = lineAry[1];
-                            if (lineAry[2] == ":")
-                            {
-                                //TODO: 复用信号标志位：signal.multiplexerIndicator = -2;
-                                byteOffset = 0;
-                            }
-                            else
-                            {
-                                byteOffset = 1;
-                                /* TODO: 复用信号标志位
-                                if (lineAry[2][0] == 'M')
+                                signal.sigName = lineAry[1];
+                                if (lineAry[2] == ":")//普通帧
                                 {
-                                    signal.multiplexerIndicator = -1;
+                                    //TODO: 复用信号标志位：signal.multiplexerIndicator = -2;
+                                    byteOffset = 0;
                                 }
-                                else if (lineAry[2][0] == 'm')
+                                else//复用帧
                                 {
-                                    signal.multiplexerIndicator = Convert.ToInt32(lineAry[2].Substring(1, lineAry[2].Length - 1));
+                                    byteOffset = 1;
+                                    /* TODO: 复用信号标志位
+                                    if (lineAry[2][0] == 'M')
+                                    {
+                                        signal.multiplexerIndicator = -1;
+                                    }
+                                    else if (lineAry[2][0] == 'm')
+                                    {
+                                        signal.multiplexerIndicator = Convert.ToInt32(lineAry[2].Substring(1, lineAry[2].Length - 1));
+                                    }
+                                    else
+                                    {
+                                        return ExceptionHandler.Report("Dbc信号格式错误");
+                                    }
+                                    */
                                 }
-                                else
+
+                                string[] sp = lineAry[3 + byteOffset].Split(new char[] { '|', '@' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                signal.sigStartBit = Convert.ToUInt32(sp[0]);
+                                signal.sigLen = Convert.ToUInt32(sp[1]);
+                                if (sp[2][0] == '0')
                                 {
-                                    return ExceptionHandler.Report("Dbc信号格式错误");
+                                    signal.sigOrderType = 0;
                                 }
-                                */
+                                else if (sp[2][0] == '1')
+                                {
+                                    signal.sigOrderType = 1;
+                                }
+
+                                if (lineAry[3] == "+")
+                                {
+                                    signal.valueType = 0;
+                                }
+                                else if (lineAry[3] == "-")
+                                {
+                                    signal.valueType = 1;
+                                }
+
+                                string[] sp1 = lineAry[4 + byteOffset].Split(new char[] { '(', ',', ')' }, StringSplitOptions.RemoveEmptyEntries);
+                                signal.sigFactor = Convert.ToDouble(sp1[0]);
+                                signal.sigOffset = Convert.ToDouble(sp1[1]);
+
+                                //string[] sp2 = lineAry[5 + byteOffset].Split(new char[] { '[', '|', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                                //最大最小值
+                                //signal.minimum = Convert.ToDouble(sp2[0]);
+                                //signal.maximum = Convert.ToDouble(sp2[1]);
+
+                                //信号单位
+                                //signal.uintStr = lineAry[6 + byteOffset];
+
+                                //信号接收节点
+                                if (7 + byteOffset <= lineAry.Length - 1)
+                                {
+                                    signal.recvNode = lineAry[7 + byteOffset].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                                }
+                                canMsgSet[lastMsgId].signals.Add(signal);
                             }
-
-                            string[] sp = lineAry[3 + byteOffset].Split(new char[] { '|', '@' }, StringSplitOptions.RemoveEmptyEntries);
-
-                            signal.sigStartBit = Convert.ToUInt32(sp[0]);
-                            signal.sigLen = Convert.ToUInt32(sp[1]);
-                            if (sp[2][0] == '0')
-                            {
-                                signal.sigOrderType = 0;
-                            }
-                            else if (sp[2][0] == '1')
-                            {
-                                signal.sigOrderType = 1;
-                            }
-
-                            if (lineAry[3] == "+")
-                            {
-                                signal.valueType = 0;
-                            }
-                            else if (lineAry[3] == "-")
-                            {
-                                signal.valueType = 1;
-                            }
-
-                            string[] sp1 = lineAry[5 + byteOffset].Split(new char[] { '(', ',', ')' }, StringSplitOptions.RemoveEmptyEntries);
-                            signal.sigFactor = Convert.ToDouble(sp1[0]);
-                            signal.sigOffset = Convert.ToDouble(sp1[1]);
-
-                            //string[] sp2 = lineAry[6 + byteOffset].Split(new char[] { '[', '|', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                            //最大最小值
-                            //signal.minimum = Convert.ToDouble(sp2[0]);
-                            //signal.maximum = Convert.ToDouble(sp2[1]);
-
-                            //信号单位
-                            //signal.uintStr = lineAry[7 + byteOffset];
-
-                            //信号接收节点
-                            if (8 + byteOffset <= lineAry.Length - 1)
-                            {
-                                signal.recvNode = lineAry[8 + byteOffset].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                            }
-                            canMsgSet[lastMsgId].signals.Add(signal);
                         }
+                        catch (Exception)
+                        {
+                            string errorLineStr = bufferAry[i];
+                            int errorLineNum = 0;
+                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                            {
+                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                            }
+                            MessageBox.Show("解析SG_字段格式失败！" + "\r\n"
+                                             + "错误字段行数：" + errorLineNum + "\r\n"
+                                             + "错误字段数据：" + errorLineStr + "\r\n"
+                                             + "请检查是否满足格式举例：SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] \"A\"  Vector__XXX");
+                        }
+
+                        break;
+                    }
+                case "BA_":
+                    {
+                        //获取报文属性-报文周期
+                        //格式举例：BA_ "GenMsgCycleTime" BO_ 1118 100;
+                        if ((lineAry[1].Replace("\"", "") == "GenMsgCycleTime") && (lineAry[2] == "BO_"))
+                        {
+                            try
+                            {
+                                uint tmpId = uint.Parse(lineAry[3]);
+                                canMsgSet[tmpId].msgCycle = uint.Parse(lineAry[4].Replace(";",""));
+                            }
+                            catch (Exception)
+                            {
+                                string errorLineStr = bufferAry[i];
+                                int errorLineNum = 0;
+                                for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                                {
+                                    if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                                }
+                                MessageBox.Show("解析BA_字段报文周期格式失败！" + "\r\n"
+                                                 + "错误字段行数：" + errorLineNum + "\r\n"
+                                                 + "错误字段数据：" + errorLineStr + "\r\n"
+                                                 + "请检查是否满足格式举例：BA_ \"GenMsgCycleTime\" BO_ 1118 100;");
+                            }
+                        }
+                        else if ((lineAry[1].Replace("\"", "") == "VFrameFormat") && (lineAry[2] == "BO_"))
+                        {
+                            //获取报文属性-报文帧类型
+                            //格式举例：BA_ "VFrameFormat" BO_ 520 14;（0:Standard-CAN; 1:Externed-CAN; 14:Standard-CANFD; 15:Externed-CANFD）
+                            //BA_DEF_ BO_ "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+                            try
+                            {
+                                uint tmpId = uint.Parse(lineAry[3]);
+                                string msgFrameTypeStr = lineAry[4].Replace(";", "");
+                                bool _tmpIsExtended = false;
+                                bool _tmpIsCanfd = false;
+                                if (msgFrameTypeStr == "0")//standard-can
+                                {
+                                    _tmpIsExtended = false;
+                                    _tmpIsCanfd = false;
+                                }
+                                else if (msgFrameTypeStr == "1")//externed-can
+                                {
+                                    _tmpIsExtended = true;
+                                    _tmpIsCanfd = false;
+                                }
+                                else if (msgFrameTypeStr == "14")//standard-canfd
+                                {
+                                    _tmpIsExtended = false;
+                                    _tmpIsCanfd = true;
+                                }
+                                else if (msgFrameTypeStr == "15")//externed-canfd
+                                {
+                                    _tmpIsExtended = true;
+                                    _tmpIsCanfd = true;
+                                }
+                                else { }
+
+                                //扩展帧ID需要处理一下
+                                if (_tmpIsExtended == true) tmpId &= 0x7FFFFFFF;
+
+                                canMsgSet[tmpId].isExtended = _tmpIsExtended;
+                                canMsgSet[tmpId].isCanfd = _tmpIsCanfd;
+                            }
+                            catch (Exception)
+                            {
+                                string errorLineStr = bufferAry[i];
+                                int errorLineNum = 0;
+                                for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
+                                {
+                                    if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
+                                }
+                                MessageBox.Show("解析BA_字段报文帧类型格式失败！" + "\r\n"
+                                                 + "错误字段行数：" + errorLineNum + "\r\n"
+                                                 + "错误字段数据：" + errorLineStr + "\r\n"
+                                                 + "请检查是否满足格式举例：BA_ \"VFrameFormat\" BO_ 520 14;");
+                            }
+                        }
+                        else { }
+
                         break;
                     }
 
