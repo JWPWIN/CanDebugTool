@@ -16,18 +16,18 @@ public class TimerTool
     /// 获取当前系统时间戳ms
     /// </summary>
     /// <returns></returns>
-    public static long GetSysTime()
+    public static ulong GetSysTime()
     {
         TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-
-        return Convert.ToInt64(ts.TotalMilliseconds);
+        
+        return Convert.ToUInt64(ts.TotalMilliseconds);
     }
     
     /// <summary>
     /// 重置计时器为当前时间戳ms
     /// </summary>
     /// <param name="timer">计时器</param>
-    public static void ResetTimer(ref long timer)
+    public static void ResetTimer(ref ulong timer)
     {
         timer = GetSysTime();
     }
@@ -38,9 +38,9 @@ public class TimerTool
     /// <param name="timer">计时器</param>
     /// <param name="timeout">超时时间/s</param>
     /// <returns>是否超时</returns>
-    public static bool CheckTimeOut(long timer, long timeout)
+    public static bool CheckTimeOut(ulong timer, ulong timeout)
     {
-        long curTime = GetSysTime();
+        ulong curTime = GetSysTime();
         bool bRet = false;
 
         if (curTime > timer)

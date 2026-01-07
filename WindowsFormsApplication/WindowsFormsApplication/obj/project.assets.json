@@ -1233,23 +1233,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PJW\\.nuget\\packages\\": {},
+    "C:\\Users\\016437\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PJW\\Desktop\\Github-Pros\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
+      "projectUniqueName": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
       "projectName": "WindowsFormsApplication",
-      "projectPath": "C:\\Users\\PJW\\Desktop\\Github-Pros\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
-      "packagesPath": "C:\\Users\\PJW\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PJW\\Desktop\\Github-Pros\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\obj\\",
+      "projectPath": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
+      "packagesPath": "C:\\Users\\016437\\.nuget\\packages\\",
+      "outputPath": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\PJW\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\016437\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1258,7 +1258,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -1354,7 +1354,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
