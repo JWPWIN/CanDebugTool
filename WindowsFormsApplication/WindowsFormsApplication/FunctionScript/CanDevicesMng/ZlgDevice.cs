@@ -10,11 +10,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 public class ZlgDevice
 {
-    static private ZlgDevice instance;
-
-    //设备类型
-    private CanDeviceType canDeviceType;
-
     //CAN设备句柄
     private uint canDeviceHandle;
 
@@ -91,21 +86,40 @@ public class ZlgDevice
     /// 打开CAN设备
     /// </summary>
     /// <returns>打开设备是否成功</returns>
-    public bool OpenDevice()
+    public bool OpenDevice(CanDeviceType deviceType, CanFrameType frameType)
     {
-        //打开设备，canDeviceType代表CAN卡类型，0代表0通道
-        uint canDeviceHandle = ZCAN_OpenDevice((uint)canDeviceType, 0, 0);
+        //Step1：打开设备，canDeviceType代表CAN卡类型，0代表0通道
+        uint canDeviceHandle = ZCAN_OpenDevice((uint)deviceType, 0, 0);
         if (canDeviceHandle == 0)
         {
-            AppLogMng.GetInstance().DisplayLog("打开设备失败");
+            AppLogMng.DisplayLog("打开设备失败");
             return false;
         }
 
-        //设置CAN设备属性，波特率500k
+        //Step2：设置波特率
+        //仲裁域默认设置500K
         if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
         {
-            AppLogMng.GetInstance().DisplayLog("设置波特率失败");
+            AppLogMng.DisplayLog("设置波特率失败");
             return false;
+        }
+        //数据域设置(CAN-500K,CANFD-2M)
+        if (frameType == CanFrameType.CANFD)
+        {
+            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "2000000") != 1)
+            {
+                AppLogMng.DisplayLog("设置波特率失败");
+                return false;
+            }
+        }
+        else
+        {
+            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
+            {
+                AppLogMng.DisplayLog("设置波特率失败");
+                return false;
+            }
+
         }
 
         //CAN通道初始化
@@ -119,18 +133,17 @@ public class ZlgDevice
         canChannelHandle = ZCAN_InitCAN(canDeviceHandle, 0, ref can_Init_Config);
         if (canChannelHandle == 0)
         {
-            AppLogMng.GetInstance().DisplayLog("初始化通道失败");
+            AppLogMng.DisplayLog("初始化通道失败");
             return false;
         }
 
         //启动CAN通道
         if (ZCAN_StartCAN(canChannelHandle) != 1)
         {
-            AppLogMng.GetInstance().DisplayLog("启动通道失败");
+            AppLogMng.DisplayLog("启动通道失败");
             return false;
         }
 
-        AppLogMng.GetInstance().DisplayLog("打开设备成功!");
         return true;
     }
 
@@ -151,12 +164,12 @@ public class ZlgDevice
 
         if (tmp == 0)
         {
-            AppLogMng.GetInstance().DisplayLog("关闭设备失败");
+            AppLogMng.DisplayLog("关闭设备失败");
             return false;
         }
         else
         {
-            AppLogMng.GetInstance().DisplayLog("关闭设备成功");
+            AppLogMng.DisplayLog("关闭设备成功");
         }
 
         return true;
@@ -206,7 +219,7 @@ public class ZlgDevice
         {
             if (ZCAN_Transmit(canChannelHandle, ref canData, 1) != 1)
             {
-                AppLogMng.GetInstance().DisplayLog("报文发送失败，尝试重新发送");
+                AppLogMng.DisplayLog("报文发送失败，尝试重新发送");
 
                 TimerTool.ResetTimer(ref resendTimer);
                 return false;

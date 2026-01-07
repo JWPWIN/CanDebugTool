@@ -1,52 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-public class AppLogMng
+static public class AppLogMng
 {
-    static private AppLogMng instance;
-
     //日志内容显示列表
-    private List<string> logLines;
+    static private List<string> logLines = new List<string>();
+
+    //日志当前显示字符串
+    static private string curLogStr = string.Empty;
 
     //最多同时显示log数
-    private int maxDispNum = 6;
+    static private int maxDispNum = 6;
 
     //最多纪录log数
-    private int maxRecordNum = 20;
-
-    //最多同时显示
-
-    static public AppLogMng GetInstance()
-    {
-        if (instance == null)
-        {
-            MessageBox.Show("LogMng instance dont existed !");
-            return null;
-        }
-        return instance;
-    }
-
-    public AppLogMng()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        logLines = new List<string>();
-
-    }
+    static private int maxRecordNum = 20;
 
     /// <summary>
     /// 显示日志
     /// </summary>
     /// <param name="log">显示内容</param>
-    public void DisplayLog(string log)
+    static public void DisplayLog(string log)
     {
         //最新消息增加*NEW*标志
         logLines.Add("*NEW*" + log);
@@ -77,9 +50,19 @@ public class AppLogMng
             }
         }
 
-        //TODO 显示Log信息 logText.text = logContent;
+        //显示Log信息
+        curLogStr = logContent;
 
         //新消息显示完成后去掉*NEW*
         logLines[logLines.Count - 1] = log;
+    }
+
+    /// <summary>
+    /// 获取当前需要显示的日志字符串
+    /// </summary>
+    /// <returns></returns>
+    static public string GetGobalLogStr()
+    { 
+        return curLogStr;
     }
 }

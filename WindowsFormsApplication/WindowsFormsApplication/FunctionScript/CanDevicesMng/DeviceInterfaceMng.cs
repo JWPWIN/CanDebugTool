@@ -111,11 +111,15 @@ public class DeviceInterfaceMng
             case CanDeviceType.ZCAN_USBCANFD_200U:
             case CanDeviceType.ZCAN_USBCANFD_MINI:
                 zlgDevice = new ZlgDevice();//创建zlg设备
-                successOpenFlag = zlgDevice.OpenDevice();
+                successOpenFlag = zlgDevice.OpenDevice(curCanDeviceType,curCanFrameType);
                 break;
             default:
-                zlgDevice = new ZlgDevice();//默认创建zlg设备
                 break;
+        }
+
+        if (successOpenFlag == true)
+        {
+            AppLogMng.DisplayLog("打开设备成功!");
         }
 
     }

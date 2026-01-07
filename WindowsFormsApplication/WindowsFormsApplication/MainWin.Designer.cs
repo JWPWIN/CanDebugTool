@@ -28,40 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Btn_DisplayCanMatix = new System.Windows.Forms.Button();
-            this.Btn_DisplayComUpper = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            Btn_DisplayCanMatix = new System.Windows.Forms.Button();
+            Btn_DisplayComUpper = new System.Windows.Forms.Button();
+            textBox_GlobalLog = new System.Windows.Forms.TextBox();
+            SuspendLayout();
             // 
             // Btn_DisplayCanMatix
             // 
-            this.Btn_DisplayCanMatix.Location = new System.Drawing.Point(127, 20);
-            this.Btn_DisplayCanMatix.Name = "Btn_DisplayCanMatix";
-            this.Btn_DisplayCanMatix.Size = new System.Drawing.Size(136, 36);
-            this.Btn_DisplayCanMatix.TabIndex = 2;
-            this.Btn_DisplayCanMatix.Text = "功能-DBC管理";
-            this.Btn_DisplayCanMatix.UseVisualStyleBackColor = true;
-            this.Btn_DisplayCanMatix.Click += new System.EventHandler(this.Btn_DisplayDbcDataManager_Click);
+            Btn_DisplayCanMatix.Location = new System.Drawing.Point(148, 28);
+            Btn_DisplayCanMatix.Margin = new System.Windows.Forms.Padding(4);
+            Btn_DisplayCanMatix.Name = "Btn_DisplayCanMatix";
+            Btn_DisplayCanMatix.Size = new System.Drawing.Size(159, 51);
+            Btn_DisplayCanMatix.TabIndex = 2;
+            Btn_DisplayCanMatix.Text = "功能-DBC管理";
+            Btn_DisplayCanMatix.UseVisualStyleBackColor = true;
+            Btn_DisplayCanMatix.Click += Btn_DisplayDbcDataManager_Click;
             // 
             // Btn_DisplayComUpper
             // 
-            this.Btn_DisplayComUpper.Location = new System.Drawing.Point(127, 74);
-            this.Btn_DisplayComUpper.Name = "Btn_DisplayComUpper";
-            this.Btn_DisplayComUpper.Size = new System.Drawing.Size(136, 37);
-            this.Btn_DisplayComUpper.TabIndex = 3;
-            this.Btn_DisplayComUpper.Text = "功能-通信上位机";
-            this.Btn_DisplayComUpper.UseVisualStyleBackColor = true;
-            this.Btn_DisplayComUpper.Click += new System.EventHandler(this.Btn_DisplayComUpper_Click);
+            Btn_DisplayComUpper.Location = new System.Drawing.Point(148, 105);
+            Btn_DisplayComUpper.Margin = new System.Windows.Forms.Padding(4);
+            Btn_DisplayComUpper.Name = "Btn_DisplayComUpper";
+            Btn_DisplayComUpper.Size = new System.Drawing.Size(159, 52);
+            Btn_DisplayComUpper.TabIndex = 3;
+            Btn_DisplayComUpper.Text = "功能-通信上位机";
+            Btn_DisplayComUpper.UseVisualStyleBackColor = true;
+            Btn_DisplayComUpper.Click += Btn_DisplayComUpper_Click;
+            // 
+            // textBox_GlobalLog
+            // 
+            textBox_GlobalLog.Location = new System.Drawing.Point(21, 344);
+            textBox_GlobalLog.Multiline = true;
+            textBox_GlobalLog.Name = "textBox_GlobalLog";
+            textBox_GlobalLog.ReadOnly = true;
+            textBox_GlobalLog.Size = new System.Drawing.Size(335, 106);
+            textBox_GlobalLog.TabIndex = 4;
             // 
             // MainWin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 300);
-            this.Controls.Add(this.Btn_DisplayComUpper);
-            this.Controls.Add(this.Btn_DisplayCanMatix);
-            this.Name = "MainWin";
-            this.Text = "CAN调试工具";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(620, 462);
+            Controls.Add(textBox_GlobalLog);
+            Controls.Add(Btn_DisplayComUpper);
+            Controls.Add(Btn_DisplayCanMatix);
+            Margin = new System.Windows.Forms.Padding(4);
+            Name = "MainWin";
+            Text = "CAN调试工具";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -69,6 +84,7 @@
 
         private System.Windows.Forms.Button Btn_DisplayCanMatix;
         private System.Windows.Forms.Button Btn_DisplayComUpper;
+        private System.Windows.Forms.TextBox textBox_GlobalLog;
     }
 }
 

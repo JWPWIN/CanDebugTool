@@ -12,6 +12,9 @@ namespace WindowsFormsApplication.UI
 {
     public partial class Win_ComUpper : Form
     {
+        //设备管理对象
+        DeviceInterfaceMng deviceInterfaceMng;
+
         public Win_ComUpper()
         {
             InitializeComponent();
@@ -26,12 +29,24 @@ namespace WindowsFormsApplication.UI
 
         private void Btn_ConnectDevice_Click(object sender, EventArgs e)
         {
-            DeviceInterfaceMng.GetInstance().OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex,this.comboBox_CanType.SelectedIndex);
+            //实例化设备管理对象
+            deviceInterfaceMng = new DeviceInterfaceMng();
+
+            DeviceInterfaceMng.GetInstance().OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
         }
 
         private void comboBox_CanType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //根据Can卡显示仲裁域和数据域波特率
+            this.label_ABitRate.Text = "500K";
+            if (comboBox_CanType.SelectedIndex == 0)//CANFD
+            {
+                this.label_DBitRate.Text = "2M";
+            }
+            else
+            {
+                this.label_DBitRate.Text = "500K";
+            }
         }
     }
 }
