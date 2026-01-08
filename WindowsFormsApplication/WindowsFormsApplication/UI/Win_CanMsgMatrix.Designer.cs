@@ -30,36 +30,39 @@ namespace WindowsFormsApplication
         /// </summary>
         private void InitializeComponent()
         {
-            this.MsgGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.MsgGridView)).BeginInit();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            MsgGridView = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)MsgGridView).BeginInit();
+            SuspendLayout();
             // 
             // MsgGridView
             // 
-            this.MsgGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MsgGridView.Location = new System.Drawing.Point(12, 12);
-            this.MsgGridView.Name = "MsgGridView";
-            this.MsgGridView.RowTemplate.Height = 20;
-            this.MsgGridView.Size = new System.Drawing.Size(1700, 600);
-            this.MsgGridView.TabIndex = 2;
-            this.MsgGridView.AllowUserToAddRows = false;//不允许手动添加行
-            this.MsgGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;//不可编辑
-            //this.MsgGridView.ColumnHeadersVisible = false;
-            this.MsgGridView.RowHeadersVisible = false;//列头隐藏
-            this.MsgGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;//单元格行宽自调节
-            this.MsgGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;//单元格列宽自调节
-            this.MsgGridView.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;//单元格使能多行显示
+            MsgGridView.AllowUserToAddRows = false;
+            MsgGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            MsgGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            MsgGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            MsgGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+            MsgGridView.Location = new System.Drawing.Point(14, 17);
+            MsgGridView.Margin = new Padding(4, 4, 4, 4);
+            MsgGridView.Name = "MsgGridView";
+            MsgGridView.RowHeadersVisible = false;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            MsgGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            MsgGridView.RowTemplate.Height = 20;
+            MsgGridView.Size = new System.Drawing.Size(1983, 820);
+            MsgGridView.TabIndex = 2;
             // 
             // Win_CanMsgMatrix
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1700, 600);
-            this.Controls.Add(this.MsgGridView);
-            this.Name = "Win_CanMsgMatrix";
-            this.Text = "CAN通信矩阵";
-            ((System.ComponentModel.ISupportInitialize)(this.MsgGridView)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1924, 850);
+            Controls.Add(MsgGridView);
+            Margin = new Padding(4, 4, 4, 4);
+            Name = "Win_CanMsgMatrix";
+            Text = "CAN通信矩阵";
+            ((System.ComponentModel.ISupportInitialize)MsgGridView).EndInit();
+            ResumeLayout(false);
 
         }
 

@@ -84,3 +84,6 @@ D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplica
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.pdb
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.genruntimeconfig.cache
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\ref\WindowsFormsApplication.dll
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_CanMatrix.resources
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_ComUpper.resources
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_DbcDataManager.resources

@@ -62,5 +62,6 @@ namespace WindowsFormsApplication
                 textBox_GlobalLog.Text = "控件已访问";
             }
         }
+
     }
 }
