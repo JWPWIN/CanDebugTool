@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                this.mainLoopThread.Stop();//结束主循环线程
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -35,10 +36,10 @@
             // 
             // Btn_DisplayCanMatix
             // 
-            Btn_DisplayCanMatix.Location = new System.Drawing.Point(148, 28);
+            Btn_DisplayCanMatix.Location = new System.Drawing.Point(13, 31);
             Btn_DisplayCanMatix.Margin = new System.Windows.Forms.Padding(4);
             Btn_DisplayCanMatix.Name = "Btn_DisplayCanMatix";
-            Btn_DisplayCanMatix.Size = new System.Drawing.Size(159, 51);
+            Btn_DisplayCanMatix.Size = new System.Drawing.Size(112, 33);
             Btn_DisplayCanMatix.TabIndex = 2;
             Btn_DisplayCanMatix.Text = "功能-DBC管理";
             Btn_DisplayCanMatix.UseVisualStyleBackColor = true;
@@ -46,10 +47,10 @@
             // 
             // Btn_DisplayComUpper
             // 
-            Btn_DisplayComUpper.Location = new System.Drawing.Point(148, 105);
+            Btn_DisplayComUpper.Location = new System.Drawing.Point(133, 31);
             Btn_DisplayComUpper.Margin = new System.Windows.Forms.Padding(4);
             Btn_DisplayComUpper.Name = "Btn_DisplayComUpper";
-            Btn_DisplayComUpper.Size = new System.Drawing.Size(159, 52);
+            Btn_DisplayComUpper.Size = new System.Drawing.Size(112, 33);
             Btn_DisplayComUpper.TabIndex = 3;
             Btn_DisplayComUpper.Text = "功能-通信上位机";
             Btn_DisplayComUpper.UseVisualStyleBackColor = true;
@@ -57,11 +58,11 @@
             // 
             // textBox_GlobalLog
             // 
-            textBox_GlobalLog.Location = new System.Drawing.Point(21, 344);
+            textBox_GlobalLog.Location = new System.Drawing.Point(379, 361);
             textBox_GlobalLog.Multiline = true;
             textBox_GlobalLog.Name = "textBox_GlobalLog";
             textBox_GlobalLog.ReadOnly = true;
-            textBox_GlobalLog.Size = new System.Drawing.Size(335, 106);
+            textBox_GlobalLog.Size = new System.Drawing.Size(239, 99);
             textBox_GlobalLog.TabIndex = 4;
             // 
             // MainWin

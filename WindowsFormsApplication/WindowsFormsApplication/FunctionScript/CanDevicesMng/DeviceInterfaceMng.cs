@@ -36,34 +36,13 @@ public enum CanFrameType
 
 public class DeviceInterfaceMng
 {
-    static private DeviceInterfaceMng instance;
-
     private CanDeviceType curCanDeviceType = 0;//当前设备类型
 
     private CanFrameType curCanFrameType = 0;//当前CAN帧类型
 
     private bool canDeviceOpenFlag = false;//是否有设备打开
 
-    private ZlgDevice zlgDevice;//周立功设备实例
-
-    public DeviceInterfaceMng()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
-
-    static public DeviceInterfaceMng GetInstance()
-    {
-        if (instance == null)
-        {
-            MessageBox.Show("DeviceInterfaceMng instance dont existed !");
-            return null;
-        }
-        return instance;
-    }
-
+    private ZlgDevice zlgDevice = null;//周立功设备实例
 
     /// <summary>
     /// 打开CAN卡设备
@@ -72,6 +51,13 @@ public class DeviceInterfaceMng
     /// <param name="canType">下拉选项框选择的Can类型</param>
     public void OpenCanDevice(int selectDeviceType,int selectCanType)
     {
+        //未打开设备 直接返回
+        if (canDeviceOpenFlag == true)
+        {
+            AppLogMng.DisplayLog("已打开过设备!");
+            return;
+        }
+
         //Step1: 获取设备类型 { "ZCAN_USBCANFD_100U", "ZCAN_USBCANFD_200U", "ZCAN_USBCANFD_MINI" }
         switch (selectDeviceType)
         {
@@ -103,14 +89,14 @@ public class DeviceInterfaceMng
                 break;
         }
 
-        //Step1: 根据设备类型创建对应的设备对象，并尝试打开设备
+        //Step3: 根据设备类型创建对应的设备对象，并尝试打开设备
         bool successOpenFlag = false;
         switch (curCanDeviceType)
         {
             case CanDeviceType.ZCAN_USBCANFD_100U:
             case CanDeviceType.ZCAN_USBCANFD_200U:
             case CanDeviceType.ZCAN_USBCANFD_MINI:
-                zlgDevice = new ZlgDevice();//创建zlg设备
+                if(zlgDevice is null) zlgDevice = new ZlgDevice();//创建zlg设备
                 successOpenFlag = zlgDevice.OpenDevice(curCanDeviceType,curCanFrameType);
                 break;
             default:
@@ -119,11 +105,44 @@ public class DeviceInterfaceMng
 
         if (successOpenFlag == true)
         {
+            canDeviceOpenFlag = true;
             AppLogMng.DisplayLog("打开设备成功!");
         }
 
     }
 
+    /// <summary>
+    /// 关闭CAN卡设备
+    /// </summary>
+    public void CloseCanDevice()
+    {
+        //未打开设备 直接返回
+        if(canDeviceOpenFlag == false)
+        {
+            AppLogMng.DisplayLog("未打开过设备!");
+            return;
+        }
+
+        //根据设备类型关闭对应设备
+        bool successCloseFlag = false;
+        switch (curCanDeviceType)
+        {
+            case CanDeviceType.ZCAN_USBCANFD_100U:
+            case CanDeviceType.ZCAN_USBCANFD_200U:
+            case CanDeviceType.ZCAN_USBCANFD_MINI:
+                //关闭zlg设备
+                if (zlgDevice is not null) successCloseFlag = zlgDevice.CloseDevice();
+                break;
+            default:
+                break;
+        }
+
+        if (successCloseFlag == true)
+        {
+            canDeviceOpenFlag = false;
+            AppLogMng.DisplayLog("关闭设备成功!");
+        }
+    }
 
 
 }

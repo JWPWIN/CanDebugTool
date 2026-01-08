@@ -13,13 +13,22 @@ namespace WindowsFormsApplication
 {
     public partial class MainWin : Form
     {
-        Win_DbcDataManager win_DbcDataManager;//Dbc数据管理窗口
-        Win_ComUpper win_ComUpper;//Can通信上位机窗口
+        //主循环线程
+        public LongRunningThreadService mainLoopThread;
 
+        //Dbc数据管理窗口
+        Win_DbcDataManager win_DbcDataManager;
+        //Can通信上位机窗口
+        Win_ComUpper win_ComUpper;
 
         public MainWin()
         {
             InitializeComponent();
+
+            //创建任务主循环线程 用于长时间持续执行的任务
+            mainLoopThread = new LongRunningThreadService(this);
+            //开启主循环线程
+            mainLoopThread.Start();
 
             //初始化APP数据
             CanDbcDataManager canDbcDataManager = new CanDbcDataManager();
@@ -35,6 +44,23 @@ namespace WindowsFormsApplication
         {
             win_ComUpper = new Win_ComUpper();
             win_ComUpper.Show();
+        }
+
+        /// <summary>
+        /// 更新全局Log文本
+        /// </summary>
+        public void MainLoopThread_Task_UpdateGlobalLogText()
+        {
+            if (textBox_GlobalLog.InvokeRequired)
+            {
+                // 在UI线程上异步执行访问控件操作
+                textBox_GlobalLog.Invoke(new Action(() => textBox_GlobalLog.Text = AppLogMng.GetGobalLogStr()));
+            }
+            else
+            {
+                // 在UI线程上直接访问控件
+                textBox_GlobalLog.Text = "控件已访问";
+            }
         }
     }
 }

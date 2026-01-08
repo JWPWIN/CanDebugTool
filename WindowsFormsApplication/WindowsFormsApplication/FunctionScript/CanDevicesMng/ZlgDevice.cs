@@ -89,7 +89,7 @@ public class ZlgDevice
     public bool OpenDevice(CanDeviceType deviceType, CanFrameType frameType)
     {
         //Step1：打开设备，canDeviceType代表CAN卡类型，0代表0通道
-        uint canDeviceHandle = ZCAN_OpenDevice((uint)deviceType, 0, 0);
+        canDeviceHandle = ZCAN_OpenDevice((uint)deviceType, 0, 0);
         if (canDeviceHandle == 0)
         {
             AppLogMng.DisplayLog("打开设备失败");
@@ -100,7 +100,7 @@ public class ZlgDevice
         //仲裁域默认设置500K
         if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
         {
-            AppLogMng.DisplayLog("设置波特率失败");
+            AppLogMng.DisplayLog("设置仲裁域波特率失败");
             return false;
         }
         //数据域设置(CAN-500K,CANFD-2M)
@@ -108,7 +108,7 @@ public class ZlgDevice
         {
             if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "2000000") != 1)
             {
-                AppLogMng.DisplayLog("设置波特率失败");
+                AppLogMng.DisplayLog("设置数据域波特率失败");
                 return false;
             }
         }
@@ -116,7 +116,7 @@ public class ZlgDevice
         {
             if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
             {
-                AppLogMng.DisplayLog("设置波特率失败");
+                AppLogMng.DisplayLog("设置数据域波特率失败");
                 return false;
             }
 
@@ -158,6 +158,7 @@ public class ZlgDevice
         {
             tmp = ZCAN_CloseDevice(canDeviceHandle);
         }
+
         //清除can设备句柄和can通道句柄
         canDeviceHandle = 0;
         canChannelHandle = 0;
@@ -166,10 +167,6 @@ public class ZlgDevice
         {
             AppLogMng.DisplayLog("关闭设备失败");
             return false;
-        }
-        else
-        {
-            AppLogMng.DisplayLog("关闭设备成功");
         }
 
         return true;

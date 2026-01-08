@@ -32,7 +32,14 @@ namespace WindowsFormsApplication.UI
             //实例化设备管理对象
             deviceInterfaceMng = new DeviceInterfaceMng();
 
-            DeviceInterfaceMng.GetInstance().OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
+            deviceInterfaceMng.OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
+        }
+
+        private void Btn_DisconnectDevice_Click(object sender, EventArgs e)
+        {
+            //关闭已经打开的设备
+            if (deviceInterfaceMng is not null) deviceInterfaceMng.CloseCanDevice();
+            else { AppLogMng.DisplayLog("请先连接设备!"); }
         }
 
         private void comboBox_CanType_SelectedIndexChanged(object sender, EventArgs e)

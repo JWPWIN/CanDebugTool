@@ -41,6 +41,7 @@
             comboBox_CanType = new System.Windows.Forms.ComboBox();
             label1 = new System.Windows.Forms.Label();
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
+            Btn_DisconnectDevice = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(Btn_DisconnectDevice);
             groupBox2.Controls.Add(label_DBitRate);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label_ABitRate);
@@ -189,6 +191,17 @@
             comboBox_CanDeviceType.TabIndex = 1;
             comboBox_CanDeviceType.SelectedIndexChanged += comboBox_CanDeviceType_SelectedIndexChanged;
             // 
+            // Btn_DisconnectDevice
+            // 
+            Btn_DisconnectDevice.Location = new System.Drawing.Point(103, 101);
+            Btn_DisconnectDevice.Margin = new System.Windows.Forms.Padding(4);
+            Btn_DisconnectDevice.Name = "Btn_DisconnectDevice";
+            Btn_DisconnectDevice.Size = new System.Drawing.Size(74, 41);
+            Btn_DisconnectDevice.TabIndex = 11;
+            Btn_DisconnectDevice.Text = "断开连接";
+            Btn_DisconnectDevice.UseVisualStyleBackColor = true;
+            Btn_DisconnectDevice.Click += Btn_DisconnectDevice_Click;
+            // 
             // Win_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -222,5 +235,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label_ABitRate;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button Btn_DisconnectDevice;
     }
 }
