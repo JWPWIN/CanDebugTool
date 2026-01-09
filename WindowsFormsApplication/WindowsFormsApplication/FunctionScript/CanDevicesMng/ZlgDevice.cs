@@ -230,7 +230,7 @@ public class ZlgDevice
     public bool Receive_CanFrame(ref uint msgId, ref Can_Uint64_Data msgData)
     {
         uint recvMsgNum = 0;
-        recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 0);//0=CAN，1=CANFD，2=合并接收
+        recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
 
         if (recvMsgNum == 0)
         {

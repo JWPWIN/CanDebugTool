@@ -49,6 +49,7 @@
             MsgGridView.RowTemplate.Height = 20;
             MsgGridView.Size = new System.Drawing.Size(1000, 800);
             MsgGridView.TabIndex = 3;
+            MsgGridView.DoubleClick += MsgGridView_DoubleClick;
             // 
             // UI_CanMatrix
             // 
@@ -60,7 +61,6 @@
             ((System.ComponentModel.ISupportInitialize)MsgGridView).EndInit();
             ResumeLayout(false);
         }
-
         #endregion
 
         private System.Windows.Forms.DataGridView MsgGridView;

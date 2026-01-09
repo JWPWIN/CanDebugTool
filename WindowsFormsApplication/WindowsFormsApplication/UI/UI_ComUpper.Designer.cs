@@ -30,29 +30,17 @@
         {
             groupBox2 = new System.Windows.Forms.GroupBox();
             Btn_DisconnectDevice = new System.Windows.Forms.Button();
-            label_DBitRate = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
-            label_ABitRate = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             comboBox_CanType = new System.Windows.Forms.ComboBox();
             label1 = new System.Windows.Forms.Label();
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
             Btn_ConnectDevice = new System.Windows.Forms.Button();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            radioButton2 = new System.Windows.Forms.RadioButton();
-            radioButton1 = new System.Windows.Forms.RadioButton();
             groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(Btn_DisconnectDevice);
-            groupBox2.Controls.Add(label_DBitRate);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(label_ABitRate);
-            groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(comboBox_CanType);
             groupBox2.Controls.Add(label1);
@@ -76,42 +64,7 @@
             Btn_DisconnectDevice.TabIndex = 11;
             Btn_DisconnectDevice.Text = "断开连接";
             Btn_DisconnectDevice.UseVisualStyleBackColor = true;
-            // 
-            // label_DBitRate
-            // 
-            label_DBitRate.AutoSize = true;
-            label_DBitRate.Location = new System.Drawing.Point(367, 67);
-            label_DBitRate.Name = "label_DBitRate";
-            label_DBitRate.Size = new System.Drawing.Size(23, 17);
-            label_DBitRate.TabIndex = 10;
-            label_DBitRate.Text = "***";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(309, 67);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(44, 17);
-            label8.TabIndex = 9;
-            label8.Text = "数据域";
-            // 
-            // label_ABitRate
-            // 
-            label_ABitRate.AutoSize = true;
-            label_ABitRate.Location = new System.Drawing.Point(367, 33);
-            label_ABitRate.Name = "label_ABitRate";
-            label_ABitRate.Size = new System.Drawing.Size(23, 17);
-            label_ABitRate.TabIndex = 8;
-            label_ABitRate.Text = "***";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(309, 33);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(44, 17);
-            label6.TabIndex = 7;
-            label6.Text = "仲裁域";
+            Btn_DisconnectDevice.Click += Btn_DisconnectDevice_Click;
             // 
             // label2
             // 
@@ -160,56 +113,17 @@
             Btn_ConnectDevice.TabIndex = 0;
             Btn_ConnectDevice.Text = "连接";
             Btn_ConnectDevice.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Location = new System.Drawing.Point(480, 15);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            groupBox1.Size = new System.Drawing.Size(271, 65);
-            groupBox1.TabIndex = 4;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "发送模式";
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(126, 29);
-            radioButton2.Margin = new System.Windows.Forms.Padding(4);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(75, 21);
-            radioButton2.TabIndex = 2;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "DBC发送";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new System.Drawing.Point(8, 29);
-            radioButton1.Margin = new System.Windows.Forms.Padding(4);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new System.Drawing.Size(74, 21);
-            radioButton1.TabIndex = 1;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "报文发送";
-            radioButton1.UseVisualStyleBackColor = true;
+            Btn_ConnectDevice.Click += Btn_ConnectDevice_Click;
             // 
             // UI_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
             Name = "UI_ComUpper";
             Size = new System.Drawing.Size(759, 488);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -217,17 +131,10 @@
 
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button Btn_DisconnectDevice;
-        private System.Windows.Forms.Label label_DBitRate;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label_ABitRate;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox_CanType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_CanDeviceType;
         private System.Windows.Forms.Button Btn_ConnectDevice;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

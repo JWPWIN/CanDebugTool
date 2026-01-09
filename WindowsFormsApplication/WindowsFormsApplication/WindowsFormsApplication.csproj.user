@@ -23,14 +23,5 @@
     <Compile Update="UI\UI_DbcDataManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\Win_CanMsgMatrix.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UI\Win_ComUpper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UI\Win_DbcDataManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>

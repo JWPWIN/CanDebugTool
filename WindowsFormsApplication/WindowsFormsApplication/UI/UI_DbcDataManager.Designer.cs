@@ -32,69 +32,63 @@
             Btn_ExportXml = new System.Windows.Forms.Button();
             Btn_GntCanCode = new System.Windows.Forms.Button();
             Btn_ExportDbc = new System.Windows.Forms.Button();
-            Btn_DisplayCanMatix = new System.Windows.Forms.Button();
             Btn_ImpExcelDBC = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // button_ImportTxtDbc
             // 
-            button_ImportTxtDbc.Location = new System.Drawing.Point(391, 118);
+            button_ImportTxtDbc.Location = new System.Drawing.Point(176, 29);
             button_ImportTxtDbc.Margin = new System.Windows.Forms.Padding(4);
             button_ImportTxtDbc.Name = "button_ImportTxtDbc";
             button_ImportTxtDbc.Size = new System.Drawing.Size(126, 47);
             button_ImportTxtDbc.TabIndex = 17;
             button_ImportTxtDbc.Text = "导入DBC数据";
             button_ImportTxtDbc.UseVisualStyleBackColor = true;
+            button_ImportTxtDbc.Click += button_ImportTxtDbc_Click;
             // 
             // Btn_ExportXml
             // 
-            Btn_ExportXml.Location = new System.Drawing.Point(258, 296);
+            Btn_ExportXml.Location = new System.Drawing.Point(43, 207);
             Btn_ExportXml.Margin = new System.Windows.Forms.Padding(4);
             Btn_ExportXml.Name = "Btn_ExportXml";
             Btn_ExportXml.Size = new System.Drawing.Size(126, 55);
             Btn_ExportXml.TabIndex = 16;
             Btn_ExportXml.Text = "导出Xml";
             Btn_ExportXml.UseVisualStyleBackColor = true;
+            Btn_ExportXml.Click += Btn_ExportXml_Click;
             // 
             // Btn_GntCanCode
             // 
-            Btn_GntCanCode.Location = new System.Drawing.Point(258, 360);
+            Btn_GntCanCode.Location = new System.Drawing.Point(43, 271);
             Btn_GntCanCode.Margin = new System.Windows.Forms.Padding(4);
             Btn_GntCanCode.Name = "Btn_GntCanCode";
             Btn_GntCanCode.Size = new System.Drawing.Size(126, 55);
             Btn_GntCanCode.TabIndex = 15;
             Btn_GntCanCode.Text = "生成CAN模板代码";
             Btn_GntCanCode.UseVisualStyleBackColor = true;
+            Btn_GntCanCode.Click += Btn_GntCanCode_Click;
             // 
             // Btn_ExportDbc
             // 
-            Btn_ExportDbc.Location = new System.Drawing.Point(258, 233);
+            Btn_ExportDbc.Location = new System.Drawing.Point(43, 144);
             Btn_ExportDbc.Margin = new System.Windows.Forms.Padding(4);
             Btn_ExportDbc.Name = "Btn_ExportDbc";
             Btn_ExportDbc.Size = new System.Drawing.Size(126, 55);
             Btn_ExportDbc.TabIndex = 14;
             Btn_ExportDbc.Text = "导出DBC";
             Btn_ExportDbc.UseVisualStyleBackColor = true;
-            // 
-            // Btn_DisplayCanMatix
-            // 
-            Btn_DisplayCanMatix.Location = new System.Drawing.Point(258, 173);
-            Btn_DisplayCanMatix.Margin = new System.Windows.Forms.Padding(4);
-            Btn_DisplayCanMatix.Name = "Btn_DisplayCanMatix";
-            Btn_DisplayCanMatix.Size = new System.Drawing.Size(126, 51);
-            Btn_DisplayCanMatix.TabIndex = 13;
-            Btn_DisplayCanMatix.Text = "显示CAN协议";
-            Btn_DisplayCanMatix.UseVisualStyleBackColor = true;
+            Btn_ExportDbc.Click += Btn_ExportDbc_Click;
             // 
             // Btn_ImpExcelDBC
             // 
-            Btn_ImpExcelDBC.Location = new System.Drawing.Point(258, 118);
+            Btn_ImpExcelDBC.Location = new System.Drawing.Point(43, 29);
             Btn_ImpExcelDBC.Margin = new System.Windows.Forms.Padding(4);
             Btn_ImpExcelDBC.Name = "Btn_ImpExcelDBC";
             Btn_ImpExcelDBC.Size = new System.Drawing.Size(126, 47);
             Btn_ImpExcelDBC.TabIndex = 12;
             Btn_ImpExcelDBC.Text = "导入Excel数据";
             Btn_ImpExcelDBC.UseVisualStyleBackColor = true;
+            Btn_ImpExcelDBC.Click += Btn_ImpExcelDBC_Click;
             // 
             // UI_DbcDataManager
             // 
@@ -104,7 +98,6 @@
             Controls.Add(Btn_ExportXml);
             Controls.Add(Btn_GntCanCode);
             Controls.Add(Btn_ExportDbc);
-            Controls.Add(Btn_DisplayCanMatix);
             Controls.Add(Btn_ImpExcelDBC);
             Name = "UI_DbcDataManager";
             Size = new System.Drawing.Size(774, 533);
@@ -117,7 +110,6 @@
         private System.Windows.Forms.Button Btn_ExportXml;
         private System.Windows.Forms.Button Btn_GntCanCode;
         private System.Windows.Forms.Button Btn_ExportDbc;
-        private System.Windows.Forms.Button Btn_DisplayCanMatix;
         private System.Windows.Forms.Button Btn_ImpExcelDBC;
     }
 }

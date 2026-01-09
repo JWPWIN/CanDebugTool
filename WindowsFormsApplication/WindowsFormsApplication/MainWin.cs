@@ -16,11 +16,6 @@ namespace WindowsFormsApplication
         //主循环线程
         public LongRunningThreadService mainLoopThread;
 
-        //Dbc数据管理窗口
-        Win_DbcDataManager win_DbcDataManager;
-        //Can通信上位机窗口
-        Win_ComUpper win_ComUpper;
-
         public MainWin()
         {
             InitializeComponent();
@@ -32,18 +27,6 @@ namespace WindowsFormsApplication
 
             //初始化APP数据
             CanDbcDataManager canDbcDataManager = new CanDbcDataManager();
-        }
-
-        private void Btn_DisplayDbcDataManager_Click(object sender, EventArgs e)
-        {
-            win_DbcDataManager = new Win_DbcDataManager();
-            win_DbcDataManager.Show();
-        }
-
-        private void Btn_DisplayComUpper_Click(object sender, EventArgs e)
-        {
-            win_ComUpper = new Win_ComUpper();
-            win_ComUpper.Show();
         }
 
         /// <summary>
