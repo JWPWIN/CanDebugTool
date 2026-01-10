@@ -183,10 +183,27 @@ public class DeviceInterfaceMng
         zlgDevice = null;//清除周立功设备实例
     }
 
-    public void GetMessages()
+    public void Task_ReceiveMessagesFromDevice()
     {
-        if (canDeviceOpenFlag == true)
-        zlgDevice.Receive_CanFrame();
+        //未打开设备 直接返回
+        if (canDeviceOpenFlag == false)
+        {
+            return;
+        }
+
+        //根据设备类型开启接收报文进程
+        switch (curCanDeviceType)
+        {
+            case CanDeviceType.ZCAN_USBCANFD_100U:
+            case CanDeviceType.ZCAN_USBCANFD_200U:
+            case CanDeviceType.ZCAN_USBCANFD_MINI:
+                //zlg设备接收报文
+                if (zlgDevice is not null) zlgDevice.ReceiveMessagesFromDevice();
+                break;
+            default:
+                break;
+        }
+
     }
 
 }

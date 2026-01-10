@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ public class ZlgDevice
         public uint flag; //flag 字段表示 CAN/CANFD 帧的标记信息，长度 4 字节
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public byte[] extraData;//数据标志，暂未使用
-        canfd_frame canfd_Frame;
+        public canfd_frame canfd_Frame;
     }
 
     struct canfd_frame
@@ -124,7 +125,8 @@ public class ZlgDevice
     /// <returns>打开设备是否成功</returns>
     public bool OpenDevice(CanDeviceType deviceType, CanFrameType frameType)
     {
-        //Step1：打开设备，canDeviceType代表CAN卡类型，0代表0通道
+        //Step1：打开设备，deviceType代表CAN卡类型，
+        //第2个参数为设备索引号，比如当只有一个 USBCANFD-200U 时，索引号为 0，这时再插入一个 USBCANFD - 200U，那么后面插入的这个设备索引号就是 1，以此类推
         canDeviceHandle = ZCAN_OpenDevice((uint)deviceType, 0, 0);
         if (canDeviceHandle == 0)
         {
@@ -157,6 +159,9 @@ public class ZlgDevice
             }
 
         }
+
+        // 设置合并接收标志，启用合并发送，接收接口（只需设置 1 次）
+        ZCAN_SetValue(canDeviceHandle, "0/set_device_recv_merge", "1");
 
         //CAN通道初始化
         Can_Init_Config can_Init_Config = new Can_Init_Config();
@@ -281,7 +286,7 @@ public class ZlgDevice
         }
 
         //waitTime:缓冲区无数据，函数阻塞等待时间，单位毫秒。若为-1 则表示无超时，一直等待，默认值为 - 1
-        uint realRecvMsgNum  = ZCAN_ReceiveData(canChannelHandle, ref canData, 1, -1);
+        uint realRecvMsgNum  = ZCAN_ReceiveData(canDeviceHandle, ref canData, 1, -1);
         if (realRecvMsgNum == 0)
         {
             return false;
@@ -304,5 +309,82 @@ public class ZlgDevice
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// 任务-从当前设备实时接收报文
+    /// </summary>
+    public void ReceiveMessagesFromDevice()
+    {
+        //判断总线是否有报文数据
+        uint recvMsgNum = 0;
+        recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
+
+        if (recvMsgNum == 0)
+        {
+            return;
+        }
+        
+
+        //接收报文数据
+        ZCANDataObj[] recv_data = new ZCANDataObj[100]; // 定义接收数据缓冲区，100 仅用于举例，根据实际情况定义
+
+        uint rcount = ZCAN_ReceiveData(canDeviceHandle, ref recv_data[0], 100, 1);
+
+        if (rcount > 0)
+        {
+            for (int i = 0; i < rcount; i++)
+            {
+                if (recv_data[i].dataType != 1)
+                {  
+                    //只处理 CAN 或 CANFD 数据
+                    continue;
+                }
+
+                AppLogMng.DisplayLog(recv_data[i].data.zcanCANFDData.canfd_Frame.can_id.ToString(),true);
+
+
+            }
+        }
+
+        //while (g_thd_run)
+        //{
+        //    int rcount = ZCAN_ReceiveData(handle, recv_data, 100, 1);
+        //    int lcount = rcount;
+        //    while (g_thd_run && lcount > 0)
+        //    {
+        //        for (int i = 0; i < rcount; ++i, --lcount)
+        //        {
+        //            if (recv_data[i].dataType != ZCAN_DT_ZCAN_CAN_CANFD_DATA)
+        //            { // 
+        //                只处理 CAN 或 CANFD 数据
+        //            continue;
+        //            }
+        //            std::cout << "CHNL: " << std::dec << (int)recv_data[i].chnl; // 打印通道
+        //            ZCANCANFDData & can_data = recv_data[i].data.zcanCANFDData;
+        //            std::cout << " TIME:" << std::fixed << std::setprecision(6) <<
+        //            can_data.timeStamp / 1000000.0f << "s[" <<
+        //            std::dec << can_data.timeStamp << "]"; // 打印时间戳
+        //            if (can_data.flag.unionVal.txEchoed == 1)
+        //            {
+        //                std::cout << " [TX] "; // 发送帧
+        //            }
+        //            else
+        //            {
+        //                std::cout << " [RX] "; // 接收帧
+        //            }
+        //            std::cout << "ID: 0x" << std::hex << can_data.frame.can_id; // 打印 ID
+        //            std::cout << " LEN " << std::dec << (int)can_data.frame.len; // 打印长度
+        //            std::cout << " DATA " << std::hex; // 打印数据
+        //            for (int ind = 0; ind < can_data.frame.len; ++ind)
+        //            {
+        //                std::cout << std::hex << " " << (int)can_data.frame.data[ind];
+        //            }
+        //            std::cout << std::endl;
+        //        }
+        //    }
+        //    Sleep(10);
+        //}
+        //std::cout << "Thread exit" << std::endl;
     }
 }
