@@ -34,6 +34,13 @@ namespace WindowsFormsApplication
         /// </summary>
         public void MainLoopThread_Task_UpdateStatusStripInfo()
         {
+            //if (tabPage_ComUpper.InvokeRequired)
+            //{
+            //    //测试报文接收
+            //    tabPage_ComUpper.Invoke(new Action(() => tabPage_ComUpper.));
+            //}
+            DeviceInterfaceMng.GetInstance().GetMessages();
+
             if (statusStrip.InvokeRequired)
             {
                 //在UI线程上异步执行访问控件操作

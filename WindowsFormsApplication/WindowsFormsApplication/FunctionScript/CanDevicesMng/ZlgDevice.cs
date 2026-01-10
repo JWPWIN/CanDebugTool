@@ -33,24 +33,60 @@ public class ZlgDevice
         public uint reserved;
     }
 
-    struct Can_Transmit_Data
+    struct ZCANDataObj
+    {
+        public byte dataType;  //当前结构的数据类型: 1-CAN/CANFD数据;2-错误数据;3-GPS数据;4-LIN数据;5-总线利用率数据;6-LIN错误数据
+        public byte chnl;      //数据通道:数据类型表示CAN/CANFD/错误数据时，通道表示的是CAN通道 数据类型表示的是 LIN 数据时，通道表示的是设备的 LIN 通道
+        public ushort flag;    //数据标志，暂未使用
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] extraData;//数据标志，暂未使用
+        public ZCANDataObj_data data;//data 成员定义为联合体（CAN/CANFD 数据，dataType 值为 1 时有效；错误数据，dataType 值为 2 时有效）
+    }
+
+    //[StructLayout(LayoutKind.Explicit)]
+    struct ZCANDataObj_data
+    {
+        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 92)]
+        //[FieldOffset(0)] public byte[] raw;
+        /*[FieldOffset(0)]*/ public ZCANCANFDData zcanCANFDData;
+        //[FieldOffset(0)] public ZCANErrorData zcanErrData;
+    }
+
+    struct ZCANCANFDData
+    {
+        //时间戳，作为接收帧时，时间戳单位微秒(us)。
+        //正常发送时，timeStamp 字段无意义。
+        //队列延迟发送数据时，timeStamp 字段存放发送当前帧后设备等待的时间，时间单位取决于 flag.unionVal.txDelay，等待时间结束后设备发送下一帧
+        public ulong timeStamp;
+        public uint flag; //flag 字段表示 CAN/CANFD 帧的标记信息，长度 4 字节
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] extraData;//数据标志，暂未使用
+        canfd_frame canfd_Frame;
+    }
+
+    struct canfd_frame
     {
         public uint can_id; /* 32 bit CAN_ID + EFF/RTR/ERR flags */
-        public byte can_dlc; /* frame payload length in byte (0 .. CAN_MAX_DLEN) */
-        public byte __pad; /* padding */
+        public byte len; /* frame payload length in byte */
+        public byte flags; /* additional flags for CAN FD,i.e error code */
         public byte __res0; /* reserved / padding */
         public byte __res1; /* reserved / padding */
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] data;/* __attribute__((aligned(8)))*/
-        public uint transmit_type; //0=正常发送，1=单次发送，2=自发自收，3=单次自发自收
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+        public byte[] data/* __attribute__((aligned(8)))*/;
     }
 
-    struct Can_Receive_Data
+    struct ZCANErrorData
     {
-        public Can_Transmit_Data frame;
-        public UInt64 timeStamp;//时间戳，单位微秒，基于设备启动时间
+        uint timeStamp;//时间戳，表示错误产生的时间，时间单位为微秒(us)
+        byte errType;//0未知错误;1总线错误;2控制器错误;3终端设备错误
+        byte errSubType;//错误子类型，错误子类型的值根据错误类型不同表示不用的含义,具体请查文档
+        byte nodeState;//1总线积极;2总线告警;3总线消极;4总线关闭
+        byte rxErrCount;//接收错误计数，错误类型(errType)为总线错误(1)时有效
+        byte txErrCount;//发送错误计数，错误类型(errType)为总线错误(1)时有效
+        byte errData;//错误数据，错误类型(errType)为终端设备错误(3)且错误子类型(errSubType)为定时发送失败(3)时有效，用来存放定时发送帧的索引
+        byte reserved1;
+        byte reserved2;
     }
-
 
     [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
     static extern uint ZCAN_OpenDevice(uint device_type, uint device_index, uint reserved);
@@ -74,13 +110,13 @@ public class ZlgDevice
     static extern uint ZCAN_ResetCAN(uint channel_handle);
 
     [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_Transmit(uint channel_handle, ref Can_Transmit_Data data, uint num);
-
-    [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
     static extern uint ZCAN_GetReceiveNum(uint channel_handle, byte type);
 
     [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_Receive(uint channel_handle, ref Can_Receive_Data recvData, uint len, int waitTime);
+    static extern uint ZCAN_ReceiveData(uint device_handle, ref ZCANDataObj pReceive, uint len, int wait_time);
+
+    [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
+    static extern uint ZCAN_TransmitData(uint device_handle, ref ZCANDataObj pTransmit, uint len);
 
     /// <summary>
     /// 打开CAN设备
@@ -200,35 +236,42 @@ public class ZlgDevice
     /// <returns></returns>
     public bool Transmit_CanFrame(uint msgId, byte[] data)
     {
-        Can_Transmit_Data canData = new Can_Transmit_Data();
-        canData.can_id = GetZCANId(msgId);
-        canData.can_dlc = 8;
-        canData.data = data;
-        canData.transmit_type = 0;
+        //Can_Transmit_Data canData = new Can_Transmit_Data();
+        //canData.can_id = GetZCANId(msgId);
+        //canData.can_dlc = 8;
+        //canData.data = data;
+        //canData.transmit_type = 0;
 
-        //如果can通道未正常打开
-        if (canChannelHandle == 0)
-        {
-            return false;
-        }
+        ////如果can通道未正常打开
+        //if (canChannelHandle == 0)
+        //{
+        //    return false;
+        //}
 
-        if (TimerTool.CheckTimeOut(resendTimer, 5*(ulong)TimeUnit.T_S) == true)//失败5s尝试重发一次
-        {
-            if (ZCAN_Transmit(canChannelHandle, ref canData, 1) != 1)
-            {
-                AppLogMng.DisplayLog("报文发送失败，尝试重新发送!", false);
+        //if (TimerTool.CheckTimeOut(resendTimer, 5*(ulong)TimeUnit.T_S) == true)//失败5s尝试重发一次
+        //{
+        //    if (ZCAN_Transmit(canChannelHandle, ref canData, 1) != 1)
+        //    {
+        //        AppLogMng.DisplayLog("报文发送失败，尝试重新发送!", false);
 
-                TimerTool.ResetTimer(ref resendTimer);
-                return false;
-            }
-        }
+        //        TimerTool.ResetTimer(ref resendTimer);
+        //        return false;
+        //    }
+        //}
 
         return true;
     }
 
 
-    public bool Receive_CanFrame(ref uint msgId, ref Can_Uint64_Data msgData)
+    public bool Receive_CanFrame()
     {
+        ZCANDataObj canData = new ZCANDataObj();
+        canData.dataType = 1;
+        canData.chnl = 0;
+        canData.data = new ZCANDataObj_data();
+        canData.data.zcanCANFDData = new ZCANCANFDData();
+        canData.data.zcanCANFDData.flag = 1;//接收CANFD报文
+
         uint recvMsgNum = 0;
         recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
 
@@ -237,28 +280,27 @@ public class ZlgDevice
             return false;
         }
 
-        Can_Receive_Data recvData = new Can_Receive_Data();
-
         //waitTime:缓冲区无数据，函数阻塞等待时间，单位毫秒。若为-1 则表示无超时，一直等待，默认值为 - 1
-        uint tmpNum = ZCAN_Receive(canChannelHandle, ref recvData, 1, -1);
-        if (tmpNum == 0)
+        uint realRecvMsgNum  = ZCAN_ReceiveData(canChannelHandle, ref canData, 1, -1);
+        if (realRecvMsgNum == 0)
         {
             return false;
         }
         else
         {
-            msgId = recvData.frame.can_id;
-            Can_Uint64_Data can_Uint64_Data = new Can_Uint64_Data();
-            can_Uint64_Data.BYTE0 = recvData.frame.data[0];
-            can_Uint64_Data.BYTE1 = recvData.frame.data[1];
-            can_Uint64_Data.BYTE2 = recvData.frame.data[2];
-            can_Uint64_Data.BYTE3 = recvData.frame.data[3];
-            can_Uint64_Data.BYTE4 = recvData.frame.data[4];
-            can_Uint64_Data.BYTE5 = recvData.frame.data[5];
-            can_Uint64_Data.BYTE6 = recvData.frame.data[6];
-            can_Uint64_Data.BYTE7 = recvData.frame.data[7];
+            AppLogMng.DisplayLog("111", true);
+            //msgId = recvData.frame.can_id;
+            //Can_Uint64_Data can_Uint64_Data = new Can_Uint64_Data();
+            //can_Uint64_Data.BYTE0 = recvData.frame.data[0];
+            //can_Uint64_Data.BYTE1 = recvData.frame.data[1];
+            //can_Uint64_Data.BYTE2 = recvData.frame.data[2];
+            //can_Uint64_Data.BYTE3 = recvData.frame.data[3];
+            //can_Uint64_Data.BYTE4 = recvData.frame.data[4];
+            //can_Uint64_Data.BYTE5 = recvData.frame.data[5];
+            //can_Uint64_Data.BYTE6 = recvData.frame.data[6];
+            //can_Uint64_Data.BYTE7 = recvData.frame.data[7];
 
-            msgData = can_Uint64_Data;
+            //msgData = can_Uint64_Data;
         }
 
         return true;

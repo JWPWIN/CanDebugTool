@@ -183,4 +183,10 @@ public class DeviceInterfaceMng
         zlgDevice = null;//清除周立功设备实例
     }
 
+    public void GetMessages()
+    {
+        if (canDeviceOpenFlag == true)
+        zlgDevice.Receive_CanFrame();
+    }
+
 }
