@@ -125,8 +125,8 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_100ms()
     {
-        //任务一：更新应用程序全局Log信息
-        mainWin.MainLoopThread_Task_UpdateGlobalLogText();
+        //任务一：更新状态栏信息
+        mainWin.MainLoopThread_Task_UpdateStatusStripInfo();
     }
 
     /// <summary>

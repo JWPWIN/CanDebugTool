@@ -92,7 +92,7 @@ public class ZlgDevice
         canDeviceHandle = ZCAN_OpenDevice((uint)deviceType, 0, 0);
         if (canDeviceHandle == 0)
         {
-            AppLogMng.DisplayLog("打开设备失败");
+            AppLogMng.DisplayLog("打开设备失败!", false);
             return false;
         }
 
@@ -100,7 +100,7 @@ public class ZlgDevice
         //仲裁域默认设置500K
         if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
         {
-            AppLogMng.DisplayLog("设置仲裁域波特率失败");
+            AppLogMng.DisplayLog("设置仲裁域波特率失败!", false);
             return false;
         }
         //数据域设置(CAN-500K,CANFD-2M)
@@ -108,7 +108,7 @@ public class ZlgDevice
         {
             if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "2000000") != 1)
             {
-                AppLogMng.DisplayLog("设置数据域波特率失败");
+                AppLogMng.DisplayLog("设置数据域波特率失败!", false);
                 return false;
             }
         }
@@ -116,7 +116,7 @@ public class ZlgDevice
         {
             if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
             {
-                AppLogMng.DisplayLog("设置数据域波特率失败");
+                AppLogMng.DisplayLog("设置数据域波特率失败!", false);
                 return false;
             }
 
@@ -133,14 +133,14 @@ public class ZlgDevice
         canChannelHandle = ZCAN_InitCAN(canDeviceHandle, 0, ref can_Init_Config);
         if (canChannelHandle == 0)
         {
-            AppLogMng.DisplayLog("初始化通道失败");
+            AppLogMng.DisplayLog("初始化通道失败!", false);
             return false;
         }
 
         //启动CAN通道
         if (ZCAN_StartCAN(canChannelHandle) != 1)
         {
-            AppLogMng.DisplayLog("启动通道失败");
+            AppLogMng.DisplayLog("启动通道失败!", false);
             return false;
         }
 
@@ -165,7 +165,7 @@ public class ZlgDevice
 
         if (tmp == 0)
         {
-            AppLogMng.DisplayLog("关闭设备失败");
+            AppLogMng.DisplayLog("关闭设备失败!", false);
             return false;
         }
 
@@ -216,7 +216,7 @@ public class ZlgDevice
         {
             if (ZCAN_Transmit(canChannelHandle, ref canData, 1) != 1)
             {
-                AppLogMng.DisplayLog("报文发送失败，尝试重新发送");
+                AppLogMng.DisplayLog("报文发送失败，尝试重新发送!", false);
 
                 TimerTool.ResetTimer(ref resendTimer);
                 return false;

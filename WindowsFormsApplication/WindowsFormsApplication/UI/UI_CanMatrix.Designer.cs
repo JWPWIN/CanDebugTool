@@ -39,15 +39,16 @@
             MsgGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             MsgGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             MsgGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            MsgGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             MsgGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            MsgGridView.Location = new System.Drawing.Point(4, 4);
+            MsgGridView.Location = new System.Drawing.Point(0, 0);
             MsgGridView.Margin = new System.Windows.Forms.Padding(4);
             MsgGridView.Name = "MsgGridView";
             MsgGridView.RowHeadersVisible = false;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             MsgGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             MsgGridView.RowTemplate.Height = 20;
-            MsgGridView.Size = new System.Drawing.Size(1000, 800);
+            MsgGridView.Size = new System.Drawing.Size(800, 600);
             MsgGridView.TabIndex = 3;
             MsgGridView.DoubleClick += MsgGridView_DoubleClick;
             // 
@@ -57,7 +58,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(MsgGridView);
             Name = "UI_CanMatrix";
-            Size = new System.Drawing.Size(1800, 800);
+            Size = new System.Drawing.Size(800, 600);
             ((System.ComponentModel.ISupportInitialize)MsgGridView).EndInit();
             ResumeLayout(false);
         }

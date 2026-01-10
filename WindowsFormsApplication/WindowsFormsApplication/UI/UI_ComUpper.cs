@@ -20,6 +20,9 @@ namespace WindowsFormsApplication.UI
             InitializeComponent();
             this.comboBox_CanDeviceType.SelectedIndex = 0;
             this.comboBox_CanType.SelectedIndex = 0;
+
+            //实例化设备管理器对象
+            deviceInterfaceMng = new DeviceInterfaceMng();
         }
 
         private void comboBox_CanDeviceType_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,17 +32,16 @@ namespace WindowsFormsApplication.UI
 
         private void Btn_ConnectDevice_Click(object sender, EventArgs e)
         {
-            //实例化设备管理对象
-            deviceInterfaceMng = new DeviceInterfaceMng();
-
-            deviceInterfaceMng.OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
+            //打开设备
+            if (deviceInterfaceMng is not null) 
+                deviceInterfaceMng.OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
         }
 
         private void Btn_DisconnectDevice_Click(object sender, EventArgs e)
         {
             //关闭已经打开的设备
-            if (deviceInterfaceMng is not null) deviceInterfaceMng.CloseCanDevice();
-            else { AppLogMng.DisplayLog("请先连接设备!"); }
+            if (deviceInterfaceMng is not null) 
+                deviceInterfaceMng.CloseCanDevice();
         }
 
     }

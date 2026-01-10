@@ -271,10 +271,12 @@ public class CanDbcDataManager
             canMsgSet[tmpSig.msgId].signals.Add(tmpSig);
         }
         isLoadCfg = true;
+
+        AppLogMng.DisplayLog("从DBC文件导入通信协议成功!",true);
     }
 
     //从DBC中导入CAN矩阵信息
-    public bool LoadCanMatrixFromDBC()
+    public void LoadCanMatrixFromDBC()
     {
         //选择DBC文件并读取数据
         string dbcInfo = TextOperation.ReadData();
@@ -284,13 +286,13 @@ public class CanDbcDataManager
         if (dbcInfo == null)
         {
             MessageBox.Show("DBC文件是空的");
-            return false;
+            return;
         }
 
         if (bufferAry.Length < 3)
         {
             MessageBox.Show("Dbc文件格式错误");
-            return false;
+            return;
         }
 
         //首先清除之前的DBC配置
@@ -307,7 +309,7 @@ public class CanDbcDataManager
             if (lineAry.Length < 1)
             {
                 MessageBox.Show("Dbc文件行格式错误");
-                return false;
+                return;
             }
             switch (lineAry[0])
             {
@@ -634,7 +636,8 @@ public class CanDbcDataManager
             }
         }
         isLoadCfg = true;
-        return true;
+
+        AppLogMng.DisplayLog("从Excel文件导入通信协议成功!", true);
     }
 
     //清除已经存在的DBC配置

@@ -50,17 +50,17 @@
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            groupBox2.Size = new System.Drawing.Size(453, 150);
+            groupBox2.Size = new System.Drawing.Size(352, 95);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "设备管理";
             // 
             // Btn_DisconnectDevice
             // 
-            Btn_DisconnectDevice.Location = new System.Drawing.Point(103, 101);
+            Btn_DisconnectDevice.Location = new System.Drawing.Point(264, 53);
             Btn_DisconnectDevice.Margin = new System.Windows.Forms.Padding(4);
             Btn_DisconnectDevice.Name = "Btn_DisconnectDevice";
-            Btn_DisconnectDevice.Size = new System.Drawing.Size(74, 41);
+            Btn_DisconnectDevice.Size = new System.Drawing.Size(74, 24);
             Btn_DisconnectDevice.TabIndex = 11;
             Btn_DisconnectDevice.Text = "断开连接";
             Btn_DisconnectDevice.UseVisualStyleBackColor = true;
@@ -69,7 +69,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(22, 71);
+            label2.Location = new System.Drawing.Point(12, 63);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(54, 17);
             label2.TabIndex = 4;
@@ -80,7 +80,7 @@
             comboBox_CanType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox_CanType.FormattingEnabled = true;
             comboBox_CanType.Items.AddRange(new object[] { "CANFD", "CAN" });
-            comboBox_CanType.Location = new System.Drawing.Point(93, 62);
+            comboBox_CanType.Location = new System.Drawing.Point(83, 54);
             comboBox_CanType.Name = "comboBox_CanType";
             comboBox_CanType.Size = new System.Drawing.Size(170, 25);
             comboBox_CanType.TabIndex = 3;
@@ -88,7 +88,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(22, 40);
+            label1.Location = new System.Drawing.Point(12, 32);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(66, 17);
             label1.TabIndex = 2;
@@ -99,17 +99,17 @@
             comboBox_CanDeviceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox_CanDeviceType.FormattingEnabled = true;
             comboBox_CanDeviceType.Items.AddRange(new object[] { "ZCAN_USBCANFD_100U", "ZCAN_USBCANFD_200U", "ZCAN_USBCANFD_MINI" });
-            comboBox_CanDeviceType.Location = new System.Drawing.Point(93, 31);
+            comboBox_CanDeviceType.Location = new System.Drawing.Point(83, 23);
             comboBox_CanDeviceType.Name = "comboBox_CanDeviceType";
             comboBox_CanDeviceType.Size = new System.Drawing.Size(170, 25);
             comboBox_CanDeviceType.TabIndex = 1;
             // 
             // Btn_ConnectDevice
             // 
-            Btn_ConnectDevice.Location = new System.Drawing.Point(21, 101);
+            Btn_ConnectDevice.Location = new System.Drawing.Point(264, 22);
             Btn_ConnectDevice.Margin = new System.Windows.Forms.Padding(4);
             Btn_ConnectDevice.Name = "Btn_ConnectDevice";
-            Btn_ConnectDevice.Size = new System.Drawing.Size(74, 41);
+            Btn_ConnectDevice.Size = new System.Drawing.Size(74, 24);
             Btn_ConnectDevice.TabIndex = 0;
             Btn_ConnectDevice.Text = "连接";
             Btn_ConnectDevice.UseVisualStyleBackColor = true;

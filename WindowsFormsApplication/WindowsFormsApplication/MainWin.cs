@@ -30,21 +30,51 @@ namespace WindowsFormsApplication
         }
 
         /// <summary>
-        /// 更新全局Log文本
+        /// 更新状态栏信息
         /// </summary>
-        public void MainLoopThread_Task_UpdateGlobalLogText()
+        public void MainLoopThread_Task_UpdateStatusStripInfo()
         {
-            if (textBox_GlobalLog.InvokeRequired)
+            if (statusStrip.InvokeRequired)
             {
-                // 在UI线程上异步执行访问控件操作
-                textBox_GlobalLog.Invoke(new Action(() => textBox_GlobalLog.Text = AppLogMng.GetGobalLogStr()));
+                //在UI线程上异步执行访问控件操作
+                //更新系统时间信息
+                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurSysTime.Text =  "{" + DateTime.Now.ToString() + "}"));
+                //更新当前页签名称
+                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurPageName.Text = "{" + tabControl_AllFunsSplit.SelectedTab.Text + "}"));
+                //显示DBC状态
+                if (CanDbcDataManager.GetInstance().isLoadCfg == true)
+                {
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.Text = "{已加载DBC}"));
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.ForeColor = Color.Green));
+                }
+                else
+                {
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.Text = "{未加载DBC}"));
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.ForeColor = Color.Gray));
+                }
+                //显示设备连接状态
+                if (DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
+                {
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{"+ $"已连接设备:{DeviceInterfaceMng.GetInstance().curCanDeviceType.ToString()}" + "}"));
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.ForeColor = Color.Green));
+                }
+                else
+                {
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{未连接设备}"));
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.ForeColor = Color.Gray));
+                }
+                //更新全局Log信息
+                statusStrip.Invoke(new Action(() => toolStripStatusLabel_GlobalLogBox.Text = "{" + $"日志:{AppLogMng.GetGobalLogStr()}" + "}"));
+                statusStrip.Invoke(new Action(() => toolStripStatusLabel_GlobalLogBox.ForeColor = AppLogMng.GetGobalLogStrColor()));
             }
             else
             {
-                // 在UI线程上直接访问控件
-                textBox_GlobalLog.Text = "控件已访问";
+                //在UI线程上直接访问控件
+                //由于确认该函数是在异步线程上访问的本UI线程控件 因此该处不做处理
             }
-        }
 
+
+
+        }
     }
 }

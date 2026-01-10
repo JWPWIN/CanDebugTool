@@ -36,13 +36,34 @@ public enum CanFrameType
 
 public class DeviceInterfaceMng
 {
-    private CanDeviceType curCanDeviceType = 0;//当前设备类型
+    static private DeviceInterfaceMng instance;//单例对象 
 
-    private CanFrameType curCanFrameType = 0;//当前CAN帧类型
+    public CanDeviceType curCanDeviceType = 0;//当前设备类型
 
-    private bool canDeviceOpenFlag = false;//是否有设备打开
+    public CanFrameType curCanFrameType = 0;//当前CAN帧类型
+
+    public bool canDeviceOpenFlag = false;//是否有设备打开
 
     private ZlgDevice zlgDevice = null;//周立功设备实例
+
+    public DeviceInterfaceMng()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+    }
+
+    static public DeviceInterfaceMng GetInstance()
+    {
+        if (instance == null)
+        {
+            MessageBox.Show("DeviceInterfaceMng has not instance!");
+            return null;
+        }
+        return instance;
+    }
 
     /// <summary>
     /// 打开CAN卡设备
@@ -54,7 +75,7 @@ public class DeviceInterfaceMng
         //未打开设备 直接返回
         if (canDeviceOpenFlag == true)
         {
-            AppLogMng.DisplayLog("已打开过设备!");
+            AppLogMng.DisplayLog("已打开过设备!",false);
             return;
         }
 
@@ -106,7 +127,7 @@ public class DeviceInterfaceMng
         if (successOpenFlag == true)
         {
             canDeviceOpenFlag = true;
-            AppLogMng.DisplayLog("打开设备成功!");
+            AppLogMng.DisplayLog("打开设备成功!", true);
         }
 
     }
@@ -119,7 +140,7 @@ public class DeviceInterfaceMng
         //未打开设备 直接返回
         if(canDeviceOpenFlag == false)
         {
-            AppLogMng.DisplayLog("未打开过设备!");
+            AppLogMng.DisplayLog("未打开过设备!", false);
             return;
         }
 
@@ -140,9 +161,26 @@ public class DeviceInterfaceMng
         if (successCloseFlag == true)
         {
             canDeviceOpenFlag = false;
-            AppLogMng.DisplayLog("关闭设备成功!");
+            AppLogMng.DisplayLog("关闭设备成功!",true);
+
+            //清除当前设备信息
+            ClearCurDeviceInfo();
         }
+
     }
 
+    /// <summary>
+    /// 清除当前设备信息
+    /// </summary>
+    private void ClearCurDeviceInfo()
+    {
+        curCanDeviceType = 0;//清除当前设备类型
+
+        curCanFrameType = 0;//清除当前CAN帧类型
+
+        canDeviceOpenFlag = false;//清除是否有设备打开
+
+        zlgDevice = null;//清除周立功设备实例
+    }
 
 }

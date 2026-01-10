@@ -20,13 +20,6 @@ namespace WindowsFormsApplication.UI
         private void Btn_ImpExcelDBC_Click(object sender, EventArgs e)
         {
             CanDbcDataManager.GetInstance().LoadCanMatrixFromExcel();
-
-            //如果DBC数据加载成功，按钮显示绿色
-            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-            {
-                this.Btn_ImpExcelDBC.BackColor = System.Drawing.Color.Green;
-            }
-
         }
 
         private void Btn_ExportDbc_Click(object sender, EventArgs e)
@@ -65,12 +58,6 @@ namespace WindowsFormsApplication.UI
         private void button_ImportTxtDbc_Click(object sender, EventArgs e)
         {
             CanDbcDataManager.GetInstance().LoadCanMatrixFromDBC();
-
-            //如果DBC数据加载成功，按钮显示绿色
-            if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-            {
-                this.Btn_ImpExcelDBC.BackColor = System.Drawing.Color.Green;
-            }
         }
     }
 }
