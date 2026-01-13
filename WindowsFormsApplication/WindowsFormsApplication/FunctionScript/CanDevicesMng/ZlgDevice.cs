@@ -20,8 +20,11 @@ public class ZlgDevice
     //报文发送失败后尝试重发定时器
     private ulong resendTimer = TimerTool.GetSysTime();
 
-    //设备接收报文缓存数据列表
-    List<ZCANDataObj_CSharp> receiveMsgBuffer = new List<ZCANDataObj_CSharp>();
+    //设备接收有效报文帧缓存数据列表
+    List<ZCANDataObj_CSharp> receiveValidFrameBuffer = new List<ZCANDataObj_CSharp>();
+
+    //设备接收错误帧缓存数据列表
+    List<ZCANDataObj_CSharp> receiveErrFrameBuffer = new List<ZCANDataObj_CSharp>();
 
     struct Can_Init_Config
     {
@@ -360,70 +363,19 @@ public class ZlgDevice
 
         if (cur_recv_data.dataType > 0)
         {
-            //存储接收报文到缓冲区
-            receiveMsgBuffer.Add(cur_recv_data);
+            if (cur_recv_data.dataType == 1)
+            {
+                //CAN或CANFD 数据
+                receiveValidFrameBuffer.Add(cur_recv_data);
+            }
 
-            AppLogMng.DisplayLog(receiveMsgBuffer.Count().ToString() + $"---0x{ cur_recv_data.canData.can_id.ToString("X4")}", true);
+            if (cur_recv_data.dataType == 2)
+            {
+                //错误数据
+                receiveErrFrameBuffer.Add(cur_recv_data);
+            }
 
-            //AppLogMng.DisplayLog(cur_recv_data.canData.can_id.ToString(), true);
-
-            //for (int i = 0; i < rcount; i++)
-            //{
-            //    AppLogMng.DisplayLog(recv_data.canData.can_id.ToString(), true);
-
-            //    if (recv_data[i].dataType != 0)
-            //        AppLogMng.DisplayLog(recv_data[i].dataType.ToString(), true);
-
-            //    if (recv_data[i].dataType != 1)
-            //    {
-            //        //只处理 CAN 或 CANFD 数据
-            //        continue;
-            //    }
-
-            //    AppLogMng.DisplayLog(recv_data[i].data.zcanCANFDData.canfd_Frame.can_id.ToString(), true);
-
-
-            //}
+            AppLogMng.DisplayLog(receiveValidFrameBuffer.Count().ToString() + $"-0x{ cur_recv_data.canData.can_id.ToString("X4")}", true);
         }
-
-        //while (g_thd_run)
-        //{
-        //    int rcount = ZCAN_ReceiveData(handle, recv_data, 100, 1);
-        //    int lcount = rcount;
-        //    while (g_thd_run && lcount > 0)
-        //    {
-        //        for (int i = 0; i < rcount; ++i, --lcount)
-        //        {
-        //            if (recv_data[i].dataType != ZCAN_DT_ZCAN_CAN_CANFD_DATA)
-        //            { // 
-        //                只处理 CAN 或 CANFD 数据
-        //            continue;
-        //            }
-        //            std::cout << "CHNL: " << std::dec << (int)recv_data[i].chnl; // 打印通道
-        //            ZCANCANFDData & can_data = recv_data[i].data.zcanCANFDData;
-        //            std::cout << " TIME:" << std::fixed << std::setprecision(6) <<
-        //            can_data.timeStamp / 1000000.0f << "s[" <<
-        //            std::dec << can_data.timeStamp << "]"; // 打印时间戳
-        //            if (can_data.flag.unionVal.txEchoed == 1)
-        //            {
-        //                std::cout << " [TX] "; // 发送帧
-        //            }
-        //            else
-        //            {
-        //                std::cout << " [RX] "; // 接收帧
-        //            }
-        //            std::cout << "ID: 0x" << std::hex << can_data.frame.can_id; // 打印 ID
-        //            std::cout << " LEN " << std::dec << (int)can_data.frame.len; // 打印长度
-        //            std::cout << " DATA " << std::hex; // 打印数据
-        //            for (int ind = 0; ind < can_data.frame.len; ++ind)
-        //            {
-        //                std::cout << std::hex << " " << (int)can_data.frame.data[ind];
-        //            }
-        //            std::cout << std::endl;
-        //        }
-        //    }
-        //    Sleep(10);
-        //}
-        //std::cout << "Thread exit" << std::endl;
     }
 }

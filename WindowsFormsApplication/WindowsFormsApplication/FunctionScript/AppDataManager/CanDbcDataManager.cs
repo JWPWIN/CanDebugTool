@@ -23,7 +23,7 @@ public class CanSignal
     public string sigName; //信号名
     public uint msgId;//信号所属报文ID
     public string sigDesc;//信号描述
-    public uint sigOrderType;//0：Motorola，1：Intel
+    public uint sigOrderType;//0：Motorola-LSB，1：Intel
     public uint sigStartBit;//信号起始位
     public uint sigLen;//信号长度
     public double sigFactor; //信号精度
