@@ -34,9 +34,6 @@ namespace WindowsFormsApplication
         /// </summary>
         public void MainLoopThread_Task_UpdateStatusStripInfo()
         {
-            //实时获取设备报文信息
-            DeviceInterfaceMng.GetInstance().Task_ReceiveMessagesFromDevice();
-
             //实时更新状态栏信息
             if (statusStrip.InvokeRequired)
             {

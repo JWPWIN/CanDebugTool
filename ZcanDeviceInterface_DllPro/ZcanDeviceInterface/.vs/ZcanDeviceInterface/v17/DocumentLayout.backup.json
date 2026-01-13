@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\Interface.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:Interface.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\zlgcan.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:zlgcan.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\typedef.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:typedef.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\SysTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:SysTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{74851EF6-BFBC-4BCF-979A-CAF74C52141D}|ZcanDeviceInterface.vcxproj|solutionrelative:config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SysTypes.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\SysTypes.h",
+              "RelativeDocumentMoniker": "SysTypes.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\SysTypes.h",
+              "RelativeToolTip": "SysTypes.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-13T03:41:27.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "pch.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\pch.h",
+              "RelativeDocumentMoniker": "pch.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\pch.h",
+              "RelativeToolTip": "pch.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-13T03:41:26.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "framework.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\framework.h",
+              "RelativeDocumentMoniker": "framework.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\framework.h",
+              "RelativeToolTip": "framework.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-13T03:41:24.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "config.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\config.h",
+              "RelativeDocumentMoniker": "config.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\config.h",
+              "RelativeToolTip": "config.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-13T03:41:22.45Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "typedef.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\typedef.h",
+              "RelativeDocumentMoniker": "typedef.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\typedef.h",
+              "RelativeToolTip": "typedef.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-13T02:26:10.429Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Interface.c",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\Interface.c",
+              "RelativeDocumentMoniker": "Interface.c",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\Interface.c",
+              "RelativeToolTip": "Interface.c",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-01-12T09:46:01.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "zlgcan.h",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\zlgcan.h",
+              "RelativeDocumentMoniker": "zlgcan.h",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\ZcanDeviceInterface_DllPro\\ZcanDeviceInterface\\zlgcan.h",
+              "RelativeToolTip": "zlgcan.h",
+              "ViewState": "AgIAAEgDAAAAAAAAAAAqwFQDAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-12T09:42:04.518Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

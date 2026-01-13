@@ -109,7 +109,8 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_1ms()
     {
-
+        //实时获取设备报文数据
+        DeviceInterfaceMng.GetInstance().MainLoopThread_Task_ReceiveMessagesFromDevice();
     }
 
     /// <summary>

@@ -20,6 +20,9 @@ public class ZlgDevice
     //报文发送失败后尝试重发定时器
     private ulong resendTimer = TimerTool.GetSysTime();
 
+    //设备接收报文缓存数据列表
+    List<ZCANDataObj_CSharp> receiveMsgBuffer = new List<ZCANDataObj_CSharp>();
+
     struct Can_Init_Config
     {
         public uint can_type;
@@ -34,36 +37,31 @@ public class ZlgDevice
         public uint reserved;
     }
 
-    struct ZCANDataObj
+    //用于C#程序的ZCANDataObj结构体数据
+    struct ZCANDataObj_CSharp
     {
-        public byte dataType;  //当前结构的数据类型: 1-CAN/CANFD数据;2-错误数据;3-GPS数据;4-LIN数据;5-总线利用率数据;6-LIN错误数据
-        public byte chnl;      //数据通道:数据类型表示CAN/CANFD/错误数据时，通道表示的是CAN通道 数据类型表示的是 LIN 数据时，通道表示的是设备的 LIN 通道
-        public ushort flag;    //数据标志，暂未使用
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] extraData;//数据标志，暂未使用
-        public ZCANDataObj_data data;//data 成员定义为联合体（CAN/CANFD 数据，dataType 值为 1 时有效；错误数据，dataType 值为 2 时有效）
-    }
+        public byte dataType;               // 数据类型, 参考eZCANDataDEF中 数据类型 部分定义
+        public byte chnl;                   // 数据通道
 
-    //[StructLayout(LayoutKind.Explicit)]
-    struct ZCANDataObj_data
-    {
-        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 92)]
-        //[FieldOffset(0)] public byte[] raw;
-        /*[FieldOffset(0)]*/ public ZCANCANFDData zcanCANFDData;
-        //[FieldOffset(0)] public ZCANErrorData zcanErrData;
-    }
+        public ulong timeStamp;                  // 时间戳,数据接收时单位微秒(us),队列延时发送时,数据单位取决于flag.unionVal.txDelay
 
-    struct ZCANCANFDData
-    {
-        //时间戳，作为接收帧时，时间戳单位微秒(us)。
-        //正常发送时，timeStamp 字段无意义。
-        //队列延迟发送数据时，timeStamp 字段存放发送当前帧后设备等待的时间，时间单位取决于 flag.unionVal.txDelay，等待时间结束后设备发送下一帧
-        public ulong timeStamp;
-        public uint flag; //flag 字段表示 CAN/CANFD 帧的标记信息，长度 4 字节
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] extraData;//数据标志，暂未使用
-        public canfd_frame canfd_Frame;
-    }
+        //ZCANErrorData
+        public byte errType;                    // 错误类型, 参考eZCANErrorDEF中 总线错误类型 部分值定义
+        public byte errSubType;                 // 错误子类型, 参考eZCANErrorDEF中 总线错误子类型 部分值定义
+        public byte nodeState;                  // 节点状态, 参考eZCANErrorDEF中 节点状态 部分值定义
+        public byte rxErrCount;                 // 接收错误计数
+        public byte txErrCount;                 // 发送错误计数
+        public byte errData;                    // 错误数据, 和当前错误类型以及错误子类型定义的具体错误相关, 具体请参考使用手册
+
+        //ZCANCANFDData
+        public byte frameType;                  // 帧类型, 0:CAN帧, 1:CANFD帧
+        public byte txDelay;                    // 队列发送延时, 发送有效. 0:无发送延时, 1:发送延时单位ms, 2:发送延时单位100us. 启用队列发送延时，延时时间存放在timeStamp字段
+        public byte transmitType;               // 发送类型, 发送有效. 0:正常发送, 1:单次发送, 2:自发自收, 3:单次自发自收. 所有设备支持正常发送，其他类型请参考具体使用手册
+        public byte txEchoRequest;              // 发送回显请求, 发送有效. 支持发送回显的设备,发送数据时将此位置1,设备可以通过接收接口将发送出去的数据帧返回,接收到的发送数据使用txEchoed位标记
+        public byte txEchoed;                   // 报文是否是回显报文, 接收有效. 0:正常总线接收报文, 1:本设备发送回显报文.
+        public canfd_frame canData;
+
+    };
 
     struct canfd_frame
     {
@@ -113,11 +111,11 @@ public class ZlgDevice
     [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
     static extern uint ZCAN_GetReceiveNum(uint channel_handle, byte type);
 
-    [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_ReceiveData(uint device_handle, ref ZCANDataObj pReceive, uint len, int wait_time);
+    [DllImport("ZcanDeviceInterface.dll", CallingConvention = CallingConvention.StdCall)]
+    static extern uint ZCAN_ReceiveData_Interface(uint device_handle, ref ZCANDataObj_CSharp pReceive_CSharp);
 
-    [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_TransmitData(uint device_handle, ref ZCANDataObj pTransmit, uint len);
+    [DllImport("ZcanDeviceInterface.dll", CallingConvention = CallingConvention.StdCall)]
+    static extern uint ZCAN_TransmitData(uint device_handle, ref ZCANDataObj_CSharp[] pTransmit_CSharp, uint len);
 
     /// <summary>
     /// 打开CAN设备
@@ -144,7 +142,7 @@ public class ZlgDevice
         //数据域设置(CAN-500K,CANFD-2M)
         if (frameType == CanFrameType.CANFD)
         {
-            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "2000000") != 1)
+            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_dbit_baud_rate", "2000000") != 1)
             {
                 AppLogMng.DisplayLog("设置数据域波特率失败!", false);
                 return false;
@@ -152,16 +150,13 @@ public class ZlgDevice
         }
         else
         {
-            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_abit_baud_rate", "500000") != 1)
+            if (ZCAN_SetValue(canDeviceHandle, "0/canfd_dbit_baud_rate", "500000") != 1)
             {
                 AppLogMng.DisplayLog("设置数据域波特率失败!", false);
                 return false;
             }
 
         }
-
-        // 设置合并接收标志，启用合并发送，接收接口（只需设置 1 次）
-        ZCAN_SetValue(canDeviceHandle, "0/set_device_recv_merge", "1");
 
         //CAN通道初始化
         Can_Init_Config can_Init_Config = new Can_Init_Config();
@@ -177,6 +172,38 @@ public class ZlgDevice
             AppLogMng.DisplayLog("初始化通道失败!", false);
             return false;
         }
+
+        // 使能通道终端电阻
+        if (0 == ZCAN_SetValue(canDeviceHandle, "0/initenal_resistance", "1"))
+        {
+            AppLogMng.DisplayLog("使能通道终端电阻失败!", false);
+        }
+
+        // 设置通道发送超时时间为 100ms
+        if (0 == ZCAN_SetValue(canDeviceHandle, "0/tx_timeout", "100"))
+        {
+            AppLogMng.DisplayLog("设置通道发送超时时间失败!", false);
+        }
+
+        //// 仅对 0 通道设置滤波
+        //if (0 == i)
+        //{
+        //    // 设置第一组滤波，只接收 ID 范围在 0x100-0x200 之间的标准帧
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_mode", "0"); // 标准帧
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_start", "0x100"); // 起始 ID
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_end", "0x200"); // 结束 ID
+        //                                                    // 设置第二组滤波，只接收 ID 范围在 0x1FFFF-0x2FFFF 之间的扩展帧
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_mode", "1"); // 扩展帧
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_start", "0x1FFFF"); // 起始 ID
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_end", "0x2FFFF"); // 结束 ID
+        //                                                      // 使能滤波
+        //    ZCAN_SetValue(canDeviceHandle, "0/filter_ack", "0");
+        //    // 清除滤波,此处仅举例，何时调用用户自由决定
+        //    // ZCAN_SetValue(device, "0/filter_clear", "0");
+        //}
+
+        // 设置合并接收标志，启用合并发送，接收接口（只需设置 1 次）
+        ZCAN_SetValue(canDeviceHandle, "0/set_device_recv_merge", "1");
 
         //启动CAN通道
         if (ZCAN_StartCAN(canChannelHandle) != 1)
@@ -270,43 +297,43 @@ public class ZlgDevice
 
     public bool Receive_CanFrame()
     {
-        ZCANDataObj canData = new ZCANDataObj();
-        canData.dataType = 1;
-        canData.chnl = 0;
-        canData.data = new ZCANDataObj_data();
-        canData.data.zcanCANFDData = new ZCANCANFDData();
-        canData.data.zcanCANFDData.flag = 1;//接收CANFD报文
+        //ZCANDataObj canData = new ZCANDataObj();
+        //canData.dataType = 1;
+        //canData.chnl = 0;
+        //canData.data = new ZCANDataObj_data();
+        //canData.data.zcanCANFDData = new ZCANCANFDData();
+        //canData.data.zcanCANFDData.flag = 1;//接收CANFD报文
 
-        uint recvMsgNum = 0;
-        recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
+        //uint recvMsgNum = 0;
+        //recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
 
-        if (recvMsgNum == 0)
-        {
-            return false;
-        }
+        //if (recvMsgNum == 0)
+        //{
+        //    return false;
+        //}
 
-        //waitTime:缓冲区无数据，函数阻塞等待时间，单位毫秒。若为-1 则表示无超时，一直等待，默认值为 - 1
-        uint realRecvMsgNum  = ZCAN_ReceiveData(canDeviceHandle, ref canData, 1, -1);
-        if (realRecvMsgNum == 0)
-        {
-            return false;
-        }
-        else
-        {
-            AppLogMng.DisplayLog("111", true);
-            //msgId = recvData.frame.can_id;
-            //Can_Uint64_Data can_Uint64_Data = new Can_Uint64_Data();
-            //can_Uint64_Data.BYTE0 = recvData.frame.data[0];
-            //can_Uint64_Data.BYTE1 = recvData.frame.data[1];
-            //can_Uint64_Data.BYTE2 = recvData.frame.data[2];
-            //can_Uint64_Data.BYTE3 = recvData.frame.data[3];
-            //can_Uint64_Data.BYTE4 = recvData.frame.data[4];
-            //can_Uint64_Data.BYTE5 = recvData.frame.data[5];
-            //can_Uint64_Data.BYTE6 = recvData.frame.data[6];
-            //can_Uint64_Data.BYTE7 = recvData.frame.data[7];
+        ////waitTime:缓冲区无数据，函数阻塞等待时间，单位毫秒。若为-1 则表示无超时，一直等待，默认值为 - 1
+        //uint realRecvMsgNum  = ZCAN_ReceiveData(canDeviceHandle, ref canData, 1, -1);
+        //if (realRecvMsgNum == 0)
+        //{
+        //    return false;
+        //}
+        //else
+        //{
+        //    AppLogMng.DisplayLog("111", true);
+        //    //msgId = recvData.frame.can_id;
+        //    //Can_Uint64_Data can_Uint64_Data = new Can_Uint64_Data();
+        //    //can_Uint64_Data.BYTE0 = recvData.frame.data[0];
+        //    //can_Uint64_Data.BYTE1 = recvData.frame.data[1];
+        //    //can_Uint64_Data.BYTE2 = recvData.frame.data[2];
+        //    //can_Uint64_Data.BYTE3 = recvData.frame.data[3];
+        //    //can_Uint64_Data.BYTE4 = recvData.frame.data[4];
+        //    //can_Uint64_Data.BYTE5 = recvData.frame.data[5];
+        //    //can_Uint64_Data.BYTE6 = recvData.frame.data[6];
+        //    //can_Uint64_Data.BYTE7 = recvData.frame.data[7];
 
-            //msgData = can_Uint64_Data;
-        }
+        //    //msgData = can_Uint64_Data;
+        //}
 
         return true;
     }
@@ -324,27 +351,39 @@ public class ZlgDevice
         {
             return;
         }
-        
 
-        //接收报文数据
-        ZCANDataObj[] recv_data = new ZCANDataObj[100]; // 定义接收数据缓冲区，100 仅用于举例，根据实际情况定义
+        //接收报文数据一帧
+        ZCANDataObj_CSharp cur_recv_data = new ZCANDataObj_CSharp(); // 定义报文接收结构体
 
-        uint rcount = ZCAN_ReceiveData(canDeviceHandle, ref recv_data[0], 100, 1);
+        //剩余可以获取的报文数量
+        uint availableDataNum = ZCAN_ReceiveData_Interface(canDeviceHandle,ref cur_recv_data);
 
-        if (rcount > 0)
+        if (cur_recv_data.dataType > 0)
         {
-            for (int i = 0; i < rcount; i++)
-            {
-                if (recv_data[i].dataType != 1)
-                {  
-                    //只处理 CAN 或 CANFD 数据
-                    continue;
-                }
+            //存储接收报文到缓冲区
+            receiveMsgBuffer.Add(cur_recv_data);
 
-                AppLogMng.DisplayLog(recv_data[i].data.zcanCANFDData.canfd_Frame.can_id.ToString(),true);
+            AppLogMng.DisplayLog(receiveMsgBuffer.Count().ToString() + $"---0x{ cur_recv_data.canData.can_id.ToString("X4")}", true);
+
+            //AppLogMng.DisplayLog(cur_recv_data.canData.can_id.ToString(), true);
+
+            //for (int i = 0; i < rcount; i++)
+            //{
+            //    AppLogMng.DisplayLog(recv_data.canData.can_id.ToString(), true);
+
+            //    if (recv_data[i].dataType != 0)
+            //        AppLogMng.DisplayLog(recv_data[i].dataType.ToString(), true);
+
+            //    if (recv_data[i].dataType != 1)
+            //    {
+            //        //只处理 CAN 或 CANFD 数据
+            //        continue;
+            //    }
+
+            //    AppLogMng.DisplayLog(recv_data[i].data.zcanCANFDData.canfd_Frame.can_id.ToString(), true);
 
 
-            }
+            //}
         }
 
         //while (g_thd_run)

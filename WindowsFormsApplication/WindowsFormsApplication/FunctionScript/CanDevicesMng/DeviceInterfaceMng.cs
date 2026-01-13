@@ -183,7 +183,7 @@ public class DeviceInterfaceMng
         zlgDevice = null;//清除周立功设备实例
     }
 
-    public void Task_ReceiveMessagesFromDevice()
+    public void MainLoopThread_Task_ReceiveMessagesFromDevice()
     {
         //未打开设备 直接返回
         if (canDeviceOpenFlag == false)
