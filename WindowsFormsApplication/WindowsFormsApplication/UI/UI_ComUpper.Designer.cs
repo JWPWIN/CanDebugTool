@@ -35,7 +35,10 @@
             label1 = new System.Windows.Forms.Label();
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
             Btn_ConnectDevice = new System.Windows.Forms.Button();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            uI_Row_RecvSigDisplay1 = new UI_Row_RecvSigDisplay();
             groupBox2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
@@ -46,11 +49,12 @@
             groupBox2.Controls.Add(label1);
             groupBox2.Controls.Add(comboBox_CanDeviceType);
             groupBox2.Controls.Add(Btn_ConnectDevice);
-            groupBox2.Location = new System.Drawing.Point(4, 15);
+            groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox2.Location = new System.Drawing.Point(0, 0);
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            groupBox2.Size = new System.Drawing.Size(352, 95);
+            groupBox2.Size = new System.Drawing.Size(759, 95);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "设备管理";
@@ -115,15 +119,50 @@
             Btn_ConnectDevice.UseVisualStyleBackColor = true;
             Btn_ConnectDevice.Click += Btn_ConnectDevice_Click;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(uI_Row_RecvSigDisplay1, 0, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 95);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 10;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(311, 393);
+            tableLayoutPanel1.TabIndex = 6;
+            // 
+            // uI_Row_RecvSigDisplay1
+            // 
+            uI_Row_RecvSigDisplay1.AutoSize = true;
+            uI_Row_RecvSigDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
+            uI_Row_RecvSigDisplay1.Location = new System.Drawing.Point(3, 3);
+            uI_Row_RecvSigDisplay1.Name = "uI_Row_RecvSigDisplay1";
+            uI_Row_RecvSigDisplay1.Size = new System.Drawing.Size(305, 24);
+            uI_Row_RecvSigDisplay1.TabIndex = 0;
+            // 
             // UI_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(groupBox2);
             Name = "UI_ComUpper";
             Size = new System.Drawing.Size(759, 488);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -136,5 +175,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_CanDeviceType;
         private System.Windows.Forms.Button Btn_ConnectDevice;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private UI_Row_RecvSigDisplay uI_Row_RecvSigDisplay1;
     }
 }

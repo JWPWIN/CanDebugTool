@@ -31,23 +31,23 @@
         {
             tabControl_AllFunsSplit = new System.Windows.Forms.TabControl();
             tabPage_FirstPage = new System.Windows.Forms.TabPage();
+            uI_DbcDataManager = new WindowsFormsApplication.UI.UI_DbcDataManager();
+            tabPage_CanMatrix = new System.Windows.Forms.TabPage();
+            uI_CanMatrix = new WindowsFormsApplication.UI.UI_CanMatrix();
+            tabPage_ComUpper = new System.Windows.Forms.TabPage();
+            uI_ComUpper = new WindowsFormsApplication.UI.UI_ComUpper();
             statusStrip = new System.Windows.Forms.StatusStrip();
             toolStripStatusLabel_CurSysTime = new System.Windows.Forms.ToolStripStatusLabel();
             toolStripStatusLabel_CurPageName = new System.Windows.Forms.ToolStripStatusLabel();
             toolStripStatusLabel_DBCState = new System.Windows.Forms.ToolStripStatusLabel();
             toolStripStatusLabel_DeviceCntState = new System.Windows.Forms.ToolStripStatusLabel();
             toolStripStatusLabel_GlobalLogBox = new System.Windows.Forms.ToolStripStatusLabel();
-            uI_DbcDataManager = new WindowsFormsApplication.UI.UI_DbcDataManager();
-            tabPage_CanMatrix = new System.Windows.Forms.TabPage();
-            uI_CanMatrix = new WindowsFormsApplication.UI.UI_CanMatrix();
-            tabPage_ComUpper = new System.Windows.Forms.TabPage();
-            uI_ComUpper = new WindowsFormsApplication.UI.UI_ComUpper();
             toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             tabControl_AllFunsSplit.SuspendLayout();
             tabPage_FirstPage.SuspendLayout();
-            statusStrip.SuspendLayout();
             tabPage_CanMatrix.SuspendLayout();
             tabPage_ComUpper.SuspendLayout();
+            statusStrip.SuspendLayout();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
@@ -75,6 +75,52 @@
             tabPage_FirstPage.TabIndex = 0;
             tabPage_FirstPage.Text = "首页";
             tabPage_FirstPage.UseVisualStyleBackColor = true;
+            // 
+            // uI_DbcDataManager
+            // 
+            uI_DbcDataManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            uI_DbcDataManager.Location = new System.Drawing.Point(3, 3);
+            uI_DbcDataManager.Name = "uI_DbcDataManager";
+            uI_DbcDataManager.Size = new System.Drawing.Size(786, 542);
+            uI_DbcDataManager.TabIndex = 0;
+            // 
+            // tabPage_CanMatrix
+            // 
+            tabPage_CanMatrix.Controls.Add(uI_CanMatrix);
+            tabPage_CanMatrix.Location = new System.Drawing.Point(4, 26);
+            tabPage_CanMatrix.Name = "tabPage_CanMatrix";
+            tabPage_CanMatrix.Padding = new System.Windows.Forms.Padding(3);
+            tabPage_CanMatrix.Size = new System.Drawing.Size(792, 548);
+            tabPage_CanMatrix.TabIndex = 1;
+            tabPage_CanMatrix.Text = "CAN矩阵";
+            tabPage_CanMatrix.UseVisualStyleBackColor = true;
+            // 
+            // uI_CanMatrix
+            // 
+            uI_CanMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
+            uI_CanMatrix.Location = new System.Drawing.Point(3, 3);
+            uI_CanMatrix.Name = "uI_CanMatrix";
+            uI_CanMatrix.Size = new System.Drawing.Size(786, 542);
+            uI_CanMatrix.TabIndex = 0;
+            // 
+            // tabPage_ComUpper
+            // 
+            tabPage_ComUpper.Controls.Add(uI_ComUpper);
+            tabPage_ComUpper.Location = new System.Drawing.Point(4, 26);
+            tabPage_ComUpper.Name = "tabPage_ComUpper";
+            tabPage_ComUpper.Padding = new System.Windows.Forms.Padding(3);
+            tabPage_ComUpper.Size = new System.Drawing.Size(792, 548);
+            tabPage_ComUpper.TabIndex = 2;
+            tabPage_ComUpper.Text = "通信上位机";
+            tabPage_ComUpper.UseVisualStyleBackColor = true;
+            // 
+            // uI_ComUpper
+            // 
+            uI_ComUpper.Dock = System.Windows.Forms.DockStyle.Fill;
+            uI_ComUpper.Location = new System.Drawing.Point(3, 3);
+            uI_ComUpper.Name = "uI_ComUpper";
+            uI_ComUpper.Size = new System.Drawing.Size(786, 542);
+            uI_ComUpper.TabIndex = 0;
             // 
             // statusStrip
             // 
@@ -116,52 +162,6 @@
             toolStripStatusLabel_GlobalLogBox.Size = new System.Drawing.Size(78, 17);
             toolStripStatusLabel_GlobalLogBox.Text = "全局Log消息";
             // 
-            // uI_DbcDataManager
-            // 
-            uI_DbcDataManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            uI_DbcDataManager.Location = new System.Drawing.Point(3, 3);
-            uI_DbcDataManager.Name = "uI_DbcDataManager";
-            uI_DbcDataManager.Size = new System.Drawing.Size(786, 542);
-            uI_DbcDataManager.TabIndex = 0;
-            // 
-            // tabPage_CanMatrix
-            // 
-            tabPage_CanMatrix.Controls.Add(uI_CanMatrix);
-            tabPage_CanMatrix.Location = new System.Drawing.Point(4, 26);
-            tabPage_CanMatrix.Name = "tabPage_CanMatrix";
-            tabPage_CanMatrix.Padding = new System.Windows.Forms.Padding(3);
-            tabPage_CanMatrix.Size = new System.Drawing.Size(792, 570);
-            tabPage_CanMatrix.TabIndex = 1;
-            tabPage_CanMatrix.Text = "CAN矩阵";
-            tabPage_CanMatrix.UseVisualStyleBackColor = true;
-            // 
-            // uI_CanMatrix
-            // 
-            uI_CanMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
-            uI_CanMatrix.Location = new System.Drawing.Point(3, 3);
-            uI_CanMatrix.Name = "uI_CanMatrix";
-            uI_CanMatrix.Size = new System.Drawing.Size(786, 564);
-            uI_CanMatrix.TabIndex = 0;
-            // 
-            // tabPage_ComUpper
-            // 
-            tabPage_ComUpper.Controls.Add(uI_ComUpper);
-            tabPage_ComUpper.Location = new System.Drawing.Point(4, 26);
-            tabPage_ComUpper.Name = "tabPage_ComUpper";
-            tabPage_ComUpper.Padding = new System.Windows.Forms.Padding(3);
-            tabPage_ComUpper.Size = new System.Drawing.Size(792, 570);
-            tabPage_ComUpper.TabIndex = 2;
-            tabPage_ComUpper.Text = "通信上位机";
-            tabPage_ComUpper.UseVisualStyleBackColor = true;
-            // 
-            // uI_ComUpper
-            // 
-            uI_ComUpper.Dock = System.Windows.Forms.DockStyle.Fill;
-            uI_ComUpper.Location = new System.Drawing.Point(3, 3);
-            uI_ComUpper.Name = "uI_ComUpper";
-            uI_ComUpper.Size = new System.Drawing.Size(786, 564);
-            uI_ComUpper.TabIndex = 0;
-            // 
             // toolStripContainer1
             // 
             // 
@@ -195,10 +195,10 @@
             Text = "CAN调试工具";
             tabControl_AllFunsSplit.ResumeLayout(false);
             tabPage_FirstPage.ResumeLayout(false);
-            statusStrip.ResumeLayout(false);
-            statusStrip.PerformLayout();
             tabPage_CanMatrix.ResumeLayout(false);
             tabPage_ComUpper.ResumeLayout(false);
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
             toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
             toolStripContainer1.BottomToolStripPanel.PerformLayout();
             toolStripContainer1.ContentPanel.ResumeLayout(false);
