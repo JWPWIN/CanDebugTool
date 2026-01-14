@@ -1,0 +1,596 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: OBC ECU
+VAL_TABLE_ DCDCactivationRequestReversible 7 "Not Used" 6 "Not Used" 5 "Not Used" 4 "Reset request" 3 "Direct Mode (HV>12V) request" 2 "Reverse Mode (12V>HV) request" 1 "Precharge Mode request" 0 "OFF request" ;
+
+
+BO_ 689 HEVC_RN135: 2 ECU
+ SG_ DCDCactivationRequestReversible : 11|3@0+ (1,0) [0|7] ""  OBC
+ SG_ Clock_HEVC_RN135 : 15|4@0+ (1,0) [0|15] ""  OBC
+ SG_ CRC_HEVC_RN135 : 7|8@0+ (1,0) [0|255] ""  OBC
+
+BO_ 444 HEVC_RN134: 5 ECU
+ SG_ DCDC_HVvoltageRegulation_HV_v2 : 31|13@0+ (0.1,0) [0|500] "V"  OBC
+ SG_ DCDC_12VcurrentLimitation_HV : 23|8@0+ (1,-255) [-255|0] "A"  OBC
+
+BO_ 1642 HEVC_RN111: 8 Vector__XXX
+ SG_ VehicleStates_HV : 59|4@0+ (1,0) [0|15] ""  OBC
+ SG_ AbsoluteTimeSince1rstlgn_HV : 39|24@0+ (1,0) [0|16770000] "min" Vector__XXX
+
+BO_ 2564502513 DiagFuncID: 8 ECU
+ SG_ DiagFuncSig : 7|64@0+ (1,0) [0|0] ""  OBC
+
+BO_ 2564485597 DiagReceID: 8 OBC
+ SG_ DiagReceSig : 7|64@0+ (1,0) [0|0] ""  ECU
+
+BO_ 2564480497 DiagPhyID: 8 ECU
+ SG_ DiagPhySig : 7|64@0+ (1,0) [0|0] ""  OBC
+
+BO_ 1072 HEVC_RN107: 8 ECU
+ SG_ ICE_RawFuelGaugeResistance : 23|10@0+ (1,0) [0|1022] "Ohm"  OBC
+ SG_ PWT_DC_WakeUpSleepCommand : 47|2@0+ (1,0) [0|3] ""  OBC
+ SG_ CHGStateRequest : 53|3@0+ (1,0) [0|7] ""  OBC
+ SG_ IgnitionSupplyConfirmation_HV : 50|1@0+ (1,0) [0|1] ""  OBC
+ SG_ GADE_HV_v2 : 60|3@0+ (1,0) [0|7] ""  OBC
+ SG_ DCDCActivation : 45|2@0+ (1,0) [0|3] ""  OBC
+
+BO_ 1073 HEVC_RN108: 8 ECU
+ SG_ ExternalTemp_HV : 7|8@0+ (1,-40) [-40|214] "°C"  OBC
+ SG_ DistanceTotalizer_HV : 24|28@0+ (0.01,0) [0|2600000] "km"  OBC
+
+BO_ 129 HEVC_RN109: 8 ECU
+ SG_ CRC_HEVC_RN109 : 7|8@0+ (1,0) [0|255] ""  OBC
+ SG_ Clock_HEVC_RN109 : 15|4@0+ (1,0) [0|15] ""  OBC
+ SG_ HVCurrentRequest : 53|11@0+ (0.1,0) [0|204.60001] "A"  OBC
+
+BO_ 1075 HEVC_RN115: 7 ECU
+ SG_ CRC_HEVC_RN115 : 7|8@0+ (1,0) [0|255] ""  OBC
+ SG_ Clock_HEVC_RN115 : 15|4@0+ (1,0) [0|15] ""  OBC
+ SG_ CHGStateRequest_v2 : 43|3@0+ (1,0) [0|15] ""  OBC
+
+BO_ 456 HEVC_RN123: 8 ECU
+ SG_ CHGMaxACCurrent_v2 : 15|9@0+ (0.1,0) [0|51] "A"  OBC
+ SG_ DCDCVoltageRegulation_v2 : 7|8@0+ (0.025,11.7) [11.7|16] "V"  OBC
+
+BO_ 1074 HEVC_RN113: 8 ECU
+ SG_ BatteryVoltage12V_HV : 31|8@0+ (0.06,6) [6|18] "V"  OBC
+ SG_ OBDPrmtDelCdn_HV : 38|1@0+ (1,0) [0|1] ""  OBC
+ SG_ OBDWarmUpCycleDet_HV : 37|1@0+ (1,0) [0|1] ""  OBC
+ SG_ CHGcontrolPilotState : 44|3@0+ (1,0) [0|7] ""  OBC
+ SG_ OBD_Ready_On_HV : 49|1@0+ (1,0) [0|1] ""  OBC
+
+BO_ 1757 HEVC_RN114: 8 ECU
+ SG_ HVFOTAConditionCheckStatus_HV : 15|2@0+ (1,0) [0|3] ""  OBC
+ SG_ CRC_HEVC_RN114 : 39|8@0+ (1,0) [0|255] ""  OBC
+ SG_ Clock_HEVC_RN114 : 47|4@0+ (1,0) [0|15] ""  OBC
+ SG_ V2L_ActivationRequestForOBC : 51|2@0+ (1,0) [0|3] ""  OBC
+ SG_ Active_anti_islanding_activation : 49|1@0+ (1,0) [0|1] ""  OBC
+ SG_ V2L_VoltageSetpoint_v2 : 63|8@0+ (2,0) [0|500] "V"  OBC
+
+BO_ 1430 HEVC_RN124: 8 ECU
+ SG_ BatteryMaxDischargeCurrent : 25|9@0+ (0.1,0) [0|51] "A"  OBC
+ SG_ V2L_FrequencySetpoint : 46|1@0+ (1,0) [0|1] ""  OBC
+ SG_ V2L_OutletCurrentLimitation : 45|6@0+ (1,0) [0|60] "A"  OBC
+ SG_ DriveCycle_HV : 63|1@0+ (1,0) [0|1] ""  OBC
+ SG_ V2L_PlugStatus_HV : 58|2@0+ (1,0) [0|3] ""  OBC
+ SG_ V2Li_SwitchStatus_HV : 56|1@0+ (1,0) [0|1] ""  OBC
+
+BO_ 734 HEVC_RN130: 3 ECU
+ SG_ HEVC_Target_Angle : 7|12@0+ (0.1,0) [0|360] "°"  OBC
+ SG_ HEVC_Target_RMSCurrent : 11|12@0+ (0.1,-204.600006) [-204.600006|204.600006] "A"  OBC
+
+BO_ 1084 HEVC_RN131: 6 ECU
+ SG_ AcceleratorPedalPositionD_HV : 7|8@0+ (0.392156862745098,0) [0|100] "%"  OBC
+
+BO_ 1107 USM_A101: 8 ECU
+ SG_ BatteryVoltage : 31|8@0+ (0.06,6) [6|18] "V"  OBC
+
+BO_ 126 HEVC_RN104: 8 ECU
+ SG_ VehicleSpeed_HV : 7|16@0+ (0.01,0) [0|655.340027] "km/h"  OBC
+ SG_ ICE_RawSensor : 23|10@0+ (0.125,0) [0|125] "%"  OBC
+ SG_ CRC_HEVC_RN104 : 55|8@0+ (1,0) [0|255] ""  OBC
+ SG_ Clock_HEVC_RN104 : 63|4@0+ (1,0) [0|15] ""  OBC
+
+BO_ 1113 BMS_RN104: 7 ECU
+ SG_ UserSOC_HV : 23|13@0+ (0.02,0) [0|100] "%"  OBC
+
+BO_ 1111 BMS_RN102: 8 ECU
+ SG_ CRC_BMS_RN102 : 7|8@0+ (1,0) [0|255] ""  OBC
+ SG_ Clock_BMS_RN102 : 11|4@0+ (1,0) [0|15] ""  OBC
+ SG_ BMS_FaultType : 21|3@0+ (1,0) [0|7] ""  OBC
+
+BO_ 112 CHG_CANHS_R_101: 6 OBC
+ SG_ CRC_CHG_CANHS_R_101 : 7|8@0+ (1,0) [0|255] ""  ECU
+ SG_ Clock_CHG_CANHS_R_101 : 15|4@0+ (1,0) [0|15] ""  ECU
+ SG_ MainsRMSVoltage : 11|10@0+ (0.5,0) [0|500] "V"  ECU
+ SG_ MainsRMSCurrent : 17|9@0+ (0.1,0) [0|51] "A"  ECU
+ SG_ CHGDCVoltage : 24|13@0+ (0.1,0) [0|500] "V"  ECU
+ SG_ CHGDCInterlockState : 43|2@0+ (1,0) [0|3] ""  ECU
+ SG_ CHGMainsACInterlockState : 41|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 1117 CHG_CANHS_R_102: 4 OBC
+ SG_ CHGAvailableChargingPower_v2 : 7|10@0+ (0.05,0) [0|51] "kW"  ECU
+ SG_ CHGLoadState : 13|3@0+ (1,0) [0|7] ""  ECU
+ SG_ CHGRefuseToSleep : 10|2@0+ (1,0) [0|3] ""  ECU
+ SG_ CHGTemp : 8|7@0+ (1,0) [0|100] "%"  ECU
+ SG_ OBC_MILlamp : 17|2@0+ (1,0) [0|3] ""  ECU
+ SG_ CHG_V2L_InterlockState : 31|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 1569 CHG_CANHS_R_103: 2 OBC
+ SG_ CHGWaterTemp_v2 : 7|6@0+ (2,-33) [-33|93] "°C"  ECU
+ SG_ CHG_ChargeFailureDisplay : 1|1@0+ (1,0) [0|1] ""  ECU
+ SG_ CHG_FaultType : 15|3@0+ (1,0) [0|7] ""  ECU
+
+BO_ 1377 OBC_RN101: 3 OBC
+ SG_ ACchargeMinimumPowerLimit : 7|9@0+ (0.05,0) [0|22] "kW"  ECU
+ SG_ V2Li_RMSCurrent : 14|9@0+ (0.1,0) [0|51] "A"  ECU
+
+BO_ 1407 OBC_RN102: 8 OBC
+ SG_ ACmeasuredActivePower : 7|12@0+ (0.05,-60) [-60|60] "kW"  ECU
+ SG_ ACmeasuredReactivePower : 11|12@0+ (0.05,-60) [-60|60] "kVAR"  ECU
+ SG_ V2L_FrequencyAppliedByCharger : 31|1@0+ (1,0) [0|1] ""  ECU
+ SG_ V2L_ActivationStatusFeedback : 30|2@0+ (1,0) [0|3] ""  ECU
+ SG_ V2X_DischargeFailure : 28|4@0+ (1,0) [0|15] ""  ECU
+ SG_ BOBC_DCpowerMeasured : 24|19@0+ (0.001,-200) [-200|200] "kW"  ECU
+ SG_ ACConsumedPower : 53|12@0+ (0.1,0) [0|400] "kW"  ECU
+
+BO_ 1646 OBC_RN103: 5 OBC
+ SG_ CRC_OBC_RN103 : 7|8@0+ (1,0) [0|255] ""  ECU
+ SG_ Clock_OBC_RN103 : 15|4@0+ (1,0) [0|15] ""  ECU
+ SG_ Unlocking_authorisation : 11|1@0+ (1,0) [0|1] ""  ECU
+ SG_ BOBCType : 10|3@0+ (1,0) [0|7] ""  ECU
+ SG_ OBC_Maximum_Charging_Current : 23|9@0+ (0.1,0) [0|51] "A"  ECU
+ SG_ OBC_Maximum_Discharging_Current : 30|9@0+ (0.1,0) [0|51] "A"  ECU
+ SG_ OBECMfreeze_OBCAC : 37|1@0+ (1,0) [0|1] ""  ECU
+
+BO_ 1771 OBC_RN104: 7 OBC
+ SG_ CHGAvailableDisChargingPower : 7|9@0+ (0.1,0) [0|51] "KW"  ECU
+ SG_ ACInputCurrentSensorOC : 14|2@0+ (1,0) [0|3] ""  ECU
+ SG_ ACInputCurrentSensorSCG : 12|2@0+ (1,0) [0|3] ""  ECU
+ SG_ ACInputVoltageSensorOC : 10|2@0+ (1,0) [0|3] ""  ECU
+ SG_ ACInputVoltageSensorSCG : 23|2@0+ (1,0) [0|3] ""  ECU
+ SG_ InletWaterTempSensorOC : 17|2@0+ (1,0) [0|3] ""  ECU
+ SG_ InletWaterTempSensorSCG : 31|2@0+ (1,0) [0|3] ""  ECU
+ SG_ OBCOutputCurrentSensorOC : 29|2@0+ (1,0) [0|3] ""  ECU
+ SG_ OBCOutputCurrentSensorSCG : 27|2@0+ (1,0) [0|3] ""  ECU
+ SG_ OBCOutputVoltageSensorOC : 25|2@0+ (1,0) [0|3] ""  ECU
+ SG_ OBCOutputVoltageSensorSCG : 39|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 41 RECT_RN1: 3 OBC
+ SG_ NumberOfPhasesUsed : 13|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 113 DCDC_RN102: 5 OBC
+ SG_ DCDCHVNetworkVoltage_V3 : 11|13@0+ (0.1,0) [0|500] "V"  ECU
+ SG_ DCDCInputPower : 30|6@0+ (0.1,0) [0|6] "kW"  ECU
+ SG_ DCDCInputPower_Reversible : 39|7@0+ (0.1,-6) [-6|6] "kW"  ECU
+
+BO_ 1580 DCDC_RN103: 3 OBC
+ SG_ DCDCWaterTemp : 4|8@0+ (1,-40) [-40|214] "°C"  ECU
+ SG_ DCDC_ElecSysFailureDisplay : 12|1@0+ (1,0) [0|1] ""  ECU
+ SG_ DCDCTemp : 11|7@0+ (1,0) [0|100] "%"  ECU
+ SG_ DCDC_ElecMotorFailureDisplay : 20|1@0+ (1,0) [0|1] ""  ECU
+ SG_ DCDCState_v3 : 19|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 1118 DCDC_RN104: 8 OBC
+ SG_ MaxCurrentAvailableBySystem : 7|8@0+ (1,0) [0|254] "A"  ECU
+ SG_ DCDCCurrentOutput : 15|8@0+ (1,0) [0|254] "A"  ECU
+ SG_ DCDC_Fault_Type : 23|3@0+ (1,0) [0|7] ""  ECU
+ SG_ OBC_DCDC_RefusetoSleep : 20|2@0+ (1,0) [0|3] ""  ECU
+ SG_ DCDCState : 18|2@0+ (1,0) [0|3] ""  ECU
+ SG_ CRC_DCDC_RN104 : 31|8@0+ (1,0) [0|255] ""  ECU
+ SG_ Clock_DCDC_RN104 : 39|4@0+ (1,0) [0|15] ""  ECU
+ SG_ DCDC_12VCurrent : 35|10@0+ (1,-511) [-511|512] "A"  ECU
+ SG_ DCDC_Max12VcurrentAvailable_HV : 55|10@0+ (1,0) [0|512] "A"  ECU
+ SG_ DCDC_eComp_InterlockState : 61|2@0+ (1,0) [0|3] ""  ECU
+ SG_ DCDC_ePTC_InterlockState : 59|2@0+ (1,0) [0|3] ""  ECU
+ SG_ DCDC_Access_InterlockState : 57|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 1750 DCDC_RN105: 2 OBC
+ SG_ CRC_DCDC_RN105 : 7|8@0+ (1,0) [0|255] ""  ECU
+ SG_ Clock_DCDC_RN105 : 15|4@0+ (1,0) [0|15] ""  ECU
+ SG_ DCDCInterlockState_v2 : 11|2@0+ (1,0) [0|3] ""  ECU
+
+BO_ 292 OBC_Debug2: 7 OBC
+ SG_ LV_OutVolt : 0|16@1+ (0.1,0) [0|6553.5] "V"  ECU
+ SG_ LV_Current : 16|16@1+ (0.1,0) [0|6553.5] "A"  ECU
+ SG_ OBC_ChargeLimitPower : 32|8@1+ (0.1,0) [0|25.5] "kW"  ECU
+ SG_ OBC_DischargeLimitPower : 40|8@1+ (0.1,0) [0|25.5] "kW"  ECU
+ SG_ DCDC_OutputLimitPower : 48|8@1+ (0.1,0) [0|25.5] "kW"  ECU
+
+BO_ 293 OBC_Debug3: 7 OBC
+ SG_ DCDC_State : 48|4@1+ (1,0) [0|15] ""  ECU
+ SG_ OBC_State : 8|4@1+ (1,0) [0|15] ""  ECU
+ SG_ NM_State : 2|2@1+ (1,0) [0|3] ""  ECU
+ SG_ OBC_StateStep : 4|4@1+ (1,0) [0|15] ""  ECU
+ SG_ DCDC_StateStep : 12|4@1+ (1,0) [0|15] ""  ECU
+ SG_ FaultCode : 16|8@1+ (1,0) [0|255] ""  ECU
+ SG_ ClientTestVersion : 24|8@1+ (1,0) [0|255] ""  ECU
+ SG_ OBC_Mos_Temp : 32|8@1+ (1,-40) [0|215] ""  ECU
+ SG_ DCDC_Mos_Temp : 40|8@1+ (1,-40) [0|215] ""  ECU
+
+BO_ 291 OBC_Debug1: 8 OBC
+ SG_ HV_Current : 48|16@1+ (0.1,0) [0|6553.5] "A"  ECU
+ SG_ HV_Voltage : 32|16@1+ (0.1,0) [0|6553.5] "V"  ECU
+ SG_ AC_Current : 16|16@1+ (0.1,0) [0|6553.5] "A"  ECU
+ SG_ AC_Voltage : 0|16@1+ (0.1,0) [0|6553.5] "V"  ECU
+
+BO_ 294 OBC_Debug4: 8 OBC
+ SG_ HwVersion : 16|16@1+ (1,0) [0|255] ""  ECU
+ SG_ AC_Frequncy : 0|16@1+ (0.1,0) [0|6553.5] "Hz"  ECU
+
+
+CM_ SG_ 1642 VehicleStates_HV "Vehicle States
+车辆状态";
+CM_ BO_ 2564502513 "Diagnostic function address";
+CM_ BO_ 2564485597 "Diagnostic receive address";
+CM_ BO_ 2564480497 "Diagnostic physical address";
+CM_ SG_ 1072 DCDCActivation "DCDC使能";
+CM_ SG_ 129 HVCurrentRequest "充电输出电流请求";
+CM_ SG_ 1075 CHGStateRequest_v2 "OBC状态请求";
+CM_ SG_ 456 CHGMaxACCurrent_v2 "充电输入电流限制";
+CM_ SG_ 456 DCDCVoltageRegulation_v2 "DCDC输出电压设置";
+CM_ SG_ 1074 CHGcontrolPilotState "充电控制引导状态";
+CM_ SG_ 1757 V2L_ActivationRequestForOBC "车外放电请求";
+CM_ SG_ 1757 V2L_VoltageSetpoint_v2 "逆变输出电压请求";
+CM_ SG_ 1430 V2L_FrequencySetpoint "逆变输出频率设置";
+CM_ SG_ 1430 V2L_OutletCurrentLimitation "逆变输出电流限制";
+CM_ SG_ 112 MainsRMSVoltage "充电AC电压";
+CM_ SG_ 112 MainsRMSCurrent "充电AC电流";
+CM_ SG_ 112 CHGDCVoltage "充电DC电压";
+CM_ SG_ 1117 CHGAvailableChargingPower_v2 "OBC最大可输出功率";
+CM_ SG_ 1117 CHGLoadState "OBC工作状态上报";
+CM_ SG_ 1117 CHGRefuseToSleep "OBC是否允许休眠";
+CM_ SG_ 1117 CHGTemp "OBC MOS温度";
+CM_ SG_ 1569 CHGWaterTemp_v2 "OBC水道温度";
+CM_ SG_ 1569 CHG_ChargeFailureDisplay "充电故障是否显示";
+CM_ SG_ 1569 CHG_FaultType "充电故障类型";
+CM_ SG_ 1377 V2Li_RMSCurrent "逆变输出电流";
+CM_ SG_ 1407 V2L_FrequencyAppliedByCharger "逆变AC频率";
+CM_ SG_ 1407 V2L_ActivationStatusFeedback "V2L状态反馈";
+CM_ SG_ 1407 V2X_DischargeFailure "V2L故障类型";
+CM_ SG_ 1407 ACConsumedPower "AC端实际功率";
+CM_ SG_ 1646 BOBCType "OBC工作类型";
+CM_ SG_ 1646 OBC_Maximum_Charging_Current "最大输出电流";
+CM_ SG_ 1646 OBC_Maximum_Discharging_Current "最大放电电流";
+CM_ SG_ 1771 CHGAvailableDisChargingPower "逆变最大输出功率限制";
+CM_ SG_ 113 DCDCHVNetworkVoltage_V3 "DCDC输入电压";
+CM_ SG_ 113 DCDCInputPower "DCDC输入功率";
+CM_ SG_ 1580 DCDCWaterTemp "DCDC水道温度";
+CM_ SG_ 1580 DCDCTemp "DCDC MOS管温度";
+CM_ SG_ 1118 MaxCurrentAvailableBySystem "DCDC最大可输出电流";
+CM_ SG_ 1118 DCDCCurrentOutput "DCDC输出电流";
+CM_ SG_ 1118 DCDC_Fault_Type "DCDC故障类型";
+CM_ SG_ 1118 OBC_DCDC_RefusetoSleep "DCDC休眠允许";
+CM_ SG_ 1118 DCDCState "DCDC工作状态";
+CM_ SG_ 1118 DCDC_Max12VcurrentAvailable_HV "DCDC最大可输出电流";
+CM_ SG_ 292 LV_OutVolt "LV端电压";
+CM_ SG_ 292 LV_Current "LV端电流";
+CM_ SG_ 292 OBC_ChargeLimitPower "OBC充电限制功率";
+CM_ SG_ 292 OBC_DischargeLimitPower "OBC放电限制功率";
+CM_ SG_ 292 DCDC_OutputLimitPower "DCDC输出功率限制功率";
+CM_ SG_ 293 DCDC_State "DCDC内部状态";
+CM_ SG_ 293 OBC_State "OBC内部状态";
+CM_ SG_ 293 NM_State "休眠唤醒内部状态";
+CM_ SG_ 293 OBC_StateStep "OBC状态步骤";
+CM_ SG_ 293 DCDC_StateStep "DCDC状态步骤";
+CM_ SG_ 293 FaultCode "内部故障码";
+CM_ SG_ 293 ClientTestVersion "客户测试版本流水号";
+CM_ SG_ 293 OBC_Mos_Temp "OBC mos管温度";
+CM_ SG_ 293 DCDC_Mos_Temp "DCDC mos管温度";
+CM_ SG_ 291 HV_Current "HV端电流";
+CM_ SG_ 291 HV_Voltage "HV端电压";
+CM_ SG_ 291 AC_Current "AC端电流";
+CM_ SG_ 291 AC_Voltage "AC端电压";
+CM_ SG_ 294 HwVersion "硬件版本号";
+CM_ SG_ 294 AC_Frequncy "AC端电压频率";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigEnvVarType" ENUM  "int","float","undef";
+BA_DEF_ SG_  "NWM_WakeupAllowed" ENUM  "No","Yes";
+BA_DEF_ SG_  "InvalidHex" STRING ;
+BA_DEF_ BO_  "TpTxIndex" INT 0 10000;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","Event","EnabledPeriodic","Enable","NotUsed","EventPeriodic","NotUsed","NotUsed","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 10000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 100;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 100000;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "NetworkInitialization" ENUM  "No","Yes";
+BA_DEF_ BO_  "NetworkWakeUp" ENUM  "No","Yes";
+BA_DEF_ BO_  "NetworkInitializationCommand" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagDCM" ENUM  "Yes","No";
+BA_DEF_ BO_  "XcpReq" ENUM  "Yes","No";
+BA_DEF_ BO_  "XcpResp" ENUM  "Yes","No";
+BA_DEF_ BO_  "AliveTimeout" INT 0 100000;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "NetworkInitializationUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "NmCAN" INT 1 2;
+BA_DEF_ BU_  "GenNodSleepTime" INT 0 1000000;
+BA_DEF_  "SamplePointMax" FLOAT 0 100;
+BA_DEF_  "NmMessageCount" INT 0 256;
+BA_DEF_  "NmBaseAddress" HEX 0 2047;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "Author" STRING ;
+BA_DEF_  "Date" STRING ;
+BA_DEF_  "Version" STRING ;
+BA_DEF_  "Project" STRING ;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigEVName" "";
+BA_DEF_DEF_  "GenSigEnvVarType" "undef";
+BA_DEF_DEF_  "NWM_WakeupAllowed" "No";
+BA_DEF_DEF_  "InvalidHex" "";
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 3;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "NetworkInitialization" "No";
+BA_DEF_DEF_  "NetworkWakeUp" "No";
+BA_DEF_DEF_  "NetworkInitializationCommand" "No";
+BA_DEF_DEF_  "DiagDCM" "No";
+BA_DEF_DEF_  "XcpReq" "No";
+BA_DEF_DEF_  "XcpResp" "No";
+BA_DEF_DEF_  "AliveTimeout" 0;
+BA_DEF_DEF_  "ILUsed" "";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmNode" "No";
+BA_DEF_DEF_  "NetworkInitializationUsed" "No";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "NmCAN" 1;
+BA_DEF_DEF_  "GenNodSleepTime" 0;
+BA_DEF_DEF_  "SamplePointMax" 81.25;
+BA_DEF_DEF_  "NmMessageCount" 256;
+BA_DEF_DEF_  "NmBaseAddress" 1280;
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "Author" "SHINRY";
+BA_DEF_DEF_  "Date" "2024";
+BA_DEF_DEF_  "Version" "N";
+BA_DEF_DEF_  "Project" "SHINRY_G8_PLATFORM";
+BA_DEF_DEF_  "Manufacturer" "SHINRY";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+BA_ "BusType" "CAN";
+BA_ "Project" "FE3221";
+BA_ "NmBaseAddress" 0;
+BA_ "NmMessageCount" 0;
+BA_ "DBName" "CANDB";
+BA_ "NmStationAddress" BU_ OBC 1;
+BA_ "GenMsgSendType" BO_ 689 5;
+BA_ "GenMsgCycleTime" BO_ 689 100;
+BA_ "GenMsgSendType" BO_ 444 0;
+BA_ "GenMsgCycleTime" BO_ 444 10;
+BA_ "GenMsgSendType" BO_ 1642 5;
+BA_ "GenMsgCycleTime" BO_ 1642 1000;
+BA_ "GenMsgNrOfRepetition" BO_ 1642 10;
+BA_ "VFrameFormat" BO_ 2564502513 1;
+BA_ "DiagDCM" BO_ 2564502513 0;
+BA_ "DiagRequest" BO_ 2564502513 1;
+BA_ "GenMsgCycleTimeFast" BO_ 2564502513 10;
+BA_ "GenMsgSendType" BO_ 2564502513 1;
+BA_ "VFrameFormat" BO_ 2564485597 1;
+BA_ "DiagDCM" BO_ 2564485597 0;
+BA_ "DiagResponse" BO_ 2564485597 1;
+BA_ "GenMsgCycleTimeFast" BO_ 2564485597 10;
+BA_ "GenMsgSendType" BO_ 2564485597 1;
+BA_ "VFrameFormat" BO_ 2564480497 1;
+BA_ "DiagDCM" BO_ 2564480497 0;
+BA_ "DiagRequest" BO_ 2564480497 1;
+BA_ "GenMsgCycleTimeFast" BO_ 2564480497 10;
+BA_ "GenMsgSendType" BO_ 2564480497 1;
+BA_ "VFrameFormat" BO_ 1072 0;
+BA_ "GenMsgCycleTime" BO_ 1072 100;
+BA_ "GenMsgSendType" BO_ 1072 5;
+BA_ "VFrameFormat" BO_ 1073 0;
+BA_ "GenMsgCycleTime" BO_ 1073 100;
+BA_ "GenMsgSendType" BO_ 1073 0;
+BA_ "VFrameFormat" BO_ 129 0;
+BA_ "GenMsgCycleTime" BO_ 129 10;
+BA_ "GenMsgSendType" BO_ 129 0;
+BA_ "VFrameFormat" BO_ 1075 0;
+BA_ "GenMsgCycleTime" BO_ 1075 100;
+BA_ "GenMsgSendType" BO_ 1075 0;
+BA_ "VFrameFormat" BO_ 456 0;
+BA_ "GenMsgCycleTime" BO_ 456 10;
+BA_ "GenMsgSendType" BO_ 456 0;
+BA_ "VFrameFormat" BO_ 1074 0;
+BA_ "GenMsgCycleTime" BO_ 1074 100;
+BA_ "GenMsgSendType" BO_ 1074 5;
+BA_ "VFrameFormat" BO_ 1757 0;
+BA_ "GenMsgCycleTime" BO_ 1757 3000;
+BA_ "GenMsgSendType" BO_ 1757 5;
+BA_ "VFrameFormat" BO_ 1430 0;
+BA_ "GenMsgCycleTime" BO_ 1430 3000;
+BA_ "GenMsgSendType" BO_ 1430 5;
+BA_ "VFrameFormat" BO_ 734 0;
+BA_ "GenMsgCycleTime" BO_ 734 10;
+BA_ "GenMsgSendType" BO_ 734 0;
+BA_ "VFrameFormat" BO_ 1084 0;
+BA_ "GenMsgCycleTime" BO_ 1084 100;
+BA_ "GenMsgSendType" BO_ 1084 0;
+BA_ "GenMsgCycleTime" BO_ 1107 10;
+BA_ "GenMsgSendType" BO_ 1107 0;
+BA_ "VFrameFormat" BO_ 1107 0;
+BA_ "VFrameFormat" BO_ 126 0;
+BA_ "GenMsgCycleTime" BO_ 126 10;
+BA_ "GenMsgSendType" BO_ 126 0;
+BA_ "VFrameFormat" BO_ 1113 0;
+BA_ "GenMsgCycleTime" BO_ 1113 100;
+BA_ "GenMsgSendType" BO_ 1113 0;
+BA_ "VFrameFormat" BO_ 1111 0;
+BA_ "GenMsgCycleTime" BO_ 1111 100;
+BA_ "GenMsgSendType" BO_ 1111 0;
+BA_ "VFrameFormat" BO_ 112 0;
+BA_ "GenMsgCycleTime" BO_ 112 10;
+BA_ "GenMsgSendType" BO_ 112 0;
+BA_ "VFrameFormat" BO_ 1117 0;
+BA_ "GenMsgCycleTime" BO_ 1117 100;
+BA_ "GenMsgSendType" BO_ 1117 0;
+BA_ "VFrameFormat" BO_ 1569 0;
+BA_ "GenMsgCycleTime" BO_ 1569 500;
+BA_ "GenMsgSendType" BO_ 1569 5;
+BA_ "GenMsgNrOfRepetition" BO_ 1569 5;
+BA_ "VFrameFormat" BO_ 1377 0;
+BA_ "GenMsgCycleTime" BO_ 1377 500;
+BA_ "GenMsgSendType" BO_ 1377 5;
+BA_ "GenMsgNrOfRepetition" BO_ 1377 50;
+BA_ "VFrameFormat" BO_ 1407 0;
+BA_ "GenMsgCycleTime" BO_ 1407 3000;
+BA_ "GenMsgSendType" BO_ 1407 5;
+BA_ "VFrameFormat" BO_ 1646 0;
+BA_ "GenMsgCycleTime" BO_ 1646 3000;
+BA_ "GenMsgSendType" BO_ 1646 5;
+BA_ "GenMsgNrOfRepetition" BO_ 1646 30;
+BA_ "VFrameFormat" BO_ 1771 0;
+BA_ "GenMsgCycleTime" BO_ 1771 3000;
+BA_ "GenMsgSendType" BO_ 1771 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1771 6;
+BA_ "VFrameFormat" BO_ 41 0;
+BA_ "GenMsgCycleTime" BO_ 41 100;
+BA_ "GenMsgSendType" BO_ 41 5;
+BA_ "GenMsgNrOfRepetition" BO_ 41 25;
+BA_ "VFrameFormat" BO_ 113 0;
+BA_ "GenMsgCycleTime" BO_ 113 10;
+BA_ "GenMsgSendType" BO_ 113 0;
+BA_ "VFrameFormat" BO_ 1580 0;
+BA_ "GenMsgCycleTime" BO_ 1580 500;
+BA_ "GenMsgSendType" BO_ 1580 5;
+BA_ "GenMsgNrOfRepetition" BO_ 1580 50;
+BA_ "VFrameFormat" BO_ 1118 0;
+BA_ "GenMsgCycleTime" BO_ 1118 100;
+BA_ "GenMsgSendType" BO_ 1118 0;
+BA_ "VFrameFormat" BO_ 1750 0;
+BA_ "GenMsgCycleTime" BO_ 1750 500;
+BA_ "GenMsgSendType" BO_ 1750 5;
+BA_ "GenMsgNrOfRepetition" BO_ 1750 50;
+BA_ "GenMsgCycleTime" BO_ 292 100;
+BA_ "GenMsgSendType" BO_ 292 0;
+BA_ "GenMsgCycleTime" BO_ 293 100;
+BA_ "GenMsgSendType" BO_ 293 0;
+BA_ "GenMsgCycleTime" BO_ 291 100;
+BA_ "GenMsgSendType" BO_ 291 0;
+BA_ "GenMsgCycleTime" BO_ 294 100;
+BA_ "GenMsgSendType" BO_ 294 0;
+BA_ "GenSigStartValue" SG_ 293 OBC_Mos_Temp 40;
+BA_ "GenSigStartValue" SG_ 293 DCDC_Mos_Temp 40;
+VAL_ 1642 VehicleStates_HV 15 "Unavailable" 14 "Not used" 13 "Not used" 12 "Not used" 11 "Not used" 10 "Not used" 9 "EngineSystemStop" 8 "AutoStart" 7 "PowertrainRunning" 6 "StartingInProgress" 5 "IgnitionLevel" 4 "Not used" 3 "AutoACC  - BatTempoLevel" 2 "CutoffPending" 1 "Not used" 0 "Sleeping" ;
+VAL_ 689 DCDCactivationRequestReversible 7 "Not Used" 6 "Not Used" 5 "Not Used" 4 "Reset request" 3 "Direct Mode (HV>12V) request" 2 "Reverse Mode (12V>HV) request" 1 "Precharge Mode request" 0 "OFF request" ;
+VAL_ 1072 PWT_DC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp" ;
+VAL_ 1072 CHGStateRequest 0 "Reserved" 1 "Charge" 2 "Power On" 3 "Reserved0" 4 "Standby" 5 "Reserved1" 6 "Not used" 7 "Unavailable Value" ;
+VAL_ 1072 IgnitionSupplyConfirmation_HV 0 "no primary ignition supply" 1 "primary ignition supply on" ;
+VAL_ 1072 GADE_HV_v2 0 "Sleep_CrankFault_Not_DiagMuxDTC" 1 "AutoACC_fault_Not_DiagMuxDTC" 2 "ALL fault, Disable DiagMuxDTC" 3 "ALL fault, Enable DiagMuxDTC" 4 "FOTA_switc_Fault_Not_DiagMuxDTC" 5 "Not used0" 6 "Not used1" 7 "Unavailable" ;
+VAL_ 1072 DCDCActivation 0 "Not used" 1 "DCDC Off" 2 "DCDC On" 3 "Unavailable value" ;
+VAL_ 1075 CHGStateRequest_v2 0 "Reserved" 1 "Charge" 2 "Power On" 3 "HW Reset" 4 "Standby" 5 "V2G" 6 "V2L" 7 "Unavailable Value" ;
+VAL_ 1074 OBDPrmtDelCdn_HV 0 "OBD_PDTC_Delete_not_detected" 1 "OBD_PDTC_Delete_detected" ;
+VAL_ 1074 OBDWarmUpCycleDet_HV 0 "Warm Up Cycle is not completed" 1 "Warm Up Cycle is completed" ;
+VAL_ 1074 CHGcontrolPilotState 0 "Reserved" 1 "State B" 2 "State C" 3 "State D - Reserved" 4 "State E/F" 5 "Not used" 6 "Reserved" 7 "Unavailable" ;
+VAL_ 1074 OBD_Ready_On_HV 0 "HEV_SYS_state_Not-Ready-mode" 1 "HEV_in_state_Ready-mode" ;
+VAL_ 1757 HVFOTAConditionCheckStatus_HV 0 "No request" 1 "Pending Conditions" 2 "Achieved Conditions" 3 "Error Detected" ;
+VAL_ 1757 V2L_ActivationRequestForOBC 0 "No Request" 1 "Inside request" 2 "Outside request" 3 "Inside and Outside request" ;
+VAL_ 1757 Active_anti_islanding_activation 0 "activated" 1 "deactivated" ;
+VAL_ 1430 V2L_FrequencySetpoint 0 "50Hz" 1 "60Hz" ;
+VAL_ 1430 DriveCycle_HV 0 "No Request" 1 "Denominator_Count_Request" ;
+VAL_ 1430 V2L_PlugStatus_HV 0 "Unavailable" 1 "V2L plug available" 2 "V2L plug not available" 3 "Not used" ;
+VAL_ 1430 V2Li_SwitchStatus_HV 0 "V2L Inside switch off" 1 "V2L Inside switch on" ;
+VAL_ 1111 BMS_FaultType 0 "No failure" 1 "Reserved for safety0" 2 "Reserved for safety1" 3 "HVBattery level1 failure" 4 "Reserved for safety2" 5 "Safety mode1 flag" 6 "HV battery level 2 failure" 7 "Reserved for safety3" ;
+VAL_ 112 CHGDCInterlockState 0 "Unvailable Value" 1 "Interlock Open" 2 "Interlock Close" 3 "Not used" ;
+VAL_ 112 CHGMainsACInterlockState 0 "Unvailable Value" 1 "Interlock Open" 2 "Interlock Close" 3 "Not used" ;
+VAL_ 1117 CHGLoadState 0 "Unavailable Value" 1 "Charge" 2 "Power On" 3 "Reserved" 4 "Standby" 5 "V2G" 6 "V2L" 7 "Not used" ;
+VAL_ 1117 CHGRefuseToSleep 0 "Reserved" 1 "CHG refuse to sleep " 2 "CHG ready to sleep" 3 "Reserved" ;
+VAL_ 1117 OBC_MILlamp 0 "Mil lamp off request" 1 "Mil lamp on request" 2 "Mil Lamp flash request" 3 "Mil lamp auto request" ;
+VAL_ 1117 CHG_V2L_InterlockState 0 "Not Used" 1 "Interlock Opened" 2 "Interlock Closed" 3 "Unavailable" ;
+VAL_ 1569 CHG_ChargeFailureDisplay 0 "No alert" 1 "Alert" ;
+VAL_ 1569 CHG_FaultType 0 "No failure" 1 "Failure 1：derate" 2 "Failure 2：internal fault" 3 "Failure 3" 4 "Failure 4：external fault" 5 "Failure 5" 6 "Failure 6" 7 "Failure 7" ;
+VAL_ 1407 V2L_FrequencyAppliedByCharger 0 "50Hz" 1 "60Hz" ;
+VAL_ 1407 V2L_ActivationStatusFeedback 0 "Off" 1 "Inside V2L in ON" 2 "Outside V2L in ON" 3 "Inside and Outside V2L in ON" ;
+VAL_ 1407 V2X_DischargeFailure 0 "No failure" 1 "Ground Fault current is detected" 2 "Insulation resistance is Low" 3 "V2L_overpass_curr_power_limit" 4 "V2L overvoltage" 5 "V2L undervoltage" 6 "Frequency Failure" 7 "V2L IMD comp failure" 8 "Voltage present out V2L active" 9 "V2L Internal failure" 10 "Reserved for V2X0" 11 "Reserved for V2X1" 12 "Reserved for V2X2" 13 "Reserved for V2X3" 14 "Reserved for V2X4" 15 "Reserved for V2X5" ;
+VAL_ 1646 Unlocking_authorisation 0 "Unlock authorized" 1 "Unlock forbidden" ;
+VAL_ 1646 BOBCType 0 "OBC Type1_CHG" 1 "BOBC Type2_CHG_V2Lout" 2 "BOBC Type3_CHG_V2Lin&out" 3 "BOBC Type4_CHG_V2Lout_V2G" 4 "BOBC Type5_CHG_V2Lin&out_V2G" 5 "Reserved0" 6 "Reserved1" 7 "unavailable" ;
+VAL_ 1646 OBECMfreeze_OBCAC 0 "No request" 1 "OBECM calculation frozen" ;
+VAL_ 1771 ACInputCurrentSensorOC 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 ACInputCurrentSensorSCG 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 ACInputVoltageSensorOC 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 ACInputVoltageSensorSCG 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 InletWaterTempSensorOC 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 InletWaterTempSensorSCG 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 OBCOutputCurrentSensorOC 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 OBCOutputCurrentSensorSCG 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 OBCOutputVoltageSensorOC 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 1771 OBCOutputVoltageSensorSCG 0 "Not tested" 1 "Tested OK" 2 "Tested NOK" 3 "Disabled" ;
+VAL_ 41 NumberOfPhasesUsed 0 "one phase" 1 "two phases" 2 "three Phases" 3 "Unvailable Value" ;
+VAL_ 1580 DCDC_ElecSysFailureDisplay 0 "No Alert" 1 "Alert" ;
+VAL_ 1580 DCDC_ElecMotorFailureDisplay 0 "No Alert" 1 "Alert" ;
+VAL_ 1580 DCDCState_v3 0 "OFF" 1 "Precharge Mode" 2 "Reverse Mode (12V>HV)" 3 "Direct Mode (HV>12V)" ;
+VAL_ 1118 DCDC_Fault_Type 0 "No Fault type" 1 "Fault type1 DCDC Stopped CLASS C" 2 "Fault type2 DCDC Stopped CLASS D" 3 "Fault type3 DCDC Unballast" 4 "FaultT4 DCDC Safety Barrier lost" 5 "Fault Type 5" 6 "Reserved" 7 "Reserved" ;
+VAL_ 1118 OBC_DCDC_RefusetoSleep 0 "reserved" 1 "DCDC refuse to sleep" 2 "DCDC ready to sleep" 3 "reserved" ;
+VAL_ 1118 DCDCState 0 "Start_mode_power_not_available" 1 "Standby" 2 "Direct Mode" 3 "Unavailable" ;
+VAL_ 1118 DCDC_eComp_InterlockState 0 "Not Used" 1 "Interlock Opened" 2 "Interlock Closed" 3 "Unavailable" ;
+VAL_ 1118 DCDC_ePTC_InterlockState 0 "Not Used" 1 "Interlock Opened" 2 "Interlock Closed" 3 "Unavailable" ;
+VAL_ 1118 DCDC_Access_InterlockState 0 "Not Used" 1 "Interlock Opened" 2 "Interlock Closed" 3 "Unavailable" ;
+VAL_ 1750 DCDCInterlockState_v2 0 "Unavailable Value" 1 "Interlock Open" 2 "Interlock Close" 3 "Not Used" ;
+VAL_ 293 DCDC_State 4 "DCDC_SLEEP_TRANSIENT" 3 "DCDC_DOWNGRADED" 2 "DCDC_DIRECT" 1 "DCDC_STANDBY" 0 "DCDC_INIT" ;
+VAL_ 293 OBC_State 6 "OBC_SAFE_D" 5 "OBC_SAFE_C" 4 "OBC_V2L" 3 "OBC_CHARGE" 2 "OBC_POWERON" 1 "OBC_STANDBY" 0 "OBC_INIT" ;
+VAL_ 293 NM_State 3 "SLEEP" 2 "SLEEP_TRANSIENT" 1 "APPLICATION" 0 "WAKEUP_TRANSIENT" ;
+VAL_ 293 OBC_StateStep 15 "SAFE_D_WAIT_RECOVERY" 14 "SAFE_C_WAIT_RECOVERY" 13 "V2L_RUNNING" 12 "V2L_WAIT_DC_VOLTAGE" 11 "V2L_WAIT_AC_VOLTAGE_LESS_60V" 10 "V2L_WAIT_OUTSIDE_MODE_REQ" 9 "CHARGE_RUNNING" 8 "CHARGE_WAIT_DC_VOLTAGE" 7 "CHARGE_WAIT_AC_VOLTAGE" 6 "POWERON_WAIT_HEVC_REQ" 5 "STANDBY_WAIT_CMD_AVAILABLE" 4 "STANDBY_WAIT_WAKEUP_CMD" 3 "STANDBY_WAIT_BMS_FAULT_RECOVERY" 2 "STANDBY_WAIT_CLASSE_RECOVERY" 1 "STANDBY_WAIT_HEVC_REQ" 0 "INIT" ;
+VAL_ 293 DCDC_StateStep 7 "DOWNGRADED_WAIT_RECOVERY" 6 "DIRECT_RUNNING" 5 "DIRECT_WAIT_DC_VOLTAGE" 4 "STANDBY_WAIT_500MS" 3 "STANDBY_WAIT_BACKFLOW_PASS" 2 "STANDBY_WAIT_ENABLE_CMD" 1 "STANDBY_WAIT_WAKEUP_CMD" 0 "INIT" ;
+

@@ -1,0 +1,921 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: EVCC HCU UDS CGW BMS MCUF TBOX CDU
+VAL_TABLE_ HCU_7_PowertrainModeAct 15 "Service" 14 "C1 Opening" 13 "C1 Closing" 12 "Engine Stop" 11 "Engine Start" 10 "Series-3" 9 "E-Drive-3" 8 "Parallel" 7 "Series-2" 6 "Series-1" 5 "E-Drive-2" 4 "E-Drive-1" 3 "N/P Eng On" 2 "N/P Eng Off " 1 "Inactive" 0 "Init" ;
+
+
+BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
+ SG_ BmsPtcConfig : 0|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_8_CC2Sts : 0|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMSH_SOH : 0|8@0+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BCM_4_ArmingSts : 0|2@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ CEM_2_AlarmMode : 0|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ BCM_4_DriverDoorLockSts : 0|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ BCM_12_EBS_Voltage : 0|14@0+ (0.000977,3) [3|18] "V" Vector__XXX
+ SG_ BCM_12_EBS_Current : 0|16@0+ (0.007813,-200) [0|200] "A" Vector__XXX
+ SG_ AAA_Report : 0|32@1+ (1,0) [0|4294967296] "" Vector__XXX
+ SG_ New_Signal_368 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ New_Signal_367 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ New_Signal_366 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1282 ABS_ESP_G: 7 CGW
+ SG_ VehicleSpeedVSOSig : 12|13@0+ (0.0625,0) [0|0] "" Vector__XXX
+
+BO_ 914 CEM_BCM_2: 8 CGW
+ SG_ CEM_2_KeySts : 6|2@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1103 BMS_8: 8 BMS
+ SG_ BMS_8_DCChgFault : 55|2@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMS_8_PackDCChargingSt : 37|4@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1585 NMm_TMF: 8 MCUF
+ SG_ RMR_TMF : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ UsrData0_TMF : 16|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData5_TMF : 56|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData4_TMF : 48|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData3_TMF : 40|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData2_TMF : 32|8@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_AWAKE_TMF : 28|1@1+ (1,0) [0|0] ""  CDU
+ SG_ DIAGNOSTIC_AWAKE_TMF : 31|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_AWAKE_TMF : 30|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_AWAKE_TMF : 29|1@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_WAKEUP_TMF : 27|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_WAKEUP_TMF : 26|1@1+ (1,0) [0|0] ""  CDU
+ SG_ RESET_WAKEUP_TMF : 25|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_WAKEUP_TMF : 24|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NMm_TMF_Reserved1 : 9|7@1+ (1,0) [0|0] ""  CDU
+ SG_ SrcNodeID_TMF : 0|8@1+ (1,0) [0|0] ""  CDU
+
+BO_ 1580 NMm_ISG: 8 MCUF
+ SG_ usrData5_ISG : 56|8@1+ (1,0) [0|0] ""  CDU
+ SG_ usrData4_ISG : 48|8@1+ (1,0) [0|0] ""  CDU
+ SG_ usrData3_ISG : 40|8@1+ (1,0) [0|0] ""  CDU
+ SG_ usrData2_ISG : 32|8@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_AWAKE_ISG : 31|1@1+ (1,0) [0|1] ""  CDU
+ SG_ DIAGNOSTIC_AWAKE_ISG : 30|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_AWAKE_ISG : 29|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_AWAKE_ISG : 28|1@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_WAKEUP_ISG : 27|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_WAKEUP_ISG : 26|1@1+ (1,0) [0|0] ""  CDU
+ SG_ RESET_WAKEUP_ISG : 25|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_WAKEUP_ISG : 24|1@1+ (1,0) [0|0] ""  CDU
+ SG_ usrData0_ISG : 16|8@1+ (1,0) [0|0] ""  CDU
+ SG_ NMm_ISGReserved1 : 9|7@1+ (1,0) [0|0] ""  CDU
+ SG_ RMR_ISG : 8|1@1+ (1,0) [0|0] ""  CDU
+ SG_ srcNodeID_ISG : 0|8@1+ (1,0) [0|0] ""  CDU
+
+BO_ 913 CEM_BCM_1: 8 CGW
+ SG_ CEM_1_DriverDoorLockSts : 23|1@0+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 515 EVCC_1: 24 EVCC
+ SG_ EVCC_FaultNum1 : 114|8@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_FaultLevel : 87|3@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_ChargeType : 58|3@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CC_ConnectDischarSts : 63|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CC_ConnectSts : 49|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_S2Swtsts : 51|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CPSts : 54|3@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CP_DutyCycleValue : 46|8@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_COUNTRY_SUPPORT : 32|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CP_DutyCycleFault : 33|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_CC_RCR4_Sts : 30|13@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_PPCode : 18|4@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_ElectronicLockSts : 21|3@0+ (1,0) [0|0] ""  CDU
+ SG_ EVCC_GunConnectSt : 23|2@0+ (1,0) [0|0] ""  CDU
+
+BO_ 2022 Diag_CDU_REQ: 8 CGW
+ SG_ Diag_CDU_REQ : 7|64@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2015 DIAG_OBD_REQ_Broadcast: 8 CGW
+ SG_ DIAG_OBD_REQ_Broadcast : 7|64@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2030 Diag_CDU_RES: 8 CDU
+ SG_ Diag_CDU_RES : 7|64@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1536 NMm_CGW: 8 CGW
+ SG_ UsrData5_CGW : 56|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData4_CGW : 48|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData3_CGW : 40|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData2_CGW : 32|8@1- (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_AWAKE_CGW : 31|1@1- (1,0) [0|0] ""  CDU
+ SG_ DIAGNOSTIC_AWAKE_CGW : 30|1@1- (1,0) [0|0] ""  CDU
+ SG_ IGNITION_AWAKE_CGW : 29|1@1- (1,0) [0|0] ""  CDU
+ SG_ NETWORK_AWAKE_CGW : 28|1@1- (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_WAKEUP_CGW : 27|1@1- (1,0) [0|0] ""  CDU
+ SG_ NETWORK_WAKEUP_CGW : 26|1@1- (1,0) [0|0] ""  CDU
+ SG_ RESET_WAKEUP_CGW : 25|1@1- (1,0) [0|0] ""  CDU
+ SG_ IGNITION_WAKEUP_CGW : 24|1@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData0_CGW : 16|8@1- (1,0) [0|0] ""  CDU
+ SG_ NMm_CGW_Reserved1 : 9|7@1- (1,0) [0|0] ""  CDU
+ SG_ RMR_CGW : 8|1@1- (1,0) [0|0] ""  CDU
+ SG_ SrcNodeID_CGW : 0|8@1- (1,0) [0|0] ""  CDU
+
+BO_ 1551 NMm_BMS: 8 BMS
+ SG_ UsrData5_BMS : 56|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData4_BMS : 48|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData3_BMS : 40|8@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData2_BMS : 32|8@1- (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_AWAKE_BMS : 31|1@1- (1,0) [0|0] ""  CDU
+ SG_ DIAGNOSTIC_AWAKE_BMS : 30|1@1- (1,0) [0|0] ""  CDU
+ SG_ IGNITION_AWAKE_BMS : 29|1@1- (1,0) [0|0] ""  CDU
+ SG_ NETWORK_AWAKE_BMS : 28|1@1- (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_WAKEUP_BMS : 27|1@1- (1,0) [0|0] ""  CDU
+ SG_ NETWORK_WAKEUP_BMS : 26|1@1- (1,0) [0|0] ""  CDU
+ SG_ RESET_WAKEUP_BMS : 25|1@1- (1,0) [0|0] ""  CDU
+ SG_ IGNITION_WAKEUP_BMS : 24|1@1- (1,0) [0|0] ""  CDU
+ SG_ UsrData0_BMS : 16|8@1- (1,0) [0|0] ""  CDU
+ SG_ NMm_BMS_Reserved1 : 9|7@1- (1,0) [0|0] ""  CDU
+ SG_ RMR_BMS : 8|1@1- (1,0) [0|0] ""  CDU
+ SG_ SrcNodeID_BMS : 0|8@1+ (1,0) [0|0] ""  CDU
+
+BO_ 1304 TBOX_1: 8 TBOX
+ SG_ TBOX_1_FRWindowCon_Req : 2|3@0+ (1,0) [0|7] ""  CDU
+ SG_ TBOX_1_FLWindowCon_Req : 5|3@0+ (1,0) [0|7] ""  CDU
+ SG_ TBOX_1_DWMCon_Req : 9|2@0+ (1,0) [0|3] ""  CDU
+ SG_ TBOX_1_Safety_Req : 11|2@0+ (1,0) [0|3] ""  CDU
+ SG_ TBOX_1_RLWindowCon_Req : 14|3@0+ (1,0) [0|7] ""  CDU
+ SG_ TBOX_1_RRWindowCon_Req : 18|3@0+ (1,0) [0|7] ""  CDU
+ SG_ TBOX_1_LowBeamCon_Req : 20|2@0+ (1,0) [0|3] ""  CDU
+ SG_ TBOX_1_DVD_SET_HORNcmd_Find_Car : 22|2@0+ (1,0) [0|3] ""  CDU
+ SG_ TBOX_1_Remote_Mode_Req : 23|1@0+ (1,0) [0|1] ""  CDU
+ SG_ TBOX_1_RemoteEngineControlEDReq : 25|2@0+ (1,0) [0|3] ""  CDU
+ SG_ TBOX_1_Checksum : 63|8@0+ (1,0) [0|255] ""  CDU
+
+BO_ 1268 BM_2: 8 TBOX
+ SG_ BM_2_Type_code : 7|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BM_2_Control_Command : 15|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BM_2_PE_PS_function : 23|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BM_2_Feedback : 31|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BM_2_ConnectSts : 39|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BM_2_CRC8 : 63|8@0+ (1,0) [0|255] ""  CDU
+
+BO_ 1083 BMS_5: 8 BMS
+ SG_ BMSH_5_CRC : 63|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_5_MessageCounter : 51|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_SOCDisp : 7|16@0+ (0.01,0) [0|0] "" Vector__XXX
+
+BO_ 1183 BMS_24: 8 BMS
+ SG_ BMS_24_Res1 : 62|2@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_PackChargingThermalSt : 60|3@0+ (1,0) [0|5] "" Vector__XXX
+ SG_ BMSH_stMode_PHEV : 51|4@0+ (1,0) [0|15] ""  CDU
+
+BO_ 1550 NMm_HCU: 8 HCU
+ SG_ RESET_WAKEUP_HCU : 25|1@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData5_HCU : 56|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData4_HCU : 48|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData3_HCU : 40|8@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData2_HCU : 32|8@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_AWAKE_HCU : 27|1@1+ (1,0) [0|0] ""  CDU
+ SG_ DIAGNOSTIC_AWAKE_HCU : 30|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_AWAKE_HCU : 29|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_AWAKE_HCU : 26|1@1+ (1,0) [0|0] ""  CDU
+ SG_ ECUSPEC_WAKEUP_HCU : 31|1@1+ (1,0) [0|0] ""  CDU
+ SG_ NETWORK_WAKEUP_HCU : 28|1@1+ (1,0) [0|0] ""  CDU
+ SG_ IGNITION_WAKEUP_HCU : 24|1@1+ (1,0) [0|0] ""  CDU
+ SG_ UsrData0_HCU : 16|8@1+ (1,0) [0|255] ""  CDU
+ SG_ NMm_HCU_Reserved1 : 9|7@1- (1,0) [0|0] ""  CDU
+ SG_ SrcNodeID_HCU : 0|8@1+ (1,0) [0|255] ""  CDU
+ SG_ RMR_HCU : 8|1@1+ (1,0) [0|65535] ""  CDU
+
+BO_ 1330 IHU_29: 8 CGW
+ SG_ ElectcUnlckCmd : 15|1@0+ (1,0) [0|1] ""  CDU
+ SG_ IHU_29_DchaSet : 57|2@0+ (1,0) [0|2] ""  CDU
+
+BO_ 403 BMS_1: 48 BMS
+ SG_ BMSH_1_Resd1 : 15|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_Resd5 : 271|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_RollgCntr5 : 267|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_CRC5 : 263|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_RollgCntr4 : 203|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_CRC4 : 199|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_stMode_PHEV : 107|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_Resd2 : 79|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_RollgCntr2 : 75|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_RollgCntr1 : 11|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_CRC1 : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_1_CRC2 : 71|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_PosMainRelaySts : 120|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_1_CRC3 : 135|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BMSH_1_RollgCntr3 : 139|4@0+ (1,0) [0|15] ""  CDU
+ SG_ BMSH_1_Resd3 : 143|4@0+ (1,0) [0|15] ""  CDU
+ SG_ BMSH_NegMainRelaySts : 148|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_PTCRelaySts : 145|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_BattVoltMaxLimt : 175|16@0+ (0.05,0) [0|1000] "V"  CDU
+ SG_ BMSH_BattVoltMinLimt : 311|16@0+ (0.05,0) [0|1000] "V"  CDU
+
+BO_ 1096 BMS_7: 8 BMS
+ SG_ BMSH_7_MessageCounter : 51|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_7_CRC : 63|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMSH_KeepWarmReq : 52|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_ChargeOutMaxVolSet : 7|16@0+ (0.05,0) [0|1000] "V"  CDU
+ SG_ BMSH_ChargeOutMaxCurSet : 23|16@0+ (0.05,0) [0|50] "A"  CDU
+ SG_ BMSH_ChargeOutHeatVolSet : 39|16@0+ (0.05,0) [0|1000] "V"  CDU
+ SG_ BMS_OBCHeatRequest : 54|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_OBCChargeReq : 53|1@0+ (1,0) [0|1] ""  CDU
+
+BO_ 1071 BMS_26: 48 BMS
+ SG_ BMSH_26_CRC1 : 7|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BMSH_26_RollgCntr1 : 11|4@0+ (1,0) [0|15] ""  CDU
+ SG_ BMSH_26_Resd1 : 15|4@0+ (1,0) [0|0] ""  CDU
+ SG_ BMSH_26_Resd7 : 23|16@0+ (1,0) [0|0] ""  CDU
+ SG_ BMSH_CP_DutyCycleValue : 55|8@0+ (1,0) [0|100] "%"  CDU
+ SG_ BMSH_26_CRC2 : 71|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BMSH_26_RollgCntr2 : 75|4@0+ (1,0) [0|15] ""  CDU
+ SG_ BMSH_26_Resd2 : 79|4@0+ (1,0) [0|0] ""  CDU
+ SG_ BMSH_CP_DutyCycleFault : 93|1@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_CPMaxVolt : 87|10@0+ (0.01,0) [0|102.300003] "V"  CDU
+
+BO_ 1228 BMS_28: 8 BMS
+ SG_ BMSH_28_CRC1 : 7|8@0+ (1,0) [0|255] ""  CDU
+ SG_ BMSH_28_RollgCntr1 : 11|4@0+ (1,0) [0|15] ""  CDU
+ SG_ BMSH_28_Resd1 : 15|4@0+ (1,0) [0|0] ""  CDU
+ SG_ BMSH_CC_ConnectSts : 17|2@0+ (1,0) [0|3] ""  CDU
+ SG_ BMSH_CC2_Alarm : 25|2@0+ (1,0) [0|0] ""  CDU
+ SG_ BMSH_CC2_ConnectSts : 27|2@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_S2Swtsts : 29|2@0+ (1,0) [0|1] ""  CDU
+ SG_ BMSH_CC_ConnectDischarSts : 31|2@0+ (1,0) [0|3] ""  CDU
+ SG_ BMSH_ElectronicLockSts : 42|3@0+ (1,0) [0|7] ""  CDU
+ SG_ BMSH_CC_RCR4_Sts : 39|13@0+ (1,0) [0|3400] "R"  CDU
+
+BO_ 640 EMS_1_G: 8 CGW
+ SG_ EMS_1_G_ISS_Sts : 7|2@0+ (1,0) [0|0] ""  CDU
+ SG_ Reserved_FuelWaterPresentSts : 5|1@0+ (1,0) [0|1] ""  CDU
+ SG_ Reserved_GlowPlugLampSts : 4|1@0+ (1,0) [0|1] ""  CDU
+ SG_ Reserved_GlowPlugFailSts : 3|1@0+ (1,0) [0|1] ""  CDU
+ SG_ Reserved_FuelWaterPresentFailSts : 2|1@0+ (1,0) [0|1] ""  CDU
+ SG_ EMS_1_G_IEMSts : 1|1@0+ (1,0) [0|1] ""  CDU
+ SG_ EMS_1_G_ISS_Switch_Sts : 14|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_MILSts : 13|2@0+ (1,0) [0|2] ""  CDU
+ SG_ EMS_1_G_EMS_1_G_Reserved2 : 10|1@0+ (1,0) [0|1] ""  CDU
+ SG_ EMS_1_G_CruCtlStsForDisplay : 9|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_FuelRollingCounter : 31|8@0+ (7.9E-005,0) [0|0.020107] "Ltr"  CDU
+ SG_ EMS_1_G_EngineSpeed : 39|11@0+ (4,0) [0|8000] "Rpm"  CDU
+ SG_ EMS_1_G_ISS_Sts_GS : 44|5@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_FuelRollingCVData : 55|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_EngineSpeedValidData : 54|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_EPCSts : 53|1@0+ (1,0) [0|1] ""  CDU
+ SG_ EMS_1_G_SSMStatus : 52|3@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_TargetGearPosition : 49|3@0+ (1,0) [0|0] ""  CDU
+ SG_ IMMOCodeWarningLightSts : 62|2@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_GearRaiseIndication : 56|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_GearReduceIndication : 57|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_1_G_EngineSts : 58|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EMS_EngineSts_Actual : 59|1@0+ (1,0) [0|0] ""  CDU
+ SG_ EngineCoolantTemperture : 23|8@0+ (0.75,-48) [-48|20.25] "℃"  CDU
+
+BO_ 1152 PEPS_1: 8 CGW
+ SG_ CEM_PEPS_InformationSource : 31|2@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ CEM_PEPS_OrderInformation : 27|4@0+ (1,0) [0|15] ""  CDU
+
+BO_ 1213 EMS_28: 8 CGW
+ SG_ PID04_LoadValueCalculated : 7|8@0+ (0.392,0) [0|99.959999] ""  CDU
+ SG_ LoadValueCalculatedValidData : 15|1@0+ (1,0) [0|1] ""  CDU
+ SG_ AbsoluteThrottlePosValidData : 14|1@0+ (1,0) [0|1] ""  CDU
+ SG_ OBD_DrivingCycle : 13|1@0+ (1,0) [0|1] ""  CDU
+ SG_ OBD_WarmupCycle : 12|1@0+ (1,0) [0|1] ""  CDU
+ SG_ OBD_PermanentFailureCycle : 11|1@0+ (1,0) [0|1] ""  CDU
+ SG_ PID11_AbsoluteThrottlePosition : 23|8@0+ (0.392,0) [0|99.959999] ""  CDU
+ SG_ OBD_IgnCycle : 31|1@0+ (1,0) [0|1] ""  CDU
+ SG_ OBD_GeneralDenomiantor : 30|1@0+ (1,0) [0|1] ""  CDU
+ SG_ OBD_GeneralDenomiantorFreeze : 29|1@0+ (1,0) [0|1] ""  CDU
+
+BO_ 1241 EMS_4_G: 8 CGW
+ SG_ EMS_4_G_EngineSpeed_Actual : 7|16@0+ (0.25,0) [0|16383] "Rpm"  CDU
+ SG_ FuelTankLidLockReq : 17|2@0+ (1,0) [0|3] ""  CDU
+ SG_ FuelTankLidSystemFailureSts : 18|1@0+ (1,0) [0|1] ""  CDU
+ SG_ FuelTankPressureConditionReached : 20|2@0+ (1,0) [0|3] ""  CDU
+ SG_ LegisPostDTCClrDriveCycleCmplte : 21|1@0+ (1,0) [0|1] ""  CDU
+ SG_ LegisDiagStdardCnditionFltPresnt : 22|1@0+ (1,0) [0|1] ""  CDU
+ SG_ LegisDiagStdardCnditionMet : 23|1@0+ (1,0) [0|1] ""  CDU
+ SG_ EMS_4_G_Reserved1 : 31|40@0+ (1,0) [0|1099511627776] ""  CDU
+
+BO_ 264 HCU_7: 48 HCU
+ SG_ HCU_7_Res6 : 332|4@1- (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_RollgCntr6 : 331|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_CRC6 : 327|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_Resd2 : 79|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_RollgCntr2 : 75|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_CRC2 : 71|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ HCU_7_CRC1 : 7|8@0+ (1,0) [0|255] ""  CDU
+ SG_ HCU_7_RollgCntr1 : 11|4@0+ (1,0) [0|15] ""  CDU
+ SG_ HCU_7_PowertrainModeAct : 15|4@0+ (1,0) [0|15] ""  CDU
+ SG_ HCU_DCDC_udcLvSetP : 31|8@0+ (0.1,0) [0|20] "V"  CDU
+ SG_ HCU_DCDC_pActHvMax : 39|16@0+ (1,0) [0|5000] "W"  CDU
+ SG_ HCU_DCDCEnableReq : 49|2@0+ (1,0) [0|2] ""  CDU
+ SG_ HCU_DCDC_stModeReq : 53|3@0+ (1,0) [0|3] ""  CDU
+ SG_ HCU_SleepAllow : 54|1@0+ (1,0) [0|1] ""  CDU
+
+BO_ 850 HCU_13: 8 HCU
+ SG_ HCU_13_DchaPowerLimit : 15|7@0+ (0.1,0) [0|10] "KW"  CDU
+ SG_ HCU_OBCLockReq : 17|2@0+ (1,0) [0|2] ""  CDU
+
+BO_ 1034 HCU_1_G: 8 HCU
+ SG_ HCU_PTReady : 49|1@0+ (1,0) [0|0] ""  CDU
+ SG_ HCU_HVReady : 48|1@0+ (1,0) [0|0] ""  CDU
+ SG_ HCU_MILReq : 29|1@0+ (1,0) [0|1] ""  CDU
+ SG_ HCU_1_G_Dcha : 36|1@0+ (1,0) [0|1] ""  CDU
+
+BO_ 1115 TMF_4: 8 MCUF
+ SG_ MCUF_CDUOBDClearReq : 42|1@0+ (1,0) [0|1] ""  CDU
+ SG_ TMF_4_Reserved2 : 47|5@0+ (1,0) [0|0] ""  CDU
+ SG_ TMF_EngMilLampReq : 52|1@0+ (1,0) [0|1] ""  CDU
+ SG_ TMF_4_MsgCounter : 51|4@0+ (1,0) [0|15] ""  CDU
+ SG_ TMF_4_CRC : 63|8@0+ (1,0) [0|255] ""  CDU
+
+BO_ 856 TBOX_3: 8 TBOX
+ SG_ TBOX_ChargeAllow : 53|1@0+ (1,0) [0|1] ""  CDU
+
+BO_ 800 ABM_1: 4 CGW
+ SG_ ABM_1_MessageCounter : 15|4@0+ (1,0) [0|15] ""  CDU
+ SG_ ABM_1_CheckSum : 23|8@0+ (1,0) [0|255] ""  CDU
+ SG_ CrashOutputSts : 31|8@0+ (1,0) [0|255] ""  CDU
+
+BO_ 1048 DCDC_1: 8 CDU
+ SG_ DCDC_HVILFault : 47|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ DCDC_LvSideVolt : 7|8@0+ (0.1,0) [0|25.299999] "V" Vector__XXX
+ SG_ DCDC_FaultCode : 15|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ DCDC_Temp_Res : 23|2@0+ (1,-40) [-40|213] "℃" Vector__XXX
+ SG_ DCDC_WorkingSts : 33|2@0+ (1,0) [0|2] "" Vector__XXX
+ SG_ DCDC_CoolingReq : 34|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_FaultLevelSts : 37|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ DCDC_EnableSts : 38|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_LvSideCurr : 31|9@0+ (1,0) [0|510] "A" Vector__XXX
+ SG_ DCDC_OverTemp : 42|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_InputUnderVolt : 45|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_WorkingMode : 55|4@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ DCDC_1_MessageCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ DCDC_1_CRC : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1054 DCDC_2: 8 CDU
+ SG_ DCDC_HvVolt : 7|16@0+ (0.1,0) [0|1000] "V" Vector__XXX
+ SG_ DCDC_HvCurr : 23|16@0+ (0.1,0) [0|400] "A" Vector__XXX
+ SG_ DCDC_Temp : 39|8@0+ (1,-40) [-40|213] "℃" Vector__XXX
+ SG_ DCDC_TargeTemp : 47|8@0+ (1,-40) [-40|213] "℃" Vector__XXX
+ SG_ DCDC_DCDCSysFault : 52|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_2_MessageCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ DCDC_2_CRC : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1061 OBC_1: 48 CDU
+ SG_ OBC_1_MilLampReq : 204|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_Resd3 : 143|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_RollgCntr3 : 139|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_CRC3 : 135|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_Resd2 : 79|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_RollgCntr2 : 75|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_CRC2 : 71|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_Resd1 : 15|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_RollgCntr1 : 11|4@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_1_CRC1 : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] "A" Vector__XXX
+ SG_ OBC_ChgVolt : 39|16@0+ (0.05,0) [0|1000] "V" Vector__XXX
+ SG_ OBC_KL30_UnderVolt : 56|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_FaultLevelSts : 59|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_OutputPowerLimt : 55|12@0+ (0.1,0) [0|400] "KW" Vector__XXX
+ SG_ OBC_DischgCurr : 87|16@0+ (0.05,0) [0|400] "A" Vector__XXX
+ SG_ OBC_DischgVolt : 103|16@0+ (0.05,0) [0|1000] "V" Vector__XXX
+ SG_ OBC_InputCurr : 119|16@0+ (0.05,0) [0|400] "A" Vector__XXX
+ SG_ OBC_InputVolt : 151|16@0+ (0.05,0) [0|1000] "V" Vector__XXX
+ SG_ OBC_ACOutputCurr : 167|16@0+ (0.05,0) [0|400] "A" Vector__XXX
+ SG_ OBC_ACOutputVolt : 183|16@0+ (0.05,0) [0|1000] "V" Vector__XXX
+ SG_ OBC_1_Resd4 : 207|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_ChargerL1Temp : 215|8@0+ (1,-40) [-40|216] "℃" Vector__XXX
+ SG_ OBC_ChargerNTemp : 239|8@0+ (1,-40) [-40|216] "℃" Vector__XXX
+ SG_ OBC_MaxDisOutPower : 247|12@0+ (0.1,0) [0|400] "KW" Vector__XXX
+ SG_ OBC_1_Resd5 : 251|4@0+ (1,0) [0|15] "" Vector__XXX
+
+BO_ 1125 OBC_3: 8 CDU
+ SG_ OBC_EVCC_LockReq : 44|2@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_ElectronicLockReq : 23|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_CP_DutyCycleValue : 7|8@0+ (1,0) [0|100] "%" Vector__XXX
+ SG_ OBC_ChargerTemp : 15|8@0+ (1,-40) [-40|213] "℃" Vector__XXX
+ SG_ OBC_WorkingMode_PHEV : 22|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ OBC_CC_ConnectSts : 18|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_CP_DutyCycleFault : 32|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_3_Dchasts : 33|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_ElectronicLockSts : 35|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_ActDisOutPower : 31|12@0+ (0.1,0) [0|400] "KW" Vector__XXX
+ SG_ OBC_WorkingMode_EV : 47|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_ChgSts_PHEV : 54|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_S2SwtReq : 55|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_DischgSts : 42|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_3_MessageCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ OBC_3_CRC : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1084 OBC_4: 8 CDU
+ SG_ CDU_soft_test_edition : 47|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_MaxOutputCurrent : 7|16@0+ (0.05,0) [0|400] "A"  BMS
+ SG_ OBC_MaxOutputVoltage : 23|16@0+ (0.05,0) [0|1000] "V"  BMS
+ SG_ OBC_FaultCode : 39|8@0+ (1,0) [0|255] ""  HCU,BMS
+ SG_ OBC_ChargeSourceMode : 53|2@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ OBC_CoolingReq : 54|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_CP_VoltSts : 50|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_CP_MaxVolt : 63|8@0+ (0.1,0) [0|25.5] "V" Vector__XXX
+
+BO_ 1037 CDU_1: 8 CDU
+ SG_ OBD_CDUFaultFalg1 : 7|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg2 : 23|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg3 : 39|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg4 : 55|16@0+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 1070 CDU_2: 8 CDU
+ SG_ OBD_CDUFaultFalg5 : 7|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg6 : 23|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg7 : 39|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUFaultFalg8 : 55|15@0+ (1,0) [0|32767] "" Vector__XXX
+ SG_ CDU_MCUFOBDClearResult : 56|1@0+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1398 CDU_3: 8 CDU
+ SG_ OBD_CDUCalID1 : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBD_CDUCalID2 : 15|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBD_CDUReserved1 : 23|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ OBD_CDUCVN1 : 39|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBD_CDUCVN2 : 47|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBD_CDUCVN3 : 55|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBD_CDUCVN4 : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1417 CDU_Debug: 16 CDU
+ SG_ OBC_CpFreq : 7|16@0+ (1,0) [0|5000] "HZ" Vector__XXX
+ SG_ OBC_CcRes : 23|16@0+ (1,0) [0|8190] "Ω" Vector__XXX
+ SG_ OBC_ProcessCode : 39|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBC_StopProcessCode : 47|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBC_OBCRealWorkState : 55|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBC_ElockActionState : 59|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ OBC_KL15State : 60|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_ElockCmd : 63|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ OBC_PwrAvl : 71|16@0+ (0.5,0) [0|400] "A" Vector__XXX
+ SG_ OBC_OBCAcCurrLimitRef : 87|16@0+ (0.5,0) [0|400] "A" Vector__XXX
+
+BO_ 1583 NMm_CDU: 8 CDU
+ SG_ SrcNodeID_CDU : 0|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+ SG_ RMR_CDU : 8|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ NMm_CDU_Reserved1 : 9|7@1+ (1,0) [0|127] ""  CGW,MCUF,HCU,BMS
+ SG_ UsrData0_CDU : 16|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+ SG_ IGNITION_WAKEUP_CDU : 24|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ RESET_WAKEUP_CDU : 25|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ NETWORK_WAKEUP_CDU : 26|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ ECUSPEC_WAKEUP_CDU : 27|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ NETWORK_AWAKE_CDU : 28|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ IGNITION_AWAKE_CDU : 29|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ DIAGNOSTIC_AWAKE_CDU : 30|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ ECUSPEC_AWAKE_CDU : 31|1@1+ (1,0) [0|1] ""  CGW,MCUF,HCU,BMS
+ SG_ UsrData2_CDU : 32|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+ SG_ UsrData3_CDU : 40|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+ SG_ UsrData4_CDU : 48|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+ SG_ UsrData5_CDU : 56|8@1+ (1,0) [0|255] ""  CGW,MCUF,HCU,BMS
+
+
+
+CM_ BO_ 3221225472 "This is a message for not used signals, created by Vector CANdb++ DBC OLE DB Provider.";
+CM_ SG_ 3221225472 BMS_8_CC2Sts "The meter can be used to display charging connections";
+CM_ SG_ 3221225472 BMSH_SOH "Battery Health Index";
+CM_ SG_ 3221225472 BCM_4_ArmingSts "Complete vehicle arming/disarming successful action signal";
+CM_ SG_ 3221225472 BCM_12_EBS_Voltage "Current_measured_battery_voltage";
+CM_ SG_ 1330 IHU_29_DchaSet "External discharge of main engine for PHEV";
+CM_ SG_ 403 BMSH_PosMainRelaySts "main positive relay status";
+CM_ SG_ 403 BMSH_1_CRC3 "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 403 BMSH_1_RollgCntr3 "Rolling message counter";
+CM_ SG_ 403 BMSH_1_Resd3 "Reserved";
+CM_ SG_ 403 BMSH_NegMainRelaySts "main negtive relay status";
+CM_ SG_ 403 BMSH_PTCRelaySts "PTC Relay Sts";
+CM_ SG_ 403 BMSH_BattVoltMaxLimt "Battery Voltage Maximum Limit";
+CM_ SG_ 403 BMSH_BattVoltMinLimt "Battery Voltage Minimum Limit";
+CM_ SG_ 1096 BMSH_KeepWarmReq "BMS battery HCU heat request";
+CM_ SG_ 1096 BMSH_ChargeOutMaxVolSet "Battery system charging voltage request value";
+CM_ SG_ 1096 BMSH_ChargeOutMaxCurSet "Battery system charging current request value";
+CM_ SG_ 1096 BMSH_ChargeOutHeatVolSet "Battery system charging and heating voltage request value";
+CM_ SG_ 1096 BMS_OBCHeatRequest "BMS battery OBC heat request";
+CM_ SG_ 1096 BMSH_OBCChargeReq "OBC charging request";
+CM_ SG_ 1071 BMSH_26_CRC1 "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 1071 BMSH_26_RollgCntr1 "Rolling message counter";
+CM_ SG_ 1071 BMSH_26_Resd1 "Reserved";
+CM_ SG_ 1071 BMSH_26_Resd7 "Reserved";
+CM_ SG_ 1071 BMSH_CP_DutyCycleValue "CP pwm";
+CM_ SG_ 1071 BMSH_26_CRC2 "CRC (SAE J1850 CRC-8) Note";
+CM_ SG_ 1071 BMSH_26_RollgCntr2 "Rolling message counter";
+CM_ SG_ 1071 BMSH_26_Resd2 "Reserved";
+CM_ SG_ 1071 BMSH_CP_DutyCycleFault "CP pwm fault";
+CM_ SG_ 1071 BMSH_CPMaxVolt "charger CP MaxVolt value";
+CM_ SG_ 1228 BMSH_28_CRC1 "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 1228 BMSH_28_RollgCntr1 "Rolling message counter";
+CM_ SG_ 1228 BMSH_28_Resd1 "Reserved";
+CM_ SG_ 1228 BMSH_CC_ConnectSts "CC connect states";
+CM_ SG_ 1228 BMSH_CC2_Alarm "quick charger CC2 connect fault";
+CM_ SG_ 1228 BMSH_CC2_ConnectSts "CC2 connect state";
+CM_ SG_ 1228 BMSH_S2Swtsts "The states of S2 switch.";
+CM_ SG_ 1228 BMSH_CC_ConnectDischarSts "V2L connect states  ";
+CM_ SG_ 1228 BMSH_ElectronicLockSts "Electronic Lock Sts";
+CM_ SG_ 640 Reserved_FuelWaterPresentSts "For_Diesel_Engine";
+CM_ SG_ 640 Reserved_GlowPlugLampSts "For_Diesel_Engine";
+CM_ SG_ 640 Reserved_GlowPlugFailSts "For_Diesel_Engine";
+CM_ SG_ 640 Reserved_FuelWaterPresentFailSts "For_Diesel_Engine";
+CM_ SG_ 640 EMS_1_G_FuelRollingCounter "Instantaneous fuel consumption pulse signal";
+CM_ SG_ 640 EMS_1_G_EngineSpeed "This signal sends the true speed on PHEV";
+CM_ SG_ 640 EMS_1_G_SSMStatus "Used for various states of the start stop state machine";
+CM_ SG_ 640 EMS_1_G_TargetGearPosition "Used for gear shifting prompts during MT.";
+CM_ SG_ 640 EMS_1_G_EngineSts "On PHEV, this signal represents the simulated engine state;";
+CM_ SG_ 640 EMS_EngineSts_Actual "On PHEV, send based on the actual state of the engine";
+CM_ SG_ 1152 CEM_PEPS_OrderInformation "What_Function_Is_Requested_For_BCM.";
+CM_ SG_ 1213 PID04_LoadValueCalculated "engine load";
+CM_ SG_ 1213 LoadValueCalculatedValidData "engine load valid data";
+CM_ SG_ 1213 AbsoluteThrottlePosValidData "AbsoluteThrottlePosValidData";
+CM_ SG_ 1213 OBD_DrivingCycle "DrivingCycle";
+CM_ SG_ 1213 OBD_WarmupCycle "WarmupCycle";
+CM_ SG_ 1213 OBD_PermanentFailureCycle "PermanentFailureCycle";
+CM_ SG_ 1213 PID11_AbsoluteThrottlePosition "AbsoluteThrottlePos";
+CM_ SG_ 1241 EMS_4_G_EngineSpeed_Actual "PHEV:Actual_Engine_Speed_Send_By_EMS_To_HCU";
+CM_ SG_ 1241 FuelTankLidLockReq "FuelTankLidLockReq";
+CM_ SG_ 1241 FuelTankLidSystemFailureSts "FuelTankLidSystemFailureSts";
+CM_ SG_ 1241 FuelTankPressureConditionReached "FuelTankPressureConditionReached";
+CM_ SG_ 1241 LegisDiagStdardCnditionFltPresnt "Legislated_Diagnostics_Standard_Conditions_Fault_Present";
+CM_ SG_ 1241 LegisDiagStdardCnditionMet "Legislated_Diagnostics_Standard_Conditions_Met";
+CM_ SG_ 264 HCU_7_CRC1 "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 264 HCU_7_RollgCntr1 "Rolling message counter";
+CM_ SG_ 264 HCU_DCDC_udcLvSetP "Setpoint of voltage LV";
+CM_ SG_ 264 HCU_DCDC_pActHvMax "Max power available for DCDC";
+CM_ SG_ 264 HCU_DCDCEnableReq "DCDC enable";
+CM_ SG_ 264 HCU_DCDC_stModeReq "DCDC state";
+CM_ SG_ 264 HCU_SleepAllow "sleep allow command";
+CM_ SG_ 850 HCU_13_DchaPowerLimit "OBC power limit by HCU";
+CM_ SG_ 850 HCU_OBCLockReq "Added soft switch of charging gun for PHEV";
+CM_ SG_ 1034 HCU_MILReq "MIL_Lamp_On_Request(HCU)";
+CM_ SG_ 1034 HCU_1_G_Dcha "Increase external discharge for PHEV";
+CM_ SG_ 1115 MCUF_CDUOBDClearReq "Mode_04_Clear_OBD_Information_Request_Flag";
+CM_ SG_ 1115 TMF_EngMilLampReq "MIL_Lamp_On_Request(TMF)";
+CM_ SG_ 800 ABM_1_MessageCounter "Rolling_Message_Counter";
+CM_ SG_ 800 ABM_1_CheckSum "((Byte0+Byte1+Byte3)_AND_0xFF)_XOR_0xFF";
+CM_ SG_ 1048 DCDC_LvSideVolt "DCDC_Output_Voltage";
+CM_ SG_ 1048 DCDC_Temp_Res "DCDC tempreture";
+CM_ SG_ 1048 DCDC_CoolingReq "Cooling_Request";
+CM_ SG_ 1048 DCDC_FaultLevelSts "DCDC_Fault_States";
+CM_ SG_ 1048 DCDC_EnableSts "DCDC_Enable_States_Feedback";
+CM_ SG_ 1048 DCDC_LvSideCurr "DCDC_Output_Current";
+CM_ SG_ 1048 DCDC_OverTemp "DCDC_Over_Temperature";
+CM_ SG_ 1048 DCDC_InputUnderVolt "DCDC_Input_Under_Voltage";
+CM_ SG_ 1048 DCDC_WorkingMode "DCDC_Work_Mode";
+CM_ SG_ 1048 DCDC_1_MessageCounter "Rolling message counter";
+CM_ SG_ 1048 DCDC_1_CRC "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 1054 DCDC_HvVolt "DCDC_Input_Voltage";
+CM_ SG_ 1054 DCDC_HvCurr "DCDC_Input_Current";
+CM_ SG_ 1054 DCDC_Temp "DCDC tempreture";
+CM_ SG_ 1054 DCDC_TargeTemp "DCDC tempreture";
+CM_ SG_ 1054 DCDC_2_MessageCounter "Rolling message counter";
+CM_ SG_ 1054 DCDC_2_CRC "CRC (SAE J1850 CRC-8)";
+CM_ SG_ 1061 OBC_ChgCurr "output current";
+CM_ SG_ 1061 OBC_ChgVolt "output voltage  ";
+CM_ SG_ 1061 OBC_KL30_UnderVolt "KL30 under voltage";
+CM_ SG_ 1061 OBC_FaultLevelSts "OBC fault states";
+CM_ SG_ 1061 OBC_OutputPowerLimt "output power limit";
+CM_ SG_ 1061 OBC_DischgCurr "input current(dischg)";
+CM_ SG_ 1061 OBC_DischgVolt "input  voltage(dischg)";
+CM_ SG_ 1061 OBC_InputCurr "OBC input current";
+CM_ SG_ 1061 OBC_InputVolt "OBC input voltage";
+CM_ SG_ 1061 OBC_ACOutputCurr "OBC output current AC";
+CM_ SG_ 1061 OBC_ACOutputVolt "OBC output voltage AC";
+CM_ SG_ 1061 OBC_ChargerL1Temp "ChargeL1  temperature";
+CM_ SG_ 1061 OBC_ChargerNTemp "ChargeN  temperature";
+CM_ SG_ 1061 OBC_MaxDisOutPower "discharge output power";
+CM_ SG_ 1125 OBC_CP_DutyCycleValue "CP_Pwm";
+CM_ SG_ 1125 OBC_ChargerTemp "OBC_Charge_Temperature";
+CM_ SG_ 1125 OBC_WorkingMode_PHEV "OBC working states";
+CM_ SG_ 1125 OBC_CC_ConnectSts "CC connect states";
+CM_ SG_ 1125 OBC_CP_DutyCycleFault "CP_Pwm_Fault";
+CM_ SG_ 1125 OBC_3_Dchasts "Discharge function status for PHEV";
+CM_ SG_ 1125 OBC_ElectronicLockSts "Electronic_Lock_Sts";
+CM_ SG_ 1125 OBC_WorkingMode_EV "OBC working states";
+CM_ SG_ 1125 OBC_ChgSts_PHEV "OBC_Charge_Stated";
+CM_ SG_ 1125 OBC_S2SwtReq "The request of S2 switch.";
+CM_ SG_ 1125 OBC_DischgSts "OBC_Discharge_states";
+CM_ SG_ 1125 OBC_3_MessageCounter "Alivecounter";
+CM_ SG_ 1125 OBC_3_CRC "SAE_J1850_CRC-8";
+CM_ SG_ 1084 OBC_MaxOutputCurrent "OBC_Maximum_Output_Voltage";
+CM_ SG_ 1084 OBC_MaxOutputVoltage "OBC_Maximum_Output_Current";
+CM_ SG_ 1084 OBC_FaultCode "OBC_Fault_Matrix";
+CM_ SG_ 1084 OBC_CP_VoltSts "Charger CP Volt State";
+CM_ SG_ 1084 OBC_CP_MaxVolt "Charger CP MaxVolt value";
+CM_ SG_ 1037 OBD_CDUFaultFalg1 "CDUFaultFalg1";
+CM_ SG_ 1037 OBD_CDUFaultFalg2 "CDUFaultFalg2";
+CM_ SG_ 1037 OBD_CDUFaultFalg3 "CDUFaultFalg3";
+CM_ SG_ 1037 OBD_CDUFaultFalg4 "CDUFaultFalg4";
+CM_ SG_ 1070 OBD_CDUFaultFalg5 "CDUFaultFalg4";
+CM_ SG_ 1070 OBD_CDUFaultFalg6 "CDUFaultFalg5";
+CM_ SG_ 1070 OBD_CDUFaultFalg7 "CDUFaultFalg6";
+CM_ SG_ 1070 OBD_CDUFaultFalg8 "CDUFaultFalg7";
+CM_ SG_ 1070 CDU_MCUFOBDClearResult "MCUF OBD Clear Result";
+CM_ SG_ 1398 OBD_CDUCalID1 "CDU Calibration ID1";
+CM_ SG_ 1398 OBD_CDUCalID2 "CDU Calibration ID2";
+CM_ SG_ 1398 OBD_CDUCVN1 "CDUCVN1";
+CM_ SG_ 1398 OBD_CDUCVN2 "CDUCVN2";
+CM_ SG_ 1398 OBD_CDUCVN3 "CDUCVN3";
+CM_ SG_ 1398 OBD_CDUCVN4 "CDUCVN4";
+CM_ SG_ 1417 OBC_CpFreq "Cp Frequence";
+CM_ SG_ 1417 OBC_CcRes "Res Value of Cc";
+CM_ SG_ 1417 OBC_ProcessCode "ProcessCode";
+CM_ SG_ 1417 OBC_StopProcessCode "Stop ProcessCode";
+CM_ SG_ 1417 OBC_OBCRealWorkState "RealWork State of OBC";
+CM_ SG_ 1417 OBC_ElockActionState "State of Elock Action";
+CM_ SG_ 1417 OBC_KL15State "KL15 State";
+CM_ SG_ 1417 OBC_ElockCmd "Elock Commod ";
+CM_ SG_ 1417 OBC_PwrAvl "Power of Obc ";
+CM_ SG_ 1417 OBC_OBCAcCurrLimitRef "Limit Reference of OBC AC Current";
+CM_ SG_ 1583 RMR_CDU "The value of this bit is always set to 0";
+CM_ SG_ 1583 IGNITION_WAKEUP_CDU "ECU_Was_“power_Off”_Or_“Bus_Sleep”_Mode_And_Started_By_Ignition_Switch";
+CM_ SG_ 1583 RESET_WAKEUP_CDU "If_ECU_Was_Already_Awake_In_“Prepare_Bus_Sleep”_Or_“Ready_Sleep”_Mode_And_Re-started_By_An_Internal_Or_An_External_Reset.";
+CM_ SG_ 1583 NETWORK_WAKEUP_CDU "ECU_Was_In_“Power_Off”_“Bus_Sleep”_“Pre-pare_Bus_Sleep”_Or_“Ready_Sleep”_Mode_And_Then_Re-started_By_A_Network_Communication.";
+CM_ SG_ 1583 ECUSPEC_WAKEUP_CDU "ECU_Was_In_”power_Off”_“Bus_Sleep”_“Pre-pare_Bus_Sleep”_Or_“Ready_Sleep”_Mode_Or_“awake”_And_Re-started_By_ECU_Specific_Reason_(e.g._Pressed_Button_Timer_Etc.)";
+CM_ SG_ 1583 NETWORK_AWAKE_CDU "ECU_Keeps_The_Network_Awake_Due_To_The_CAN_Message_Received_From_The_Network";
+CM_ SG_ 1583 IGNITION_AWAKE_CDU "ECU_Can?t_Release_Communication_Because_Ignition_(KL15)_Is_Turn_On_Or_KLR_Is_Turned_On";
+CM_ SG_ 1583 DIAGNOSTIC_AWAKE_CDU "ECU_Needs_Communication_For_Diagnostic_Purpose_And_Keeps_Network_Awake.";
+CM_ SG_ 1583 ECUSPEC_AWAKE_CDU "ECU_Keeps_The_Network_Awake_For_ECU-define_Reasons_For_Which_Communication_Is_Needed";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ BO_  "VFrameFormat" INT 0 15;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "VFrameFormat" 5.75839280914716E-316;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_ "BusType" "CAN FD";
+BA_ "DBName" "CANDB";
+BA_ "VFrameFormat" BO_ 1282 14;
+BA_ "VFrameFormat" BO_ 914 14;
+BA_ "VFrameFormat" BO_ 1103 14;
+BA_ "GenMsgCycleTime" BO_ 1585 1000;
+BA_ "GenMsgCycleTime" BO_ 1580 1000;
+BA_ "GenMsgCycleTime" BO_ 913 20;
+BA_ "VFrameFormat" BO_ 913 14;
+BA_ "GenMsgCycleTime" BO_ 515 20;
+BA_ "VFrameFormat" BO_ 515 14;
+BA_ "GenMsgCycleTime" BO_ 2022 100;
+BA_ "VFrameFormat" BO_ 2022 14;
+BA_ "GenMsgCycleTime" BO_ 2015 100;
+BA_ "VFrameFormat" BO_ 2015 14;
+BA_ "GenMsgCycleTime" BO_ 2030 100;
+BA_ "VFrameFormat" BO_ 2030 14;
+BA_ "GenMsgCycleTime" BO_ 1536 1000;
+BA_ "GenMsgCycleTime" BO_ 1551 1000;
+BA_ "VFrameFormat" BO_ 1083 14;
+BA_ "GenMsgCycleTime" BO_ 1183 100;
+BA_ "VFrameFormat" BO_ 1183 14;
+BA_ "GenMsgCycleTime" BO_ 1550 1000;
+BA_ "VFrameFormat" BO_ 1550 0;
+BA_ "GenMsgCycleTime" BO_ 1330 100;
+BA_ "VFrameFormat" BO_ 1330 14;
+BA_ "GenMsgCycleTime" BO_ 403 10;
+BA_ "VFrameFormat" BO_ 403 14;
+BA_ "GenMsgCycleTime" BO_ 1096 100;
+BA_ "VFrameFormat" BO_ 1096 14;
+BA_ "GenMsgCycleTime" BO_ 1071 100;
+BA_ "VFrameFormat" BO_ 1071 14;
+BA_ "GenMsgCycleTime" BO_ 1228 100;
+BA_ "VFrameFormat" BO_ 1228 14;
+BA_ "GenMsgCycleTime" BO_ 640 100;
+BA_ "VFrameFormat" BO_ 640 14;
+BA_ "GenMsgCycleTime" BO_ 1152 50;
+BA_ "VFrameFormat" BO_ 1152 14;
+BA_ "GenMsgCycleTime" BO_ 1213 100;
+BA_ "VFrameFormat" BO_ 1213 14;
+BA_ "GenMsgCycleTime" BO_ 1241 100;
+BA_ "VFrameFormat" BO_ 1241 14;
+BA_ "GenMsgCycleTime" BO_ 264 10;
+BA_ "VFrameFormat" BO_ 264 14;
+BA_ "GenMsgCycleTime" BO_ 850 50;
+BA_ "VFrameFormat" BO_ 850 14;
+BA_ "GenMsgCycleTime" BO_ 1034 100;
+BA_ "VFrameFormat" BO_ 1034 14;
+BA_ "GenMsgCycleTime" BO_ 1115 100;
+BA_ "VFrameFormat" BO_ 1115 14;
+BA_ "GenMsgCycleTime" BO_ 856 50;
+BA_ "VFrameFormat" BO_ 856 14;
+BA_ "GenMsgCycleTime" BO_ 800 500;
+BA_ "VFrameFormat" BO_ 800 14;
+BA_ "GenMsgCycleTime" BO_ 1048 100;
+BA_ "VFrameFormat" BO_ 1048 14;
+BA_ "GenMsgCycleTime" BO_ 1054 100;
+BA_ "VFrameFormat" BO_ 1054 14;
+BA_ "GenMsgCycleTime" BO_ 1061 100;
+BA_ "VFrameFormat" BO_ 1061 14;
+BA_ "GenMsgCycleTime" BO_ 1125 100;
+BA_ "VFrameFormat" BO_ 1125 14;
+BA_ "GenMsgCycleTime" BO_ 1084 100;
+BA_ "VFrameFormat" BO_ 1084 14;
+BA_ "GenMsgCycleTime" BO_ 1037 100;
+BA_ "VFrameFormat" BO_ 1037 14;
+BA_ "GenMsgCycleTime" BO_ 1070 100;
+BA_ "VFrameFormat" BO_ 1070 14;
+BA_ "GenMsgCycleTime" BO_ 1398 1000;
+BA_ "VFrameFormat" BO_ 1398 14;
+BA_ "GenMsgCycleTime" BO_ 1417 100;
+BA_ "VFrameFormat" BO_ 1417 14;
+BA_ "GenMsgCycleTime" BO_ 1583 1000;
+BA_ "VFrameFormat" BO_ 1583 0;
+VAL_ 3221225472 BmsPtcConfig 0 "BMS inner PTC" 1 "CLM PTC" ;
+VAL_ 3221225472 BMS_8_CC2Sts 0 "No Connect" 1 "Connected" ;
+VAL_ 3221225472 BCM_4_ArmingSts 0 "Not_Active" 1 "Arming_Successful" 2 "Disarming_Successful" 3 "Invalid" ;
+VAL_ 3221225472 CEM_2_AlarmMode 15 "Invalid" 14 "Invalid" 13 "Invalid" 12 "Invalid" 11 "Invalid" 10 "Invalid" 0 "DisarmingMode" 1 "ArmingMode" 2 "IntrusionMode" 3 "DisableIntrusionMode" 4 "ArmingFaultMode" 5 "TrunkReleaseMode" 6 "Invalid" 7 "Invalid" 8 "Invalid" 9 "Invalid" ;
+VAL_ 3221225472 BCM_4_DriverDoorLockSts 0 "Lock" 1 "Unlock" ;
+VAL_ 3221225472 BCM_12_EBS_Voltage 3 "Startup_Invalid" ;
+VAL_ 3221225472 BCM_12_EBS_Current 0 "Startup_Invalid" ;
+VAL_ 3221225472 AAA_Report 108547 "Report_AAA" 43011 "No_Report_AAA" ;
+VAL_ 914 CEM_2_KeySts 3 "CRANK_+_ON" 2 "ON" 1 "ACC" 0 "OFF" ;
+VAL_ 1103 BMS_8_PackDCChargingSt 10 "Reserved" 9 "Fault" 8 "CoolingAndCharging" 7 "Cooling" 6 "Balance_temperature" 5 "ThermalError" 4 "ChargeFinish" 3 "Charging" 2 "HeatingAndCharging" 1 "Heating" 0 "None" ;
+VAL_ 1585 RMR_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 ECUSPEC_AWAKE_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 DIAGNOSTIC_AWAKE_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 IGNITION_AWAKE_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 NETWORK_AWAKE_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 ECUSPEC_WAKEUP_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 RESET_WAKEUP_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1585 IGNITION_WAKEUP_TMF 1 "Active" 0 "Inactive" ;
+VAL_ 1580 ECUSPEC_AWAKE_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 DIAGNOSTIC_AWAKE_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 IGNITION_AWAKE_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 NETWORK_AWAKE_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 ECUSPEC_WAKEUP_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 NETWORK_WAKEUP_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 RESET_WAKEUP_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 IGNITION_WAKEUP_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 1580 RMR_ISG 1 "Active" 0 "Inactive" ;
+VAL_ 913 CEM_1_DriverDoorLockSts 1 "Unlock" 0 "Lock" ;
+VAL_ 515 EVCC_FaultLevel 7 "Reseverd" 6 "Reseverd" 5 "Reseverd" 4 "Reseverd" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Normal" ;
+VAL_ 515 EVCC_ChargeType 5 "V2L(AC)" 4 "DC_charge(DIN70121)" 3 "DC_charge(ISO15118)" 2 "AC_charge(ISO15118)" 1 "AC_charge(basic_signal)" 0 "Unknown" ;
+VAL_ 515 EVCC_CC_ConnectDischarSts 3 "Invalid" 2 "Partial_connected" 1 "Connected" 0 "Not_connected" ;
+VAL_ 515 EVCC_CC_ConnectSts 3 "Invalid" 2 "Partial_connected" 1 "Connected" 0 "Not_connected" ;
+VAL_ 515 EVCC_S2Swtsts 3 "Error" 2 "reserved" 1 "close" 0 "open" ;
+VAL_ 515 EVCC_CPSts 7 "CP_signal_is_abnormal" 6 "CP_is_12V_PWM" 5 "CP_is_6V_high_level" 4 "CP_is_6V_PWM" 3 "CP_is_9V_PWM" 2 "CP_is_9V_high_level" 1 "CP_is_12V_high_level" 0 "no_CP_signal" ;
+VAL_ 515 EVCC_COUNTRY_SUPPORT 3 "EU+USA" 2 "USA" 1 "EU" 0 "init" ;
+VAL_ 515 EVCC_CP_DutyCycleFault 1 "Fault" 0 "No_fault" ;
+VAL_ 515 EVCC_PPCode 15 "Reserved" 14 "Reserved" 13 "V2L_gun_connected(AC)(2700_Ω)" 12 "V2L_gun_connected(AC)(2000_Ω)" 11 "V2L_gun_connected(AC)(1000_Ω)" 10 "Abnormal_value" 9 "V2L_gun_connected(AC)(75_Ω)" 8 "S3_close(150_Ω)" 7 "S3_open(480_Ω)" 6 "Detection_circuit_fault" 5 "Disconnect" 4 "100Ω" 3 "220Ω" 2 "680Ω" 1 "1500Ω" 0 "Unknown" ;
+VAL_ 515 EVCC_ElectronicLockSts 4 "Elock_error" 3 "Unlock_error" 2 "Lock_error" 1 "Lock" 0 "Unlock" ;
+VAL_ 515 EVCC_GunConnectSt 3 "Reserved" 2 "The_connection_is_abnormal" 1 "Connect" 0 "Disconnect" ;
+VAL_ 1536 ECUSPEC_AWAKE_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 DIAGNOSTIC_AWAKE_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 IGNITION_AWAKE_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 NETWORK_AWAKE_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 ECUSPEC_WAKEUP_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 NETWORK_WAKEUP_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 RESET_WAKEUP_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 IGNITION_WAKEUP_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1536 RMR_CGW 1 "Active" 0 "Inactive" ;
+VAL_ 1551 ECUSPEC_AWAKE_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 DIAGNOSTIC_AWAKE_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 IGNITION_AWAKE_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 NETWORK_AWAKE_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 ECUSPEC_WAKEUP_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 NETWORK_WAKEUP_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 RESET_WAKEUP_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 IGNITION_WAKEUP_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 RMR_BMS 1 "Active" 0 "Inactive" ;
+VAL_ 1551 SrcNodeID_BMS 255 "User_Data_Not_Used" 1 "Not_Used" 0 "User_Data_For_Current_Vehicle" ;
+VAL_ 1183 BMSH_PackChargingThermalSt 7 "cooling(Reserved)" 6 "Balance_temperature(Reserved)" 5 "ThermalError" 4 "ChargeFinish" 3 "Charging" 2 "CoolingAndCharging" 1 "Heating" 0 "None" ;
+VAL_ 1183 BMSH_stMode_PHEV 15 "Reserved" 14 "Reserved" 13 "DCCharge" 12 "Heat finish" 11 "Batt Heat" 10 "Heat Precharge" 9 "Fault" 8 "Emergeny Discharge" 7 "Service" 6 "Afterrun" 5 "Powerdown" 4 "Charge" 3 "Operational" 2 "Precharge" 1 "Standby" 0 "INIT" ;
+VAL_ 1550 RESET_WAKEUP_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 ECUSPEC_AWAKE_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 DIAGNOSTIC_AWAKE_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 IGNITION_AWAKE_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 NETWORK_AWAKE_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 ECUSPEC_WAKEUP_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 NETWORK_WAKEUP_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 IGNITION_WAKEUP_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1550 RMR_HCU 1 "Active" 0 "Inactive" ;
+VAL_ 1330 IHU_29_DchaSet 0 "Not active" 1 "Enable" 2 "Disable" ;
+VAL_ 403 BMSH_stMode_PHEV 15 "Reserved" 14 "Reserved" 13 "DCCharge" 12 "Heat finish" 11 "Batt Heat" 10 "Heat Precharge" 9 "Fault" 8 "Emergeny Discharge" 7 "Service" 6 "Afterrun" 5 "Powerdown" 4 "Charge" 3 "Operational" 2 "Precharge" 1 "Standby" 0 "INIT" ;
+VAL_ 403 BMSH_PosMainRelaySts 0 "Open" 1 "Closed" ;
+VAL_ 403 BMSH_NegMainRelaySts 0 "Open" 1 "Closed" ;
+VAL_ 403 BMSH_PTCRelaySts 0 "Open" 1 "Closed" ;
+VAL_ 1096 BMSH_KeepWarmReq 0 "No_Request" 1 "Request" ;
+VAL_ 1096 BMS_OBCHeatRequest 0 "No_Request" 1 "Request" ;
+VAL_ 1096 BMSH_OBCChargeReq 0 "No_Request" 1 "Request" ;
+VAL_ 1228 BMSH_CC_ConnectSts 0 "Not connected" 1 "Connected" 2 "Partial connected" 3 "Invalid" ;
+VAL_ 1228 BMSH_CC2_Alarm 0 "Normal" 1 "Fault" ;
+VAL_ 1228 BMSH_CC2_ConnectSts 0 "Not connected" 1 "Connected" 2 "Partial connected" 3 "Invalid" ;
+VAL_ 1228 BMSH_S2Swtsts 0 "open" 1 "close" 2 "reserved" 3 "Error" ;
+VAL_ 1228 BMSH_CC_ConnectDischarSts 0 "Not connected" 1 "Connected" 2 "Partial connected" 3 "Invalid" ;
+VAL_ 1228 BMSH_ElectronicLockSts 0 "Unlock" 1 "Lock" 2 "Lock error" 3 "Unlock error" 4 "Elock error" ;
+VAL_ 1228 BMSH_CC_RCR4_Sts 0 "Valid" 1 "Invalid" ;
+VAL_ 640 EMS_1_G_ISS_Sts 0 "Lamp_Off" 1 "Lamp_Flash" 2 "Lamp_On" 3 "Displaying_On_The_LCD" ;
+VAL_ 640 EMS_1_G_IEMSts 0 "Lamp_Off" 1 "Lamp_On" ;
+VAL_ 640 EMS_1_G_ISS_Switch_Sts 0 " ISS_Switch_Off" 1 " ISS_Switch_On" ;
+VAL_ 640 EMS_1_G_MILSts 0 "Off" 1 "Not_Used" 2 "Active" 3 "Not_Used" ;
+VAL_ 640 EMS_1_G_CruCtlStsForDisplay 0 "Not_Inserted" 1 "Inserted" 2 "Pre_Cruise_Flash" 3 "Cancel" ;
+VAL_ 640 EMS_1_G_ISS_Sts_GS 32 "Reserved" 31 "Reserved" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 0 "ISS_DefaultOn" 1 "ISS_EOL" 2 "ISS_StopEnable_" 3 "ISS_AutoStop_" 4 "ISS_NoStopBelt_" 5 "ISS_NoStopAC_" 6 "ISS_NoStopDoor" 7 "ISS_NoStopHood_" 8 "ISS_NoStopBrake" 9 "ISS_AutoStart" 10 "ISS_AlarmFault_" 11 "ISS_TurnOff_" 12 "ISS_TurnOn" 13 "Reserved" 14 "Reserved" 15 "Reserved" 16 "Reserved" 17 "Reserved" 18 "Reserved" 19 "Reserved" ;
+VAL_ 640 EMS_1_G_FuelRollingCVData 0 "Valid" 1 "Not_Valid" ;
+VAL_ 640 EMS_1_G_EngineSpeedValidData 0 "Valid" 1 "Not_Valid" ;
+VAL_ 640 EMS_1_G_EPCSts 0 "Inactive" 1 "Active" ;
+VAL_ 640 EMS_1_G_SSMStatus 0 "Reset_Not_Implemented" 1 "Standby" 2 "Stopped" 3 "Starter_Restart" 4 "Engine_Restart" 5 "Operation" 6 "Auto_Stopping" ;
+VAL_ 640 EMS_1_G_TargetGearPosition 1 "1st_Gear" 2 "2nd_Gear" 3 "3rd_Gear" 4 "4th_Gear" 5 "5th_Gear" 6 "6th_Gear" 7 "Invalid" ;
+VAL_ 640 IMMOCodeWarningLightSts 0 "Engine_Start_Enable" 1 "Engine_Start_Disable" 2 "Key_Not_Stored" 3 "Not_Valid" ;
+VAL_ 640 EMS_1_G_GearRaiseIndication 1 "Active" 0 "Not_Active" ;
+VAL_ 640 EMS_1_G_GearReduceIndication 1 "Active" 0 "Not_Active" ;
+VAL_ 640 EMS_1_G_EngineSts 1 "Run" 0 "Not_Run" ;
+VAL_ 640 EMS_EngineSts_Actual 0 "Not_Run" 1 "Run" ;
+VAL_ 1152 CEM_PEPS_InformationSource 3 "Near_Access" 2 "RKE_Information" 1 "SMART_Information" 0 "Not_Used
+" ;
+VAL_ 1152 CEM_PEPS_OrderInformation 14 "Power_Slide_Door_Left" 13 "Power_Slide_Door_Right" 0 "OFF" 1 "Lock" 2 "Unlock" 3 "RKE_Search_Car" 4 "Trunk" 5 "Welcome" ;
+VAL_ 1213 LoadValueCalculatedValidData 0 "Valid" 1 "Invalid" ;
+VAL_ 1213 AbsoluteThrottlePosValidData 0 "Valid" 1 "Invalid" ;
+VAL_ 1213 OBD_DrivingCycle 0 "Propulsion_System_Not_Active" 1 "Propulsion_System_Active" ;
+VAL_ 1213 OBD_WarmupCycle 0 "Not_Active" 1 "Active" ;
+VAL_ 1213 OBD_PermanentFailureCycle 0 "Not_Active" 1 "Active" ;
+VAL_ 1213 OBD_IgnCycle 0 "No_Active" 1 "Active" ;
+VAL_ 1213 OBD_GeneralDenomiantor 0 "Not_Active" 1 "Active" ;
+VAL_ 1213 OBD_GeneralDenomiantorFreeze 0 "Not_Active" 1 "Active" ;
+VAL_ 1241 FuelTankLidLockReq 0 "Not_Active" 1 "Lock" 2 "Unlock" 3 "Reserved" ;
+VAL_ 1241 FuelTankLidSystemFailureSts 0 "No_Failure" 1 "Failure" ;
+VAL_ 1241 FuelTankPressureConditionReached 0 "Not_Active" 1 "Wait_To_Refuel" 2 "Ready_To_Refuel" 3 "Reserved" ;
+VAL_ 264 HCU_7_PowertrainModeAct 15 "Service" 14 "C1 Opening" 13 "C1 Closing" 12 "Engine Stop" 11 "Engine Start" 10 "Series-3" 9 "E-Drive-3" 8 "Parallel" 7 "Series-2" 6 "Series-1" 5 "E-Drive-2" 4 "E-Drive-1" 3 "N/P Eng On" 2 "N/P Eng Off " 1 "Inactive" 0 "Init" ;
+VAL_ 264 HCU_DCDCEnableReq 0 "Disable" 1 "Enable" 2 " Reserved" 3 " Invalid" ;
+VAL_ 264 HCU_DCDC_stModeReq 0 "LV Standby" 1 "Operation" 2 "PowerDown" 3 "EmergencyShutdown" 4 "Reserve" 5 "Reserve" 6 "Reserve" 7 "Reserve" ;
+VAL_ 264 HCU_SleepAllow 0 " Allowed" 1 " Not  Allowed" ;
+VAL_ 850 HCU_OBCLockReq 0 "NoActive" 1 "Lock" 2 "AutoUnlock" 3 "ManualUnlock" ;
+VAL_ 1034 HCU_PTReady 1 "LmpON" 0 "LmpOFF" ;
+VAL_ 1034 HCU_HVReady 1 "LmpON" 0 "LmpOFF" ;
+VAL_ 1034 HCU_MILReq 0 "No_Request" 1 "Request" ;
+VAL_ 1034 HCU_1_G_Dcha 0 "Disable" 1 "Enable" ;
+VAL_ 1115 MCUF_CDUOBDClearReq 0 "No_Request" 1 "Request" ;
+VAL_ 1115 TMF_EngMilLampReq 0 "No_Request" 1 "Request" ;
+VAL_ 856 TBOX_ChargeAllow 0 "Not_Allow" 1 "Allow" ;
+VAL_ 800 CrashOutputSts 0 "No_Crash" 1 "Belt_Crash" 2 "Front_Crash" 4 "Left_Side_Crash" 8 "Right_Side_Crash" 10 "Rear_Crash" ;
+VAL_ 1048 DCDC_WorkingSts 0 "Disconnect" 1 "Operational_Buck" 2 "Abnormal_Fault" ;
+VAL_ 1048 DCDC_CoolingReq 0 "No_Request" 1 "Cooling_Request" ;
+VAL_ 1048 DCDC_FaultLevelSts 0 "No_Fault" 1 "Lever1_Fault" 2 "Lever2_Fault" 3 "Lever3_Fault" 4 "Reserved" 5 "Reserved" 6 "Reserved" 7 "Reserved" ;
+VAL_ 1048 DCDC_EnableSts 0 "Disable" 1 "Enable" ;
+VAL_ 1048 DCDC_OverTemp 0 "No_Fault" 1 "Fault" ;
+VAL_ 1048 DCDC_InputUnderVolt 0 "No_Fault" 1 "Fault" ;
+VAL_ 1048 DCDC_WorkingMode 15 "Reserve" 14 "Reserve" 13 "Reserve" 12 "Reserve" 11 "Reserve" 10 "Reserve" 0 "Init" 1 "LV_Standby" 2 "HV_Standby" 3 "Buck" 4 "PowerDown" 5 "Fault" 6 "Afterrun" 7 "Reserve" 8 "Reserve" 9 "Reserve" ;
+VAL_ 1054 DCDC_DCDCSysFault 0 "No_Fault" 1 "Fault" ;
+VAL_ 1061 OBC_1_MilLampReq 1 "Request" 0 "No_request" ;
+VAL_ 1061 OBC_KL30_UnderVolt 0 "No fault" 1 "Fault" ;
+VAL_ 1061 OBC_FaultLevelSts 0 "No_Fault" 1 "Lever1_Fault" 2 "Lever2_Fault" 3 "Lever3_Fault" 4 "Reserved" 5 "Reserved" 6 "Reserved" 7 "Reserved" ;
+VAL_ 1125 OBC_EVCC_LockReq 3 "reserved" 2 "Unlock" 1 "Lock" 0 "No_request" ;
+VAL_ 1125 OBC_ElectronicLockReq 0 "Unlock" 1 "Lock" ;
+VAL_ 1125 OBC_WorkingMode_PHEV 0 "Init" 1 "Standby" 2 "Charge" 3 "Heat" 4 "Fault" 5 "Discharge" 6 "PowerDown" 7 "AfterRun" 8 "OFF" ;
+VAL_ 1125 OBC_CC_ConnectSts 0 "Not Connected" 1 "Charge Connected" 2 "V2L" 3 "Error" 4 "Partial Connected" 5 "Reservd" 6 "Reservd" 7 "Reservd" ;
+VAL_ 1125 OBC_CP_DutyCycleFault 0 "No_Fault" 1 "Fault" ;
+VAL_ 1125 OBC_3_Dchasts 0 "OFF" 1 "ON" ;
+VAL_ 1125 OBC_ElectronicLockSts 0 "Unlock" 1 "Lock" ;
+VAL_ 1125 OBC_WorkingMode_EV 0 "Init" 1 "Standby" 2 "Charge" 3 "Heat" 4 "Fault" 5 "Discharge" 6 "PowerDown" 7 "AfterRun" 8 "OFF" ;
+VAL_ 1125 OBC_ChgSts_PHEV 0 "No_Charge" 1 "Charging" 2 "Chargefinished" 3 "Charge_Stop" 4 "Reserved Discharging" 5 "Reserved Discharge finished" 6 "Reserved" 7 "Reserved" ;
+VAL_ 1125 OBC_S2SwtReq 0 "Open" 1 "Closed" ;
+VAL_ 1125 OBC_DischgSts 0 "NoDischarge" 1 "Discharging" 2 "Discharging-Interior" 3 "Discharging_AND_DiscAR-Interior" 4 "Reserved " 5 "Reserved " 6 "Reserved" 7 "Reserved" ;
+VAL_ 1084 OBC_ChargeSourceMode 0 "none" 1 "constant_Voltage" 2 "constant_Current" 3 "Reserved" ;
+VAL_ 1084 OBC_CoolingReq 0 "No_Request" 1 "Cooling_Request" ;
+VAL_ 1084 OBC_CP_VoltSts 0 "CP_VOLT_0V (0~4.0V)" 1 "CP_VOLT_6V (4.0~7.1V)" 2 "CP_VOLT_9V (7.5~10.1V)" 3 "CP_VOLT_12V(10.5~14.0V)" 4 "CP_VOLT_ABNORMAL" ;
+VAL_ 1070 CDU_MCUFOBDClearResult 0 "Not_Complete" 1 "Complete" ;
+VAL_ 1417 OBC_OBCAcCurrLimitRef 0 "No_Crash" 1 "Belt_Crash" 2 "Front_Crash" 4 "Left_Side_Crash" 8 "Right_Side_Crash" 10 "Rear_Crash" ;
+VAL_ 1583 RMR_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 IGNITION_WAKEUP_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 RESET_WAKEUP_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 NETWORK_WAKEUP_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 ECUSPEC_WAKEUP_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 NETWORK_AWAKE_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 IGNITION_AWAKE_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 DIAGNOSTIC_AWAKE_CDU 0 "Inactive" 1 "Active" ;
+VAL_ 1583 ECUSPEC_AWAKE_CDU 0 "Inactive" 1 "Active" ;
+

@@ -142,6 +142,7 @@ public class TextOperation
             string selectedFile = openFileDialog.FileName;
             //reader的获取方式有两种
             //第一种
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             StreamReader reader = new StreamReader(selectedFile, Encoding.GetEncoding("gb2312"));
 
             //第二种

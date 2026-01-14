@@ -64,6 +64,7 @@
             tabControl_AllFunsSplit.SelectedIndex = 0;
             tabControl_AllFunsSplit.Size = new System.Drawing.Size(800, 578);
             tabControl_AllFunsSplit.TabIndex = 5;
+            tabControl_AllFunsSplit.SelectedIndexChanged += tabControl_AllFunsSplit_SelectedIndexChanged;
             // 
             // tabPage_FirstPage
             // 

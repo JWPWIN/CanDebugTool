@@ -23,8 +23,5 @@
     <Compile Update="UI\UI_DbcDataManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UI_Row_RecvSigDisplay.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
 </Project>

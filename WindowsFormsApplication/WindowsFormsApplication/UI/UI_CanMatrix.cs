@@ -17,7 +17,7 @@ namespace WindowsFormsApplication.UI
             InitializeComponent();
         }
 
-        private void UpdateMsgTableView()
+        public void UpdateMsgTableView()
         {
             if (CanDbcDataManager.GetInstance().isLoadCfg == true)
             {
@@ -117,12 +117,6 @@ namespace WindowsFormsApplication.UI
                 this.MsgGridView.DataSource = dt;
             }
 
-        }
-
-        private void MsgGridView_DoubleClick(object sender, System.EventArgs e)
-        {
-            //双击表格单元格更新CAN协议显示
-            UpdateMsgTableView();
         }
     }
 }

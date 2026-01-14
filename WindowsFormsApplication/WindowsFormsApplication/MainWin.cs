@@ -39,7 +39,7 @@ namespace WindowsFormsApplication
             {
                 //在UI线程上异步执行访问控件操作
                 //更新系统时间信息
-                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurSysTime.Text =  "{" + DateTime.Now.ToString() + "}"));
+                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurSysTime.Text = "{" + DateTime.Now.ToString() + "}"));
                 //更新当前页签名称
                 statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurPageName.Text = "{" + tabControl_AllFunsSplit.SelectedTab.Text + "}"));
                 //显示DBC状态
@@ -56,7 +56,7 @@ namespace WindowsFormsApplication
                 //显示设备连接状态
                 if (DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
                 {
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{"+ $"已连接设备:{DeviceInterfaceMng.GetInstance().curCanDeviceType.ToString()}" + "}"));
+                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{" + $"已连接设备:{DeviceInterfaceMng.GetInstance().curCanDeviceType.ToString()}" + "}"));
                     statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.ForeColor = Color.Green));
                 }
                 else
@@ -76,6 +76,21 @@ namespace WindowsFormsApplication
 
 
 
+        }
+
+        private void tabControl_AllFunsSplit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //如果切换页面到上位机页面，初始化窗口UI
+            if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_ComUpper")
+            {
+                uI_ComUpper.InitRecvMsgArea();
+            }
+
+            //如果切换页面到CAN通信矩阵显示页面，显示通信协议
+            if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_CanMatrix")
+            {
+               uI_CanMatrix.UpdateMsgTableView();
+            }
         }
     }
 }

@@ -50,7 +50,6 @@
             MsgGridView.RowTemplate.Height = 20;
             MsgGridView.Size = new System.Drawing.Size(800, 600);
             MsgGridView.TabIndex = 3;
-            MsgGridView.DoubleClick += MsgGridView_DoubleClick;
             // 
             // UI_CanMatrix
             // 
