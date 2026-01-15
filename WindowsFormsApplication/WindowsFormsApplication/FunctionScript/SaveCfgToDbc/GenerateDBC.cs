@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Windows.Interop;
 
 public class GenerateDBC
 {
@@ -352,4 +353,38 @@ public class GenerateDBC
         return SIG_GROUP_;
     }
 
+    /// <summary>
+    /// 根据CANFD和扩展帧格式获取DBC内代表CAN帧类型的值
+    /// </summary>
+    /// <param name="isCanfd"></param>
+    /// <param name="isExtended"></param>
+    /// <returns></returns>
+    static public int GetMsgFrameType(bool isCanfd, bool isExtended)
+    { 
+        int frameType = 0;
+
+        //BA_DEF_ BO_ "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+        if ((isCanfd == false) && (isExtended == false))//standard-can
+        {
+            frameType = 0;
+        }
+        else if ((isCanfd == false) && (isExtended == true))//externed-can
+        {
+            frameType = 1;
+        }
+        else if ((isCanfd == true) && (isExtended == false))//standard-canfd
+        {
+            frameType = 14;
+        }
+        else if ((isCanfd == true) && (isExtended == true))//externed-canfd
+        {
+            frameType = 15;
+        }
+        else
+        {
+            frameType = 0;
+        }
+
+        return frameType;
+    }
 }

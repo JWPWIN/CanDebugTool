@@ -80,9 +80,10 @@ public class ExcelManager
         return null;
     }
 
-    static public void ExportData(List<List<string>> excelInfo)
+    static public void ExportData(List<List<string>> dataList, List<string> titleList)
     {
-        if (excelInfo == null) { return; }
+        if (dataList == null || titleList == null) { return; }//表头或数据为空 退出
+        if (dataList[0].Count != titleList.Count) { return; }//表头和数据列不一致 退出
 
         // 创建 SaveFileDialog 对象
         SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -100,20 +101,28 @@ public class ExcelManager
 
             // 创建一个新的Excel包
             FileInfo file = new FileInfo(filePath);
+            ExcelPackage.License.SetNonCommercialPersonal("My Name");
+
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 // 添加一个工作表
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-                // 写入数据
-                int rowCount = excelInfo.Count;
-                int colCount = excelInfo[0].Count;
+                //写入第一行表头
+                for (int col = 0; col < titleList.Count; col++)
+                {
+                    worksheet.Cells[1, col + 1].Value = titleList[col];
+                }
+
+                // 写入每行数据
+                int rowCount = dataList.Count;
+                int colCount = dataList[0].Count;
 
                 for (int row = 0; row < rowCount; row++)
                 {
                     for (int col = 0; col < colCount; col++)
                     {
-                        worksheet.Cells[row + 1, col + 1].Value = excelInfo[row][col];
+                        worksheet.Cells[row + 2, col + 1].Value = dataList[row][col];
                     }
                 }
                 // 保存Excel文件

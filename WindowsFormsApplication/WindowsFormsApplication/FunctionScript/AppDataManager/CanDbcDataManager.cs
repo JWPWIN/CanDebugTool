@@ -250,6 +250,9 @@ public class CanDbcDataManager
                                 tmpSig.sigValueTable.Add(int.Parse(tmpArr[0]), tmpArr[1]);
                             }
 
+                            //信号值列表排序
+                            var _valueTableDict = tmpSig.sigValueTable.OrderBy(x => x.Key).ToDictionary<int, string>();
+                            tmpSig.sigValueTable = _valueTableDict as Dictionary<int, string>;
                         }
                         else
                         {
@@ -343,6 +346,10 @@ public class CanDbcDataManager
 
                                             tmpNum = tmpNum + 2;
                                         }
+
+                                        //信号值列表排序
+                                        var _valueTableDict = item.sigValueTable.OrderBy(x => x.Key).ToDictionary<int, string>();
+                                        item.sigValueTable = _valueTableDict as Dictionary<int, string>;
                                     }
                                 }
                             }

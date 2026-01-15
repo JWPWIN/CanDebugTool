@@ -65,7 +65,7 @@ namespace WindowsFormsApplication.UI
                         //获取信号值表
                         if (item1.sigValueTable != null)
                         {
-                            var _valueTableDict = item1.sigValueTable.OrderBy(x => x.Key).ToList();
+                            var _valueTableDict = item1.sigValueTable;
                             string _valueTableStr = string.Empty;
                             foreach (var item2 in _valueTableDict)
                             {

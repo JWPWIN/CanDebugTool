@@ -35,6 +35,7 @@
             Btn_ImpExcelDBC = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
+            button_ExportExcelDbc = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -107,6 +108,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(button_ExportExcelDbc);
             groupBox2.Controls.Add(Btn_ExportDbc);
             groupBox2.Controls.Add(Btn_ExportXml);
             groupBox2.Controls.Add(Btn_GntCanCode);
@@ -116,6 +118,17 @@
             groupBox2.TabIndex = 19;
             groupBox2.TabStop = false;
             groupBox2.Text = "导出数据";
+            // 
+            // button_ExportExcelDbc
+            // 
+            button_ExportExcelDbc.Location = new System.Drawing.Point(93, 23);
+            button_ExportExcelDbc.Margin = new System.Windows.Forms.Padding(4);
+            button_ExportExcelDbc.Name = "button_ExportExcelDbc";
+            button_ExportExcelDbc.Size = new System.Drawing.Size(78, 29);
+            button_ExportExcelDbc.TabIndex = 17;
+            button_ExportExcelDbc.Text = "导出DBC";
+            button_ExportExcelDbc.UseVisualStyleBackColor = true;
+            button_ExportExcelDbc.Click += button_ExportExcelDbc_Click;
             // 
             // UI_DbcDataManager
             // 
@@ -139,5 +152,6 @@
         private System.Windows.Forms.Button Btn_ImpExcelDBC;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button_ExportExcelDbc;
     }
 }
