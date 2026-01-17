@@ -19,7 +19,9 @@ public class LongRunningThreadService
     //主窗口对象 用于获取主窗口下的所有子对象
     public MainWin mainWin;
 
-    //任务调度计时器(1ms/10ms/100ms/1s)
+    //任务调度计时器(10us/100us/1ms/10ms/100ms/1s)
+    ulong TaskTimer_10us;
+    ulong TaskTimer_100us;
     ulong TaskTimer_1ms;
     ulong TaskTimer_10ms;
     ulong TaskTimer_100ms;
@@ -78,6 +80,18 @@ public class LongRunningThreadService
     /// </summary>
     private void Process()
     {
+        if (TimerTool.CheckTimeOut(TaskTimer_10us, 10 * (ulong)TimeUnit.T_US))
+        {
+            Process_10us();
+            TimerTool.ResetTimer(ref TaskTimer_10us);
+        }
+
+        if (TimerTool.CheckTimeOut(TaskTimer_100us, 100 * (ulong)TimeUnit.T_US))
+        {
+            Process_100us();
+            TimerTool.ResetTimer(ref TaskTimer_100us);
+        }
+
         if (TimerTool.CheckTimeOut(TaskTimer_1ms, 1 * (ulong)TimeUnit.T_MS))
         {
             Process_1ms();
@@ -105,12 +119,28 @@ public class LongRunningThreadService
     }
 
     /// <summary>
+    /// 10us调度函数
+    /// </summary>
+    private void Process_10us()
+    {
+
+    }
+
+    /// <summary>
+    /// 100us调度函数
+    /// </summary>
+    private void Process_100us()
+    {
+        //实时获取设备报文数据
+        DeviceInterfaceMng.GetInstance().MainLoopThread_Task_ReceiveMessagesFromDevice();
+    }
+
+    /// <summary>
     /// 1ms调度函数
     /// </summary>
     private void Process_1ms()
     {
-        //实时获取设备报文数据
-        DeviceInterfaceMng.GetInstance().MainLoopThread_Task_ReceiveMessagesFromDevice();
+
     }
 
     /// <summary>
