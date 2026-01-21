@@ -7,20 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-[StructLayout(LayoutKind.Explicit)]
-public struct Can_Uint64_Data
-{
-    [FieldOffset(0)] public ulong allData;
-    [FieldOffset(0)] public byte BYTE0;
-    [FieldOffset(1)] public byte BYTE1;
-    [FieldOffset(2)] public byte BYTE2;
-    [FieldOffset(3)] public byte BYTE3;
-    [FieldOffset(4)] public byte BYTE4;
-    [FieldOffset(5)] public byte BYTE5;
-    [FieldOffset(6)] public byte BYTE6;
-    [FieldOffset(7)] public byte BYTE7;
-}
-
 public enum CanDeviceType
 {
     ZCAN_USBCANFD_200U = 41,
@@ -34,6 +20,14 @@ public enum CanFrameType
     CAN
 };
 
+public struct Canfd_Frame_Com
+{
+    public uint can_id; /* 32 bit CAN_ID + EFF/RTR/ERR flags */
+    public byte len; /* frame payload length in byte */
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+    public byte[] data/* __attribute__((aligned(8)))*/;
+}
+
 public class DeviceInterfaceMng
 {
     static private DeviceInterfaceMng instance;//单例对象 
@@ -45,6 +39,8 @@ public class DeviceInterfaceMng
     public bool canDeviceOpenFlag = false;//是否有设备打开
 
     private ZlgDevice zlgDevice = null;//周立功设备实例
+
+    private List<Canfd_Frame_Com> waitToHandle_RecvCanMsgBuf = new List<Canfd_Frame_Com>();//当前等待处理的接收报文
 
     public DeviceInterfaceMng()
     {
@@ -183,6 +179,9 @@ public class DeviceInterfaceMng
         zlgDevice = null;//清除周立功设备实例
     }
 
+    /// <summary>
+    /// 从硬件设备接收报文到软件设备对象报文缓存区
+    /// </summary>
     public void MainLoopThread_Task_ReceiveMessagesFromDevice()
     {
         //未打开设备 直接返回
@@ -191,7 +190,7 @@ public class DeviceInterfaceMng
             return;
         }
 
-        //根据设备类型开启接收报文进程
+        //根据设备类型从相应设备中获取接收到的报文
         switch (curCanDeviceType)
         {
             case CanDeviceType.ZCAN_USBCANFD_100U:
@@ -206,4 +205,47 @@ public class DeviceInterfaceMng
 
     }
 
+    /// <summary>
+    /// 从软件设备对象获取接收报文到设备总接口未处理的接收报文缓存区
+    /// </summary>
+    public void MainLoopThread_Task_GetRecvMsgFromDeviceBuf()
+    {
+        //未打开设备 直接返回
+        if (canDeviceOpenFlag == false)
+        {
+            return;
+        }
+
+        //根据设备类型从相应设备对象中获取接收到的报文
+        switch (curCanDeviceType)
+        {
+            case CanDeviceType.ZCAN_USBCANFD_100U:
+            case CanDeviceType.ZCAN_USBCANFD_200U:
+            case CanDeviceType.ZCAN_USBCANFD_MINI:
+                //zlg设备获取接收报文
+                if (zlgDevice is not null) zlgDevice.GetRecvBufferValidMsg(waitToHandle_RecvCanMsgBuf);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    /// <summary>
+    /// 获取当前等待处理的接收报文
+    /// </summary>
+    /// <returns></returns>
+    public List<Canfd_Frame_Com> GetCurWaitToHandleMsg()
+    {
+        return waitToHandle_RecvCanMsgBuf;
+    }
+
+    /// <summary>
+    /// 清除所有当前等待处理的接收报文
+    /// </summary>
+    /// <returns></returns>
+    public void ClearCurWaitToHandleMsg()
+    {
+        waitToHandle_RecvCanMsgBuf.Clear();
+    }
 }

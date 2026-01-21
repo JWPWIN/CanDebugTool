@@ -70,7 +70,7 @@ public class LongRunningThreadService
         {
             _pauseEvent.WaitOne();
             Process();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
         }
         MessageBox.Show("Service Stopped");
     }
@@ -132,7 +132,7 @@ public class LongRunningThreadService
     private void Process_100us()
     {
         //实时获取设备报文数据
-        DeviceInterfaceMng.GetInstance().MainLoopThread_Task_ReceiveMessagesFromDevice();
+        DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_ReceiveMessagesFromDevice();
     }
 
     /// <summary>
@@ -140,7 +140,11 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_1ms()
     {
+        //获取当前待处理的接收报文
+        DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_GetRecvMsgFromDeviceBuf();
 
+        //更新通信上位机窗口UI
+        mainWin.MainLoopThread_Task_UpdateComUpperUI();
     }
 
     /// <summary>
@@ -148,7 +152,8 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_10ms()
     {
-
+        //更新状态栏信息
+        mainWin.MainLoopThread_Task_UpdateStatusStripInfo();
     }
 
     /// <summary>
@@ -156,8 +161,7 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_100ms()
     {
-        //任务一：更新状态栏信息
-        mainWin.MainLoopThread_Task_UpdateStatusStripInfo();
+
     }
 
     /// <summary>

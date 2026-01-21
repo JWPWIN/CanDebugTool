@@ -1,0 +1,1255 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: DCDC
+
+
+BO_ 2015 DIAG_OBD_REQ_Broadcast: 8 Vector__XXX
+ SG_ Diag_Functional_REQ : 7|64@0+ (1,0) [0|1] ""  DCDC
+
+BO_ 2022 Diag_CDU_REQ: 8 Vector__XXX
+ SG_ Diag_CDU_REQ : 7|64@0+ (1,0) [0|1] ""  DCDC
+
+BO_ 2030 Diag_CDU_RES: 8 DCDC
+ SG_ Diag_CDU_RES : 7|64@0+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1241 EMS_4_G: 8 Vector__XXX
+ SG_ FuelTankLidLockReq : 17|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ FuelTankLidSystemFailureSts : 18|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ FuelTankPressureConditionReached : 20|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ LegisPostDTCClrDriveCycleCmplte : 21|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ LegisDiagStdardCnditionFltPresnt : 22|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ LegisDiagStdardCnditionMet : 23|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ EMS_4_G_EngineSpeed_Actual : 7|16@0+ (0.25,0) [0|16383] "rpm"  DCDC
+
+BO_ 640 EMS_1_G: 8 Vector__XXX
+ SG_ EMS_1_G_Reserved5 : 60|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ EMS_EngineSts_Actual : 59|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ EngineSts : 58|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ GearReduceIndication : 57|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ GearRaiseIndication : 56|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ IMMOCodeWarningLightSts : 62|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ TargetGearPosition : 49|3@0+ (1,0) [0|7] ""  DCDC
+ SG_ SSMStatus : 52|3@0+ (1,0) [0|7] ""  DCDC
+ SG_ EPCSts : 53|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ EngineSpeedValidData : 54|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ FuelRollingCounterValidData : 55|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ ISS_Sts_GS : 44|5@0+ (1,0) [0|31] ""  DCDC
+ SG_ EngineSpeed : 39|11@0+ (4,0) [0|8000] "rpm"  DCDC
+ SG_ FuelRollingCounter : 31|8@0+ (7.88519E-005,0) [0|0.020028382] "ltr"  DCDC
+ SG_ EngineCoolantTemperture : 23|8@0+ (0.75,-48) [-48|142.5] "¡æ"  DCDC
+ SG_ CruiseControlStsForDisplay : 9|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ EMS_1_G_Reserved2 : 10|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ EngineCoolantTempertureFailSts : 11|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ MILSts : 13|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ ISS_Switch_Sts : 14|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ CompressorSts : 0|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ IEMSts : 1|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ GPFWarning : 3|2@0+ (1,0) [0|3] ""  DCDC
+ SG_ ISS_Sts : 7|2@0+ (1,0) [0|3] ""  DCDC
+
+BO_ 1213 EMS_28: 8 Vector__XXX
+ SG_ OBD_GeneralDenomiantorFreeze : 29|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ OBD_GeneralDenomiantor : 30|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ OBD_IgnCycle : 31|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ PID11_AbsoluteThrottlePosition : 23|8@0+ (0.392,0) [0|99.96] ""  DCDC
+ SG_ OBD_PermanentFailureCycle : 11|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ OBD_WarmupCycle : 12|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ OBD_DrivingCycle : 13|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ AbsoluteThrottlePosValidData : 14|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ LoadValueCalculatedValidData : 15|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ PID04_LoadValueCalculated : 7|8@0+ (0.392,0) [0|99.96] ""  DCDC
+
+BO_ 1520 BCM_10: 8 Vector__XXX
+ SG_ BCM_10_Config : 7|64@0+ (1,0) [0|1] ""  DCDC
+
+BO_ 1282 ABS_ESP_G: 7 Vector__XXX
+ SG_ VehicleSpeedVSOSig : 12|13@0+ (0.0625,0) [0|511.875] "km/h"  DCDC
+
+BO_ 800 ABM_1: 4 Vector__XXX
+ SG_ CrashOutputSts : 31|8@0+ (1,0) [0|255] ""  DCDC
+ SG_ ABM_1_CheckSum : 23|8@0+ (1,0) [0|255] ""  DCDC
+ SG_ ABM_1_MessageCounter : 15|4@0+ (1,0) [0|15] ""  DCDC
+
+BO_ 1536 NMm_CGW: 8 Vector__XXX
+
+BO_ 1583 NMm_CDU: 8 DCDC
+ SG_ usrData4_CDU : 55|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ usrData3_CDU : 47|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ usrData2_CDU : 39|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ ECUSPEC_AWAKE_CDU : 31|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DIAGNOSTIC_AWAKE_CDU : 30|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ IGNITION_AWAKE_CDU : 29|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ NETWORK_AWAKE_CDU : 28|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ ECUSPEC_WAKEUP_CDU : 27|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ NETWORK_WAKEUP_CDU : 26|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ RESET_WAKEUP_CDU : 25|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ IGNITION_WAKEUP_CDU : 24|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ usrData0_CDU : 23|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ NMm_CDU_Reserved1 : 15|7@0+ (1,0) [0|127] "" Vector__XXX
+ SG_ RMR_CDU : 8|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ srcNodeID_CDU : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1034 HCU_1_G: 8 Vector__XXX
+ SG_ HCU_1_G_HVILSts : 37|1@0+ (1,0) [0|1] ""  DCDC
+
+BO_ 264 HCU_7: 48 Vector__XXX
+ SG_ HCU_7_Resd6 : 335|4@0+ (1,0) [0|1] ""  DCDC
+ SG_ HCU_7_RollgCntr6 : 331|4@0+ (1,0) [0|15] ""  DCDC
+ SG_ HCU_7_CRC6 : 327|8@0+ (1,0) [0|255] ""  DCDC
+ SG_ HCU_SleepAllow : 54|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ HCU_DCDC_stModeReq : 53|3@0+ (1,0) [0|3] ""  DCDC
+ SG_ HCU_DCDCEnableReq : 49|2@0+ (1,0) [0|2] ""  DCDC
+ SG_ HCU_DCDC_pActHvMax : 39|16@0+ (1,0) [0|5000] "W"  DCDC
+ SG_ HCU_DCDC_udcLvSetP : 31|8@0+ (0.1,0) [0|20] "V"  DCDC
+ SG_ HCU_7_RollgCntr1 : 11|4@0+ (1,0) [0|15] ""  DCDC
+ SG_ HCU_7_CRC1 : 7|8@0+ (1,0) [0|255] ""  DCDC
+
+BO_ 1061 OBC_1: 48 DCDC
+ SG_ OBC_1_MilLampReq : 204|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_1_RollgCntr4 : 203|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ OBC_1_CRC4 : 199|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ OBC_KL30_UnderVolt : 56|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ OBC_1_RollgCntr1 : 11|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ OBC_1_CRC1 : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1054 DCDC_2: 8 DCDC
+ SG_ DCDC_2_CRC : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ DCDC_2_MessageCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ DCDC_DCDCSysFault : 52|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_TargeTemp : 47|8@0+ (1,-40) [-40|213] "oC" Vector__XXX
+ SG_ DCDC_Temp : 39|8@0+ (1,-40) [-40|213] "oC" Vector__XXX
+ SG_ DCDC_HvCurr : 23|16@0+ (0.1,0) [0|400] "A" Vector__XXX
+ SG_ DCDC_HvVolt : 7|16@0+ (0.1,0) [0|1000] "V" Vector__XXX
+
+BO_ 1048 DCDC_1: 8 DCDC
+ SG_ DCDC_1_CRC : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ DCDC_1_MessageCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ DCDC_WorkingMode : 55|4@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ DCDC_InputUnderVolt : 45|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_OverTemp : 42|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_HVILFault : 40|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_LvSideCurr : 31|9@0+ (1,0) [0|510] "A" Vector__XXX
+ SG_ DCDC_EnableSts : 38|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_FaultLevelSts : 37|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ DCDC_CoolingReq : 34|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_WorkingSts : 33|2@0+ (1,0) [0|2] "" Vector__XXX
+ SG_ DCDC_Temp_Res : 23|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ DCDC_FaultCode : 15|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ DCDC_LvSideVolt : 7|8@0+ (0.1,0) [0|25.3] "V" Vector__XXX
+
+BO_ 403 BMS_1: 48 Vector__XXX
+ SG_ BMSH_NegMainRelaySts : 148|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ BMSH_1_RollgCntr3 : 139|4@0+ (1,0) [0|15] ""  DCDC
+ SG_ BMSH_1_CRC3 : 135|8@0+ (1,0) [0|255] ""  DCDC
+ SG_ BMSH_PosMainRelaySts : 120|1@0+ (1,0) [0|1] ""  DCDC
+ SG_ BMSH_1_RollgCntr2 : 75|4@0+ (1,0) [0|15] ""  DCDC
+ SG_ BMSH_1_CRC2 : 71|8@0+ (1,0) [0|255] ""  DCDC
+
+
+
+CM_ BO_ 2015 "Source network message is \"NoMsgSendType, /\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ BO_ 2022 "Source network message is \"NoMsgSendType\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ BO_ 1241 "Source network message is \"Cyclic, 100ms\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ SG_ 1241 FuelTankLidLockReq "????§³??????????????";
+CM_ SG_ 1241 FuelTankLidSystemFailureSts "????§³???????????";
+CM_ SG_ 1241 FuelTankPressureConditionReached "????????????";
+CM_ SG_ 1241 LegisDiagStdardCnditionFltPresnt "Legislated Diagnostics Standard Conditions Fault Present";
+CM_ SG_ 1241 LegisDiagStdardCnditionMet "Legislated Diagnostics Standard Conditions Met";
+CM_ SG_ 1241 EMS_4_G_EngineSpeed_Actual "PHEV:Actual Engine speed send by EMS to HCU";
+CM_ SG_ 640 EMS_EngineSts_Actual "PHEV??£¬????????????????????";
+CM_ SG_ 640 EngineSts "EngineStatus
+PHEV??!dou!???????????????????";
+CM_ SG_ 640 GearReduceIndication "Gear Reduce Indication";
+CM_ SG_ 640 GearRaiseIndication "Gear Raise Indication";
+CM_ SG_ 640 IMMOCodeWarningLightSts "IMMO Code Warning Light Sts
+??????????????????!dou!EMS????????BCM!dou!BCM??????????ICM???????????????.
+00???????????????????!dou!???›¥???/????!dou!???????????
+01????????????????????!dou!???LED???????
+10??????????????????!dou!?????ID????????›¥??EMS????!dou!???LED?????11??????????§¹??";
+CM_ SG_ 640 TargetGearPosition "Target Gear Position
+??????MT?!dou!?????????";
+CM_ SG_ 640 SSMStatus "start-stop status machine
+??????????????????
+0-Reset Start/Stop not active(any engine condition possible)
+??????
+1-StandbyS/S active, engine off(waiting for initial keybutton start)
+?????!dou!?????????ÂC??
+2- StoppedS/S active, engine standstill
+3- Starter RestartSS/ active starter engine is turning 
+??????????????????
+4 - Engine RestartS/S active, engine runs up
+?????????????????????????!dou!??????????????????!dou!??????§Ö?0!dou!???????????!dou!??????????????????????????!dou!????????????!dou!???????????????????
+5 - OperationS/S active, engine is running
+6 - Auto StoppingS/S active, engine is turning but no fuel injection anymore
+????ISS????!dou!??????000";
+CM_ SG_ 640 EPCSts "EPC status";
+CM_ SG_ 640 EngineSpeedValidData "Valid check bit of the signal EngineSpeed";
+CM_ SG_ 640 FuelRollingCounterValidData "Valid check bit of the signal FuelRollingCounter";
+CM_ SG_ 640 ISS_Sts_GS "Start-stop state for China 6 Emission";
+CM_ SG_ 640 EngineSpeed "Engine Speed
+PHEV???????????????";
+CM_ SG_ 640 FuelRollingCounter "Instantaneous fuel consumption pulse signal
+????????????";
+CM_ SG_ 640 EngineCoolantTemperture "Engine Coolant Temperture";
+CM_ SG_ 640 CruiseControlStsForDisplay "Cruise Control Status For Display";
+CM_ SG_ 640 EngineCoolantTempertureFailSts "Valid check bit of the signal EngineCoolantTemperture";
+CM_ SG_ 640 MILSts "MIL Status";
+CM_ SG_ 640 ISS_Switch_Sts "Start-stop switch state feedback signal";
+CM_ SG_ 640 CompressorSts "Compressor Status
+???????????!dou!EMS?????????!dou!11??????????????!dou!01???EMS¦Ä??????????????????!dou!10?????????§á?????????/???!dou!EMS?¦Ä??????????????????!dou!00??¦Ä????";
+CM_ SG_ 640 IEMSts "IEM Status";
+CM_ SG_ 640 GPFWarning "This signal indicates the status of GPF warning which need ICM to  inform driver. 
+0x1: Green light, may display \"GPF is full. Need  highspeed road drive to clean GPF??
+0x2: Yellow light, may display\"GPF is overlimited. Need to contact 4s to check and repair GPF\"";
+CM_ SG_ 640 ISS_Sts "Start-stop status";
+CM_ BO_ 1213 "Source network message is \"Cyclic, 100ms\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ SG_ 1213 OBD_GeneralDenomiantorFreeze "??¡Â??????";
+CM_ SG_ 1213 OBD_GeneralDenomiantor "??¡Â??";
+CM_ SG_ 1213 PID11_AbsoluteThrottlePosition "?????????¦Ë??";
+CM_ SG_ 1213 OBD_PermanentFailureCycle "???¨´????????";
+CM_ SG_ 1213 OBD_WarmupCycle "??????";
+CM_ SG_ 1213 OBD_DrivingCycle "DrivingCycle ??????";
+CM_ SG_ 1213 AbsoluteThrottlePosValidData "?????????¦Ë????§¹¦Ë";
+CM_ SG_ 1213 LoadValueCalculatedValidData "????????????§¹¦Ë";
+CM_ SG_ 1213 PID04_LoadValueCalculated "??????????";
+CM_ BO_ 1520 "??????????????????¨¹????œZ
+Source network message is \"NoMsgSendType, /\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ BO_ 1282 "Source network message is \"Cyclic, 100ms\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ SG_ 1282 VehicleSpeedVSOSig "Vehicle Speed";
+CM_ BO_ 800 "Source network message is \"Cyclic, 500ms\".
+If no messages are received on source network, no messages are sent on the destination network.";
+CM_ SG_ 800 CrashOutputSts "Crash????????bit???????:
+?????§Ø???????????!dou!????????????????????¦Ë??????1.????????????????!dou!?????????????00001100
+0x00: ?????
+0x01: ???????????????
+0x02: ????
+0x04: ?????
+0x08: ?????
+0x10: ????
+0x20: ???????";
+CM_ SG_ 800 ABM_1_CheckSum "((Byte0+Byte1+Byte3) AND 0xFF) XOR 0xFF
+Note: Details Please refer to specification??Standard Specification for CAN Data Link Layer_v1.1??section 2.3.3";
+CM_ SG_ 800 ABM_1_MessageCounter "Rolling message counter(the maximum value of Alive counter is 15)
+Note: Details Please refer to specification??Standard Specification for CAN Data Link Layer_v1.1??section 2.3.1";
+CM_ BO_ 1536 "PHEV/HEV/EV?????NE/CH/PT??????????CAN???";
+CM_ SG_ 1583 ECUSPEC_AWAKE_CDU "ECU keeps the network awake for ECU-define reasons for which communication is needed";
+CM_ SG_ 1583 DIAGNOSTIC_AWAKE_CDU "ECU needs communication for diagnostic purpose and keeps network awake.";
+CM_ SG_ 1583 IGNITION_AWAKE_CDU "ECU can?t release communication because ignition (KL15) is turn on, or KLR is turned on";
+CM_ SG_ 1583 NETWORK_AWAKE_CDU "ECU keeps the network awake due to the CAN message received from the network";
+CM_ SG_ 1583 ECUSPEC_WAKEUP_CDU "ECU was in ??power off??, ??Bus Sleep??, ??Pre-pare Bus Sleep?? or ??Ready Sleep?? mode or ??awake?? and re-started by ECU specific reason (e.g. pressed Button, timer, etc.)";
+CM_ SG_ 1583 NETWORK_WAKEUP_CDU "ECU was in ??Power off??, ??Bus Sleep??, ??Pre-pare Bus Sleep?? or ??Ready Sleep?? Mode and then re-started by a network communication.";
+CM_ SG_ 1583 RESET_WAKEUP_CDU "If ECU was already awake, in ??Prepare Bus Sleep?? or ??Ready Sleep?? mode and re-started by an internal or an external reset.";
+CM_ SG_ 1583 IGNITION_WAKEUP_CDU "ECU was ??power off?? or ??Bus sleep?? mode and started by ignition switch";
+CM_ SG_ 1583 RMR_CDU "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1034 HCU_1_G_HVILSts "0x0:??¡¤?????
+0x1!mao!??¡¤??????
+???????¡¤???????? The loop interlock of the high voltage system is faulty";
+CM_ SG_ 264 HCU_7_Resd6 "Reserved";
+CM_ SG_ 264 HCU_7_RollgCntr6 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 264 HCU_7_CRC6 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 264 HCU_SleepAllow "sleep allow command";
+CM_ SG_ 264 HCU_DCDC_stModeReq "DCDC state";
+CM_ SG_ 264 HCU_DCDCEnableReq "DCDC enable";
+CM_ SG_ 264 HCU_DCDC_pActHvMax "Max power available for DCDC";
+CM_ SG_ 264 HCU_DCDC_udcLvSetP "Setpoint of voltage LV";
+CM_ SG_ 264 HCU_7_RollgCntr1 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 264 HCU_7_CRC1 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 1061 OBC_1_MilLampReq "CCU???????MILMIL lamp on request(CCU).Request MIL(malfunctionIndicationLamp)";
+CM_ SG_ 1061 OBC_1_RollgCntr4 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 1061 OBC_1_CRC4 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 1061 OBC_KL30_UnderVolt "KL30 under voltage/KL30??";
+CM_ SG_ 1061 OBC_1_RollgCntr1 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 1061 OBC_1_CRC1 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 1054 DCDC_2_CRC "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 1054 DCDC_2_MessageCounter "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 1054 DCDC_DCDCSysFault "DCDC System Fault/DCDC??????";
+CM_ SG_ 1054 DCDC_TargeTemp "DCDC tempreture
+DCDC???????";
+CM_ SG_ 1054 DCDC_Temp "DCDC tempreture
+DCDC???";
+CM_ SG_ 1054 DCDC_HvCurr "DCDC input current
+DCDC????????";
+CM_ SG_ 1054 DCDC_HvVolt "DCDC input voltage
+ /DCDC???????";
+CM_ SG_ 1048 DCDC_1_CRC "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 1048 DCDC_1_MessageCounter "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 1048 DCDC_WorkingMode "DCDC work mode /DCDC??????";
+CM_ SG_ 1048 DCDC_InputUnderVolt "DCDC input under voltage/DCDC??????";
+CM_ SG_ 1048 DCDC_OverTemp "DCDC over temperature/DCDC????";
+CM_ SG_ 1048 DCDC_HVILFault "CDU HVIL fault /CDU???????????";
+CM_ SG_ 1048 DCDC_LvSideCurr "DCDC output current/DCDC???????";
+CM_ SG_ 1048 DCDC_EnableSts "DCDC enable states feedback/DCDC?????????";
+CM_ SG_ 1048 DCDC_FaultLevelSts "DCDC fault states/DCDC??????";
+CM_ SG_ 1048 DCDC_CoolingReq "cooling request/DCDC???????";
+CM_ SG_ 1048 DCDC_WorkingSts "Working Status/DCDC??????";
+CM_ SG_ 1048 DCDC_Temp_Res "DCDC tempreture /DCDC???";
+CM_ SG_ 1048 DCDC_FaultCode "Fault Code/DCDC???????";
+CM_ SG_ 1048 DCDC_LvSideVolt "DCDC output voltage/DCDC???????";
+CM_ SG_ 403 BMSH_NegMainRelaySts "main negtive relay status";
+CM_ SG_ 403 BMSH_1_RollgCntr3 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 403 BMSH_1_CRC3 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+CM_ SG_ 403 BMSH_PosMainRelaySts "main positive relay status";
+CM_ SG_ 403 BMSH_1_RollgCntr2 "Rolling message counter(the maximum value of Alive counter is 15) Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.1";
+CM_ SG_ 403 BMSH_1_CRC2 "CRC (SAE J1850 CRC-8)
+Note: Details Please refer to specification??EE Standard Specification for CAN FD Network Implementation??section 2.3.2";
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "NmAsrCanMsgCycleTime" INT 1000 1000;
+BA_DEF_  "NmAsrRepeatMessageTime" INT 3000 3000;
+BA_DEF_  "NmAsrWaitBusSleepTime" INT 1500 1500;
+BA_DEF_  "NmAsrTimeoutTime" INT 2500 2500;
+BA_DEF_  "NmAsrBaseAddress" HEX 0 2047;
+BA_DEF_  "NmAsrMessageCount" INT 128 128;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "ILTxTimeout" INT 0 65535;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigStartValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 2147483647;
+BA_DEF_ BO_  "TpTxIndex" INT 0 255;
+BA_DEF_ BO_  "DiagUudtResponse" ENUM  "False","True";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 65535;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","IfActive","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 500 818;
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 635;
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_REL_ BU_SG_REL_  "GenSigTimeoutTime" INT 0 65535;
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "NmAsrCanMsgCycleTime" 1000;
+BA_DEF_DEF_  "NmAsrRepeatMessageTime" 3000;
+BA_DEF_DEF_  "NmAsrWaitBusSleepTime" 1500;
+BA_DEF_DEF_  "NmAsrTimeoutTime" 2500;
+BA_DEF_DEF_  "NmAsrBaseAddress" 1536;
+BA_DEF_DEF_  "NmAsrMessageCount" 128;
+BA_DEF_DEF_  "NmType" "NmAsr";
+BA_DEF_DEF_  "ILTxTimeout" 0;
+BA_DEF_DEF_  "Manufacturer" "Vector";
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "DiagUudtResponse" "False";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "NmAsrMessage" "No";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 3;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "NmStationAddress" 255;
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 575;
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 255;
+BA_DEF_DEF_  "NmAsrNode" "No";
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_REL_ "GenSigTimeoutTime" 0;
+BA_ "Manufacturer" "Vector";
+BA_ "ILTxTimeout" 0;
+BA_ "NmType" "NmAsr";
+BA_ "NmAsrMessageCount" 128;
+BA_ "NmAsrBaseAddress" 1536;
+BA_ "NmAsrTimeoutTime" 2500;
+BA_ "NmAsrWaitBusSleepTime" 1500;
+BA_ "NmAsrRepeatMessageTime" 3000;
+BA_ "NmAsrCanMsgCycleTime" 1000;
+BA_ "DBName" "NECANFDDCDCMessageListV14IssueFo";
+BA_ "ILUsed" BU_ DCDC 1;
+BA_ "NmAsrNode" BU_ DCDC 1;
+BA_ "NmAsrNodeIdentifier" BU_ DCDC 20;
+BA_ "NmAsrCanMsgCycleOffset" BU_ DCDC 0;
+BA_ "NmAsrCanMsgReducedTime" BU_ DCDC 575;
+BA_ "NmStationAddress" BU_ DCDC 20;
+BA_ "GenMsgCycleTime" BO_ 2015 0;
+BA_ "GenMsgCycleTimeFast" BO_ 2015 0;
+BA_ "GenMsgFastOnStart" BO_ 2015 0;
+BA_ "GenMsgDelayTime" BO_ 2015 0;
+BA_ "GenMsgNrOfRepetition" BO_ 2015 0;
+BA_ "GenMsgSendType" BO_ 2015 8;
+BA_ "GenMsgStartDelayTime" BO_ 2015 0;
+BA_ "DiagState" BO_ 2015 1;
+BA_ "DiagRequest" BO_ 2015 0;
+BA_ "DiagResponse" BO_ 2015 0;
+BA_ "DiagUudtResponse" BO_ 2015 0;
+BA_ "TpTxIndex" BO_ 2015 0;
+BA_ "GenMsgILSupport" BO_ 2015 0;
+BA_ "NmAsrMessage" BO_ 2015 0;
+BA_ "VFrameFormat" BO_ 2015 14;
+BA_ "GenMsgCycleTime" BO_ 2022 0;
+BA_ "GenMsgCycleTimeFast" BO_ 2022 0;
+BA_ "GenMsgFastOnStart" BO_ 2022 0;
+BA_ "GenMsgDelayTime" BO_ 2022 0;
+BA_ "GenMsgNrOfRepetition" BO_ 2022 0;
+BA_ "GenMsgSendType" BO_ 2022 8;
+BA_ "GenMsgStartDelayTime" BO_ 2022 0;
+BA_ "DiagState" BO_ 2022 0;
+BA_ "DiagRequest" BO_ 2022 1;
+BA_ "DiagResponse" BO_ 2022 0;
+BA_ "DiagUudtResponse" BO_ 2022 0;
+BA_ "TpTxIndex" BO_ 2022 0;
+BA_ "GenMsgILSupport" BO_ 2022 0;
+BA_ "NmAsrMessage" BO_ 2022 0;
+BA_ "VFrameFormat" BO_ 2022 14;
+BA_ "GenMsgCycleTime" BO_ 2030 0;
+BA_ "GenMsgCycleTimeFast" BO_ 2030 0;
+BA_ "GenMsgFastOnStart" BO_ 2030 0;
+BA_ "GenMsgDelayTime" BO_ 2030 0;
+BA_ "GenMsgNrOfRepetition" BO_ 2030 0;
+BA_ "GenMsgSendType" BO_ 2030 8;
+BA_ "GenMsgStartDelayTime" BO_ 2030 0;
+BA_ "DiagState" BO_ 2030 0;
+BA_ "DiagRequest" BO_ 2030 0;
+BA_ "DiagResponse" BO_ 2030 1;
+BA_ "DiagUudtResponse" BO_ 2030 0;
+BA_ "TpTxIndex" BO_ 2030 0;
+BA_ "GenMsgILSupport" BO_ 2030 0;
+BA_ "NmAsrMessage" BO_ 2030 0;
+BA_ "VFrameFormat" BO_ 2030 14;
+BA_ "GenMsgCycleTime" BO_ 1241 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1241 0;
+BA_ "GenMsgFastOnStart" BO_ 1241 0;
+BA_ "GenMsgDelayTime" BO_ 1241 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1241 0;
+BA_ "GenMsgSendType" BO_ 1241 0;
+BA_ "GenMsgStartDelayTime" BO_ 1241 0;
+BA_ "DiagState" BO_ 1241 0;
+BA_ "DiagRequest" BO_ 1241 0;
+BA_ "DiagResponse" BO_ 1241 0;
+BA_ "DiagUudtResponse" BO_ 1241 0;
+BA_ "TpTxIndex" BO_ 1241 0;
+BA_ "GenMsgILSupport" BO_ 1241 1;
+BA_ "NmAsrMessage" BO_ 1241 0;
+BA_ "VFrameFormat" BO_ 1241 14;
+BA_ "GenMsgCycleTime" BO_ 640 100;
+BA_ "GenMsgCycleTimeFast" BO_ 640 0;
+BA_ "GenMsgFastOnStart" BO_ 640 0;
+BA_ "GenMsgDelayTime" BO_ 640 0;
+BA_ "GenMsgNrOfRepetition" BO_ 640 0;
+BA_ "GenMsgSendType" BO_ 640 0;
+BA_ "GenMsgStartDelayTime" BO_ 640 0;
+BA_ "DiagState" BO_ 640 0;
+BA_ "DiagRequest" BO_ 640 0;
+BA_ "DiagResponse" BO_ 640 0;
+BA_ "DiagUudtResponse" BO_ 640 0;
+BA_ "TpTxIndex" BO_ 640 0;
+BA_ "GenMsgILSupport" BO_ 640 1;
+BA_ "NmAsrMessage" BO_ 640 0;
+BA_ "VFrameFormat" BO_ 640 14;
+BA_ "GenMsgCycleTime" BO_ 1213 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1213 0;
+BA_ "GenMsgFastOnStart" BO_ 1213 0;
+BA_ "GenMsgDelayTime" BO_ 1213 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1213 0;
+BA_ "GenMsgSendType" BO_ 1213 0;
+BA_ "GenMsgStartDelayTime" BO_ 1213 0;
+BA_ "DiagState" BO_ 1213 0;
+BA_ "DiagRequest" BO_ 1213 0;
+BA_ "DiagResponse" BO_ 1213 0;
+BA_ "DiagUudtResponse" BO_ 1213 0;
+BA_ "TpTxIndex" BO_ 1213 0;
+BA_ "GenMsgILSupport" BO_ 1213 1;
+BA_ "NmAsrMessage" BO_ 1213 0;
+BA_ "VFrameFormat" BO_ 1213 14;
+BA_ "GenMsgCycleTime" BO_ 1520 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1520 100;
+BA_ "GenMsgFastOnStart" BO_ 1520 0;
+BA_ "GenMsgDelayTime" BO_ 1520 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1520 0;
+BA_ "GenMsgSendType" BO_ 1520 8;
+BA_ "GenMsgStartDelayTime" BO_ 1520 0;
+BA_ "DiagState" BO_ 1520 0;
+BA_ "DiagRequest" BO_ 1520 0;
+BA_ "DiagResponse" BO_ 1520 0;
+BA_ "DiagUudtResponse" BO_ 1520 0;
+BA_ "TpTxIndex" BO_ 1520 0;
+BA_ "GenMsgILSupport" BO_ 1520 1;
+BA_ "NmAsrMessage" BO_ 1520 0;
+BA_ "VFrameFormat" BO_ 1520 14;
+BA_ "GenMsgCycleTime" BO_ 1282 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1282 0;
+BA_ "GenMsgFastOnStart" BO_ 1282 0;
+BA_ "GenMsgDelayTime" BO_ 1282 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1282 0;
+BA_ "GenMsgSendType" BO_ 1282 0;
+BA_ "GenMsgStartDelayTime" BO_ 1282 0;
+BA_ "DiagState" BO_ 1282 0;
+BA_ "DiagRequest" BO_ 1282 0;
+BA_ "DiagResponse" BO_ 1282 0;
+BA_ "DiagUudtResponse" BO_ 1282 0;
+BA_ "TpTxIndex" BO_ 1282 0;
+BA_ "GenMsgILSupport" BO_ 1282 1;
+BA_ "NmAsrMessage" BO_ 1282 0;
+BA_ "VFrameFormat" BO_ 1282 14;
+BA_ "GenMsgCycleTime" BO_ 800 500;
+BA_ "GenMsgCycleTimeFast" BO_ 800 20;
+BA_ "GenMsgFastOnStart" BO_ 800 0;
+BA_ "GenMsgDelayTime" BO_ 800 5;
+BA_ "GenMsgNrOfRepetition" BO_ 800 6;
+BA_ "GenMsgSendType" BO_ 800 8;
+BA_ "GenMsgStartDelayTime" BO_ 800 0;
+BA_ "DiagState" BO_ 800 0;
+BA_ "DiagRequest" BO_ 800 0;
+BA_ "DiagResponse" BO_ 800 0;
+BA_ "DiagUudtResponse" BO_ 800 0;
+BA_ "TpTxIndex" BO_ 800 0;
+BA_ "GenMsgILSupport" BO_ 800 1;
+BA_ "NmAsrMessage" BO_ 800 0;
+BA_ "VFrameFormat" BO_ 800 14;
+BA_ "VFrameFormat" BO_ 1536 0;
+BA_ "GenMsgCycleTime" BO_ 1536 1000;
+BA_ "GenMsgCycleTimeFast" BO_ 1536 0;
+BA_ "GenMsgFastOnStart" BO_ 1536 0;
+BA_ "GenMsgDelayTime" BO_ 1536 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1536 0;
+BA_ "GenMsgSendType" BO_ 1536 0;
+BA_ "GenMsgStartDelayTime" BO_ 1536 0;
+BA_ "DiagState" BO_ 1536 0;
+BA_ "DiagRequest" BO_ 1536 0;
+BA_ "DiagResponse" BO_ 1536 0;
+BA_ "DiagUudtResponse" BO_ 1536 0;
+BA_ "TpTxIndex" BO_ 1536 0;
+BA_ "NmAsrMessage" BO_ 1536 1;
+BA_ "GenMsgILSupport" BO_ 1536 0;
+BA_ "VFrameFormat" BO_ 1583 0;
+BA_ "GenMsgCycleTime" BO_ 1583 1000;
+BA_ "GenMsgCycleTimeFast" BO_ 1583 0;
+BA_ "GenMsgFastOnStart" BO_ 1583 0;
+BA_ "GenMsgDelayTime" BO_ 1583 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1583 0;
+BA_ "GenMsgSendType" BO_ 1583 0;
+BA_ "GenMsgStartDelayTime" BO_ 1583 0;
+BA_ "DiagState" BO_ 1583 0;
+BA_ "DiagRequest" BO_ 1583 0;
+BA_ "DiagResponse" BO_ 1583 0;
+BA_ "DiagUudtResponse" BO_ 1583 0;
+BA_ "TpTxIndex" BO_ 1583 0;
+BA_ "NmAsrMessage" BO_ 1583 1;
+BA_ "GenMsgILSupport" BO_ 1583 0;
+BA_ "GenMsgCycleTime" BO_ 1034 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1034 0;
+BA_ "GenMsgFastOnStart" BO_ 1034 0;
+BA_ "GenMsgDelayTime" BO_ 1034 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1034 0;
+BA_ "GenMsgSendType" BO_ 1034 0;
+BA_ "GenMsgStartDelayTime" BO_ 1034 0;
+BA_ "DiagState" BO_ 1034 0;
+BA_ "DiagRequest" BO_ 1034 0;
+BA_ "DiagResponse" BO_ 1034 0;
+BA_ "DiagUudtResponse" BO_ 1034 0;
+BA_ "TpTxIndex" BO_ 1034 0;
+BA_ "GenMsgILSupport" BO_ 1034 1;
+BA_ "NmAsrMessage" BO_ 1034 0;
+BA_ "VFrameFormat" BO_ 1034 14;
+BA_ "GenMsgCycleTime" BO_ 264 10;
+BA_ "GenMsgCycleTimeFast" BO_ 264 0;
+BA_ "GenMsgFastOnStart" BO_ 264 0;
+BA_ "GenMsgDelayTime" BO_ 264 0;
+BA_ "GenMsgNrOfRepetition" BO_ 264 0;
+BA_ "GenMsgSendType" BO_ 264 0;
+BA_ "GenMsgStartDelayTime" BO_ 264 0;
+BA_ "DiagState" BO_ 264 0;
+BA_ "DiagRequest" BO_ 264 0;
+BA_ "DiagResponse" BO_ 264 0;
+BA_ "DiagUudtResponse" BO_ 264 0;
+BA_ "TpTxIndex" BO_ 264 0;
+BA_ "GenMsgILSupport" BO_ 264 1;
+BA_ "NmAsrMessage" BO_ 264 0;
+BA_ "VFrameFormat" BO_ 264 14;
+BA_ "GenMsgCycleTime" BO_ 1061 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1061 0;
+BA_ "GenMsgFastOnStart" BO_ 1061 0;
+BA_ "GenMsgDelayTime" BO_ 1061 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1061 0;
+BA_ "GenMsgSendType" BO_ 1061 0;
+BA_ "GenMsgStartDelayTime" BO_ 1061 0;
+BA_ "DiagState" BO_ 1061 0;
+BA_ "DiagRequest" BO_ 1061 0;
+BA_ "DiagResponse" BO_ 1061 0;
+BA_ "DiagUudtResponse" BO_ 1061 0;
+BA_ "TpTxIndex" BO_ 1061 0;
+BA_ "GenMsgILSupport" BO_ 1061 1;
+BA_ "NmAsrMessage" BO_ 1061 0;
+BA_ "VFrameFormat" BO_ 1061 14;
+BA_ "GenMsgCycleTime" BO_ 1054 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1054 0;
+BA_ "GenMsgFastOnStart" BO_ 1054 0;
+BA_ "GenMsgDelayTime" BO_ 1054 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1054 0;
+BA_ "GenMsgSendType" BO_ 1054 0;
+BA_ "GenMsgStartDelayTime" BO_ 1054 0;
+BA_ "DiagState" BO_ 1054 0;
+BA_ "DiagRequest" BO_ 1054 0;
+BA_ "DiagResponse" BO_ 1054 0;
+BA_ "DiagUudtResponse" BO_ 1054 0;
+BA_ "TpTxIndex" BO_ 1054 0;
+BA_ "GenMsgILSupport" BO_ 1054 1;
+BA_ "NmAsrMessage" BO_ 1054 0;
+BA_ "VFrameFormat" BO_ 1054 14;
+BA_ "GenMsgCycleTime" BO_ 1048 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1048 0;
+BA_ "GenMsgFastOnStart" BO_ 1048 0;
+BA_ "GenMsgDelayTime" BO_ 1048 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1048 0;
+BA_ "GenMsgSendType" BO_ 1048 0;
+BA_ "GenMsgStartDelayTime" BO_ 1048 0;
+BA_ "DiagState" BO_ 1048 0;
+BA_ "DiagRequest" BO_ 1048 0;
+BA_ "DiagResponse" BO_ 1048 0;
+BA_ "DiagUudtResponse" BO_ 1048 0;
+BA_ "TpTxIndex" BO_ 1048 0;
+BA_ "GenMsgILSupport" BO_ 1048 1;
+BA_ "NmAsrMessage" BO_ 1048 0;
+BA_ "VFrameFormat" BO_ 1048 14;
+BA_ "GenMsgCycleTime" BO_ 403 10;
+BA_ "GenMsgCycleTimeFast" BO_ 403 0;
+BA_ "GenMsgFastOnStart" BO_ 403 0;
+BA_ "GenMsgDelayTime" BO_ 403 0;
+BA_ "GenMsgNrOfRepetition" BO_ 403 0;
+BA_ "GenMsgSendType" BO_ 403 0;
+BA_ "GenMsgStartDelayTime" BO_ 403 0;
+BA_ "DiagState" BO_ 403 0;
+BA_ "DiagRequest" BO_ 403 0;
+BA_ "DiagResponse" BO_ 403 0;
+BA_ "DiagUudtResponse" BO_ 403 0;
+BA_ "TpTxIndex" BO_ 403 0;
+BA_ "GenMsgILSupport" BO_ 403 1;
+BA_ "NmAsrMessage" BO_ 403 0;
+BA_ "VFrameFormat" BO_ 403 14;
+BA_ "GenSigInactiveValue" SG_ 2015 Diag_Functional_REQ 0;
+BA_ "GenSigTimeoutValue" SG_ 2015 Diag_Functional_REQ 0;
+BA_ "GenSigStartValue" SG_ 2015 Diag_Functional_REQ 0;
+BA_ "GenSigSendType" SG_ 2015 Diag_Functional_REQ 1;
+BA_ "GenSigInactiveValue" SG_ 2022 Diag_CDU_REQ 0;
+BA_ "GenSigTimeoutValue" SG_ 2022 Diag_CDU_REQ 0;
+BA_ "GenSigStartValue" SG_ 2022 Diag_CDU_REQ 0;
+BA_ "GenSigSendType" SG_ 2022 Diag_CDU_REQ 1;
+BA_ "GenSigInactiveValue" SG_ 2030 Diag_CDU_RES 0;
+BA_ "GenSigTimeoutValue" SG_ 2030 Diag_CDU_RES 0;
+BA_ "GenSigStartValue" SG_ 2030 Diag_CDU_RES 0;
+BA_ "GenSigSendType" SG_ 2030 Diag_CDU_RES 1;
+BA_ "GenSigInactiveValue" SG_ 1241 FuelTankLidLockReq 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 FuelTankLidLockReq 0;
+BA_ "GenSigStartValue" SG_ 1241 FuelTankLidLockReq 0;
+BA_ "GenSigSendType" SG_ 1241 FuelTankLidLockReq 0;
+BA_ "GenSigInactiveValue" SG_ 1241 FuelTankLidSystemFailureSts 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 FuelTankLidSystemFailureSts 0;
+BA_ "GenSigStartValue" SG_ 1241 FuelTankLidSystemFailureSts 0;
+BA_ "GenSigSendType" SG_ 1241 FuelTankLidSystemFailureSts 0;
+BA_ "GenSigInactiveValue" SG_ 1241 FuelTankPressureConditionReached 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 FuelTankPressureConditionReached 0;
+BA_ "GenSigStartValue" SG_ 1241 FuelTankPressureConditionReached 0;
+BA_ "GenSigSendType" SG_ 1241 FuelTankPressureConditionReached 0;
+BA_ "GenSigInactiveValue" SG_ 1241 LegisPostDTCClrDriveCycleCmplte 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 LegisPostDTCClrDriveCycleCmplte 0;
+BA_ "GenSigStartValue" SG_ 1241 LegisPostDTCClrDriveCycleCmplte 0;
+BA_ "GenSigSendType" SG_ 1241 LegisPostDTCClrDriveCycleCmplte 0;
+BA_ "GenSigInactiveValue" SG_ 1241 LegisDiagStdardCnditionFltPresnt 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 LegisDiagStdardCnditionFltPresnt 0;
+BA_ "GenSigStartValue" SG_ 1241 LegisDiagStdardCnditionFltPresnt 0;
+BA_ "GenSigSendType" SG_ 1241 LegisDiagStdardCnditionFltPresnt 0;
+BA_ "GenSigInactiveValue" SG_ 1241 LegisDiagStdardCnditionMet 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 LegisDiagStdardCnditionMet 0;
+BA_ "GenSigStartValue" SG_ 1241 LegisDiagStdardCnditionMet 0;
+BA_ "GenSigSendType" SG_ 1241 LegisDiagStdardCnditionMet 0;
+BA_ "GenSigInactiveValue" SG_ 1241 EMS_4_G_EngineSpeed_Actual 0;
+BA_ "GenSigTimeoutValue" SG_ 1241 EMS_4_G_EngineSpeed_Actual 0;
+BA_ "GenSigStartValue" SG_ 1241 EMS_4_G_EngineSpeed_Actual 0;
+BA_ "GenSigSendType" SG_ 1241 EMS_4_G_EngineSpeed_Actual 0;
+BA_ "GenSigInactiveValue" SG_ 640 EMS_1_G_Reserved5 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EMS_1_G_Reserved5 0;
+BA_ "GenSigStartValue" SG_ 640 EMS_1_G_Reserved5 0;
+BA_ "GenSigSendType" SG_ 640 EMS_1_G_Reserved5 0;
+BA_ "GenSigInactiveValue" SG_ 640 EMS_EngineSts_Actual 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EMS_EngineSts_Actual 0;
+BA_ "GenSigStartValue" SG_ 640 EMS_EngineSts_Actual 0;
+BA_ "GenSigSendType" SG_ 640 EMS_EngineSts_Actual 0;
+BA_ "GenSigInactiveValue" SG_ 640 EngineSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EngineSts 0;
+BA_ "GenSigStartValue" SG_ 640 EngineSts 0;
+BA_ "GenSigSendType" SG_ 640 EngineSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 GearReduceIndication 0;
+BA_ "GenSigTimeoutValue" SG_ 640 GearReduceIndication 0;
+BA_ "GenSigStartValue" SG_ 640 GearReduceIndication 0;
+BA_ "GenSigSendType" SG_ 640 GearReduceIndication 0;
+BA_ "GenSigInactiveValue" SG_ 640 GearRaiseIndication 0;
+BA_ "GenSigTimeoutValue" SG_ 640 GearRaiseIndication 0;
+BA_ "GenSigStartValue" SG_ 640 GearRaiseIndication 0;
+BA_ "GenSigSendType" SG_ 640 GearRaiseIndication 0;
+BA_ "GenSigInactiveValue" SG_ 640 IMMOCodeWarningLightSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 IMMOCodeWarningLightSts 0;
+BA_ "GenSigStartValue" SG_ 640 IMMOCodeWarningLightSts 0;
+BA_ "GenSigSendType" SG_ 640 IMMOCodeWarningLightSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 TargetGearPosition 0;
+BA_ "GenSigTimeoutValue" SG_ 640 TargetGearPosition 0;
+BA_ "GenSigStartValue" SG_ 640 TargetGearPosition 0;
+BA_ "GenSigSendType" SG_ 640 TargetGearPosition 0;
+BA_ "GenSigInactiveValue" SG_ 640 SSMStatus 0;
+BA_ "GenSigTimeoutValue" SG_ 640 SSMStatus 0;
+BA_ "GenSigStartValue" SG_ 640 SSMStatus 0;
+BA_ "GenSigSendType" SG_ 640 SSMStatus 0;
+BA_ "GenSigInactiveValue" SG_ 640 EPCSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EPCSts 0;
+BA_ "GenSigStartValue" SG_ 640 EPCSts 1;
+BA_ "GenSigSendType" SG_ 640 EPCSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 EngineSpeedValidData 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EngineSpeedValidData 0;
+BA_ "GenSigStartValue" SG_ 640 EngineSpeedValidData 0;
+BA_ "GenSigSendType" SG_ 640 EngineSpeedValidData 0;
+BA_ "GenSigInactiveValue" SG_ 640 FuelRollingCounterValidData 0;
+BA_ "GenSigTimeoutValue" SG_ 640 FuelRollingCounterValidData 0;
+BA_ "GenSigStartValue" SG_ 640 FuelRollingCounterValidData 0;
+BA_ "GenSigSendType" SG_ 640 FuelRollingCounterValidData 0;
+BA_ "GenSigInactiveValue" SG_ 640 ISS_Sts_GS 0;
+BA_ "GenSigTimeoutValue" SG_ 640 ISS_Sts_GS 0;
+BA_ "GenSigStartValue" SG_ 640 ISS_Sts_GS 0;
+BA_ "GenSigSendType" SG_ 640 ISS_Sts_GS 0;
+BA_ "GenSigInactiveValue" SG_ 640 EngineSpeed 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EngineSpeed 0;
+BA_ "GenSigStartValue" SG_ 640 EngineSpeed 0;
+BA_ "GenSigSendType" SG_ 640 EngineSpeed 0;
+BA_ "GenSigInactiveValue" SG_ 640 FuelRollingCounter 0;
+BA_ "GenSigTimeoutValue" SG_ 640 FuelRollingCounter 0;
+BA_ "GenSigStartValue" SG_ 640 FuelRollingCounter 255;
+BA_ "GenSigSendType" SG_ 640 FuelRollingCounter 0;
+BA_ "GenSigInactiveValue" SG_ 640 EngineCoolantTemperture 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EngineCoolantTemperture 0;
+BA_ "GenSigStartValue" SG_ 640 EngineCoolantTemperture 91;
+BA_ "GenSigSendType" SG_ 640 EngineCoolantTemperture 0;
+BA_ "GenSigInactiveValue" SG_ 640 CruiseControlStsForDisplay 0;
+BA_ "GenSigTimeoutValue" SG_ 640 CruiseControlStsForDisplay 0;
+BA_ "GenSigStartValue" SG_ 640 CruiseControlStsForDisplay 0;
+BA_ "GenSigSendType" SG_ 640 CruiseControlStsForDisplay 0;
+BA_ "GenSigInactiveValue" SG_ 640 EMS_1_G_Reserved2 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EMS_1_G_Reserved2 0;
+BA_ "GenSigStartValue" SG_ 640 EMS_1_G_Reserved2 0;
+BA_ "GenSigSendType" SG_ 640 EMS_1_G_Reserved2 0;
+BA_ "GenSigInactiveValue" SG_ 640 EngineCoolantTempertureFailSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 EngineCoolantTempertureFailSts 0;
+BA_ "GenSigStartValue" SG_ 640 EngineCoolantTempertureFailSts 0;
+BA_ "GenSigSendType" SG_ 640 EngineCoolantTempertureFailSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 MILSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 MILSts 0;
+BA_ "GenSigStartValue" SG_ 640 MILSts 2;
+BA_ "GenSigSendType" SG_ 640 MILSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 ISS_Switch_Sts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 ISS_Switch_Sts 0;
+BA_ "GenSigStartValue" SG_ 640 ISS_Switch_Sts 0;
+BA_ "GenSigSendType" SG_ 640 ISS_Switch_Sts 0;
+BA_ "GenSigInactiveValue" SG_ 640 CompressorSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 CompressorSts 0;
+BA_ "GenSigStartValue" SG_ 640 CompressorSts 2;
+BA_ "GenSigSendType" SG_ 640 CompressorSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 IEMSts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 IEMSts 0;
+BA_ "GenSigStartValue" SG_ 640 IEMSts 1;
+BA_ "GenSigSendType" SG_ 640 IEMSts 0;
+BA_ "GenSigInactiveValue" SG_ 640 GPFWarning 0;
+BA_ "GenSigTimeoutValue" SG_ 640 GPFWarning 0;
+BA_ "GenSigStartValue" SG_ 640 GPFWarning 0;
+BA_ "GenSigSendType" SG_ 640 GPFWarning 0;
+BA_ "GenSigInactiveValue" SG_ 640 ISS_Sts 0;
+BA_ "GenSigTimeoutValue" SG_ 640 ISS_Sts 0;
+BA_ "GenSigStartValue" SG_ 640 ISS_Sts 0;
+BA_ "GenSigSendType" SG_ 640 ISS_Sts 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_GeneralDenomiantorFreeze 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_GeneralDenomiantorFreeze 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_GeneralDenomiantorFreeze 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_GeneralDenomiantorFreeze 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_GeneralDenomiantor 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_GeneralDenomiantor 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_GeneralDenomiantor 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_GeneralDenomiantor 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_IgnCycle 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_IgnCycle 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_IgnCycle 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_IgnCycle 0;
+BA_ "GenSigInactiveValue" SG_ 1213 PID11_AbsoluteThrottlePosition 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 PID11_AbsoluteThrottlePosition 0;
+BA_ "GenSigStartValue" SG_ 1213 PID11_AbsoluteThrottlePosition 0;
+BA_ "GenSigSendType" SG_ 1213 PID11_AbsoluteThrottlePosition 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_PermanentFailureCycle 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_PermanentFailureCycle 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_PermanentFailureCycle 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_PermanentFailureCycle 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_WarmupCycle 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_WarmupCycle 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_WarmupCycle 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_WarmupCycle 0;
+BA_ "GenSigInactiveValue" SG_ 1213 OBD_DrivingCycle 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 OBD_DrivingCycle 0;
+BA_ "GenSigStartValue" SG_ 1213 OBD_DrivingCycle 0;
+BA_ "GenSigSendType" SG_ 1213 OBD_DrivingCycle 0;
+BA_ "GenSigInactiveValue" SG_ 1213 AbsoluteThrottlePosValidData 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 AbsoluteThrottlePosValidData 0;
+BA_ "GenSigStartValue" SG_ 1213 AbsoluteThrottlePosValidData 0;
+BA_ "GenSigSendType" SG_ 1213 AbsoluteThrottlePosValidData 0;
+BA_ "GenSigInactiveValue" SG_ 1213 LoadValueCalculatedValidData 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 LoadValueCalculatedValidData 0;
+BA_ "GenSigStartValue" SG_ 1213 LoadValueCalculatedValidData 0;
+BA_ "GenSigSendType" SG_ 1213 LoadValueCalculatedValidData 0;
+BA_ "GenSigInactiveValue" SG_ 1213 PID04_LoadValueCalculated 0;
+BA_ "GenSigTimeoutValue" SG_ 1213 PID04_LoadValueCalculated 0;
+BA_ "GenSigStartValue" SG_ 1213 PID04_LoadValueCalculated 0;
+BA_ "GenSigSendType" SG_ 1213 PID04_LoadValueCalculated 0;
+BA_ "GenSigInactiveValue" SG_ 1520 BCM_10_Config 0;
+BA_ "GenSigTimeoutValue" SG_ 1520 BCM_10_Config 0;
+BA_ "GenSigStartValue" SG_ 1520 BCM_10_Config 0;
+BA_ "GenSigSendType" SG_ 1520 BCM_10_Config 7;
+BA_ "GenSigInactiveValue" SG_ 1282 VehicleSpeedVSOSig 0;
+BA_ "GenSigTimeoutValue" SG_ 1282 VehicleSpeedVSOSig 0;
+BA_ "GenSigStartValue" SG_ 1282 VehicleSpeedVSOSig 0;
+BA_ "GenSigSendType" SG_ 1282 VehicleSpeedVSOSig 0;
+BA_ "GenSigInactiveValue" SG_ 800 CrashOutputSts 0;
+BA_ "GenSigTimeoutValue" SG_ 800 CrashOutputSts 0;
+BA_ "GenSigStartValue" SG_ 800 CrashOutputSts 0;
+BA_ "GenSigSendType" SG_ 800 CrashOutputSts 2;
+BA_ "GenSigInactiveValue" SG_ 800 ABM_1_CheckSum 0;
+BA_ "GenSigTimeoutValue" SG_ 800 ABM_1_CheckSum 0;
+BA_ "GenSigStartValue" SG_ 800 ABM_1_CheckSum 0;
+BA_ "GenSigSendType" SG_ 800 ABM_1_CheckSum 0;
+BA_ "GenSigInactiveValue" SG_ 800 ABM_1_MessageCounter 0;
+BA_ "GenSigTimeoutValue" SG_ 800 ABM_1_MessageCounter 0;
+BA_ "GenSigStartValue" SG_ 800 ABM_1_MessageCounter 0;
+BA_ "GenSigSendType" SG_ 800 ABM_1_MessageCounter 0;
+BA_ "GenSigInactiveValue" SG_ 1583 usrData4_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 usrData4_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 usrData4_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 usrData4_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 usrData3_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 usrData3_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 usrData3_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 usrData3_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 usrData2_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 usrData2_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 usrData2_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 usrData2_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 ECUSPEC_AWAKE_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 ECUSPEC_AWAKE_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 ECUSPEC_AWAKE_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 ECUSPEC_AWAKE_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 DIAGNOSTIC_AWAKE_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 DIAGNOSTIC_AWAKE_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 DIAGNOSTIC_AWAKE_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 DIAGNOSTIC_AWAKE_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 IGNITION_AWAKE_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 IGNITION_AWAKE_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 IGNITION_AWAKE_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 IGNITION_AWAKE_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 NETWORK_AWAKE_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 NETWORK_AWAKE_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 NETWORK_AWAKE_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 NETWORK_AWAKE_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 ECUSPEC_WAKEUP_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 ECUSPEC_WAKEUP_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 ECUSPEC_WAKEUP_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 ECUSPEC_WAKEUP_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 NETWORK_WAKEUP_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 NETWORK_WAKEUP_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 NETWORK_WAKEUP_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 NETWORK_WAKEUP_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 RESET_WAKEUP_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 RESET_WAKEUP_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 RESET_WAKEUP_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 RESET_WAKEUP_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 IGNITION_WAKEUP_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 IGNITION_WAKEUP_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 IGNITION_WAKEUP_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 IGNITION_WAKEUP_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 usrData0_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 usrData0_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 usrData0_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 usrData0_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 NMm_CDU_Reserved1 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 NMm_CDU_Reserved1 0;
+BA_ "GenSigStartValue" SG_ 1583 NMm_CDU_Reserved1 0;
+BA_ "GenSigSendType" SG_ 1583 NMm_CDU_Reserved1 0;
+BA_ "GenSigInactiveValue" SG_ 1583 RMR_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 RMR_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 RMR_CDU 0;
+BA_ "GenSigSendType" SG_ 1583 RMR_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1583 srcNodeID_CDU 0;
+BA_ "GenSigTimeoutValue" SG_ 1583 srcNodeID_CDU 0;
+BA_ "GenSigStartValue" SG_ 1583 srcNodeID_CDU 47;
+BA_ "GenSigSendType" SG_ 1583 srcNodeID_CDU 0;
+BA_ "GenSigInactiveValue" SG_ 1034 HCU_1_G_HVILSts 0;
+BA_ "GenSigTimeoutValue" SG_ 1034 HCU_1_G_HVILSts 0;
+BA_ "GenSigStartValue" SG_ 1034 HCU_1_G_HVILSts 0;
+BA_ "GenSigSendType" SG_ 1034 HCU_1_G_HVILSts 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_7_Resd6 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_7_Resd6 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_7_Resd6 0;
+BA_ "GenSigSendType" SG_ 264 HCU_7_Resd6 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_7_RollgCntr6 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_7_RollgCntr6 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_7_RollgCntr6 0;
+BA_ "GenSigSendType" SG_ 264 HCU_7_RollgCntr6 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_7_CRC6 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_7_CRC6 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_7_CRC6 0;
+BA_ "GenSigSendType" SG_ 264 HCU_7_CRC6 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_SleepAllow 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_SleepAllow 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_SleepAllow 0;
+BA_ "GenSigSendType" SG_ 264 HCU_SleepAllow 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_DCDC_stModeReq 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_DCDC_stModeReq 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_DCDC_stModeReq 0;
+BA_ "GenSigSendType" SG_ 264 HCU_DCDC_stModeReq 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_DCDCEnableReq 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_DCDCEnableReq 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_DCDCEnableReq 0;
+BA_ "GenSigSendType" SG_ 264 HCU_DCDCEnableReq 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_DCDC_pActHvMax 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_DCDC_pActHvMax 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_DCDC_pActHvMax 0;
+BA_ "GenSigSendType" SG_ 264 HCU_DCDC_pActHvMax 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_DCDC_udcLvSetP 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_DCDC_udcLvSetP 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_DCDC_udcLvSetP 135;
+BA_ "GenSigSendType" SG_ 264 HCU_DCDC_udcLvSetP 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_7_RollgCntr1 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_7_RollgCntr1 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_7_RollgCntr1 0;
+BA_ "GenSigSendType" SG_ 264 HCU_7_RollgCntr1 0;
+BA_ "GenSigInactiveValue" SG_ 264 HCU_7_CRC1 0;
+BA_ "GenSigTimeoutValue" SG_ 264 HCU_7_CRC1 0;
+BA_ "GenSigStartValue" SG_ 264 HCU_7_CRC1 0;
+BA_ "GenSigSendType" SG_ 264 HCU_7_CRC1 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_1_MilLampReq 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_1_MilLampReq 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_1_MilLampReq 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_1_MilLampReq 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_1_RollgCntr4 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_1_RollgCntr4 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_1_RollgCntr4 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_1_RollgCntr4 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_1_CRC4 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_1_CRC4 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_1_CRC4 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_1_CRC4 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_KL30_UnderVolt 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_KL30_UnderVolt 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_KL30_UnderVolt 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_KL30_UnderVolt 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_1_RollgCntr1 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_1_RollgCntr1 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_1_RollgCntr1 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_1_RollgCntr1 0;
+BA_ "GenSigInactiveValue" SG_ 1061 OBC_1_CRC1 0;
+BA_ "GenSigTimeoutValue" SG_ 1061 OBC_1_CRC1 0;
+BA_ "GenSigStartValue" SG_ 1061 OBC_1_CRC1 0;
+BA_ "GenSigSendType" SG_ 1061 OBC_1_CRC1 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_2_CRC 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_2_CRC 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_2_CRC 0;
+BA_ "GenSigSendType" SG_ 1054 DCDC_2_CRC 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_2_MessageCounter 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_2_MessageCounter 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_2_MessageCounter 0;
+BA_ "GenSigSendType" SG_ 1054 DCDC_2_MessageCounter 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_DCDCSysFault 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_DCDCSysFault 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_DCDCSysFault 0;
+BA_ "GenSigSendType" SG_ 1054 DCDC_DCDCSysFault 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_TargeTemp 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_TargeTemp 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_TargeTemp 40;
+BA_ "GenSigSendType" SG_ 1054 DCDC_TargeTemp 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_Temp 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_Temp 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_Temp 40;
+BA_ "GenSigSendType" SG_ 1054 DCDC_Temp 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_HvCurr 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_HvCurr 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_HvCurr 0;
+BA_ "GenSigSendType" SG_ 1054 DCDC_HvCurr 0;
+BA_ "GenSigInactiveValue" SG_ 1054 DCDC_HvVolt 0;
+BA_ "GenSigTimeoutValue" SG_ 1054 DCDC_HvVolt 0;
+BA_ "GenSigStartValue" SG_ 1054 DCDC_HvVolt 0;
+BA_ "GenSigSendType" SG_ 1054 DCDC_HvVolt 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_1_CRC 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_1_CRC 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_1_CRC 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_1_CRC 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_1_MessageCounter 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_1_MessageCounter 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_1_MessageCounter 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_1_MessageCounter 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_WorkingMode 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_WorkingMode 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_WorkingMode 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_WorkingMode 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_InputUnderVolt 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_InputUnderVolt 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_InputUnderVolt 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_InputUnderVolt 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_OverTemp 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_OverTemp 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_OverTemp 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_OverTemp 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_HVILFault 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_HVILFault 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_HVILFault 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_HVILFault 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_LvSideCurr 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_LvSideCurr 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_LvSideCurr 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_LvSideCurr 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_EnableSts 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_EnableSts 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_EnableSts 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_EnableSts 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_FaultLevelSts 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_FaultLevelSts 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_FaultLevelSts 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_FaultLevelSts 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_CoolingReq 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_CoolingReq 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_CoolingReq 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_CoolingReq 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_WorkingSts 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_WorkingSts 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_WorkingSts 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_WorkingSts 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_Temp_Res 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_Temp_Res 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_Temp_Res 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_Temp_Res 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_FaultCode 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_FaultCode 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_FaultCode 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_FaultCode 0;
+BA_ "GenSigInactiveValue" SG_ 1048 DCDC_LvSideVolt 0;
+BA_ "GenSigTimeoutValue" SG_ 1048 DCDC_LvSideVolt 0;
+BA_ "GenSigStartValue" SG_ 1048 DCDC_LvSideVolt 0;
+BA_ "GenSigSendType" SG_ 1048 DCDC_LvSideVolt 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_NegMainRelaySts 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_NegMainRelaySts 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_NegMainRelaySts 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_NegMainRelaySts 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_1_RollgCntr3 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_1_RollgCntr3 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_1_RollgCntr3 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_1_RollgCntr3 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_1_CRC3 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_1_CRC3 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_1_CRC3 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_1_CRC3 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_PosMainRelaySts 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_PosMainRelaySts 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_PosMainRelaySts 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_PosMainRelaySts 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_1_RollgCntr2 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_1_RollgCntr2 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_1_RollgCntr2 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_1_RollgCntr2 0;
+BA_ "GenSigInactiveValue" SG_ 403 BMSH_1_CRC2 0;
+BA_ "GenSigTimeoutValue" SG_ 403 BMSH_1_CRC2 0;
+BA_ "GenSigStartValue" SG_ 403 BMSH_1_CRC2 0;
+BA_ "GenSigSendType" SG_ 403 BMSH_1_CRC2 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 2015 Diag_Functional_REQ 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 2022 Diag_CDU_REQ 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 FuelTankLidLockReq 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 FuelTankLidSystemFailureSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 FuelTankPressureConditionReached 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 LegisPostDTCClrDriveCycleCmplte 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 LegisDiagStdardCnditionFltPresnt 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 LegisDiagStdardCnditionMet 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1241 EMS_4_G_EngineSpeed_Actual 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EMS_1_G_Reserved5 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EMS_EngineSts_Actual 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EngineSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 GearReduceIndication 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 GearRaiseIndication 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 IMMOCodeWarningLightSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 TargetGearPosition 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 SSMStatus 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EPCSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EngineSpeedValidData 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 FuelRollingCounterValidData 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 ISS_Sts_GS 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EngineSpeed 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 FuelRollingCounter 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EngineCoolantTemperture 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 CruiseControlStsForDisplay 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EMS_1_G_Reserved2 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 EngineCoolantTempertureFailSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 MILSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 ISS_Switch_Sts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 CompressorSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 IEMSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 GPFWarning 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 640 ISS_Sts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_GeneralDenomiantorFreeze 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_GeneralDenomiantor 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_IgnCycle 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 PID11_AbsoluteThrottlePosition 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_PermanentFailureCycle 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_WarmupCycle 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 OBD_DrivingCycle 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 AbsoluteThrottlePosValidData 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 LoadValueCalculatedValidData 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1213 PID04_LoadValueCalculated 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1520 BCM_10_Config 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1282 VehicleSpeedVSOSig 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 800 CrashOutputSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 800 ABM_1_CheckSum 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 800 ABM_1_MessageCounter 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 1034 HCU_1_G_HVILSts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_7_Resd6 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_7_RollgCntr6 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_7_CRC6 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_SleepAllow 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_DCDC_stModeReq 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_DCDCEnableReq 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_DCDC_pActHvMax 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_DCDC_udcLvSetP 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_7_RollgCntr1 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 264 HCU_7_CRC1 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_NegMainRelaySts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_1_RollgCntr3 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_1_CRC3 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_PosMainRelaySts 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_1_RollgCntr2 0;
+BA_REL_ "GenSigTimeoutTime" BU_SG_REL_ DCDC SG_ 403 BMSH_1_CRC2 0;
+VAL_ 1241 FuelTankLidLockReq 3 " Reserved" 2 " Unlock" 1 " Lock" 0 " Not Active" ;
+VAL_ 1241 FuelTankLidSystemFailureSts 1 " Failure" 0 " No failure" ;
+VAL_ 1241 FuelTankPressureConditionReached 3 "Reserved" 2 "Ready to refuel" 1 "Wait to refuel" 0 "Not Active" ;
+VAL_ 640 EMS_EngineSts_Actual 1 " Run" 0 " Not Run" ;
+VAL_ 640 EngineSts 1 "Run" 0 "Not Run" ;
+VAL_ 640 GearReduceIndication 0 " Not active" 1 " Active" ;
+VAL_ 640 GearRaiseIndication 0 " Not active" 1 " Active" ;
+VAL_ 640 IMMOCodeWarningLightSts 3 " Not valid" 2 " Key not stored" 1 " Engine start disable" 0 " Engine start enable" ;
+VAL_ 640 TargetGearPosition 7 " Invalid" 6 " 6th gear" 5 " 5th gear" 4 " 4th gear" 3 " 3rd gear" 2 " 2nd gear" 1 " 1st gear" ;
+VAL_ 640 SSMStatus 6 " Auto Stopping" 5 " Operation" 4 " Engine Restart" 3 " Starter Restart" 2 " Stopped" 1 " Standby" 0 " Reset/Not Implemented" ;
+VAL_ 640 EPCSts 0 " Off" 1 " Active" ;
+VAL_ 640 EngineSpeedValidData 1 " Not valid" 0 " Valid" ;
+VAL_ 640 FuelRollingCounterValidData 1 " Not valid" 0 " Valid" ;
+VAL_ 640 ISS_Sts_GS 30 " Reserved" 29 " Reserved" 28 " Reserved" 27 " Reserved" 26 " Reserved" 25 " Reserved" 24 " Reserved" 23 " Reserved" 22 " Reserved" 21 " Reserved" 20 " Reserved" 19 " Reserved" 18 " ISS_TurnOn" 17 " ISS_TurnOff " 16 " ISS_AlarmFault " 15 " ISS_AlarmStartByHand" 14 " ISS_AlarmNeutral" 13 " ISS_ExitInfo2" 12 " ISS_ExitInfo" 11 " ISS_OnSeatCheck " 10 " ISS_NoStartBelt" 9 " ISS_AutoStart" 8 " ISS_NoStopBrake" 7 " ISS_NoStopHood " 6 " ISS_NoStopDoor" 5 " ISS_NoStopAC " 4 " ISS_NoStopBelt " 3 " ISS_AutoStop " 2 " ISS_StopEnable " 1 " ISS_EOL" 0 " ISS_DefaultOn" ;
+VAL_ 640 CruiseControlStsForDisplay 3 " Cancel" 2 " Pre cruise (flash)" 1 " Inserted" 0 " Not inserted" ;
+VAL_ 640 EngineCoolantTempertureFailSts 1 " Fail Present" 0 " Fail Not Present" ;
+VAL_ 640 MILSts 3 " Not used" 2 " Active" 1 " Not used" 0 " Off" ;
+VAL_ 640 ISS_Switch_Sts 1 " ISS_Switch_On" 0 " ISS_Switch_Off" ;
+VAL_ 640 CompressorSts 3 " Inserted" 2 " Not inserted by driver" 1 " Not inserted by EMS" 0 " Not used" ;
+VAL_ 640 IEMSts 0 " Lamp Off" 1 " Lamp On" ;
+VAL_ 640 GPFWarning 3 " Reserved" 2 " GPF Overlimited" 1 " GPF Full" 0 " No GPF warning" ;
+VAL_ 640 ISS_Sts 3 " Lamp on(remind infotmation displaying on the LCD)" 2 " Lamp on" 1 " Lamp flash" 0 " Lamp off" ;
+VAL_ 1213 OBD_GeneralDenomiantorFreeze 1 "Active" 0 "Not Active" ;
+VAL_ 1213 OBD_GeneralDenomiantor 1 "Active" 0 "Not Active" ;
+VAL_ 1213 OBD_IgnCycle 1 " Active" 0 " No active" ;
+VAL_ 1213 OBD_PermanentFailureCycle 1 "Active" 0 "Not Active" ;
+VAL_ 1213 OBD_WarmupCycle 1 "Active" 0 "Not Active" ;
+VAL_ 1213 OBD_DrivingCycle 1 " Propulsion System Active" 0 " Propulsion System Not Active" ;
+VAL_ 1213 AbsoluteThrottlePosValidData 1 "Invalid" 0 "Valid" ;
+VAL_ 1213 LoadValueCalculatedValidData 1 "Invalid" 0 "Valid" ;
+VAL_ 800 CrashOutputSts 32 " Roll Crash" 16 " Rear Crash" 8 " Right Side Crash" 4 " Left Side Crash" 2 " Front Crash" 1 " Belt Crash" 0 " No crash" ;
+VAL_ 1583 ECUSPEC_AWAKE_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 DIAGNOSTIC_AWAKE_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 IGNITION_AWAKE_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 NETWORK_AWAKE_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 ECUSPEC_WAKEUP_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 NETWORK_WAKEUP_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 RESET_WAKEUP_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 IGNITION_WAKEUP_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1583 usrData0_CDU 254 " Not Used" 253 " Not Used" 252 " Not Used" 251 " Not Used" 250 " Not Used" 249 " Not Used" 248 " Not Used" 247 " Not Used" 246 " Not Used" 245 " Not Used" 244 " Not Used" 243 " Not Used" 242 " Not Used" 241 " Not Used" 240 " Not Used" 239 " Not Used" 238 " Not Used" 237 " Not Used" 236 " Not Used" 235 " Not Used" 234 " Not Used" 233 " Not Used" 232 " Not Used" 231 " Not Used" 230 " Not Used" 229 " Not Used" 228 " Not Used" 227 " Not Used" 226 " Not Used" 225 " Not Used" 224 " Not Used" 223 " Not Used" 222 " Not Used" 221 " Not Used" 220 " Not Used" 219 " Not Used" 218 " Not Used" 217 " Not Used" 216 " Not Used" 215 " Not Used" 214 " Not Used" 213 " Not Used" 212 " Not Used" 211 " Not Used" 210 " Not Used" 209 " Not Used" 208 " Not Used" 207 " Not Used" 206 " Not Used" 205 " Not Used" 204 " Not Used" 203 " Not Used" 202 " Not Used" 201 " Not Used" 200 " Not Used" 199 " Not Used" 198 " Not Used" 197 " Not Used" 196 " Not Used" 195 " Not Used" 194 " Not Used" 193 " Not Used" 192 " Not Used" 191 " Not Used" 190 " Not Used" 189 " Not Used" 188 " Not Used" 187 " Not Used" 186 " Not Used" 185 " Not Used" 184 " Not Used" 183 " Not Used" 182 " Not Used" 181 " Not Used" 180 " Not Used" 179 " Not Used" 178 " Not Used" 177 " Not Used" 176 " Not Used" 175 " Not Used" 174 " Not Used" 173 " Not Used" 172 " Not Used" 171 " Not Used" 170 " Not Used" 169 " Not Used" 168 " Not Used" 167 " Not Used" 166 " Not Used" 165 " Not Used" 164 " Not Used" 163 " Not Used" 162 " Not Used" 161 " Not Used" 160 " Not Used" 159 " Not Used" 158 " Not Used" 157 " Not Used" 156 " Not Used" 155 " Not Used" 154 " Not Used" 153 " Not Used" 152 " Not Used" 151 " Not Used" 150 " Not Used" 149 " Not Used" 148 " Not Used" 147 " Not Used" 146 " Not Used" 145 " Not Used" 144 " Not Used" 143 " Not Used" 142 " Not Used" 141 " Not Used" 140 " Not Used" 139 " Not Used" 138 " Not Used" 137 " Not Used" 136 " Not Used" 135 " Not Used" 134 " Not Used" 133 " Not Used" 132 " Not Used" 131 " Not Used" 130 " Not Used" 129 " Not Used" 128 " Not Used" 127 " Not Used" 126 " Not Used" 125 " Not Used" 124 " Not Used" 123 " Not Used" 122 " Not Used" 121 " Not Used" 120 " Not Used" 119 " Not Used" 118 " Not Used" 117 " Not Used" 116 " Not Used" 115 " Not Used" 114 " Not Used" 113 " Not Used" 112 " Not Used" 111 " Not Used" 110 " Not Used" 109 " Not Used" 108 " Not Used" 107 " Not Used" 106 " Not Used" 105 " Not Used" 104 " Not Used" 103 " Not Used" 102 " Not Used" 101 " Not Used" 100 " Not Used" 99 " Not Used" 98 " Not Used" 97 " Not Used" 96 " Not Used" 95 " Not Used" 94 " Not Used" 93 " Not Used" 92 " Not Used" 91 " Not Used" 90 " Not Used" 89 " Not Used" 88 " Not Used" 87 " Not Used" 86 " Not Used" 85 " Not Used" 84 " Not Used" 83 " Not Used" 82 " Not Used" 81 " Not Used" 80 " Not Used" 79 " Not Used" 78 " Not Used" 77 " Not Used" 76 " Not Used" 75 " Not Used" 74 " Not Used" 73 " Not Used" 72 " Not Used" 71 " Not Used" 70 " Not Used" 69 " Not Used" 68 " Not Used" 67 " Not Used" 66 " Not Used" 65 " Not Used" 64 " Not Used" 63 " Not Used" 62 " Not Used" 61 " Not Used" 60 " Not Used" 59 " Not Used" 58 " Not Used" 57 " Not Used" 56 " Not Used" 55 " Not Used" 54 " Not Used" 53 " Not Used" 52 " Not Used" 51 " Not Used" 50 " Not Used" 49 " Not Used" 48 " Not Used" 47 " Not Used" 46 " Not Used" 45 " Not Used" 44 " Not Used" 43 " Not Used" 42 " Not Used" 41 " Not Used" 40 " Not Used" 39 " Not Used" 38 " Not Used" 37 " Not Used" 36 " Not Used" 35 " Not Used" 34 " Not Used" 33 " Not Used" 32 " Not Used" 31 " Not Used" 30 " Not Used" 29 " Not Used" 28 " Not Used" 27 " Not Used" 26 " Not Used" 25 " Not Used" 24 " Not Used" 23 " Not Used" 22 " Not Used" 21 " Not Used" 20 " Not Used" 19 " Not Used" 18 " Not Used" 17 " Not Used" 16 " Not Used" 15 " Not Used" 14 " Not Used" 13 " Not Used" 12 " Not Used" 11 " Not Used" 10 " Not Used" 9 " Not Used" 8 " Not Used" 7 " Not Used" 6 " Not Used" 5 " Not Used" 4 " Not Used" 3 " Not Used" 2 " Not Used" 1 " Not Used" 255 " User data not used" 0 " User data for current vehicle" ;
+VAL_ 1583 RMR_CDU 1 " Active" 0 " Inactive" ;
+VAL_ 1034 HCU_1_G_HVILSts 1 "Loop system failure" 0 "Loop fault free" ;
+VAL_ 264 HCU_SleepAllow 1 " Not  Allowed" 0 " Allowed" ;
+VAL_ 264 HCU_DCDC_stModeReq 7 "Reserve" 6 "Reserve" 5 "Reserve" 4 "Reserve" 3 "EmergencyShutdown" 2 "PowerDown" 1 "Operation" 0 "LV Standby" ;
+VAL_ 264 HCU_DCDCEnableReq 3 " Invalid" 2 " Reserved" 1 "Enable" 0 "Disable                                                                 " ;
+VAL_ 1061 OBC_1_MilLampReq 1 " Request" 0 " No request" ;
+VAL_ 1061 OBC_KL30_UnderVolt 1 "Fault" 0 "No fault" ;
+VAL_ 1054 DCDC_DCDCSysFault 1 "Fault" 0 "No fault                                                                  " ;
+VAL_ 1048 DCDC_WorkingMode 15 "Reserve" 14 "Reserve" 13 "Reserve" 12 "Reserve" 11 "Reserve" 10 "Reserve" 9 "Reserve" 8 "Reserve" 7 "Reserve" 6 "Afterrun" 5 "Fault" 4 "PowerDown" 3 "Buck" 2 "HV Standby" 1 "LV Standby" 0 "Init" ;
+VAL_ 1048 DCDC_InputUnderVolt 1 "Fault" 0 "No fault                                                                  " ;
+VAL_ 1048 DCDC_OverTemp 1 "Fault" 0 "No fault                                                                  " ;
+VAL_ 1048 DCDC_HVILFault 1 "Fault" 0 "No fault                             " ;
+VAL_ 1048 DCDC_EnableSts 1 "Enable" 0 "Disable                                                                " ;
+VAL_ 1048 DCDC_FaultLevelSts 7 "Reserved" 6 "Reserved                                                       " 5 "Reserved                                                 " 4 "Reserved                                                            " 3 "Lever3 fault                                                " 2 "Lever2 fault                                                     " 1 "Lever1 fault                                                       " 0 "No fault                                                        " ;
+VAL_ 1048 DCDC_CoolingReq 1 "Cooling Request" 0 "No Request                                                      " ;
+VAL_ 1048 DCDC_WorkingSts 2 "Abnormal(Fault)" 1 "Operational(buck)" 0 "Disconnect" ;
+VAL_ 403 BMSH_NegMainRelaySts 1 "Closed" 0 "Open" ;
+VAL_ 403 BMSH_PosMainRelaySts 1 "Closed" 0 "Open" ;
+

@@ -92,5 +92,32 @@ namespace WindowsFormsApplication
                uI_CanMatrix.UpdateMsgTableView();
             }
         }
+
+        public void MainLoopThread_Task_UpdateComUpperUI()
+        {
+            if(DeviceInterfaceMng.GetInstance()?.canDeviceOpenFlag == false) return;
+
+            //更新上位机接收报文窗口区域
+            uI_ComUpper.MainLoopThread_Task_UpdateRecvMsgArea();
+        }
+
+        //Form.Closing 事件：此事件在窗口关闭之前立即发生，通常用于执行一些清理工作，如保存数据或询问用户是否真的要关闭窗口
+        //可以通过设置CancelEventArgs的Cancel属性来阻止窗口关闭
+        private void MainWin_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            // 保存数据或执行其他清理工作
+            // 如果需要取消关闭，设置e.Cancel = true;
+        }
+
+        //Form.Closed 事件：此事件在窗口关闭之后发生。它主要用于执行在窗口关闭后需要进行的操作，如释放资源或启动其他窗体
+        private void MainWin_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            // 释放资源或执行其他清理工作
+            // 可以使用e.CloseReason属性获取关闭的原因等信息
+
+            //退出主窗口时保证关闭CAN设备
+            if(DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
+                DeviceInterfaceMng.GetInstance().CloseCanDevice();
+        }
     }
 }

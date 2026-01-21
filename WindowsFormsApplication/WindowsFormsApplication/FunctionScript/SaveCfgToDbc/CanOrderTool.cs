@@ -8,9 +8,9 @@ static public class CanOrderTool
     /// <param name="startBit_Lsb">Lsb开始位</param>
     /// <param name="length">信号长度</param>
     /// <returns>Msb开始位</returns>
-    static public int MotorolaStartBit_Lsb2Msb(int startBit_Lsb, int length)
+    static public uint MotorolaStartBit_Lsb2Msb(uint startBit_Lsb, uint length)
     {
-        int startBit_Msb = startBit_Lsb;
+        uint startBit_Msb = startBit_Lsb;
 
         while (length > 1)
         {
@@ -43,9 +43,9 @@ static public class CanOrderTool
     /// <param name="startBit_Msb">Msb开始位</param>
     /// <param name="length">信号长度</param>
     /// <returns>Lsb开始位</returns>
-    static public int MotorolaStartBit_Msb2Lsb(int startBit_Msb, int length)
+    static public uint MotorolaStartBit_Msb2Lsb(uint startBit_Msb, uint length)
     {
-        int startBit_Lsb = startBit_Msb;
+        uint startBit_Lsb = startBit_Msb;
 
         while (length > 1)
         {

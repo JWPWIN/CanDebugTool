@@ -62,7 +62,7 @@
             tabControl_AllFunsSplit.Location = new System.Drawing.Point(0, 0);
             tabControl_AllFunsSplit.Name = "tabControl_AllFunsSplit";
             tabControl_AllFunsSplit.SelectedIndex = 0;
-            tabControl_AllFunsSplit.Size = new System.Drawing.Size(800, 578);
+            tabControl_AllFunsSplit.Size = new System.Drawing.Size(814, 578);
             tabControl_AllFunsSplit.TabIndex = 5;
             tabControl_AllFunsSplit.SelectedIndexChanged += tabControl_AllFunsSplit_SelectedIndexChanged;
             // 
@@ -72,7 +72,7 @@
             tabPage_FirstPage.Location = new System.Drawing.Point(4, 26);
             tabPage_FirstPage.Name = "tabPage_FirstPage";
             tabPage_FirstPage.Padding = new System.Windows.Forms.Padding(3);
-            tabPage_FirstPage.Size = new System.Drawing.Size(792, 548);
+            tabPage_FirstPage.Size = new System.Drawing.Size(806, 548);
             tabPage_FirstPage.TabIndex = 0;
             tabPage_FirstPage.Text = "首页";
             tabPage_FirstPage.UseVisualStyleBackColor = true;
@@ -82,7 +82,7 @@
             uI_DbcDataManager.Dock = System.Windows.Forms.DockStyle.Fill;
             uI_DbcDataManager.Location = new System.Drawing.Point(3, 3);
             uI_DbcDataManager.Name = "uI_DbcDataManager";
-            uI_DbcDataManager.Size = new System.Drawing.Size(786, 542);
+            uI_DbcDataManager.Size = new System.Drawing.Size(800, 542);
             uI_DbcDataManager.TabIndex = 0;
             // 
             // tabPage_CanMatrix
@@ -129,7 +129,7 @@
             statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripStatusLabel_CurSysTime, toolStripStatusLabel_CurPageName, toolStripStatusLabel_DBCState, toolStripStatusLabel_DeviceCntState, toolStripStatusLabel_GlobalLogBox });
             statusStrip.Location = new System.Drawing.Point(0, 0);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new System.Drawing.Size(800, 22);
+            statusStrip.Size = new System.Drawing.Size(814, 22);
             statusStrip.TabIndex = 1;
             statusStrip.Text = "statusStrip";
             // 
@@ -174,13 +174,13 @@
             // 
             toolStripContainer1.ContentPanel.AutoScroll = true;
             toolStripContainer1.ContentPanel.Controls.Add(tabControl_AllFunsSplit);
-            toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(800, 578);
+            toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(814, 578);
             toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             toolStripContainer1.LeftToolStripPanelVisible = false;
             toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             toolStripContainer1.Name = "toolStripContainer1";
             toolStripContainer1.RightToolStripPanelVisible = false;
-            toolStripContainer1.Size = new System.Drawing.Size(800, 600);
+            toolStripContainer1.Size = new System.Drawing.Size(814, 600);
             toolStripContainer1.TabIndex = 6;
             toolStripContainer1.Text = "toolStripContainer1";
             toolStripContainer1.TopToolStripPanelVisible = false;
@@ -194,6 +194,8 @@
             Margin = new System.Windows.Forms.Padding(4);
             Name = "MainWin";
             Text = "CAN调试工具";
+            FormClosing += MainWin_FormClosing;
+            FormClosed += MainWin_FormClosed;
             tabControl_AllFunsSplit.ResumeLayout(false);
             tabPage_FirstPage.ResumeLayout(false);
             tabPage_CanMatrix.ResumeLayout(false);

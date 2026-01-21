@@ -119,24 +119,14 @@
             // 
             // tableLayoutPanel_RecvMsgArea
             // 
-            tableLayoutPanel_RecvMsgArea.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            tableLayoutPanel_RecvMsgArea.AutoScroll = true;
+            tableLayoutPanel_RecvMsgArea.BackColor = System.Drawing.SystemColors.Control;
             tableLayoutPanel_RecvMsgArea.ColumnCount = 1;
             tableLayoutPanel_RecvMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel_RecvMsgArea.Dock = System.Windows.Forms.DockStyle.Left;
             tableLayoutPanel_RecvMsgArea.Location = new System.Drawing.Point(0, 95);
             tableLayoutPanel_RecvMsgArea.Name = "tableLayoutPanel_RecvMsgArea";
-            tableLayoutPanel_RecvMsgArea.RowCount = 10;
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(311, 393);
+            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(462, 393);
             tableLayoutPanel_RecvMsgArea.TabIndex = 6;
             // 
             // UI_ComUpper

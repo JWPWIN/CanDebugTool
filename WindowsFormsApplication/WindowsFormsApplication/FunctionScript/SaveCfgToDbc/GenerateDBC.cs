@@ -205,7 +205,7 @@ public class GenerateDBC
         if (sig.sigOrderType == 0)
         {
             //Motorol
-            SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb((int)sig.sigStartBit, (int)sig.sigLen).ToString() + "|";
+            SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb(sig.sigStartBit, sig.sigLen).ToString() + "|";
         }
         else
         {

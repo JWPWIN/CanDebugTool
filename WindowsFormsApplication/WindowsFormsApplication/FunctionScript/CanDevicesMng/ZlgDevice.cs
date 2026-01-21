@@ -23,8 +23,15 @@ public class ZlgDevice
     //设备接收有效报文帧缓存数据列表
     List<ZCANDataObj_CSharp> receiveValidFrameBuffer = new List<ZCANDataObj_CSharp>();
 
+    //此次连接设备已接收的有效报文数量
+    uint hasRecvValidMsgNumDuringThisTime = 0;
+
     //设备接收错误帧缓存数据列表
     List<ZCANDataObj_CSharp> receiveErrFrameBuffer = new List<ZCANDataObj_CSharp>();
+
+    //此次连接设备已接收的错误帧数量
+    uint hasRecvErrFrameNumDuringThisTime = 0;
+
 
     struct Can_Init_Config
     {
@@ -240,6 +247,10 @@ public class ZlgDevice
             return false;
         }
 
+        //关闭设备后清除当前接收报文计数
+        hasRecvValidMsgNumDuringThisTime = 0;
+        hasRecvErrFrameNumDuringThisTime = 0;
+
         return true;
     }
 
@@ -367,15 +378,52 @@ public class ZlgDevice
             {
                 //CAN或CANFD 数据
                 receiveValidFrameBuffer.Add(cur_recv_data);
+                //有效报文总数增加
+                hasRecvValidMsgNumDuringThisTime++;
             }
 
             if (cur_recv_data.dataType == 2)
             {
                 //错误数据
                 receiveErrFrameBuffer.Add(cur_recv_data);
+                //错误帧总数增加
+                hasRecvErrFrameNumDuringThisTime++;
             }
 
-            AppLogMng.DisplayLog(receiveValidFrameBuffer.Count().ToString() + $"-0x{ cur_recv_data.canData.can_id.ToString("X4")}", true);
+            //状态栏显示接收报文的数量
+            AppLogMng.DisplayLog("接收有效报文数量：" + hasRecvValidMsgNumDuringThisTime.ToString() + "/"
+                                + "接收错误帧数量：" + hasRecvErrFrameNumDuringThisTime.ToString()
+                                , true);
         }
+    }
+
+    /// <summary>
+    /// 获取当前缓存区中已接收到的有效报文
+    /// </summary>
+    public void GetRecvBufferValidMsg(List<Canfd_Frame_Com> getRecvMsgList)
+    {
+        if (receiveValidFrameBuffer.Count() == 0) return;//缓存区无报文，直接退出
+
+        //获取设备缓冲区所有报文
+        foreach (var item in receiveValidFrameBuffer)
+        {
+            Canfd_Frame_Com _tmpMsg = new Canfd_Frame_Com();
+            _tmpMsg.can_id = item.canData.can_id;
+            _tmpMsg.len = item.canData.len;
+            _tmpMsg.data = item.canData.data;
+
+            getRecvMsgList.Add(_tmpMsg);
+        }
+
+        //清除缓存区报文数据
+        receiveValidFrameBuffer.Clear();
+    }
+
+    /// <summary>
+    /// 获取当前缓存区中已接收到的错误数据
+    /// </summary>
+    public void GetRecvBufferErrData()
+    {
+
     }
 }

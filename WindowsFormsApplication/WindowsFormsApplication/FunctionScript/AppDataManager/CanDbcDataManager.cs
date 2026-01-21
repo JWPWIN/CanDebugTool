@@ -28,7 +28,7 @@ public class CanSignal
     public uint sigLen;//信号长度
     public double sigFactor; //信号精度
     public double sigOffset; //信号偏移
-    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //信号值列表<信号意义，信号值>
+    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //信号值列表<信号值，信号值含义>
     public uint valueType; //值类型：1-有符号，0：无符号
     public string recvNode;//接收节点
     public uint reuseFrameID;//复用帧ID，报文类型为Debug模式时启用
@@ -501,15 +501,17 @@ public class CanDbcDataManager
 
                                 string[] sp = lineAry[3 + byteOffset].Split(new char[] { '|', '@' }, StringSplitOptions.RemoveEmptyEntries);
 
-                                signal.sigStartBit = Convert.ToUInt32(sp[0]);
                                 signal.sigLen = Convert.ToUInt32(sp[1]);
                                 if (sp[2][0] == '0')
                                 {
                                     signal.sigOrderType = 0;
+                                    //DBC中Motorola为MSB，需要转换为LSB
+                                    signal.sigStartBit = CanOrderTool.MotorolaStartBit_Msb2Lsb(Convert.ToUInt32(sp[0]), signal.sigLen);
                                 }
                                 else if (sp[2][0] == '1')
                                 {
                                     signal.sigOrderType = 1;
+                                    signal.sigStartBit = Convert.ToUInt32(sp[0]);
                                 }
 
                                 if (lineAry[3] == "+")
