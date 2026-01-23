@@ -133,6 +133,9 @@ public class LongRunningThreadService
     {
         //实时获取设备报文数据
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_ReceiveMessagesFromDevice();
+        //尝试发送缓冲区类待发送的单帧报文 及 设置的周期发送报文
+        DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(0x4BD,100,1);
+        DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_SendMessagesToDevice();
     }
 
     /// <summary>

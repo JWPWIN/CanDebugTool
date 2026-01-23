@@ -24,8 +24,16 @@ public struct Canfd_Frame_Com
 {
     public uint can_id; /* 32 bit CAN_ID + EFF/RTR/ERR flags */
     public byte len; /* frame payload length in byte */
+    public byte is_canfd;/* wether canfd or not */
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
     public byte[] data/* __attribute__((aligned(8)))*/;
+}
+
+public struct CycleSend_Canfd_Frame
+{
+    public ulong sendCycle;//报文发送周期
+    public ulong sendTimer;//报文发送计时器
+    public Canfd_Frame_Com msgData;//发送报文数据
 }
 
 public class DeviceInterfaceMng
@@ -41,6 +49,11 @@ public class DeviceInterfaceMng
     private ZlgDevice zlgDevice = null;//周立功设备实例
 
     private List<Canfd_Frame_Com> waitToHandle_RecvCanMsgBuf = new List<Canfd_Frame_Com>();//当前等待处理的接收报文
+
+    private List<Canfd_Frame_Com> waitToHandle_SendCanMsgBuf = new List<Canfd_Frame_Com>();//当前等待处理的发送报文
+
+    //周期发送报文列表 <报文ID,周期发送报文数据>
+    private Dictionary<uint, CycleSend_Canfd_Frame> task_CycleMsgSendDict = new Dictionary<uint, CycleSend_Canfd_Frame>();
 
     public DeviceInterfaceMng()
     {
@@ -235,7 +248,7 @@ public class DeviceInterfaceMng
     /// 获取当前等待处理的接收报文
     /// </summary>
     /// <returns></returns>
-    public List<Canfd_Frame_Com> GetCurWaitToHandleMsg()
+    public List<Canfd_Frame_Com> GetCurWaitToHandleRecvMsg()
     {
         return waitToHandle_RecvCanMsgBuf;
     }
@@ -244,8 +257,90 @@ public class DeviceInterfaceMng
     /// 清除所有当前等待处理的接收报文
     /// </summary>
     /// <returns></returns>
-    public void ClearCurWaitToHandleMsg()
+    public void ClearCurWaitToHandleRecvMsg()
     {
         waitToHandle_RecvCanMsgBuf.Clear();
+    }
+
+    /// <summary>
+    /// 从周期发送任务列表中 增加或者删除一个报文周期发送
+    /// </summary>
+    /// <param name="msgId">周期报文ID</param>
+    /// <param name="msgId">报文发送周期</param>
+    /// <param name="isAddMsg">1：增加周期报文发送/0：删除周期报文发送</param>
+    public void AddOrDelOneCycleMsgSend(uint msgId, ulong msgCycle , uint isAddMsg)
+    {
+        if (isAddMsg == 1)
+        {
+            if (task_CycleMsgSendDict.ContainsKey(msgId)) return;//已有该报文 退出
+
+            CycleSend_Canfd_Frame cycleSend_Canfd_Frame = new CycleSend_Canfd_Frame();
+            cycleSend_Canfd_Frame.msgData = new Canfd_Frame_Com();
+            cycleSend_Canfd_Frame.msgData.can_id = msgId;
+            cycleSend_Canfd_Frame.sendCycle = msgCycle;
+
+            task_CycleMsgSendDict.Add(msgId, cycleSend_Canfd_Frame);
+        }
+        else
+        {
+            if(task_CycleMsgSendDict.ContainsKey(msgId)) task_CycleMsgSendDict.Remove(msgId);
+        }
+    }
+
+    /// <summary>
+    /// 从软件设备对象报文缓存区发送一帧报文到总线
+    /// </summary>
+    public void MainLoopThread_Task_SendMessagesToDevice()
+    {
+        //未打开设备 直接返回
+        if (canDeviceOpenFlag == false)
+        {
+            return;
+        }
+
+        Canfd_Frame_Com canfd_Frame_Com = new Canfd_Frame_Com();
+
+        //优先发送当前等待发送的单帧报文
+        if (waitToHandle_SendCanMsgBuf.Count > 0)
+        {
+            //设置发送帧数据，发送最早存入缓冲区的报文
+            canfd_Frame_Com = waitToHandle_SendCanMsgBuf[0];
+            waitToHandle_SendCanMsgBuf.RemoveAt(0);
+        }
+        else//无单帧报文发送，尝试发送周期报文
+        {
+            //检测满足发送周期时间的报文
+            foreach (var item in task_CycleMsgSendDict)
+            {
+                if (TimerTool.CheckTimeOut(item.Value.sendTimer, item.Value.sendCycle))
+                {
+                    //重置发送计时器
+                    CycleSend_Canfd_Frame _tmpFrame = item.Value;
+                    TimerTool.ResetTimer(ref _tmpFrame.sendTimer);
+                    task_CycleMsgSendDict[item.Key] = _tmpFrame;
+                    //设置发送帧数据
+                    canfd_Frame_Com = item.Value.msgData;
+
+                    break;
+                }
+            }
+            
+        }
+
+        if (canfd_Frame_Com.can_id == 0) return;//无报文数据发送，退出
+
+        //根据设备类型从相应设备中获取接收到的报文
+        switch (curCanDeviceType)
+        {
+            case CanDeviceType.ZCAN_USBCANFD_100U:
+            case CanDeviceType.ZCAN_USBCANFD_200U:
+            case CanDeviceType.ZCAN_USBCANFD_MINI:
+                //zlg设备发送报文
+                if (zlgDevice is not null) zlgDevice.TransmitMessagesToDevice(canfd_Frame_Com);
+                break;
+            default:
+                break;
+        }
+
     }
 }

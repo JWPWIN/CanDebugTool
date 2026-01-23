@@ -17,9 +17,6 @@ public class ZlgDevice
     //CAN通道句柄
     private uint canChannelHandle = 0;
 
-    //报文发送失败后尝试重发定时器
-    private ulong resendTimer = TimerTool.GetSysTime();
-
     //设备接收有效报文帧缓存数据列表
     List<ZCANDataObj_CSharp> receiveValidFrameBuffer = new List<ZCANDataObj_CSharp>();
 
@@ -31,7 +28,6 @@ public class ZlgDevice
 
     //此次连接设备已接收的错误帧数量
     uint hasRecvErrFrameNumDuringThisTime = 0;
-
 
     struct Can_Init_Config
     {
@@ -125,7 +121,7 @@ public class ZlgDevice
     static extern uint ZCAN_ReceiveData_Interface(uint device_handle, ref ZCANDataObj_CSharp pReceive_CSharp);
 
     [DllImport("ZcanDeviceInterface.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_TransmitData(uint device_handle, ref ZCANDataObj_CSharp[] pTransmit_CSharp, uint len);
+    static extern uint ZCAN_TransmitData_Interface(uint device_handle, ZCANDataObj_CSharp pTransmit_CSharp);
 
     /// <summary>
     /// 打开CAN设备
@@ -275,85 +271,34 @@ public class ZlgDevice
     }
 
     /// <summary>
-    /// 发送CAN报文
+    /// 发送报文至设备总线-每次调用发送一帧
     /// </summary>
-    /// <param name="msgId">报文ID</param>
-    /// <param name="data">报文数据</param>
-    /// <returns></returns>
-    public bool Transmit_CanFrame(uint msgId, byte[] data)
+    /// <param name="msgData">报文帧数据</param>
+    /// <returns>报文发送是否成功</returns>
+    public bool TransmitMessagesToDevice(Canfd_Frame_Com msgData)
     {
-        //Can_Transmit_Data canData = new Can_Transmit_Data();
-        //canData.can_id = GetZCANId(msgId);
-        //canData.can_dlc = 8;
-        //canData.data = data;
-        //canData.transmit_type = 0;
+        uint succSendMsgNum = 0;
+        ZCANDataObj_CSharp sendData = new ZCANDataObj_CSharp();
+        sendData.chnl = 0;
+        sendData.canData.can_id = msgData.can_id;
+        sendData.frameType = msgData.is_canfd;
 
-        ////如果can通道未正常打开
-        //if (canChannelHandle == 0)
-        //{
-        //    return false;
-        //}
+        msgData.data = new byte[64];
 
-        //if (TimerTool.CheckTimeOut(resendTimer, 5*(ulong)TimeUnit.T_S) == true)//失败5s尝试重发一次
-        //{
-        //    if (ZCAN_Transmit(canChannelHandle, ref canData, 1) != 1)
-        //    {
-        //        AppLogMng.DisplayLog("报文发送失败，尝试重新发送!", false);
+        for (int i = 0; i < msgData.data.Length; i++)
+        {
+            msgData.data[i] = 0xFF;
+        }
 
-        //        TimerTool.ResetTimer(ref resendTimer);
-        //        return false;
-        //    }
-        //}
+        sendData.canData.data = msgData.data;
 
-        return true;
-    }
+        succSendMsgNum = ZCAN_TransmitData_Interface(canDeviceHandle, sendData);
 
-
-    public bool Receive_CanFrame()
-    {
-        //ZCANDataObj canData = new ZCANDataObj();
-        //canData.dataType = 1;
-        //canData.chnl = 0;
-        //canData.data = new ZCANDataObj_data();
-        //canData.data.zcanCANFDData = new ZCANCANFDData();
-        //canData.data.zcanCANFDData.flag = 1;//接收CANFD报文
-
-        //uint recvMsgNum = 0;
-        //recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
-
-        //if (recvMsgNum == 0)
-        //{
-        //    return false;
-        //}
-
-        ////waitTime:缓冲区无数据，函数阻塞等待时间，单位毫秒。若为-1 则表示无超时，一直等待，默认值为 - 1
-        //uint realRecvMsgNum  = ZCAN_ReceiveData(canDeviceHandle, ref canData, 1, -1);
-        //if (realRecvMsgNum == 0)
-        //{
-        //    return false;
-        //}
-        //else
-        //{
-        //    AppLogMng.DisplayLog("111", true);
-        //    //msgId = recvData.frame.can_id;
-        //    //Can_Uint64_Data can_Uint64_Data = new Can_Uint64_Data();
-        //    //can_Uint64_Data.BYTE0 = recvData.frame.data[0];
-        //    //can_Uint64_Data.BYTE1 = recvData.frame.data[1];
-        //    //can_Uint64_Data.BYTE2 = recvData.frame.data[2];
-        //    //can_Uint64_Data.BYTE3 = recvData.frame.data[3];
-        //    //can_Uint64_Data.BYTE4 = recvData.frame.data[4];
-        //    //can_Uint64_Data.BYTE5 = recvData.frame.data[5];
-        //    //can_Uint64_Data.BYTE6 = recvData.frame.data[6];
-        //    //can_Uint64_Data.BYTE7 = recvData.frame.data[7];
-
-        //    //msgData = can_Uint64_Data;
-        //}
-
-        return true;
+        return (succSendMsgNum>0)?true:false;
     }
 
     /// <summary>
-    /// 任务-从当前设备实时接收报文
+    /// 从当前设备获取接收报文-每次调用获取一帧
     /// </summary>
     public void ReceiveMessagesFromDevice()
     {
@@ -411,6 +356,7 @@ public class ZlgDevice
             _tmpMsg.can_id = item.canData.can_id;
             _tmpMsg.len = item.canData.len;
             _tmpMsg.data = item.canData.data;
+            _tmpMsg.is_canfd = item.frameType;
 
             getRecvMsgList.Add(_tmpMsg);
         }

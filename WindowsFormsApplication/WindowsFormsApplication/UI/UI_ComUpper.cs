@@ -103,7 +103,7 @@ namespace WindowsFormsApplication.UI
         public void MainLoopThread_Task_UpdateRecvMsgArea()
         {
             //获取接收报文数据
-            List<Canfd_Frame_Com> _recvMsgList = DeviceInterfaceMng.GetInstance().GetCurWaitToHandleMsg();
+            List<Canfd_Frame_Com> _recvMsgList = DeviceInterfaceMng.GetInstance().GetCurWaitToHandleRecvMsg();
 
             //实时更新上位机中显示接收数据
             foreach (var item in recvMsgArea_sigRowUIDict)
@@ -131,7 +131,7 @@ namespace WindowsFormsApplication.UI
             }
 
             //清除待处理的接收报文数据
-            DeviceInterfaceMng.GetInstance().ClearCurWaitToHandleMsg();
+            DeviceInterfaceMng.GetInstance().ClearCurWaitToHandleRecvMsg();
         }
 
         private void Btn_ConnectDevice_Click(object sender, EventArgs e)

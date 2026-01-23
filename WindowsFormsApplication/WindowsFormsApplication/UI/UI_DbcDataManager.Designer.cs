@@ -126,7 +126,7 @@
             button_ExportExcelDbc.Name = "button_ExportExcelDbc";
             button_ExportExcelDbc.Size = new System.Drawing.Size(78, 29);
             button_ExportExcelDbc.TabIndex = 17;
-            button_ExportExcelDbc.Text = "导出DBC";
+            button_ExportExcelDbc.Text = "导出Excel";
             button_ExportExcelDbc.UseVisualStyleBackColor = true;
             button_ExportExcelDbc.Click += button_ExportExcelDbc_Click;
             // 

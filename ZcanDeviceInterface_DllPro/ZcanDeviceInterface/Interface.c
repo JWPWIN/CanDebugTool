@@ -29,8 +29,18 @@ typedef struct ZCANDataObj_CSharp
 }ZCANDataObj_CSharp;
 
 
+//导入外部DLL接收报文的接口（DLL来源:项目属性->链接器->输入->附加依赖项）
 extern __declspec(dllimport) UINT ZCAN_ReceiveData(DEVICE_HANDLE device_handle, ZCANDataObj* pReceive, UINT len, int wait_time DEF(-1));
+extern __declspec(dllimport) UINT ZCAN_TransmitData(DEVICE_HANDLE device_handle, ZCANDataObj *pTransmit, UINT len);
 
+
+/// <summary>
+/// 上层C#-Winfore程序用于接收一帧报文的接口
+/// 如果当前接收Buffer有未取走的报文，取一帧报文出去；如果没有未取走的报文，尝试从设备读取
+/// </summary>
+/// <param name="device_handle">设备句柄</param>
+/// <param name="pReceive_CSharp">C#接收报文帧数据的结构</param>
+/// <returns>当前缓冲区未取走的报文数</returns>
 __declspec(dllexport) UINT ZCAN_ReceiveData_Interface(UINT device_handle, ZCANDataObj_CSharp* pReceive_CSharp)
 {
     static ZCANDataObj ReceiveData_Buffer[100];
@@ -88,4 +98,36 @@ __declspec(dllexport) UINT ZCAN_ReceiveData_Interface(UINT device_handle, ZCANDa
     }
 
 	return _tmpNum;
+}
+
+/// <summary>
+/// 上层C#-Winfore程序用于发送一帧报文的接口
+/// </summary>
+/// <param name="device_handle">设备句柄</param>
+/// <param name="pTransmit_CSharp">C#发送报文帧数据的结构</param>
+/// <returns>成功发送数量</returns>
+__declspec(dllexport) UINT ZCAN_TransmitData_Interface(UINT device_handle,ZCANDataObj_CSharp pTransmit_CSharp)
+{
+    UINT sendMsgSuccNum = 0;
+
+    ZCANDataObj sendMsgObj = {0};
+
+    sendMsgObj.dataType = ZCAN_DT_ZCAN_CAN_CANFD_DATA;// CAN/CANFD数据
+    sendMsgObj.chnl = pTransmit_CSharp.chnl;
+    ZCANCANFDData* can_data = &(sendMsgObj.data.zcanCANFDData);
+    can_data->frame.can_id = MAKE_CAN_ID(pTransmit_CSharp.canData.can_id, 0, 0, 0); // CAN ID 
+    can_data->frame.len = pTransmit_CSharp.frameType ? 64 : 8; // CAN 数据长度 8
+    can_data->flag.unionVal.transmitType = 0; // 正常发送
+    can_data->flag.unionVal.txEchoRequest = 1; // 设置发送回显
+    can_data->flag.unionVal.frameType = pTransmit_CSharp.frameType ? 1 : 0; // CAN or CANFD
+    can_data->flag.unionVal.txDelay = ZCAN_TX_DELAY_NO_DELAY;// 直接发送报文到总线
+
+    for (int i = 0; i < can_data->frame.len; ++i) { // 填充 CAN 报文 DATA
+        can_data->frame.data[i] = pTransmit_CSharp.canData.data[i];
+    }
+
+    //每次调用接口尝试发送一帧数据
+    sendMsgSuccNum = ZCAN_TransmitData(device_handle, &sendMsgObj, 1);
+
+    return sendMsgSuccNum;
 }

@@ -37,59 +37,60 @@
             // 
             // label_SigName
             // 
-            label_SigName.AutoSize = true;
             label_SigName.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            label_SigName.Dock = System.Windows.Forms.DockStyle.Fill;
             label_SigName.Location = new System.Drawing.Point(3, 0);
             label_SigName.Name = "label_SigName";
-            label_SigName.Size = new System.Drawing.Size(44, 17);
+            label_SigName.Size = new System.Drawing.Size(159, 43);
             label_SigName.TabIndex = 1;
             label_SigName.Text = "信号名";
-            label_SigName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label_SigName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_SigValue
             // 
-            label_SigValue.AutoSize = true;
             label_SigValue.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            label_SigValue.Location = new System.Drawing.Point(53, 0);
+            label_SigValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            label_SigValue.Location = new System.Drawing.Point(168, 0);
             label_SigValue.Name = "label_SigValue";
-            label_SigValue.Size = new System.Drawing.Size(44, 17);
+            label_SigValue.Size = new System.Drawing.Size(60, 43);
             label_SigValue.TabIndex = 2;
             label_SigValue.Text = "信号值";
-            label_SigValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label_SigValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_SigDesc
             // 
             label_SigDesc.AutoSize = true;
             label_SigDesc.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            label_SigDesc.Location = new System.Drawing.Point(103, 0);
+            label_SigDesc.Dock = System.Windows.Forms.DockStyle.Fill;
+            label_SigDesc.Location = new System.Drawing.Point(234, 0);
             label_SigDesc.Name = "label_SigDesc";
-            label_SigDesc.Size = new System.Drawing.Size(56, 17);
+            label_SigDesc.Size = new System.Drawing.Size(94, 43);
             label_SigDesc.TabIndex = 3;
             label_SigDesc.Text = "信号描述";
-            label_SigDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label_SigDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             tableLayoutPanel1.Controls.Add(label_SigName, 0, 0);
             tableLayoutPanel1.Controls.Add(label_SigDesc, 2, 0);
             tableLayoutPanel1.Controls.Add(label_SigValue, 1, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(328, 40);
+            tableLayoutPanel1.Size = new System.Drawing.Size(331, 43);
             tableLayoutPanel1.TabIndex = 4;
             // 
             // UI_Row_RecvSigDisplay
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            AutoSize = true;
             Controls.Add(tableLayoutPanel1);
             Name = "UI_Row_RecvSigDisplay";
             Size = new System.Drawing.Size(331, 43);

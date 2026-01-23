@@ -1,8 +1,9 @@
 ﻿  Interface.c
-D:\Documents\GitHub-Pro\CanDebugTool\ZcanDeviceInterface_DllPro\ZcanDeviceInterface\Interface.c(77,26): warning C4312: “类型强制转换”: 从“UINT”转换到更大的“DEVICE_HANDLE”
+D:\Documents\GitHub-Pro\CanDebugTool\ZcanDeviceInterface_DllPro\ZcanDeviceInterface\Interface.c(87,26): warning C4312: “类型强制转换”: 从“UINT”转换到更大的“DEVICE_HANDLE”
+D:\Documents\GitHub-Pro\CanDebugTool\ZcanDeviceInterface_DllPro\ZcanDeviceInterface\Interface.c(130,40): warning C4022: “ZCAN_TransmitData”: 指针与实参 1 不匹配
     正在创建库 D:\Documents\GitHub-Pro\CanDebugTool\ZcanDeviceInterface_DllPro\ZcanDeviceInterface\x64\Release\ZcanDeviceInterface.lib 和对象 D:\Documents\GitHub-Pro\CanDebugTool\ZcanDeviceInterface_DllPro\ZcanDeviceInterface\x64\Release\ZcanDeviceInterface.exp
   正在生成代码
-  1 of 2 functions (50.0%) were compiled, the rest were copied from previous compilation.
+  0 of 3 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

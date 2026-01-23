@@ -27,7 +27,7 @@ namespace WindowsFormsApplication.UI
         {
             canSignalObj = canSignal;
 
-            label_SigName.Text = canSignalObj.msgId.ToString("X3").ToUpper() + "-" + canSignalObj.sigName;
+            label_SigName.Text = canSignalObj.sigName;
             label_SigDesc.Text = canSignalObj.sigDesc;
         }
 
