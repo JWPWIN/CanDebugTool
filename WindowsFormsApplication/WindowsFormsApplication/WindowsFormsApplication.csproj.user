@@ -26,5 +26,8 @@
     <Compile Update="UI\UI_Row_RecvSigDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="UI\UI_Row_SendSigDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

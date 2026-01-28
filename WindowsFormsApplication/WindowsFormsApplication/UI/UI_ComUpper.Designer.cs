@@ -36,6 +36,7 @@
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
             Btn_ConnectDevice = new System.Windows.Forms.Button();
             tableLayoutPanel_RecvMsgArea = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel_SendMsgArea = new System.Windows.Forms.TableLayoutPanel();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -126,13 +127,26 @@
             tableLayoutPanel_RecvMsgArea.Dock = System.Windows.Forms.DockStyle.Left;
             tableLayoutPanel_RecvMsgArea.Location = new System.Drawing.Point(0, 95);
             tableLayoutPanel_RecvMsgArea.Name = "tableLayoutPanel_RecvMsgArea";
-            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(462, 393);
+            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(318, 393);
             tableLayoutPanel_RecvMsgArea.TabIndex = 6;
+            // 
+            // tableLayoutPanel_SendMsgArea
+            // 
+            tableLayoutPanel_SendMsgArea.AutoScroll = true;
+            tableLayoutPanel_SendMsgArea.BackColor = System.Drawing.SystemColors.Control;
+            tableLayoutPanel_SendMsgArea.ColumnCount = 1;
+            tableLayoutPanel_SendMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel_SendMsgArea.Dock = System.Windows.Forms.DockStyle.Left;
+            tableLayoutPanel_SendMsgArea.Location = new System.Drawing.Point(318, 95);
+            tableLayoutPanel_SendMsgArea.Name = "tableLayoutPanel_SendMsgArea";
+            tableLayoutPanel_SendMsgArea.Size = new System.Drawing.Size(318, 393);
+            tableLayoutPanel_SendMsgArea.TabIndex = 7;
             // 
             // UI_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel_SendMsgArea);
             Controls.Add(tableLayoutPanel_RecvMsgArea);
             Controls.Add(groupBox2);
             Name = "UI_ComUpper";
@@ -152,5 +166,6 @@
         private System.Windows.Forms.ComboBox comboBox_CanDeviceType;
         private System.Windows.Forms.Button Btn_ConnectDevice;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_RecvMsgArea;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_SendMsgArea;
     }
 }

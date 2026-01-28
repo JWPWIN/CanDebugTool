@@ -214,7 +214,7 @@ static public class GenerateXml
                 msg.signals.Add(sig);
             }
 
-            if ((item.transmitter == "OBC") || (item.transmitter == "DCDC"))//对上位机来说为接收报文
+            if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter))//对上位机来说为接收报文
             {
                 canBus.RxMessages.Add(msg);
             }

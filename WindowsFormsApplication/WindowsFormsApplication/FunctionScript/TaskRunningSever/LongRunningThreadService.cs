@@ -131,10 +131,9 @@ public class LongRunningThreadService
     /// </summary>
     private void Process_100us()
     {
-        //实时获取设备报文数据
+        //实时获取总线设备报文数据
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_ReceiveMessagesFromDevice();
-        //尝试发送缓冲区类待发送的单帧报文 及 设置的周期发送报文
-        DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(0x4BD,100,1);
+        //尝试发送缓冲区内待发送的单帧报文 及 设置的周期发送报文
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_SendMessagesToDevice();
     }
 
@@ -146,7 +145,7 @@ public class LongRunningThreadService
         //获取当前待处理的接收报文
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_GetRecvMsgFromDeviceBuf();
 
-        //更新通信上位机窗口UI
+        //更新通信上位机窗口UI，显示接收报文/更新发送信号数据
         mainWin.MainLoopThread_Task_UpdateComUpperUI();
     }
 

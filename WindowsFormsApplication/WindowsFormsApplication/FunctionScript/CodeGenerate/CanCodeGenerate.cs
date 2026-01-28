@@ -37,7 +37,7 @@ public class CanCodeGenerate
                 //非应用报文不生成代码
                 if (item.Value.msgType != 0) continue;
                 //如果是OBC和DCDC发送的，则按照发送信号代码模板生成，否则按照接收模板生成
-                if (item.Value.transmitter == "OBC" || item.Value.transmitter == "DCDC")
+                if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.Value.transmitter))
                 {
                     dbcContent = CanCodeGenerate.Gnt_MsgFunFile_Tx_ByCfg(item.Value);
                 }
@@ -297,7 +297,7 @@ public class CanCodeGenerate
 
             retVal += "typedef struct ";
 
-            if (item.transmitter == "DCDC" || item.transmitter == "OBC")
+            if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter))
             {
                 retVal += "tag" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_TX_SIG" + changeLine;
             }
@@ -315,7 +315,7 @@ public class CanCodeGenerate
                 retVal += fourSpace + sigType + " " + sigType + item1.sigName + ";" + changeLine;
             }
 
-            if (item.transmitter == "DCDC" || item.transmitter == "OBC")
+            if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter))
             {
                 retVal += "}" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper() + "_TX_SIG" + ";" + changeLine;
             }
@@ -478,7 +478,7 @@ public class CanCodeGenerate
             retVal += GetStringWithAssignLen(item.msgCycle.ToString(), 10) + ",";
             retVal += GetStringWithAssignLen(item.msgSize.ToString(), 10) + ", ";
             retVal += "MOTOROLA_LSB, ";
-            retVal += (item.transmitter == "OBC" || item.transmitter == "DCDC") ? "CANMSG_TYPE_T, " : "CANMSG_TYPE_R, ";
+            retVal += (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter)) ? "CANMSG_TYPE_T, " : "CANMSG_TYPE_R, ";
             retVal += "CANFD_BRS_FRAME_TYPE_STANDARD, ";
             retVal += "CAN_ID_MASK0, ";
             retVal += GetStringWithAssignLen("DBC_" + item.transmitter + "_" + item.msgId.ToString("x3").ToUpper(), 20) + ",";

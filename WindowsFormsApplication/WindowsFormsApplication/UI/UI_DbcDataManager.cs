@@ -58,7 +58,7 @@ namespace WindowsFormsApplication.UI
                             {
                                 case CanDbcRows.SigName:sigRow.Add(item1.sigName);break;
                                 case CanDbcRows.MsgName:sigRow.Add(item.msgName);break;
-                                case CanDbcRows.MsgFrameType:sigRow.Add(GenerateDBC.GetMsgFrameType(item.isCanfd,item.isExtended).ToString());break;
+                                case CanDbcRows.MsgFrameType:sigRow.Add(CanDbcDataManager.GetMsgFrameType(item.isCanfd,item.isExtended).ToString());break;
                                 case CanDbcRows.MsgId:sigRow.Add($"0x{item.msgId.ToString("X").ToUpper()}");break;
                                 case CanDbcRows.MsgSize:sigRow.Add(item.msgSize.ToString());break;
                                 case CanDbcRows.MsgCycle:sigRow.Add(item.msgCycle.ToString());break;

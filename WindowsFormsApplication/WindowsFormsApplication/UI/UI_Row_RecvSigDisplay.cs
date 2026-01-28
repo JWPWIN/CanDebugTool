@@ -14,6 +14,8 @@ namespace WindowsFormsApplication.UI
     {
         CanSignal canSignalObj = new CanSignal();//当前信号属性
 
+        bool isCanfd = false;//是否为canfd报文
+
         uint curSignalRawValue = 0;//当前信号值（总线原始值）
 
         public UI_Row_RecvSigDisplay()
@@ -23,9 +25,10 @@ namespace WindowsFormsApplication.UI
             this.Dock = DockStyle.Fill;
         }
 
-        public void InitSigInfo(CanSignal canSignal) 
+        public void InitSigInfo(CanSignal canSignal, bool isCanfd) 
         {
             canSignalObj = canSignal;
+            this.isCanfd = isCanfd;
 
             label_SigName.Text = canSignalObj.sigName;
             label_SigDesc.Text = canSignalObj.sigDesc;
@@ -33,8 +36,12 @@ namespace WindowsFormsApplication.UI
 
         public void UpdateSigValue(Canfd_Frame_Com msgData)
         {
+            //从报文中指定位置获取信号数据
             CAN_SIG_FORMAT sigFormat = (canSignalObj.sigOrderType == 0) ? CAN_SIG_FORMAT.MOTOROLA_LSB : CAN_SIG_FORMAT.INTEL_STANDARD;
-            curSignalRawValue = CanBitLibTool.CAN_get_frame_dataFD(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
+            if(isCanfd)
+                curSignalRawValue = CanBitLibTool.CAN_get_frame_dataFD(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
+            else
+                curSignalRawValue = CanBitLibTool.CAN_get_frame_data(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
 
             //计算实际物理值,仅保留显示小数点后2位
             double sigRealPhysicalValue = Math.Round(curSignalRawValue * canSignalObj.sigFactor + canSignalObj.sigOffset, 2);

@@ -118,7 +118,7 @@ __declspec(dllexport) UINT ZCAN_TransmitData_Interface(UINT device_handle,ZCANDa
     can_data->frame.can_id = MAKE_CAN_ID(pTransmit_CSharp.canData.can_id, 0, 0, 0); // CAN ID 
     can_data->frame.len = pTransmit_CSharp.frameType ? 64 : 8; // CAN 数据长度 8
     can_data->flag.unionVal.transmitType = 0; // 正常发送
-    can_data->flag.unionVal.txEchoRequest = 1; // 设置发送回显
+    can_data->flag.unionVal.txEchoRequest = 0; // 设置发送回显
     can_data->flag.unionVal.frameType = pTransmit_CSharp.frameType ? 1 : 0; // CAN or CANFD
     can_data->flag.unionVal.txDelay = ZCAN_TX_DELAY_NO_DELAY;// 直接发送报文到总线
 

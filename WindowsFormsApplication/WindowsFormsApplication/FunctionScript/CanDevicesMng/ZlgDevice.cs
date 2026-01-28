@@ -279,17 +279,10 @@ public class ZlgDevice
     {
         uint succSendMsgNum = 0;
         ZCANDataObj_CSharp sendData = new ZCANDataObj_CSharp();
+        sendData.canData = new canfd_frame();
         sendData.chnl = 0;
         sendData.canData.can_id = msgData.can_id;
         sendData.frameType = msgData.is_canfd;
-
-        msgData.data = new byte[64];
-
-        for (int i = 0; i < msgData.data.Length; i++)
-        {
-            msgData.data[i] = 0xFF;
-        }
-
         sendData.canData.data = msgData.data;
 
         succSendMsgNum = ZCAN_TransmitData_Interface(canDeviceHandle, sendData);

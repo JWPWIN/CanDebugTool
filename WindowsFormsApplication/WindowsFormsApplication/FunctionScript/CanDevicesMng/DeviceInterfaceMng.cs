@@ -277,6 +277,7 @@ public class DeviceInterfaceMng
             CycleSend_Canfd_Frame cycleSend_Canfd_Frame = new CycleSend_Canfd_Frame();
             cycleSend_Canfd_Frame.msgData = new Canfd_Frame_Com();
             cycleSend_Canfd_Frame.msgData.can_id = msgId;
+            cycleSend_Canfd_Frame.msgData.data = new byte[64];
             cycleSend_Canfd_Frame.sendCycle = msgCycle;
 
             task_CycleMsgSendDict.Add(msgId, cycleSend_Canfd_Frame);
@@ -288,7 +289,7 @@ public class DeviceInterfaceMng
     }
 
     /// <summary>
-    /// 从软件设备对象报文缓存区发送一帧报文到总线
+    /// 尝试从软件设备对象报文缓存区发送一帧报文到总线
     /// </summary>
     public void MainLoopThread_Task_SendMessagesToDevice()
     {
@@ -319,7 +320,7 @@ public class DeviceInterfaceMng
                     TimerTool.ResetTimer(ref _tmpFrame.sendTimer);
                     task_CycleMsgSendDict[item.Key] = _tmpFrame;
                     //设置发送帧数据
-                    canfd_Frame_Com = item.Value.msgData;
+                    canfd_Frame_Com = task_CycleMsgSendDict[item.Key].msgData;
 
                     break;
                 }
@@ -342,5 +343,14 @@ public class DeviceInterfaceMng
                 break;
         }
 
+    }
+
+    /// <summary>
+    /// 获取周期发送报文数据列表，用于填充发送数据
+    /// </summary>
+    /// <returns></returns>
+    public Dictionary<uint, CycleSend_Canfd_Frame> GetCycleMsgSendDict()
+    {
+        return task_CycleMsgSendDict;
     }
 }

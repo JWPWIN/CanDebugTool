@@ -84,6 +84,8 @@ namespace WindowsFormsApplication
             if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_ComUpper")
             {
                 uI_ComUpper.InitRecvMsgArea();
+                uI_ComUpper.InitSendMsgArea();
+                uI_ComUpper.InitCycleSendMsgList();
             }
 
             //如果切换页面到CAN通信矩阵显示页面，显示通信协议
@@ -99,6 +101,8 @@ namespace WindowsFormsApplication
 
             //更新上位机接收报文窗口区域
             uI_ComUpper.MainLoopThread_Task_UpdateRecvMsgArea();
+            //更新上位机发送区域数据到周期报文帧
+            uI_ComUpper.MainLoopThread_Task_UpdateCycleSendMsgData();
         }
 
         //Form.Closing 事件：此事件在窗口关闭之前立即发生，通常用于执行一些清理工作，如保存数据或询问用户是否真的要关闭窗口

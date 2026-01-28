@@ -655,4 +655,53 @@ public class CanDbcDataManager
         canMsgSet.Clear();
         isLoadCfg = false;
     }
+
+    /// <summary>
+    /// 根据CANFD和扩展帧格式获取DBC内代表CAN帧类型的值
+    /// </summary>
+    /// <param name="isCanfd"></param>
+    /// <param name="isExtended"></param>
+    /// <returns></returns>
+    static public int GetMsgFrameType(bool isCanfd, bool isExtended)
+    {
+        int frameType = 0;
+
+        //BA_DEF_ BO_ "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+        if ((isCanfd == false) && (isExtended == false))//standard-can
+        {
+            frameType = 0;
+        }
+        else if ((isCanfd == false) && (isExtended == true))//externed-can
+        {
+            frameType = 1;
+        }
+        else if ((isCanfd == true) && (isExtended == false))//standard-canfd
+        {
+            frameType = 14;
+        }
+        else if ((isCanfd == true) && (isExtended == true))//externed-canfd
+        {
+            frameType = 15;
+        }
+        else
+        {
+            frameType = 0;
+        }
+
+        return frameType;
+    }
+
+    /// <summary>
+    /// 判断当前发送报文的发送节点是否为DBC中的目标ECU
+    /// </summary>
+    /// <param name="transmiter">发送节点</param>
+    /// <returns>true 属于目标ECU</returns>
+    static public bool IsMsgBelongToTargetEcu(string transmitter)
+    {
+        if (transmitter == "OBC" || transmitter == "DCDC" || transmitter == "CDU")
+        { 
+            return true;
+        }
+        return false;
+    }
 }
