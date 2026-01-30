@@ -11,6 +11,9 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="FunctionScript\SysControlOverride\ComboBox_NoWheel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>

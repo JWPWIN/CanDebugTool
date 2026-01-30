@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication.FunctionScript.SysControlOverride;
 
 namespace WindowsFormsApplication.UI
 {
@@ -18,11 +20,13 @@ namespace WindowsFormsApplication.UI
 
         bool hasValueTable = false;//该信号值是否有值列表
 
-        ComboBox sendValueUI_ComboBox = new ComboBox();//信号值下拉选项框控件
+        ComboBox sendValueUI_ComboBox = new ComboBox_NoWheel();//信号值下拉选项框控件
 
         TextBox sendValueUI_TextBox = new TextBox();//信号值文本输入框控件
 
-        uint curSignalRawValue = 0;//当前信号值（总线原始值）
+        string curSignalPhyStr = string.Empty;//当前设置信号值字符串（实际物理值）
+
+        uint curSignalRawValue = 0;//当前设置信号值（总线实际值）
 
         public UI_Row_SendSigDisplay()
         {
@@ -51,6 +55,9 @@ namespace WindowsFormsApplication.UI
                 tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
                 tableLayoutPanel1.Controls.Add(sendValueUI_ComboBox, 1, 0);
                 sendValueUI_ComboBox.Dock = DockStyle .Fill;
+                sendValueUI_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                sendValueUI_ComboBox.SelectedIndexChanged += 
+                    (s,e) => { curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0"; };
             }
             else
             {
@@ -59,6 +66,7 @@ namespace WindowsFormsApplication.UI
                 tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
                 tableLayoutPanel1.Controls.Add(sendValueUI_TextBox, 1, 0);
                 sendValueUI_TextBox.Dock = DockStyle .Fill;
+                sendValueUI_TextBox.TextChanged += (s, e) => { curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0"; };
             }
         }
 
@@ -70,12 +78,7 @@ namespace WindowsFormsApplication.UI
         {
             uint retValue = 0;
             uint physicalValue = 0;
-
-            string valueStr = string.Empty;
-            //值列表，从下拉选项框中获取信号发送物理值
-            if (hasValueTable) sendValueUI_ComboBox.Invoke(new Action( ()=> valueStr = sendValueUI_ComboBox.SelectedText.Split(":")[0]) );
-            //非值列表，从文本输入框中获取信号发送物理值
-            else sendValueUI_TextBox.Invoke(new Action(() => valueStr = sendValueUI_TextBox.Text));
+            string valueStr = curSignalPhyStr;
 
             //获取设置的发送信号值
             try

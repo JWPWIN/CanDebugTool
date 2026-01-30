@@ -3,6 +3,34 @@
   "WorkspaceRootPath": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_sendsigdisplay.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_comupper.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_comupper.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\syscontroloverride\\combobox_nowheel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\syscontroloverride\\combobox_nowheel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\taskrunningsever\\longrunningthreadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\taskrunningsever\\longrunningthreadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\applogmng\\applogmng.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\applogmng\\applogmng.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\candevicesmng\\zlgdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\candevicesmng\\zlgdevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,24 +43,12 @@
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\candevicesmng\\deviceinterfacemng.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\taskrunningsever\\longrunningthreadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\taskrunningsever\\longrunningthreadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\appdatamanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\appdatamanager\\candbcdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_recvsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_recvsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_sendsigdisplay.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_recvsigdisplay.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,15 +75,11 @@
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\canbitlib\\canbitlibtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_comupper.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_comupper.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_recvsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\ui\\ui_row_recvsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_recvsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\ui\\ui_row_sendsigdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -89,10 +101,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\codegenerate\\cancodegenerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtoxrxml\\generatexml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\generatedbc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -121,10 +129,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\savecfgtodbc\\canordertool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\applogmng\\applogmng.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|solutionrelative:windowsformsapplication\\functionscript\\applogmng\\applogmng.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{090350E8-41B3-4B0B-808E-EBCF1BD297F3}|WindowsFormsApplication\\WindowsFormsApplication.csproj|d:\\documents\\github-pro\\candebugtool\\windowsformsapplication\\windowsformsapplication\\functionscript\\filereadandwrite\\textoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -181,11 +185,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "MainWin.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\MainWin.cs",
@@ -207,72 +211,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UI_Row_SendSigDisplay.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAhwGUAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:43:35.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CanDbcDataManager.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBQAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T08:07:59.151Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ZlgDevice.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
-              "ViewState": "AgIAAAQBAAAAAAAAAAAewCABAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T03:42:29.327Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UI_ComUpper.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_ComUpper.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_ComUpper.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAUwD8AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T01:41:35.038Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DeviceInterfaceMng.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
-              "ViewState": "AgIAACwBAAAAAAAAAAAjwFMBAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T03:39:05.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "ComboBox_NoWheel.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SysControlOverride\\ComboBox_NoWheel.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SysControlOverride\\ComboBox_NoWheel.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SysControlOverride\\ComboBox_NoWheel.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\SysControlOverride\\ComboBox_NoWheel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T11:45:49.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "LongRunningThreadService.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\TaskRunningSever\\LongRunningThreadService.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\TaskRunningSever\\LongRunningThreadService.cs",
@@ -285,98 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UI_Row_RecvSigDisplay.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAADwvwwAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T16:09:03.714Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UI_Row_RecvSigDisplay.Designer.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-27T09:23:41.523Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UI_Row_SendSigDisplay.Designer.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAAwAIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:41:03.103Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "TimerTool.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAQwCkAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T08:19:19.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "UI_DbcDataManager.Designer.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-08T16:42:21.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MainWin.Designer.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.Designer.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\MainWin.Designer.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.Designer.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\MainWin.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T08:43:12.24Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CanBitLibTool.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAMwDgAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T12:31:04.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 2,
               "Title": "UI_ComUpper.Designer.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.Designer.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_ComUpper.Designer.cs",
@@ -389,67 +250,237 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UI_Row_SendSigDisplay.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwD0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T07:43:35.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UI_Row_SendSigDisplay.Designer.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.Designer.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T07:41:03.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GenerateXml.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
+              "ViewState": "AgIAAA8BAAAAAAAAAAAMwB8BAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-17T02:19:33.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DeviceInterfaceMng.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\DeviceInterfaceMng.cs",
+              "ViewState": "AgIAACwBAAAAAAAAAAAjwFMBAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T03:39:05.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UI_ComUpper.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_ComUpper.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_ComUpper.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAUwD8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T01:41:35.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AppLogMng.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T03:48:58.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ZlgDevice.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanDevicesMng\\ZlgDevice.cs",
+              "ViewState": "AgIAAC4BAAAAAAAAAAAlwEkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T03:42:29.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CanDbcDataManager.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\AppDataManager\\CanDbcDataManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T08:07:59.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UI_Row_RecvSigDisplay.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAADwvwwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T16:09:03.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UI_Row_RecvSigDisplay.Designer.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.Designer.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T09:23:41.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TimerTool.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\Timer\\TimerTool.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAQwCkAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T08:19:19.419Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 15,
+              "Title": "UI_DbcDataManager.Designer.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_DbcDataManager.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-08T16:42:21.963Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MainWin.Designer.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.Designer.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\MainWin.Designer.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.Designer.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\MainWin.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T08:43:12.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CanBitLibTool.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
+              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
+              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CanBitLib\\CanBitLibTool.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAMwDgAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T12:31:04.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "UI_Row_RecvSigDisplay.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:37:45.233Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2026-01-26T07:37:45.233Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "UI_Row_SendSigDisplay.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:38:01.597Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2026-01-26T07:38:01.597Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "UI_ComUpper.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_ComUpper.cs",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_ComUpper.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-08T16:39:12.316Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2026-01-08T16:39:12.316Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "UI_Row_RecvSigDisplay.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.resx",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.resx",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_RecvSigDisplay.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-01-26T07:57:30.473Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T07:57:30.473Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "UI_Row_SendSigDisplay.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.resx",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.resx",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_Row_SendSigDisplay.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-01-26T07:43:11.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T07:43:11.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "CanCodeGenerate.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
@@ -457,37 +488,22 @@
               "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\CodeGenerate\\CanCodeGenerate.cs",
               "ViewState": "AgIAAMwBAAAAAAAAAAAjwOABAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T09:36:54.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-07T09:36:54.243Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "GenerateXml.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\SaveCfgToXrXml\\GenerateXml.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAAAjwNgAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T02:19:33.597Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "UI_DbcDataManager.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_DbcDataManager.resx",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.resx",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_DbcDataManager.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-01-09T02:07:20.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-09T02:07:20.926Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "GenerateDBC.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\GenerateDBC.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\GenerateDBC.cs",
@@ -495,12 +511,11 @@
               "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\GenerateDBC.cs",
               "ViewState": "AgIAALwAAAAAAAAAAAAhwM8AAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T09:38:38.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-07T09:38:38.146Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "ExcelOperation.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\ExcelOperation.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\ExcelOperation.cs",
@@ -508,12 +523,11 @@
               "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\ExcelOperation.cs",
               "ViewState": "AgIAAFgAAAAAAAAAAAAWwGwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T07:53:25.87Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-08T07:53:25.87Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "UI_DbcDataManager.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_DbcDataManager.cs",
@@ -526,7 +540,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "MainWin.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\MainWin.cs",
@@ -537,19 +551,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "UI_DbcDataManager.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_DbcDataManager.cs",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_DbcDataManager.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_DbcDataManager.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T02:07:05.346Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2026-01-09T02:07:05.346Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "UI_CanMatrix.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_CanMatrix.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_CanMatrix.cs",
@@ -560,19 +573,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "AppLogMng.cs",
-              "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
-              "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
-              "RelativeToolTip": "WindowsFormsApplication\\FunctionScript\\AppLogMng\\AppLogMng.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAqwCUAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T03:48:58.737Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "CanOrderTool.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\CanOrderTool.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\SaveCfgToDbc\\CanOrderTool.cs",
@@ -584,7 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "TextOperation.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\FunctionScript\\FileReadAndWrite\\TextOperation.cs",
@@ -596,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "WindowsFormsApplication",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\WindowsFormsApplication.csproj",
@@ -607,7 +608,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "WindowsFormsApplication.csproj",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\WindowsFormsApplication.csproj",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\WindowsFormsApplication.csproj",
@@ -619,7 +620,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "UI_CanMatrix.Designer.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_CanMatrix.Designer.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_CanMatrix.Designer.cs",
@@ -631,7 +632,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "UI_CanMatrix.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_CanMatrix.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_CanMatrix.cs",
@@ -643,19 +644,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "UI_ComUpper.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_ComUpper.resx",
               "ToolTip": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_ComUpper.resx",
               "RelativeToolTip": "WindowsFormsApplication\\UI\\UI_ComUpper.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-01-13T15:56:08.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-13T15:56:08.433Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "App.config",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\App.config",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\App.config",
@@ -667,7 +667,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "MainWin.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\MainWin.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\MainWin.resx",
@@ -678,7 +678,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\Program.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\Program.cs",
@@ -690,7 +690,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "UI_CanMatrix.resx",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\UI\\UI_CanMatrix.resx",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\UI\\UI_CanMatrix.resx",
@@ -701,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "packages.config",
               "DocumentMoniker": "D:\\Documents\\GitHub-Pro\\CanDebugTool\\WindowsFormsApplication\\WindowsFormsApplication\\packages.config",
               "RelativeDocumentMoniker": "WindowsFormsApplication\\packages.config",
@@ -712,7 +712,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "E0X  CDU Message list V4.60 _202508290829.dbc",
               "DocumentMoniker": "D:\\Documents\\FE3522-Svn\\Product_library\\10_\u8F6F\u4EF6\u6D4B\u8BD5\u5DE5\u5177\\E0X  CDU Message list V4.60 _202508290829.dbc",
               "RelativeDocumentMoniker": "..\\..\\..\\FE3522-Svn\\Product_library\\10_\u8F6F\u4EF6\u6D4B\u8BD5\u5DE5\u5177\\E0X  CDU Message list V4.60 _202508290829.dbc",
