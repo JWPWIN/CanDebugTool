@@ -36,12 +36,18 @@
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
             Btn_ConnectDevice = new System.Windows.Forms.Button();
             tableLayoutPanel_RecvMsgArea = new System.Windows.Forms.TableLayoutPanel();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox3 = new System.Windows.Forms.GroupBox();
             tableLayoutPanel_SendMsgArea = new System.Windows.Forms.TableLayoutPanel();
+            Btn_ModelView = new System.Windows.Forms.Button();
             groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(Btn_ModelView);
             groupBox2.Controls.Add(Btn_DisconnectDevice);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(comboBox_CanType);
@@ -53,7 +59,7 @@
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            groupBox2.Size = new System.Drawing.Size(759, 95);
+            groupBox2.Size = new System.Drawing.Size(1000, 95);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "设备管理";
@@ -124,11 +130,33 @@
             tableLayoutPanel_RecvMsgArea.BackColor = System.Drawing.SystemColors.Control;
             tableLayoutPanel_RecvMsgArea.ColumnCount = 1;
             tableLayoutPanel_RecvMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel_RecvMsgArea.Dock = System.Windows.Forms.DockStyle.Left;
-            tableLayoutPanel_RecvMsgArea.Location = new System.Drawing.Point(0, 95);
+            tableLayoutPanel_RecvMsgArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel_RecvMsgArea.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel_RecvMsgArea.Name = "tableLayoutPanel_RecvMsgArea";
-            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(318, 393);
+            tableLayoutPanel_RecvMsgArea.Size = new System.Drawing.Size(494, 483);
             tableLayoutPanel_RecvMsgArea.TabIndex = 6;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(tableLayoutPanel_RecvMsgArea);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            groupBox1.Location = new System.Drawing.Point(0, 95);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(500, 505);
+            groupBox1.TabIndex = 10;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "报文接收";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(tableLayoutPanel_SendMsgArea);
+            groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
+            groupBox3.Location = new System.Drawing.Point(500, 95);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new System.Drawing.Size(500, 505);
+            groupBox3.TabIndex = 11;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "报文发送";
             // 
             // tableLayoutPanel_SendMsgArea
             // 
@@ -136,23 +164,35 @@
             tableLayoutPanel_SendMsgArea.BackColor = System.Drawing.SystemColors.Control;
             tableLayoutPanel_SendMsgArea.ColumnCount = 1;
             tableLayoutPanel_SendMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel_SendMsgArea.Dock = System.Windows.Forms.DockStyle.Left;
-            tableLayoutPanel_SendMsgArea.Location = new System.Drawing.Point(318, 95);
+            tableLayoutPanel_SendMsgArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel_SendMsgArea.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel_SendMsgArea.Name = "tableLayoutPanel_SendMsgArea";
-            tableLayoutPanel_SendMsgArea.Size = new System.Drawing.Size(318, 393);
-            tableLayoutPanel_SendMsgArea.TabIndex = 7;
+            tableLayoutPanel_SendMsgArea.Size = new System.Drawing.Size(494, 483);
+            tableLayoutPanel_SendMsgArea.TabIndex = 6;
+            // 
+            // Btn_ModelView
+            // 
+            Btn_ModelView.Location = new System.Drawing.Point(389, 22);
+            Btn_ModelView.Name = "Btn_ModelView";
+            Btn_ModelView.Size = new System.Drawing.Size(75, 55);
+            Btn_ModelView.TabIndex = 12;
+            Btn_ModelView.Text = "模型视图";
+            Btn_ModelView.UseVisualStyleBackColor = true;
+            Btn_ModelView.Click += Btn_ModelView_Click;
             // 
             // UI_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel_SendMsgArea);
-            Controls.Add(tableLayoutPanel_RecvMsgArea);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox1);
             Controls.Add(groupBox2);
             Name = "UI_ComUpper";
-            Size = new System.Drawing.Size(759, 488);
+            Size = new System.Drawing.Size(1000, 600);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -166,6 +206,9 @@
         private System.Windows.Forms.ComboBox comboBox_CanDeviceType;
         private System.Windows.Forms.Button Btn_ConnectDevice;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_RecvMsgArea;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_SendMsgArea;
+        private System.Windows.Forms.Button Btn_ModelView;
     }
 }

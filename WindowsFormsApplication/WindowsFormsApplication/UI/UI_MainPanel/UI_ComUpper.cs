@@ -18,7 +18,7 @@ namespace WindowsFormsApplication.UI
 
 
         //接收报文区域的信号行UI集合<报文ID,接收信号UI列表>
-        Dictionary<uint,List<UI_Row_RecvSigDisplay>> recvMsgArea_sigRowUIDict = new Dictionary<uint, List<UI_Row_RecvSigDisplay>>();
+        Dictionary<uint, List<UI_Row_RecvSigDisplay>> recvMsgArea_sigRowUIDict = new Dictionary<uint, List<UI_Row_RecvSigDisplay>>();
 
         //接收报文区域的报文ID UI集合<报文ID,标签UI>
         Dictionary<uint, Label> recvMsgArea_msgIdTitleUIDict = new Dictionary<uint, Label>();
@@ -30,6 +30,8 @@ namespace WindowsFormsApplication.UI
         //发送报文区域的报文ID UI集合<报文ID,标签UI>
         Dictionary<CanMessage, Label> sendMsgArea_msgIdTitleUIDict = new Dictionary<CanMessage, Label>();
 
+        //子窗口:模型视图对象
+        SubWin_ModelView subWin_ModelView;
 
         public UI_ComUpper()
         {
@@ -61,6 +63,7 @@ namespace WindowsFormsApplication.UI
                     tmpIdTitleLabel.Dock = DockStyle.Fill;
                     tmpIdTitleLabel.TextAlign = ContentAlignment.MiddleLeft;
                     tmpIdTitleLabel.Text = "0x" + item.msgId.ToString("X3").ToUpper() + " " + item.msgName;
+                    tmpIdTitleLabel.BackColor = SystemColors.ActiveCaption;
                     recvMsgArea_msgIdTitleUIDict.Add(item.msgId, tmpIdTitleLabel);
                     recvMsgAmount++;
 
@@ -70,12 +73,12 @@ namespace WindowsFormsApplication.UI
                     {
                         //创建UI用于显示信号
                         UI_Row_RecvSigDisplay recvMsg_Row = new UI_Row_RecvSigDisplay();
-                        recvMsg_Row.InitSigInfo(item1,item.isCanfd);
+                        recvMsg_Row.InitSigInfo(item1, item.isCanfd);
 
                         tmpList.Add(recvMsg_Row);
                     }
                     recvSigAmount += item.signals.Count;
-                    recvMsgArea_sigRowUIDict.Add(item.msgId,tmpList);
+                    recvMsgArea_sigRowUIDict.Add(item.msgId, tmpList);
                 }
             }
 
@@ -127,6 +130,7 @@ namespace WindowsFormsApplication.UI
                     tmpIdTitleLabel.Dock = DockStyle.Fill;
                     tmpIdTitleLabel.TextAlign = ContentAlignment.MiddleLeft;
                     tmpIdTitleLabel.Text = "0x" + item.msgId.ToString("X3").ToUpper() + " " + item.msgName;
+                    tmpIdTitleLabel.BackColor = SystemColors.ActiveCaption;
                     sendMsgArea_msgIdTitleUIDict.Add(item, tmpIdTitleLabel);
                     sendMsgAmount++;
 
@@ -136,7 +140,7 @@ namespace WindowsFormsApplication.UI
                     {
                         //创建UI用于显示信号
                         UI_Row_SendSigDisplay recvMsg_Row = new UI_Row_SendSigDisplay();
-                        recvMsg_Row.InitSigInfo(item1,item.isCanfd);
+                        recvMsg_Row.InitSigInfo(item1, item.isCanfd);
 
                         tmpList.Add(recvMsg_Row);
                     }
@@ -181,7 +185,7 @@ namespace WindowsFormsApplication.UI
             //遍历应用报文到设备周期发送列表
             foreach (var item in sendMsgArea_msgIdTitleUIDict)
             {
-                DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(item.Key.msgId, item.Key.msgCycle*(uint)TimeUnit.T_MS, 1);
+                DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(item.Key.msgId, item.Key.msgCycle * (uint)TimeUnit.T_MS, 1);
             }
         }
 
@@ -191,9 +195,9 @@ namespace WindowsFormsApplication.UI
         public void MainLoopThread_Task_UpdateCycleSendMsgData()
         {
             //获取设备周期发送报文列表
-            if(DeviceInterfaceMng.GetInstance() is null) return;//无设备退出
+            if (DeviceInterfaceMng.GetInstance() is null) return;//无设备退出
             Dictionary<uint, CycleSend_Canfd_Frame> cycSendMsgList = DeviceInterfaceMng.GetInstance().GetCycleMsgSendDict();
-            if(cycSendMsgList.Count == 0) return;//未获取到周期报文退出
+            if (cycSendMsgList.Count == 0) return;//未获取到周期报文退出
 
             //遍历设备周期发送报文列表 从上位机获取设置数值 填充对应的发送数据
             foreach (var item in cycSendMsgList)
@@ -259,16 +263,21 @@ namespace WindowsFormsApplication.UI
         private void Btn_ConnectDevice_Click(object sender, EventArgs e)
         {
             //打开设备
-            if (deviceInterfaceMng is not null) 
+            if (deviceInterfaceMng is not null)
                 deviceInterfaceMng.OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
         }
 
         private void Btn_DisconnectDevice_Click(object sender, EventArgs e)
         {
             //关闭已经打开的设备
-            if (deviceInterfaceMng is not null) 
+            if (deviceInterfaceMng is not null)
                 deviceInterfaceMng.CloseCanDevice();
         }
 
+        private void Btn_ModelView_Click(object sender, EventArgs e)
+        {
+            subWin_ModelView = new SubWin_ModelView();
+            subWin_ModelView.Show();
+        }
     }
 }

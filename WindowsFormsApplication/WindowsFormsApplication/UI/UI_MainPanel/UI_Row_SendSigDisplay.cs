@@ -55,6 +55,7 @@ namespace WindowsFormsApplication.UI
                 tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
                 tableLayoutPanel1.Controls.Add(sendValueUI_ComboBox, 1, 0);
                 sendValueUI_ComboBox.Dock = DockStyle .Fill;
+
                 sendValueUI_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 sendValueUI_ComboBox.SelectedIndexChanged += 
                     (s,e) => { curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0"; };
@@ -66,6 +67,7 @@ namespace WindowsFormsApplication.UI
                 tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
                 tableLayoutPanel1.Controls.Add(sendValueUI_TextBox, 1, 0);
                 sendValueUI_TextBox.Dock = DockStyle .Fill;
+                sendValueUI_TextBox.BorderStyle = BorderStyle.None;
                 sendValueUI_TextBox.TextChanged += (s, e) => { curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0"; };
             }
         }

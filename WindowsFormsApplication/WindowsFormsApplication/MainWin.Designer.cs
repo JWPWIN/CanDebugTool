@@ -189,7 +189,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 600);
+            ClientSize = new System.Drawing.Size(1000, 600);
             Controls.Add(toolStripContainer1);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "MainWin";

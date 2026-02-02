@@ -17,19 +17,25 @@
     <Compile Update="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UI\UI_CanMatrix.cs">
+    <Compile Update="UI\SubWin\SubWin_ModelView\SubWin_ModelView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UI\UI_MainPanel\UI_CanMatrix.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UI_ComUpper.cs">
+    <Compile Update="UI\UI_MainPanel\UI_ComUpper.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UI_DbcDataManager.cs">
+    <Compile Update="UI\UI_MainPanel\UI_DbcDataManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UI_Row_RecvSigDisplay.cs">
+    <Compile Update="UI\SubWin\SubWin_ModelView\UI_Model_StateNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UI\UI_Row_SendSigDisplay.cs">
+    <Compile Update="UI\UI_MainPanel\UI_Row_RecvSigDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\UI_MainPanel\UI_Row_SendSigDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

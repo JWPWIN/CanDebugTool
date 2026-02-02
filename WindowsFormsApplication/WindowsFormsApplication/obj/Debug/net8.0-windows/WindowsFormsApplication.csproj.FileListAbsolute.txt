@@ -89,3 +89,8 @@ D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplica
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Text.Encoding.CodePages.dll
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Row_RecvSigDisplay.resources
 D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Row_SendSigDisplay.resources
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\bin\Debug\net8.0-windows\System.Text.Encoding.CodePages.dll
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Text.Encoding.CodePages.dll
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Row_SendSigDisplay.resources
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.SubWin_ModelView.resources
+C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Model_StateNode.resources

@@ -37,6 +37,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -54,11 +55,11 @@
             // 
             // label_SigName
             // 
-            label_SigName.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            label_SigName.BackColor = System.Drawing.SystemColors.Control;
             label_SigName.Dock = System.Windows.Forms.DockStyle.Fill;
-            label_SigName.Location = new System.Drawing.Point(3, 0);
+            label_SigName.Location = new System.Drawing.Point(5, 2);
             label_SigName.Name = "label_SigName";
-            label_SigName.Size = new System.Drawing.Size(159, 43);
+            label_SigName.Size = new System.Drawing.Size(155, 39);
             label_SigName.TabIndex = 1;
             label_SigName.Text = "信号名";
             label_SigName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -66,11 +67,11 @@
             // label_SigDesc
             // 
             label_SigDesc.AutoSize = true;
-            label_SigDesc.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            label_SigDesc.BackColor = System.Drawing.SystemColors.Control;
             label_SigDesc.Dock = System.Windows.Forms.DockStyle.Fill;
-            label_SigDesc.Location = new System.Drawing.Point(234, 0);
+            label_SigDesc.Location = new System.Drawing.Point(234, 2);
             label_SigDesc.Name = "label_SigDesc";
-            label_SigDesc.Size = new System.Drawing.Size(94, 43);
+            label_SigDesc.Size = new System.Drawing.Size(92, 39);
             label_SigDesc.TabIndex = 3;
             label_SigDesc.Text = "信号描述";
             label_SigDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

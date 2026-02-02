@@ -137,7 +137,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "UI_DbcDataManager";
-            Size = new System.Drawing.Size(774, 533);
+            Size = new System.Drawing.Size(1000, 600);
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             ResumeLayout(false);

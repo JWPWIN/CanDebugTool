@@ -57,7 +57,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(MsgGridView);
             Name = "UI_CanMatrix";
-            Size = new System.Drawing.Size(800, 600);
+            Size = new System.Drawing.Size(1000, 600);
             ((System.ComponentModel.ISupportInitialize)MsgGridView).EndInit();
             ResumeLayout(false);
         }
