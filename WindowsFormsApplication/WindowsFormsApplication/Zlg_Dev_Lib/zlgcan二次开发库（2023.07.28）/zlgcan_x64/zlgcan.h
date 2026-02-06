@@ -47,7 +47,7 @@
 #define ZCAN_PCIE_CANFD_200U                39
 #define ZCAN_PCIE_CANFD_400U                40
 #define ZCAN_USBCANFD_200U                  41
-#define ZCAN_USBCANFD_100U                  42
+#define ZCAN_USBCANFD_100U                  42£¬
 #define ZCAN_USBCANFD_MINI                  43
 #define ZCAN_CANFDCOM_100IE                 44
 #define ZCAN_CANSCOPE                       45

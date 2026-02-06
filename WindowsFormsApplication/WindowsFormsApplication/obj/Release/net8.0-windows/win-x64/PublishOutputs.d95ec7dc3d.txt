@@ -1,0 +1,8 @@
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\WindowsFormsApplication.pdb
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\WindowsFormsApplication.dll.config
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\D3DCompiler_47_cor3.dll
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\PenImc_cor3.dll
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\PresentationNative_cor3.dll
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\vcruntime140_cor3.dll
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\wpfgfx_cor3.dll
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\_Publish\WindowsFormsApplication.exe

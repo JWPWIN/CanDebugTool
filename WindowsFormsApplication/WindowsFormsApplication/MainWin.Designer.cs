@@ -193,7 +193,7 @@
             Controls.Add(toolStripContainer1);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "MainWin";
-            Text = "CAN调试工具";
+            Text = "CAN调试工具"+ AppVerStr;
             FormClosing += MainWin_FormClosing;
             FormClosed += MainWin_FormClosed;
             tabControl_AllFunsSplit.ResumeLayout(false);

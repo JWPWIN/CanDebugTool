@@ -9,6 +9,7 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>zh-CN</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <_LastSelectedProfileId>D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="FunctionScript\SysControlOverride\ComboBox_NoWheel.cs">

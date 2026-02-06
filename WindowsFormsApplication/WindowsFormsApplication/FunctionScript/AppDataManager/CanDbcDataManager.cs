@@ -698,7 +698,7 @@ public class CanDbcDataManager
     /// <returns>true ÊôÓÚÄ¿±êECU</returns>
     static public bool IsMsgBelongToTargetEcu(string transmitter)
     {
-        if (transmitter == "OBC" || transmitter == "DCDC" || transmitter == "CDU")
+        if (transmitter.Contains("OBC") || transmitter.Contains("DCDC") || transmitter.Contains("CDU"))
         { 
             return true;
         }

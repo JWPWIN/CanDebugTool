@@ -13,6 +13,8 @@ namespace WindowsFormsApplication
 {
     public partial class MainWin : Form
     {
+        public readonly string AppVerStr = "-V1.0-20260206";
+
         //主循环线程
         public LongRunningThreadService mainLoopThread;
 

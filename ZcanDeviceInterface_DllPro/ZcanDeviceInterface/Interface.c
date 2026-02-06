@@ -29,7 +29,7 @@ typedef struct ZCANDataObj_CSharp
 }ZCANDataObj_CSharp;
 
 
-//导入外部DLL接收报文的接口（DLL来源:项目属性->链接器->输入->附加依赖项）
+//导入外部DLL接收和发送报文的接口（DLL来源:项目属性->链接器->输入->附加依赖项）
 extern __declspec(dllimport) UINT ZCAN_ReceiveData(DEVICE_HANDLE device_handle, ZCANDataObj* pReceive, UINT len, int wait_time DEF(-1));
 extern __declspec(dllimport) UINT ZCAN_TransmitData(DEVICE_HANDLE device_handle, ZCANDataObj *pTransmit, UINT len);
 
@@ -128,6 +128,44 @@ __declspec(dllexport) UINT ZCAN_TransmitData_Interface(UINT device_handle,ZCANDa
 
     //每次调用接口尝试发送一帧数据
     sendMsgSuccNum = ZCAN_TransmitData(device_handle, &sendMsgObj, 1);
+
+    return sendMsgSuccNum;
+}
+
+//导入外部DLL中UDS诊断收发相关的接口（DLL来源:项目属性->链接器->输入->附加依赖项）
+
+/**
+* @brief UDS诊断请求(总)
+* @param[in] device_handle 设备句柄
+* @param[in] requestData 请求信息
+* @param[out] resp 响应信息, 可为nullptr, 表示不关心响应数据
+* @param[out] dataBuf 响应数据缓存区, 存放积极响应的诊断数据(不包含SID), 实际长度为resp.positive.data_len
+* @param[in] dataBufSize 响应数据缓存区总大小，如果小于响应诊断数据长度，返回 STATUS_BUFFER_TOO_SMALL
+*/
+extern __declspec(dllimport) ZCAN_RET_STATUS ZCAN_UDS_RequestEX(DEVICE_HANDLE device_handle, const ZCANUdsRequestDataObj* requestData, ZCAN_UDS_RESPONSE* resp, BYTE* dataBuf, UINT dataBufSize);
+
+//用于C#程序的ZCANUdsRequestDataObj结构体数据
+typedef struct ZCANUdsRequestDataObj_CSharp
+{
+    BYTE        dataType;
+}ZCANUdsRequestDataObj_CSharp;
+
+//用于C#程序的ZCAN_UDS_RESPONSE结构体数据
+typedef struct ZCAN_UDS_RESPONSE_CSharp
+{
+    BYTE        dataType;
+}ZCAN_UDS_RESPONSE_CSharp;
+
+/// <summary>
+/// 上层C#-Winfore程序用于诊断报文收发的接口
+/// </summary>
+/// <param name="device_handle">设备句柄</param>
+/// <param name="pTransmit_CSharp">C#发送报文帧数据的结构</param>
+/// <returns>诊断请求状态</returns>
+__declspec(dllexport) UINT ZCAN_UDS_RequestEX_Interface(UINT device_handle, ZCANUdsRequestDataObj_CSharp requestData, ZCAN_UDS_RESPONSE_CSharp resp)
+{
+    UINT sendMsgSuccNum = 0;
+
 
     return sendMsgSuccNum;
 }

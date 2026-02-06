@@ -94,3 +94,5 @@ C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFor
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Row_SendSigDisplay.resources
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.SubWin_ModelView.resources
 C:\Users\PJW\Desktop\Github-Pros\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Model_StateNode.resources
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.SubWin_ModelView.resources
+D:\Documents\GitHub-Pro\CanDebugTool\WindowsFormsApplication\WindowsFormsApplication\obj\Debug\net8.0-windows\WindowsFormsApplication.UI.UI_Model_StateNode.resources
