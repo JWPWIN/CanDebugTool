@@ -279,5 +279,10 @@ namespace WindowsFormsApplication.UI
             subWin_ModelView = new SubWin_ModelView();
             subWin_ModelView.Show();
         }
+
+        private void button_test_Click(object sender, EventArgs e)
+        {
+            deviceInterfaceMng.UDS_SendOneUdsDiagRequest();
+        }
     }
 }

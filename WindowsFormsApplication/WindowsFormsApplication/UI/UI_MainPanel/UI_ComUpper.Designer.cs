@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             groupBox2 = new System.Windows.Forms.GroupBox();
+            button_test = new System.Windows.Forms.Button();
+            Btn_ModelView = new System.Windows.Forms.Button();
             Btn_DisconnectDevice = new System.Windows.Forms.Button();
             label2 = new System.Windows.Forms.Label();
             comboBox_CanType = new System.Windows.Forms.ComboBox();
@@ -39,7 +41,6 @@
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
             tableLayoutPanel_SendMsgArea = new System.Windows.Forms.TableLayoutPanel();
-            Btn_ModelView = new System.Windows.Forms.Button();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -47,6 +48,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(button_test);
             groupBox2.Controls.Add(Btn_ModelView);
             groupBox2.Controls.Add(Btn_DisconnectDevice);
             groupBox2.Controls.Add(label2);
@@ -63,6 +65,26 @@
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "设备管理";
+            // 
+            // button_test
+            // 
+            button_test.Location = new System.Drawing.Point(589, 38);
+            button_test.Name = "button_test";
+            button_test.Size = new System.Drawing.Size(75, 23);
+            button_test.TabIndex = 13;
+            button_test.Text = "测试UDS";
+            button_test.UseVisualStyleBackColor = true;
+            button_test.Click += button_test_Click;
+            // 
+            // Btn_ModelView
+            // 
+            Btn_ModelView.Location = new System.Drawing.Point(389, 22);
+            Btn_ModelView.Name = "Btn_ModelView";
+            Btn_ModelView.Size = new System.Drawing.Size(75, 55);
+            Btn_ModelView.TabIndex = 12;
+            Btn_ModelView.Text = "模型视图";
+            Btn_ModelView.UseVisualStyleBackColor = true;
+            Btn_ModelView.Click += Btn_ModelView_Click;
             // 
             // Btn_DisconnectDevice
             // 
@@ -170,16 +192,6 @@
             tableLayoutPanel_SendMsgArea.Size = new System.Drawing.Size(494, 483);
             tableLayoutPanel_SendMsgArea.TabIndex = 6;
             // 
-            // Btn_ModelView
-            // 
-            Btn_ModelView.Location = new System.Drawing.Point(389, 22);
-            Btn_ModelView.Name = "Btn_ModelView";
-            Btn_ModelView.Size = new System.Drawing.Size(75, 55);
-            Btn_ModelView.TabIndex = 12;
-            Btn_ModelView.Text = "模型视图";
-            Btn_ModelView.UseVisualStyleBackColor = true;
-            Btn_ModelView.Click += Btn_ModelView_Click;
-            // 
             // UI_ComUpper
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -210,5 +222,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_SendMsgArea;
         private System.Windows.Forms.Button Btn_ModelView;
+        private System.Windows.Forms.Button button_test;
     }
 }

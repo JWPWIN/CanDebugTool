@@ -147,25 +147,124 @@ extern __declspec(dllimport) ZCAN_RET_STATUS ZCAN_UDS_RequestEX(DEVICE_HANDLE de
 //用于C#程序的ZCANUdsRequestDataObj结构体数据
 typedef struct ZCANUdsRequestDataObj_CSharp
 {
-    BYTE        dataType;
+    ZCAN_UDS_DATA_DEF    dataType;              // uint数据类型
+    //基本UDS请求数据
+    UINT req_id;                            // 请求事务ID，范围0~65535，本次请求的唯一标识
+    BYTE channel;                           // 设备通道索引 0~255
+    ZCAN_UDS_FRAME_TYPE frame_type;         // byte帧类型
+    UINT src_addr;                          // 请求地址
+    UINT dst_addr;                          // 响应地址
+    BYTE suppress_response;                 // 1:抑制响应
+    BYTE sid;                               // 请求服务id
+
+    // 会话层参数
+    UINT timeout;                       // 响应超时时间(ms)。因PC定时器误差，建议设置不小于200ms
+    UINT enhanced_timeout;              // 收到消极响应错误码为0x78后的超时时间(ms)。因PC定时器误差，建议设置不小于200ms
+    BYTE check_any_negative_response : 1; // 接收到非本次请求服务的消极响应时是否需要判定为响应错误
+    BYTE wait_if_suppress_response : 1;   // 抑制响应时是否需要等待消极响应，等待时长为响应超时时间
+
+    // 传输层参数
+    ZCAN_UDS_TRANS_VER version;         // 传输协议版本, VERSION_0, VERSION_1
+    BYTE max_data_len;                  // 单帧最大数据长度, can:8, canfd:64
+    BYTE local_st_min;                  // 本程序发送流控时用，连续帧之间的最小间隔, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
+    BYTE block_size;                    // 流控帧的块大小
+    BYTE fill_byte;                     // 无效字节的填充数据
+    BYTE ext_frame;                     // 0:标准帧 1:扩展帧
+    BYTE is_modify_ecu_st_min;          // 是否忽略ECU返回流控的STmin，强制使用本程序设置的 remote_st_min
+    BYTE remote_st_min;                 // 发送多帧时用, is_ignore_ecu_st_min = 1 时有效, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
+    UINT fc_timeout;                    // 接收流控超时时间(ms), 如发送首帧后需要等待回应流控帧
+
+    //请求报文数据
+    BYTE data[64];                          // 数据数组(不包含SID),默认预留64
+    UINT data_len;                          // 数据数组的长度
 }ZCANUdsRequestDataObj_CSharp;
 
 //用于C#程序的ZCAN_UDS_RESPONSE结构体数据
 typedef struct ZCAN_UDS_RESPONSE_CSharp
 {
-    BYTE        dataType;
+    ZCAN_UDS_ERROR status;                  // byte响应状态
+    ZCAN_UDS_RESPONSE_TYPE type;            // byte响应类型
+    //positive正响应
+    BYTE pos_sid;                       // 响应服务id
+    UINT data_len;                  // 数据长度(不包含SID), 数据存放在接口传入的dataBuf中
+    //negative负响应
+    BYTE  neg_code;                 // 固定为0x7F
+    BYTE  neg_sid;                      // 请求服务id
+    BYTE  error_code;               // 错误码
+    //正响应报文数据
+    BYTE data[64];                          // 数据数组(不包含SID),默认预留64
 }ZCAN_UDS_RESPONSE_CSharp;
 
 /// <summary>
 /// 上层C#-Winfore程序用于诊断报文收发的接口
 /// </summary>
 /// <param name="device_handle">设备句柄</param>
-/// <param name="pTransmit_CSharp">C#发送报文帧数据的结构</param>
+/// <param name="requestData">C#发送诊断报文数据的结构</param>
+/// <param name="resp">C#获取诊断响应数据的结构</param>
 /// <returns>诊断请求状态</returns>
-__declspec(dllexport) UINT ZCAN_UDS_RequestEX_Interface(UINT device_handle, ZCANUdsRequestDataObj_CSharp requestData, ZCAN_UDS_RESPONSE_CSharp resp)
+__declspec(dllexport) UINT ZCAN_UDS_RequestEX_Interface(UINT device_handle, ZCANUdsRequestDataObj_CSharp requestData, ZCAN_UDS_RESPONSE_CSharp* resp)
 {
-    UINT sendMsgSuccNum = 0;
+    //填充UDS请求数据
+    ZCANUdsRequestDataObj udsRequestDataObj = { 0 };
 
+    //基本UDS请求数据
+    udsRequestDataObj.dataType = DEF_CAN_UDS_DATA;//目前仅支持can/canfd数据格式
+    ZCAN_UDS_REQUEST tmpUdsReq = { 0 };
+    tmpUdsReq.req_id = requestData.req_id;                       // 请求事务ID，范围0~65535，本次请求的唯一标识
+    tmpUdsReq.channel = requestData.channel;                     // 设备通道索引 0~255
+    tmpUdsReq.frame_type = requestData.frame_type;               // byte帧类型
+    tmpUdsReq.src_addr = requestData.src_addr;                   // 请求地址
+    tmpUdsReq.dst_addr = requestData.dst_addr;                   // 响应地址
+    tmpUdsReq.suppress_response = requestData.suppress_response; // 1:抑制响应
+    tmpUdsReq.sid = requestData.sid;                             // 请求服务id
+    // 会话层参数
+    tmpUdsReq.session_param.timeout = requestData.timeout;       // 响应超时时间(ms)。因PC定时器误差，建议设置不小于200ms
+    tmpUdsReq.session_param.enhanced_timeout = requestData.enhanced_timeout; // 收到消极响应错误码为0x78后的超时时间(ms)。因PC定时器误差，建议设置不小于200ms
+    tmpUdsReq.session_param.check_any_negative_response = 0;     // 接收到非本次请求服务的消极响应时是否需要判定为响应错误
+    tmpUdsReq.session_param.wait_if_suppress_response = 0;       // 抑制响应时是否需要等待消极响应，等待时长为响应超时时间
+    // 传输层参数
+    tmpUdsReq.trans_param.version = ZCAN_UDS_TRANS_VER_1;           // 传输协议版本, VERSION_0, VERSION_1
+    tmpUdsReq.trans_param.max_data_len = requestData.max_data_len;  // 单帧最大数据长度, can:8, canfd:64
+    tmpUdsReq.trans_param.local_st_min = requestData.local_st_min;  // 本程序发送流控时用，连续帧之间的最小间隔, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
+    tmpUdsReq.trans_param.block_size = requestData.block_size;      // 流控帧的块大小
+    tmpUdsReq.trans_param.fill_byte = requestData.fill_byte;        // 无效字节的填充数据
+    tmpUdsReq.trans_param.ext_frame = requestData.ext_frame;        // 0:标准帧 1:扩展帧
+    tmpUdsReq.trans_param.is_modify_ecu_st_min = 0;                 // 是否忽略ECU返回流控的STmin，强制使用本程序设置的 remote_st_min
+    tmpUdsReq.trans_param.remote_st_min = 0;                        // 发送多帧时用, is_ignore_ecu_st_min = 1 时有效, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
+    tmpUdsReq.trans_param.fc_timeout = requestData.fc_timeout;      // 接收流控超时时间(ms), 如发送首帧后需要等待回应流控帧
+    //请求报文数据
+    tmpUdsReq.data = requestData.data;                             // 数据数组(不包含SID)
+    tmpUdsReq.data_len = requestData.data_len;                          // 数据数组的长度
+    //UDS请求数据填充完毕
+    udsRequestDataObj.data.zcanCANFDUdsData.req = &tmpUdsReq;
 
-    return sendMsgSuccNum;
+    //发送诊断请求
+    ZCAN_UDS_RESPONSE udsResponseDataObj = { 0 };
+    BYTE responseDataBuf[64];
+    ZCAN_RET_STATUS udsReqResult = ZCAN_UDS_RequestEX(device_handle, &udsRequestDataObj, &udsResponseDataObj, &responseDataBuf[0], 64);
+
+    if (udsReqResult == STATUS_OK)
+    {
+        resp->status = udsResponseDataObj.status;                           // byte响应状态
+        resp->type = udsResponseDataObj.type;                               // byte响应类型
+        if (resp->type == ZCAN_UDS_RT_POSITIVE)
+        {
+            //positive正响应
+            resp->pos_sid = udsResponseDataObj.positive.sid;                        // 响应服务id
+            resp->data_len = udsResponseDataObj.positive.data_len;              // 数据长度(不包含SID), 数据存放在接口传入的dataBuf中
+
+            //响应报文数据
+            resp->data[64] = responseDataBuf;                                  // 数据数组(不包含SID),默认预留64
+            resp->data_len = udsResponseDataObj.positive.data_len;              // 数据数组的长度
+        }
+        else
+        {
+            //negative负响应
+            resp->neg_code = udsResponseDataObj.negative.neg_code;             // 固定为0x7F
+            resp->neg_sid = udsResponseDataObj.negative.sid;                       // 请求服务id
+            resp->error_code = udsResponseDataObj.negative.error_code;         // 错误码
+        }
+    }
+    
+    return udsReqResult;
 }

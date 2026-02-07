@@ -353,4 +353,30 @@ public class DeviceInterfaceMng
     {
         return task_CycleMsgSendDict;
     }
+
+    /// <summary>
+    /// 发送一帧诊断报文
+    /// </summary>
+    public void UDS_SendOneUdsDiagRequest()
+    {
+        //未打开设备 直接返回
+        if (canDeviceOpenFlag == false)
+        {
+            return;
+        }
+
+        //根据设备类型从相应设备对象中获取接收到的报文
+        switch (curCanDeviceType)
+        {
+            case CanDeviceType.ZCAN_USBCANFD_100U:
+            case CanDeviceType.ZCAN_USBCANFD_200U:
+            case CanDeviceType.ZCAN_USBCANFD_MINI:
+                //zlg设备发送诊断请求
+                if (zlgDevice is not null) zlgDevice.UDS_SendDiagRequest();
+                break;
+            default:
+                break;
+        }
+
+    }
 }
