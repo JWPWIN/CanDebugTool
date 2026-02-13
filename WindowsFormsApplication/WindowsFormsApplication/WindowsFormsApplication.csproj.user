@@ -18,6 +18,9 @@
     <Compile Update="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UI\SubWin\SubWin_DiagView\SubWin_DiagView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UI\SubWin\SubWin_ModelView\SubWin_ModelView.cs">
       <SubType>Form</SubType>
     </Compile>

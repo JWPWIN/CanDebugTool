@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             groupBox2 = new System.Windows.Forms.GroupBox();
-            button_test = new System.Windows.Forms.Button();
+            Btn_DiagView = new System.Windows.Forms.Button();
             Btn_ModelView = new System.Windows.Forms.Button();
             Btn_DisconnectDevice = new System.Windows.Forms.Button();
             label2 = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(button_test);
+            groupBox2.Controls.Add(Btn_DiagView);
             groupBox2.Controls.Add(Btn_ModelView);
             groupBox2.Controls.Add(Btn_DisconnectDevice);
             groupBox2.Controls.Add(label2);
@@ -66,15 +66,15 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "设备管理";
             // 
-            // button_test
+            // Btn_DiagView
             // 
-            button_test.Location = new System.Drawing.Point(589, 38);
-            button_test.Name = "button_test";
-            button_test.Size = new System.Drawing.Size(75, 23);
-            button_test.TabIndex = 13;
-            button_test.Text = "测试UDS";
-            button_test.UseVisualStyleBackColor = true;
-            button_test.Click += button_test_Click;
+            Btn_DiagView.Location = new System.Drawing.Point(488, 22);
+            Btn_DiagView.Name = "Btn_DiagView";
+            Btn_DiagView.Size = new System.Drawing.Size(75, 55);
+            Btn_DiagView.TabIndex = 13;
+            Btn_DiagView.Text = "诊断视图";
+            Btn_DiagView.UseVisualStyleBackColor = true;
+            Btn_DiagView.Click += Btn_DiagView_Click;
             // 
             // Btn_ModelView
             // 
@@ -222,6 +222,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_SendMsgArea;
         private System.Windows.Forms.Button Btn_ModelView;
-        private System.Windows.Forms.Button button_test;
+        private System.Windows.Forms.Button Btn_DiagView;
     }
 }

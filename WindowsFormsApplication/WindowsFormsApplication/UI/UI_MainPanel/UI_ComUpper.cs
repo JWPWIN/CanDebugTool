@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication.UI.SubWin.SubWin_DiagView;
 
 namespace WindowsFormsApplication.UI
 {
@@ -32,6 +33,9 @@ namespace WindowsFormsApplication.UI
 
         //子窗口:模型视图对象
         SubWin_ModelView subWin_ModelView;
+
+        //子窗口:诊断视图对象
+        SubWin_DiagView subWin_DiagView;
 
         public UI_ComUpper()
         {
@@ -185,7 +189,7 @@ namespace WindowsFormsApplication.UI
             //遍历应用报文到设备周期发送列表
             foreach (var item in sendMsgArea_msgIdTitleUIDict)
             {
-                DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(item.Key.msgId, item.Key.msgCycle * (uint)TimeUnit.T_MS, 1);
+                DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(item.Key, 1);
             }
         }
 
@@ -280,9 +284,10 @@ namespace WindowsFormsApplication.UI
             subWin_ModelView.Show();
         }
 
-        private void button_test_Click(object sender, EventArgs e)
+        private void Btn_DiagView_Click(object sender, EventArgs e)
         {
-            deviceInterfaceMng.UDS_SendOneUdsDiagRequest();
+            subWin_DiagView = new SubWin_DiagView();
+            subWin_DiagView.Show();
         }
     }
 }

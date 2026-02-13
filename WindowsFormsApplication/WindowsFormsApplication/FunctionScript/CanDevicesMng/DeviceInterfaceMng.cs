@@ -266,26 +266,36 @@ public class DeviceInterfaceMng
     /// 从周期发送任务列表中 增加或者删除一个报文周期发送
     /// </summary>
     /// <param name="msgId">周期报文ID</param>
-    /// <param name="msgId">报文发送周期</param>
+    /// <param name="msgCycle">报文发送周期</param>
     /// <param name="isAddMsg">1：增加周期报文发送/0：删除周期报文发送</param>
-    public void AddOrDelOneCycleMsgSend(uint msgId, ulong msgCycle , uint isAddMsg)
+    public void AddOrDelOneCycleMsgSend(CanMessage msgInfo , uint isAddMsg)
     {
         if (isAddMsg == 1)
         {
-            if (task_CycleMsgSendDict.ContainsKey(msgId)) return;//已有该报文 退出
+            if (task_CycleMsgSendDict.ContainsKey(msgInfo.msgId)) return;//已有该报文 退出
 
             CycleSend_Canfd_Frame cycleSend_Canfd_Frame = new CycleSend_Canfd_Frame();
             cycleSend_Canfd_Frame.msgData = new Canfd_Frame_Com();
-            cycleSend_Canfd_Frame.msgData.can_id = msgId;
+            cycleSend_Canfd_Frame.msgData.can_id = msgInfo.msgId;
             cycleSend_Canfd_Frame.msgData.data = new byte[64];
-            cycleSend_Canfd_Frame.sendCycle = msgCycle;
+            cycleSend_Canfd_Frame.msgData.len = (byte)msgInfo.msgSize;
+            cycleSend_Canfd_Frame.sendCycle = msgInfo.msgCycle;
 
-            task_CycleMsgSendDict.Add(msgId, cycleSend_Canfd_Frame);
+            task_CycleMsgSendDict.Add(msgInfo.msgId, cycleSend_Canfd_Frame);
         }
         else
         {
-            if(task_CycleMsgSendDict.ContainsKey(msgId)) task_CycleMsgSendDict.Remove(msgId);
+            if(task_CycleMsgSendDict.ContainsKey(msgInfo.msgId)) task_CycleMsgSendDict.Remove(msgInfo.msgId);
         }
+    }
+
+    /// <summary>
+    /// 新增一个单帧报文到待发送列表
+    /// </summary>
+    /// <param name="frame">单帧报文帧数据</param>
+    public void AddOneMsgToSend(Canfd_Frame_Com frame)
+    {
+        waitToHandle_SendCanMsgBuf.Add(frame);
     }
 
     /// <summary>
@@ -355,9 +365,9 @@ public class DeviceInterfaceMng
     }
 
     /// <summary>
-    /// 发送一帧诊断报文
+    /// 发送一帧诊断请求报文
     /// </summary>
-    public void UDS_SendOneUdsDiagRequest()
+    public void UDS_SendOneUdsDiagRequest(Canfd_Frame_Com frameData)
     {
         //未打开设备 直接返回
         if (canDeviceOpenFlag == false)
@@ -365,18 +375,6 @@ public class DeviceInterfaceMng
             return;
         }
 
-        //根据设备类型从相应设备对象中获取接收到的报文
-        switch (curCanDeviceType)
-        {
-            case CanDeviceType.ZCAN_USBCANFD_100U:
-            case CanDeviceType.ZCAN_USBCANFD_200U:
-            case CanDeviceType.ZCAN_USBCANFD_MINI:
-                //zlg设备发送诊断请求
-                if (zlgDevice is not null) zlgDevice.UDS_SendDiagRequest();
-                break;
-            default:
-                break;
-        }
-
+        AddOneMsgToSend(frameData);
     }
 }

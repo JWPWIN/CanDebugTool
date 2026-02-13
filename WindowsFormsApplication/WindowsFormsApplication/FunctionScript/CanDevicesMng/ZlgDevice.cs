@@ -93,59 +93,6 @@ public class ZlgDevice
         byte reserved2;
     }
 
-    //用于C#诊断请求的数据结构体
-    struct ZCANUdsRequestDataObj_CSharp
-    {
-        public uint dataType;              // uint数据类型
-                                           //基本UDS请求数据
-        public uint req_id;                            // 请求事务ID，范围0~65535，本次请求的唯一标识
-        public byte channel;                           // 设备通道索引 0~255
-        public byte frame_type;         // byte帧类型
-        public uint src_addr;                          // 请求地址
-        public uint dst_addr;                          // 响应地址
-        public byte suppress_response;                 // 1:抑制响应
-        public byte sid;                               // 请求服务id
-
-        // 会话层参数
-        public uint timeout;                       // 响应超时时间(ms)。因PC定时器误差，建议设置不小于200ms
-        public uint enhanced_timeout;              // 收到消极响应错误码为0x78后的超时时间(ms)。因PC定时器误差，建议设置不小于200ms
-        public byte check_any_negative_response; // 接收到非本次请求服务的消极响应时是否需要判定为响应错误
-        public byte wait_if_suppress_response;   // 抑制响应时是否需要等待消极响应，等待时长为响应超时时间
-
-        // 传输层参数
-        public byte version;         // 传输协议版本, VERSION_0, VERSION_1
-        public byte max_data_len;                  // 单帧最大数据长度, can:8, canfd:64
-        public byte local_st_min;                  // 本程序发送流控时用，连续帧之间的最小间隔, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
-        public byte block_size;                    // 流控帧的块大小
-        public byte fill_byte;                     // 无效字节的填充数据
-        public byte ext_frame;                     // 0:标准帧 1:扩展帧
-        public byte is_modify_ecu_st_min;          // 是否忽略ECU返回流控的STmin，强制使用本程序设置的 remote_st_min
-        public byte remote_st_min;                 // 发送多帧时用, is_ignore_ecu_st_min = 1 时有效, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
-        public uint fc_timeout;                    // 接收流控超时时间(ms), 如发送首帧后需要等待回应流控帧
-
-        //请求报文数据
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
-        public byte[] data;                          // 数据数组(不包含SID),默认预留64
-        public uint data_len;                          // 数据数组的长度
-    }
-
-    //用于接收C#诊断响应的数据结构体
-    struct ZCAN_UDS_RESPONSE_CSharp
-    {
-        public byte status;                  // byte响应状态
-        public byte type;            // byte响应类型
-        //positive正响应
-        public byte pos_sid;                  // 响应服务id
-        public uint data_len;                 // 数据长度(不包含SID), 数据存放在接口传入的dataBuf中
-        //negative负响应
-        public byte neg_code;                 // 固定为0x7F
-        public byte neg_sid;                  // 请求服务id
-        public byte error_code;               // 错误码
-        //正响应报文数据
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
-        public byte[] data;                   // 数据数组(不包含SID),默认预留64
-    }
-
     [DllImport("zlgcan.dll", CallingConvention = CallingConvention.StdCall)]
     static extern uint ZCAN_OpenDevice(uint device_type, uint device_index, uint reserved);
 
@@ -175,9 +122,6 @@ public class ZlgDevice
 
     [DllImport("ZcanDeviceInterface.dll", CallingConvention = CallingConvention.StdCall)]
     static extern uint ZCAN_TransmitData_Interface(uint device_handle, ZCANDataObj_CSharp pTransmit_CSharp);
-
-    [DllImport("ZcanDeviceInterface.dll", CallingConvention = CallingConvention.StdCall)]
-    static extern uint ZCAN_UDS_RequestEX_Interface(uint device_handle, ZCANUdsRequestDataObj_CSharp requestData,ref ZCAN_UDS_RESPONSE_CSharp resp);
 
     /// <summary>
     /// 打开CAN设备
@@ -338,6 +282,7 @@ public class ZlgDevice
         sendData.canData = new canfd_frame();
         sendData.chnl = 0;
         sendData.canData.can_id = msgData.can_id;
+        sendData.canData.len = msgData.len;
         sendData.frameType = msgData.is_canfd;
         sendData.canData.data = msgData.data;
 
@@ -420,45 +365,5 @@ public class ZlgDevice
     public void GetRecvBufferErrData()
     {
 
-    }
-
-    /// <summary>
-    /// 发送诊断请求
-    /// </summary>
-    public void UDS_SendDiagRequest()
-    {
-        ZCANUdsRequestDataObj_CSharp requestData = new ZCANUdsRequestDataObj_CSharp();
-        ZCAN_UDS_RESPONSE_CSharp resp = new ZCAN_UDS_RESPONSE_CSharp();
-
-        //基本UDS请求数据
-        requestData.req_id = 0;                         // 请求事务ID，范围0~65535，本次请求的唯一标识
-        requestData.channel = 0;                        // 设备通道索引 0~255
-        requestData.frame_type = 1;                     // byte帧类型(0)ZCAN_UDS_FRAME_CAN/(1)ZCAN_UDS_FRAME_CANFD/(2)ZCAN_UDS_FRAME_CANFD_BRS
-        requestData.src_addr = 0x7E6;                   // 请求地址
-        requestData.dst_addr = 0x7EE;                   // 响应地址
-        requestData.suppress_response = 0;              // 1:抑制响应
-        requestData.sid = 0x10;                          // 请求服务id
-        // 会话层参数
-        requestData.timeout = 1000;                      // 响应超时时间(ms)。因PC定时器误差，建议设置不小于200ms
-        requestData.enhanced_timeout = 3000;             // 收到消极响应错误码为0x78后的超时时间(ms)。因PC定时器误差，建议设置不小于200ms
-        requestData.check_any_negative_response = 0;     // 接收到非本次请求服务的消极响应时是否需要判定为响应错误
-        requestData.wait_if_suppress_response = 0;       // 抑制响应时是否需要等待消极响应，等待时长为响应超时时间
-        // 传输层参数
-        requestData.max_data_len = 8;                  // 单帧最大数据长度, can:8, canfd:64
-        requestData.local_st_min = 10;                  // 本程序发送流控时用，连续帧之间的最小间隔, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
-        requestData.block_size = 0;                     // 流控帧的块大小
-        requestData.fill_byte = 0;                   // 无效字节的填充数据
-        requestData.ext_frame = 0;                      // 0:标准帧 1:扩展帧
-        requestData.is_modify_ecu_st_min = 0;           // 是否忽略ECU返回流控的STmin，强制使用本程序设置的 remote_st_min
-        requestData.remote_st_min = 0;                  // 发送多帧时用, is_ignore_ecu_st_min = 1 时有效, 0x00-0x7F(0ms~127ms), 0xF1-0xF9(100us~900us)
-        requestData.fc_timeout = 100;                   // 接收流控超时时间(ms), 如发送首帧后需要等待回应流控帧
-        //诊断请求数据（不含SID）
-        requestData.data = new byte[64];
-        requestData.data[0] = 0x01;
-        requestData.data_len = 1;
-
-        uint udsDiagRes = ZCAN_UDS_RequestEX_Interface(canDeviceHandle, requestData, ref resp);
-
-        MessageBox.Show(udsDiagRes.ToString());
     }
 }
