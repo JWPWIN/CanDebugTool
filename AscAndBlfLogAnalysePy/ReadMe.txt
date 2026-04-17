@@ -1,0 +1,6 @@
+D01系列故障检测脚本使用方式：
+1、\ascLog文件中放.asc的报文数据，\blfLog文件中放.blf的报文数据
+2、点击checkAscAndBlfFaultInfo_D01.py运行python脚本
+3、脚本将自动检测两个文件夹中的所有报文数据是否有故障信号产生，并在控制台输出检测结果
+（检测0x5F4_CDU_CDU_TotalFaultNum、0x467_DCDC_FaultCode、0x49E_OBC_FaultCode是否非0）
+（如有报文检测失败阻塞脚本，要将该报文从检测文件夹中取出后再次执行）
