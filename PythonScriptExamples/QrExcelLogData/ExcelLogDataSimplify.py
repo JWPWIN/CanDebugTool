@@ -11,7 +11,7 @@ signal_whitelist = ['(DCDC_1)DCDC_FaultCode','(DCDC_1)DCDC_FaultLevelSts', '(DCD
                     '(NWM_CGW)NWM_CGW_NETWORK_WAKEUP','(NWM_CGW)NWM_CGW_ECUSPEC_WAKEUP','(NWM_CGW)NWM_CGW_NETWORK_AWAKE','(NWM_CGW)NWM_CGW_IGNITION_AWAKE','(NWM_CGW)NWM_CGW_DIAGNOSTIC_AWAKE','(NWM_CGW)NWM_CGW_ECUSPEC_AWAKE',
                     '(HCU_7)HCU_DCDC_StModeReq','(HCU_7)HCU_DCDCEnableReq',
                     '(BMS_7)BMSH_OBCChargeReq','(BMS_7)BMSH_OBCHeatRequest',
-                    '平台接收时间']
+                    '平台接收时间','采集时间']
 
 excelLogFolderPath = os.getcwd() + "/excelLogData" #excel日志数据文件夹路径
 files= os.listdir(excelLogFolderPath) #得到文件夹下的所有文件名称
@@ -24,7 +24,8 @@ excelFileName = files[0]
 whiteData = pd.read_excel(os.path.join(excelLogFolderPath, excelFileName), sheet_name=0, usecols=signal_whitelist)
 
 df = pd.DataFrame(whiteData)
-df.to_excel('简化后数据.xlsx', index=False)
-print("数据简化完成，已保存为简化后数据.xlsx")
+outFileName = excelFileName + '简化后数据.xlsx'
+df.to_excel(outFileName, index=False)
+print("数据简化完成，已保存为" + outFileName)
 
 input("按任意键退出...")

@@ -1,3 +1,9 @@
+环境安装
+1、安装Python
+2、双击InstallDepPkg安装依赖包
+
+简化Excel，删除无用数据列
 1、将excel文件放入excelLogData文件夹(只能有一个文件)
-2、点击ExcelLogDataSimplify.py
-3、简化数据在“简化后数据.xlsx”中查看
+2、双击ExcelLogDataSimplify.py
+3、同级目录下将生成对应简化后数据
+备注（如果需要新增或者删除信号列--对应输入Excel文件的列头，可以通过编辑ExcelLogDataSimplify.py的信号白名单实现）
