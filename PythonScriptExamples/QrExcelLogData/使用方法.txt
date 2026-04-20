@@ -1,6 +1,5 @@
 环境安装
-1、安装Python
-2、双击InstallDepPkg安装依赖包
+1、双击InstallOperatioEnv.bat安装python3.8及依赖包
 
 简化Excel，删除无用数据列
 1、将excel文件放入excelLogData文件夹(只能有一个文件)
