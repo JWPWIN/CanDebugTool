@@ -28,130 +28,152 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button_ImportTxtDbc = new System.Windows.Forms.Button();
+            panel_ToolsRoot = new System.Windows.Forms.Panel();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            flowLayoutPanel_Export = new System.Windows.Forms.FlowLayoutPanel();
+            Btn_ExportDbc = new System.Windows.Forms.Button();
+            button_ExportExcelDbc = new System.Windows.Forms.Button();
             Btn_ExportXml = new System.Windows.Forms.Button();
             Btn_GntCanCode = new System.Windows.Forms.Button();
-            Btn_ExportDbc = new System.Windows.Forms.Button();
-            Btn_ImpExcelDBC = new System.Windows.Forms.Button();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            button_ExportExcelDbc = new System.Windows.Forms.Button();
-            groupBox1.SuspendLayout();
+            label_ExportHint = new System.Windows.Forms.Label();
+            panel_ToolsRoot.SuspendLayout();
             groupBox2.SuspendLayout();
+            flowLayoutPanel_Export.SuspendLayout();
             SuspendLayout();
             // 
-            // button_ImportTxtDbc
+            // panel_ToolsRoot
             // 
-            button_ImportTxtDbc.Location = new System.Drawing.Point(7, 64);
-            button_ImportTxtDbc.Margin = new System.Windows.Forms.Padding(4);
-            button_ImportTxtDbc.Name = "button_ImportTxtDbc";
-            button_ImportTxtDbc.Size = new System.Drawing.Size(99, 29);
-            button_ImportTxtDbc.TabIndex = 17;
-            button_ImportTxtDbc.Text = "导入DBC数据";
-            button_ImportTxtDbc.UseVisualStyleBackColor = true;
-            button_ImportTxtDbc.Click += button_ImportTxtDbc_Click;
+            panel_ToolsRoot.AutoScroll = true;
+            panel_ToolsRoot.BackColor = System.Drawing.Color.White;
+            panel_ToolsRoot.Controls.Add(groupBox2);
+            panel_ToolsRoot.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel_ToolsRoot.Location = new System.Drawing.Point(0, 0);
+            panel_ToolsRoot.Name = "panel_ToolsRoot";
+            panel_ToolsRoot.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            panel_ToolsRoot.Size = new System.Drawing.Size(1000, 600);
+            panel_ToolsRoot.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            groupBox2.Controls.Add(flowLayoutPanel_Export);
+            groupBox2.Controls.Add(label_ExportHint);
+            groupBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            groupBox2.Location = new System.Drawing.Point(0, 0);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(12, 8, 12, 12);
+            groupBox2.Size = new System.Drawing.Size(992, 132);
+            groupBox2.TabIndex = 0;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "导出数据";
+            // 
+            // flowLayoutPanel_Export
+            // 
+            flowLayoutPanel_Export.AutoSize = true;
+            flowLayoutPanel_Export.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel_Export.Controls.Add(Btn_ExportDbc);
+            flowLayoutPanel_Export.Controls.Add(button_ExportExcelDbc);
+            flowLayoutPanel_Export.Controls.Add(Btn_ExportXml);
+            flowLayoutPanel_Export.Controls.Add(Btn_GntCanCode);
+            flowLayoutPanel_Export.Dock = System.Windows.Forms.DockStyle.Bottom;
+            flowLayoutPanel_Export.Location = new System.Drawing.Point(12, 58);
+            flowLayoutPanel_Export.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel_Export.Name = "flowLayoutPanel_Export";
+            flowLayoutPanel_Export.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            flowLayoutPanel_Export.Size = new System.Drawing.Size(968, 62);
+            flowLayoutPanel_Export.TabIndex = 1;
+            flowLayoutPanel_Export.WrapContents = true;
+            // 
+            // Btn_ExportDbc
+            // 
+            Btn_ExportDbc.AutoSize = true;
+            Btn_ExportDbc.Location = new System.Drawing.Point(0, 8);
+            Btn_ExportDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
+            Btn_ExportDbc.MinimumSize = new System.Drawing.Size(96, 31);
+            Btn_ExportDbc.Name = "Btn_ExportDbc";
+            Btn_ExportDbc.Size = new System.Drawing.Size(96, 31);
+            Btn_ExportDbc.TabIndex = 0;
+            Btn_ExportDbc.Text = "导出 DBC";
+            Btn_ExportDbc.UseVisualStyleBackColor = true;
+            Btn_ExportDbc.Click += Btn_ExportDbc_Click;
+            // 
+            // button_ExportExcelDbc
+            // 
+            button_ExportExcelDbc.AutoSize = true;
+            button_ExportExcelDbc.Location = new System.Drawing.Point(106, 8);
+            button_ExportExcelDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
+            button_ExportExcelDbc.MinimumSize = new System.Drawing.Size(96, 31);
+            button_ExportExcelDbc.Name = "button_ExportExcelDbc";
+            button_ExportExcelDbc.Size = new System.Drawing.Size(96, 31);
+            button_ExportExcelDbc.TabIndex = 1;
+            button_ExportExcelDbc.Text = "导出 Excel";
+            button_ExportExcelDbc.UseVisualStyleBackColor = true;
+            button_ExportExcelDbc.Click += button_ExportExcelDbc_Click;
             // 
             // Btn_ExportXml
             // 
-            Btn_ExportXml.Location = new System.Drawing.Point(7, 60);
-            Btn_ExportXml.Margin = new System.Windows.Forms.Padding(4);
+            Btn_ExportXml.AutoSize = true;
+            Btn_ExportXml.Location = new System.Drawing.Point(212, 8);
+            Btn_ExportXml.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
+            Btn_ExportXml.MinimumSize = new System.Drawing.Size(96, 31);
             Btn_ExportXml.Name = "Btn_ExportXml";
-            Btn_ExportXml.Size = new System.Drawing.Size(76, 29);
-            Btn_ExportXml.TabIndex = 16;
-            Btn_ExportXml.Text = "导出Xml";
+            Btn_ExportXml.Size = new System.Drawing.Size(96, 31);
+            Btn_ExportXml.TabIndex = 2;
+            Btn_ExportXml.Text = "导出 Xml";
             Btn_ExportXml.UseVisualStyleBackColor = true;
             Btn_ExportXml.Click += Btn_ExportXml_Click;
             // 
             // Btn_GntCanCode
             // 
-            Btn_GntCanCode.Location = new System.Drawing.Point(7, 97);
-            Btn_GntCanCode.Margin = new System.Windows.Forms.Padding(4);
+            Btn_GntCanCode.AutoSize = true;
+            Btn_GntCanCode.Location = new System.Drawing.Point(318, 8);
+            Btn_GntCanCode.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
+            Btn_GntCanCode.MinimumSize = new System.Drawing.Size(140, 31);
             Btn_GntCanCode.Name = "Btn_GntCanCode";
-            Btn_GntCanCode.Size = new System.Drawing.Size(114, 29);
-            Btn_GntCanCode.TabIndex = 15;
-            Btn_GntCanCode.Text = "导出CAN框架代码";
+            Btn_GntCanCode.Size = new System.Drawing.Size(140, 31);
+            Btn_GntCanCode.TabIndex = 3;
+            Btn_GntCanCode.Text = "导出 CAN 框架代码";
             Btn_GntCanCode.UseVisualStyleBackColor = true;
             Btn_GntCanCode.Click += Btn_GntCanCode_Click;
             // 
-            // Btn_ExportDbc
+            // label_ExportHint
             // 
-            Btn_ExportDbc.Location = new System.Drawing.Point(7, 23);
-            Btn_ExportDbc.Margin = new System.Windows.Forms.Padding(4);
-            Btn_ExportDbc.Name = "Btn_ExportDbc";
-            Btn_ExportDbc.Size = new System.Drawing.Size(78, 29);
-            Btn_ExportDbc.TabIndex = 14;
-            Btn_ExportDbc.Text = "导出DBC";
-            Btn_ExportDbc.UseVisualStyleBackColor = true;
-            Btn_ExportDbc.Click += Btn_ExportDbc_Click;
-            // 
-            // Btn_ImpExcelDBC
-            // 
-            Btn_ImpExcelDBC.Location = new System.Drawing.Point(5, 27);
-            Btn_ImpExcelDBC.Margin = new System.Windows.Forms.Padding(4);
-            Btn_ImpExcelDBC.Name = "Btn_ImpExcelDBC";
-            Btn_ImpExcelDBC.Size = new System.Drawing.Size(101, 29);
-            Btn_ImpExcelDBC.TabIndex = 12;
-            Btn_ImpExcelDBC.Text = "导入Excel数据";
-            Btn_ImpExcelDBC.UseVisualStyleBackColor = true;
-            Btn_ImpExcelDBC.Click += Btn_ImpExcelDBC_Click;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(button_ImportTxtDbc);
-            groupBox1.Controls.Add(Btn_ImpExcelDBC);
-            groupBox1.Location = new System.Drawing.Point(22, 29);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(200, 141);
-            groupBox1.TabIndex = 18;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "导入DBC";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(button_ExportExcelDbc);
-            groupBox2.Controls.Add(Btn_ExportDbc);
-            groupBox2.Controls.Add(Btn_ExportXml);
-            groupBox2.Controls.Add(Btn_GntCanCode);
-            groupBox2.Location = new System.Drawing.Point(255, 29);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(203, 141);
-            groupBox2.TabIndex = 19;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "导出数据";
-            // 
-            // button_ExportExcelDbc
-            // 
-            button_ExportExcelDbc.Location = new System.Drawing.Point(93, 23);
-            button_ExportExcelDbc.Margin = new System.Windows.Forms.Padding(4);
-            button_ExportExcelDbc.Name = "button_ExportExcelDbc";
-            button_ExportExcelDbc.Size = new System.Drawing.Size(78, 29);
-            button_ExportExcelDbc.TabIndex = 17;
-            button_ExportExcelDbc.Text = "导出Excel";
-            button_ExportExcelDbc.UseVisualStyleBackColor = true;
-            button_ExportExcelDbc.Click += button_ExportExcelDbc_Click;
+            label_ExportHint.AutoSize = true;
+            label_ExportHint.Dock = System.Windows.Forms.DockStyle.Top;
+            label_ExportHint.ForeColor = System.Drawing.Color.FromArgb(107, 114, 128);
+            label_ExportHint.Location = new System.Drawing.Point(12, 24);
+            label_ExportHint.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            label_ExportHint.Name = "label_ExportHint";
+            label_ExportHint.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            label_ExportHint.Size = new System.Drawing.Size(308, 25);
+            label_ExportHint.TabIndex = 0;
+            label_ExportHint.Text = "请先通过顶部工具栏导入 DBC，再执行以下导出操作。";
             // 
             // UI_DbcDataManager
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            BackColor = System.Drawing.Color.White;
+            Controls.Add(panel_ToolsRoot);
             Name = "UI_DbcDataManager";
             Size = new System.Drawing.Size(1000, 600);
-            groupBox1.ResumeLayout(false);
+            panel_ToolsRoot.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            flowLayoutPanel_Export.ResumeLayout(false);
+            flowLayoutPanel_Export.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button_ImportTxtDbc;
+        private System.Windows.Forms.Panel panel_ToolsRoot;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Export;
+        private System.Windows.Forms.Label label_ExportHint;
         private System.Windows.Forms.Button Btn_ExportXml;
         private System.Windows.Forms.Button Btn_GntCanCode;
         private System.Windows.Forms.Button Btn_ExportDbc;
-        private System.Windows.Forms.Button Btn_ImpExcelDBC;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_ExportExcelDbc;
     }
 }

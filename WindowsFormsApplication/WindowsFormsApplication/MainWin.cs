@@ -29,6 +29,20 @@ namespace WindowsFormsApplication
 
             //初始化APP数据
             CanDbcDataManager canDbcDataManager = new CanDbcDataManager();
+            UpdateDbcLoadStateIndicator();
+        }
+
+        private void UpdateDbcLoadStateIndicator()
+        {
+            bool loaded = CanDbcDataManager.GetInstance()?.isLoadCfg == true;
+            string stateText = loaded ? "已加载 DBC" : "未加载 DBC";
+            Color stateColor = loaded ? Color.FromArgb(34, 139, 84) : Color.FromArgb(107, 114, 128);
+
+            label_DbcLoadState.Text = stateText;
+            label_DbcLoadState.ForeColor = stateColor;
+            panel_DbcStatusDot.BackColor = stateColor;
+            toolStripStatusLabel_DBCState.Text = "{" + stateText + "}";
+            toolStripStatusLabel_DBCState.ForeColor = stateColor;
         }
 
         /// <summary>
@@ -45,16 +59,7 @@ namespace WindowsFormsApplication
                 //更新当前页签名称
                 statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurPageName.Text = "{" + tabControl_AllFunsSplit.SelectedTab.Text + "}"));
                 //显示DBC状态
-                if (CanDbcDataManager.GetInstance().isLoadCfg == true)
-                {
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.Text = "{已加载DBC}"));
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.ForeColor = Color.Green));
-                }
-                else
-                {
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.Text = "{未加载DBC}"));
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DBCState.ForeColor = Color.Gray));
-                }
+                statusStrip.Invoke(new Action(UpdateDbcLoadStateIndicator));
                 //显示设备连接状态
                 if (DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
                 {
@@ -80,14 +85,40 @@ namespace WindowsFormsApplication
 
         }
 
+        private void Btn_ImpExcelDBC_Click(object sender, EventArgs e)
+        {
+            CanDbcDataManager.GetInstance().LoadCanMatrixFromExcel();
+            UpdateDbcLoadStateIndicator();
+            RefreshComUpperAfterDbcChanged();
+        }
+
+        private void button_ImportTxtDbc_Click(object sender, EventArgs e)
+        {
+            CanDbcDataManager.GetInstance().LoadCanMatrixFromDBC();
+            UpdateDbcLoadStateIndicator();
+            RefreshComUpperAfterDbcChanged();
+        }
+
+        private void RefreshComUpperAfterDbcChanged()
+        {
+            uI_ComUpper.InvalidateMsgAreas();
+            uI_CanMatrix.InvalidateMatrixCache();
+            if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_ComUpper")
+            {
+                uI_ComUpper.EnsureMsgAreasInitialized();
+            }
+            else if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_CanMatrix")
+            {
+                uI_CanMatrix.UpdateMsgTableView();
+            }
+        }
+
         private void tabControl_AllFunsSplit_SelectedIndexChanged(object sender, EventArgs e)
         {
             //如果切换页面到上位机页面，初始化窗口UI
             if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_ComUpper")
             {
-                uI_ComUpper.InitRecvMsgArea();
-                uI_ComUpper.InitSendMsgArea();
-                uI_ComUpper.InitCycleSendMsgList();
+                uI_ComUpper.EnsureMsgAreasInitialized();
             }
 
             //如果切换页面到CAN通信矩阵显示页面，显示通信协议

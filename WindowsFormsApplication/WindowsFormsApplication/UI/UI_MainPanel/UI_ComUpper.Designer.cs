@@ -37,10 +37,10 @@
             label1 = new System.Windows.Forms.Label();
             comboBox_CanDeviceType = new System.Windows.Forms.ComboBox();
             Btn_ConnectDevice = new System.Windows.Forms.Button();
-            tableLayoutPanel_RecvMsgArea = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel_RecvMsgArea = new System.Windows.Forms.Panel();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
-            tableLayoutPanel_SendMsgArea = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel_SendMsgArea = new System.Windows.Forms.Panel();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -60,7 +60,7 @@
             groupBox2.Location = new System.Drawing.Point(0, 0);
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            groupBox2.Padding = new System.Windows.Forms.Padding(12, 8, 12, 12);
             groupBox2.Size = new System.Drawing.Size(1000, 95);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
@@ -146,12 +146,10 @@
             Btn_ConnectDevice.UseVisualStyleBackColor = true;
             Btn_ConnectDevice.Click += Btn_ConnectDevice_Click;
             // 
-            // tableLayoutPanel_RecvMsgArea
+            // panel_RecvMsgArea
             // 
             tableLayoutPanel_RecvMsgArea.AutoScroll = true;
-            tableLayoutPanel_RecvMsgArea.BackColor = System.Drawing.SystemColors.Control;
-            tableLayoutPanel_RecvMsgArea.ColumnCount = 1;
-            tableLayoutPanel_RecvMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel_RecvMsgArea.BackColor = System.Drawing.Color.White;
             tableLayoutPanel_RecvMsgArea.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel_RecvMsgArea.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel_RecvMsgArea.Name = "tableLayoutPanel_RecvMsgArea";
@@ -163,7 +161,10 @@
             groupBox1.Controls.Add(tableLayoutPanel_RecvMsgArea);
             groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             groupBox1.Location = new System.Drawing.Point(0, 95);
+            groupBox1.MinimumSize = new System.Drawing.Size(220, 0);
             groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(8, 4, 8, 8);
+            groupBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             groupBox1.Size = new System.Drawing.Size(500, 505);
             groupBox1.TabIndex = 10;
             groupBox1.TabStop = false;
@@ -174,18 +175,19 @@
             groupBox3.Controls.Add(tableLayoutPanel_SendMsgArea);
             groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
             groupBox3.Location = new System.Drawing.Point(500, 95);
+            groupBox3.MinimumSize = new System.Drawing.Size(220, 0);
             groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(8, 4, 8, 8);
+            groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             groupBox3.Size = new System.Drawing.Size(500, 505);
             groupBox3.TabIndex = 11;
             groupBox3.TabStop = false;
             groupBox3.Text = "报文发送";
             // 
-            // tableLayoutPanel_SendMsgArea
+            // panel_SendMsgArea
             // 
             tableLayoutPanel_SendMsgArea.AutoScroll = true;
-            tableLayoutPanel_SendMsgArea.BackColor = System.Drawing.SystemColors.Control;
-            tableLayoutPanel_SendMsgArea.ColumnCount = 1;
-            tableLayoutPanel_SendMsgArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel_SendMsgArea.BackColor = System.Drawing.Color.White;
             tableLayoutPanel_SendMsgArea.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel_SendMsgArea.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel_SendMsgArea.Name = "tableLayoutPanel_SendMsgArea";
@@ -196,6 +198,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
             Controls.Add(groupBox3);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
@@ -217,10 +220,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_CanDeviceType;
         private System.Windows.Forms.Button Btn_ConnectDevice;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_RecvMsgArea;
+        private System.Windows.Forms.Panel tableLayoutPanel_RecvMsgArea;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_SendMsgArea;
+        private System.Windows.Forms.Panel tableLayoutPanel_SendMsgArea;
         private System.Windows.Forms.Button Btn_ModelView;
         private System.Windows.Forms.Button Btn_DiagView;
     }

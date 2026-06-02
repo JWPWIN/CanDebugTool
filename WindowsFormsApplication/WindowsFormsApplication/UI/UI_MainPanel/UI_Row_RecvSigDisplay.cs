@@ -1,54 +1,187 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication.UI
 {
     public partial class UI_Row_RecvSigDisplay : UserControl
     {
-        CanSignal canSignalObj = new CanSignal();//当前信号属性
+        private int _sigNameWidth = 150;
+        private int _sigValueWidth = 60;
+        private int _sigDescWidth = 200;
 
-        bool isCanfd = false;//是否为canfd报文
+        private readonly Label label_SigName;
+        private readonly Label label_SigValue;
+        private readonly Label label_SigDesc;
+        private readonly Panel separatorNameValue;
+        private readonly Panel separatorValueDesc;
 
-        uint curSignalRawValue = 0;//当前信号值（总线原始值）
+        CanSignal canSignalObj = new CanSignal();
+        bool isCanfd = false;
+        uint curSignalRawValue = 0;
 
         public UI_Row_RecvSigDisplay()
         {
             InitializeComponent();
-            //全部填充父控件
-            this.Dock = DockStyle.Fill;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            Margin = Padding.Empty;
+            Height = 32;
+            Width = 480;
+            BackColor = SigRowVisualTheme.FrameWhite;
+
+            label_SigName = CreateNameLabel();
+            label_SigValue = CreateValueLabel();
+            label_SigDesc = CreateDescLabel();
+            separatorNameValue = CreateVerticalSeparator();
+            separatorValueDesc = CreateVerticalSeparator();
+
+            Controls.Add(label_SigName);
+            Controls.Add(label_SigValue);
+            Controls.Add(label_SigDesc);
+            Controls.Add(separatorNameValue);
+            Controls.Add(separatorValueDesc);
+            LayoutRowControls();
         }
 
-        public void InitSigInfo(CanSignal canSignal, bool isCanfd) 
+        private static Panel CreateVerticalSeparator()
+        {
+            return new Panel
+            {
+                BackColor = SigRowVisualTheme.ColumnSeparator,
+                Width = 1
+            };
+        }
+
+        private static Label CreateNameLabel()
+        {
+            return new Label
+            {
+                TextAlign = ContentAlignment.MiddleLeft,
+                AutoEllipsis = false,
+                Padding = new Padding(10, 0, 6, 0),
+                ForeColor = SigRowVisualTheme.SigNameColor
+            };
+        }
+
+        private static Label CreateValueLabel()
+        {
+            return new Label
+            {
+                TextAlign = ContentAlignment.MiddleLeft,
+                AutoEllipsis = false,
+                Padding = new Padding(8, 0, 6, 0),
+                ForeColor = SigRowVisualTheme.SigValueTextColor,
+                BackColor = SigRowVisualTheme.ValueBackOnWhiteFrame
+            };
+        }
+
+        private static Label CreateDescLabel()
+        {
+            return new Label
+            {
+                TextAlign = ContentAlignment.MiddleLeft,
+                AutoEllipsis = false,
+                Padding = new Padding(8, 0, 8, 0),
+                ForeColor = SigRowVisualTheme.SigDescColor
+            };
+        }
+
+        private void LayoutRowControls()
+        {
+            int rowHeight = Height;
+            label_SigName.SetBounds(0, 0, _sigNameWidth, rowHeight);
+            label_SigValue.SetBounds(_sigNameWidth, 0, _sigValueWidth, rowHeight);
+            label_SigDesc.SetBounds(_sigNameWidth + _sigValueWidth + 2, 0, _sigDescWidth, rowHeight);
+            separatorNameValue.SetBounds(_sigNameWidth, 0, 1, rowHeight);
+            separatorValueDesc.SetBounds(_sigNameWidth + _sigValueWidth + 1, 0, 1, rowHeight);
+            separatorNameValue.BringToFront();
+            separatorValueDesc.BringToFront();
+        }
+
+        public void ApplyColumnLayout(int sigNameWidth, int sigValueWidth, int sigDescWidth)
+        {
+            _sigNameWidth = sigNameWidth;
+            _sigValueWidth = sigValueWidth;
+            _sigDescWidth = sigDescWidth;
+            Width = sigNameWidth + sigValueWidth + sigDescWidth + 2;
+            RefreshLayout();
+        }
+
+        public void ApplyFrameStyle(Color frameBackColor)
+        {
+            BackColor = frameBackColor;
+            label_SigName.BackColor = frameBackColor;
+            label_SigDesc.BackColor = frameBackColor;
+
+            bool isBlueFrame = frameBackColor.R < 250;
+            label_SigValue.BackColor = isBlueFrame
+                ? SigRowVisualTheme.ValueBackOnBlueFrame
+                : SigRowVisualTheme.ValueBackOnWhiteFrame;
+        }
+
+        public string GetSigNameText() => label_SigName.Text;
+
+        public string GetSigDescText() => label_SigDesc.Text;
+
+        public string GetMaxValueDisplayText()
+        {
+            Font font = label_SigValue.Font;
+            string widestText = "888888.88";
+            int widestWidth = TextRenderer.MeasureText(widestText, font).Width;
+
+            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
+            {
+                foreach (var item in canSignalObj.sigValueTable)
+                {
+                    string enumText = item.Value.ToString();
+                    int textWidth = TextRenderer.MeasureText(enumText, font).Width;
+                    if (textWidth > widestWidth)
+                    {
+                        widestWidth = textWidth;
+                        widestText = enumText;
+                    }
+                }
+            }
+
+            return widestText;
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            if (label_SigName is not null)
+            {
+                LayoutRowControls();
+            }
+        }
+
+        public void RefreshLayout()
+        {
+            LayoutRowControls();
+        }
+
+        public void InitSigInfo(CanSignal canSignal, bool isCanfd)
         {
             canSignalObj = canSignal;
             this.isCanfd = isCanfd;
-
             label_SigName.Text = canSignalObj.sigName;
             label_SigDesc.Text = canSignalObj.sigDesc;
+            label_SigValue.Text = string.Empty;
+            label_SigName.Font = new Font(Font, FontStyle.Bold);
+            RefreshLayout();
         }
 
         public void UpdateSigValue(Canfd_Frame_Com msgData)
         {
-            //从报文中指定位置获取信号数据
             CAN_SIG_FORMAT sigFormat = (canSignalObj.sigOrderType == 0) ? CAN_SIG_FORMAT.MOTOROLA_LSB : CAN_SIG_FORMAT.INTEL_STANDARD;
-            if(isCanfd)
+            if (isCanfd)
                 curSignalRawValue = CanBitLibTool.CAN_get_frame_dataFD(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
             else
                 curSignalRawValue = CanBitLibTool.CAN_get_frame_data(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
 
-            //计算实际物理值,仅保留显示小数点后2位
             double sigRealPhysicalValue = Math.Round(curSignalRawValue * canSignalObj.sigFactor + canSignalObj.sigOffset, 2);
-
-            //判断是否需要显示信号枚举值
             string valueStr = sigRealPhysicalValue.ToString();
-            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0) )
+            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
             {
                 foreach (var item in canSignalObj.sigValueTable)
                 {
@@ -60,7 +193,10 @@ namespace WindowsFormsApplication.UI
                 }
             }
 
-            label_SigValue.Invoke(new Action(() => label_SigValue.Text = valueStr));
+            if (label_SigValue.InvokeRequired)
+                label_SigValue.Invoke(new Action(() => label_SigValue.Text = valueStr));
+            else
+                label_SigValue.Text = valueStr;
         }
     }
 }

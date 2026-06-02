@@ -17,11 +17,6 @@ namespace WindowsFormsApplication.UI
             InitializeComponent();
         }
 
-        private void Btn_ImpExcelDBC_Click(object sender, EventArgs e)
-        {
-            CanDbcDataManager.GetInstance().LoadCanMatrixFromExcel();
-        }
-
         private void Btn_ExportDbc_Click(object sender, EventArgs e)
         {
             string dbc = GenerateDBC.GenerateDbcForCanMatrix();
@@ -120,9 +115,6 @@ namespace WindowsFormsApplication.UI
 
         }
 
-        private void button_ImportTxtDbc_Click(object sender, EventArgs e)
-        {
-            CanDbcDataManager.GetInstance().LoadCanMatrixFromDBC();
-        }
+
     }
 }
