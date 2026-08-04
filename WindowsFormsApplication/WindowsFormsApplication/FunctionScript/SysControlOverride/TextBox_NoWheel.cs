@@ -1,11 +1,11 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication.FunctionScript.SysControlOverride
 {
     /// <summary>
-    /// 禁用 ComboBox 自身滚轮改选项，并把滚轮交给外层 AutoScroll 面板滚动视图。
+    /// 数值 TextBox 获得焦点时，把滚轮交给外层 AutoScroll 面板，避免卡在中间列无法滚动。
     /// </summary>
-    public class ComboBox_NoWheel : ComboBox
+    public class TextBox_NoWheel : TextBox
     {
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {

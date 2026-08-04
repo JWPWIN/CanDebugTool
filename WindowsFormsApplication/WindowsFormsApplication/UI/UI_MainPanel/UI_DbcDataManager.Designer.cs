@@ -147,7 +147,7 @@
             label_ExportHint.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
             label_ExportHint.Size = new System.Drawing.Size(308, 25);
             label_ExportHint.TabIndex = 0;
-            label_ExportHint.Text = "请先通过顶部工具栏导入 DBC，再执行以下导出操作。";
+            label_ExportHint.Text = "请先点击顶部文件夹图标导入 Excel 通信矩阵，再执行以下导出操作。";
             // 
             // UI_DbcDataManager
             // 

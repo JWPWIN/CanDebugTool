@@ -25,7 +25,7 @@ namespace WindowsFormsApplication.UI
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             Margin = Padding.Empty;
-            Height = 32;
+            Height = 24;
             Width = 480;
             BackColor = SigRowVisualTheme.FrameWhite;
 
@@ -58,7 +58,7 @@ namespace WindowsFormsApplication.UI
             {
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = false,
-                Padding = new Padding(10, 0, 6, 0),
+                Padding = new Padding(8, 0, 4, 0),
                 ForeColor = SigRowVisualTheme.SigNameColor
             };
         }
@@ -69,7 +69,7 @@ namespace WindowsFormsApplication.UI
             {
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = false,
-                Padding = new Padding(8, 0, 6, 0),
+                Padding = new Padding(6, 0, 4, 0),
                 ForeColor = SigRowVisualTheme.SigValueTextColor,
                 BackColor = SigRowVisualTheme.ValueBackOnWhiteFrame
             };
@@ -81,7 +81,7 @@ namespace WindowsFormsApplication.UI
             {
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = false,
-                Padding = new Padding(8, 0, 8, 0),
+                Padding = new Padding(6, 0, 6, 0),
                 ForeColor = SigRowVisualTheme.SigDescColor
             };
         }
@@ -113,8 +113,8 @@ namespace WindowsFormsApplication.UI
             label_SigName.BackColor = frameBackColor;
             label_SigDesc.BackColor = frameBackColor;
 
-            bool isBlueFrame = frameBackColor.R < 250;
-            label_SigValue.BackColor = isBlueFrame
+            bool isAltFrame = frameBackColor == SigRowVisualTheme.FrameBlue;
+            label_SigValue.BackColor = isAltFrame
                 ? SigRowVisualTheme.ValueBackOnBlueFrame
                 : SigRowVisualTheme.ValueBackOnWhiteFrame;
         }
@@ -125,39 +125,42 @@ namespace WindowsFormsApplication.UI
 
         public string GetMaxValueDisplayText()
         {
-            Font font = label_SigValue.Font;
             string widestText = "888888.88";
-            int widestWidth = TextRenderer.MeasureText(widestText, font).Width;
-
-            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
+            if (canSignalObj.sigValueTable is { Count: > 0 })
             {
                 foreach (var item in canSignalObj.sigValueTable)
                 {
-                    string enumText = item.Value.ToString();
-                    int textWidth = TextRenderer.MeasureText(enumText, font).Width;
-                    if (textWidth > widestWidth)
-                    {
-                        widestWidth = textWidth;
+                    string enumText = item.Value?.ToString() ?? string.Empty;
+                    if (enumText.Length > widestText.Length)
                         widestText = enumText;
-                    }
                 }
             }
-
             return widestText;
         }
+
+        private Size _lastLaidOutSize;
 
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            if (label_SigName is not null)
-            {
-                LayoutRowControls();
-            }
+            if (label_SigName is null || Size == _lastLaidOutSize)
+                return;
+            _lastLaidOutSize = Size;
+            LayoutRowControls();
         }
 
         public void RefreshLayout()
         {
+            _lastLaidOutSize = Size;
             LayoutRowControls();
+        }
+
+        private static Font _sharedBoldFont;
+
+        private static Font SharedBoldFont(Control owner)
+        {
+            _sharedBoldFont ??= new Font(owner.Font, FontStyle.Bold);
+            return _sharedBoldFont;
         }
 
         public void InitSigInfo(CanSignal canSignal, bool isCanfd)
@@ -167,7 +170,7 @@ namespace WindowsFormsApplication.UI
             label_SigName.Text = canSignalObj.sigName;
             label_SigDesc.Text = canSignalObj.sigDesc;
             label_SigValue.Text = string.Empty;
-            label_SigName.Font = new Font(Font, FontStyle.Bold);
+            label_SigName.Font = SharedBoldFont(this);
             RefreshLayout();
         }
 

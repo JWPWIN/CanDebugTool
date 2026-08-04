@@ -28,7 +28,7 @@ namespace WindowsFormsApplication.UI
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             Margin = Padding.Empty;
-            Height = 32;
+            Height = 24;
             Width = 480;
             BackColor = SigRowVisualTheme.FrameWhite;
 
@@ -58,7 +58,7 @@ namespace WindowsFormsApplication.UI
             {
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = false,
-                Padding = new Padding(10, 0, 6, 0),
+                Padding = new Padding(8, 0, 4, 0),
                 ForeColor = SigRowVisualTheme.SigNameColor
             };
         }
@@ -69,7 +69,7 @@ namespace WindowsFormsApplication.UI
             {
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = false,
-                Padding = new Padding(8, 0, 8, 0),
+                Padding = new Padding(6, 0, 6, 0),
                 ForeColor = SigRowVisualTheme.SigDescColor
             };
         }
@@ -111,8 +111,8 @@ namespace WindowsFormsApplication.UI
         {
             if (valueEditor is null) return;
 
-            bool isBlueFrame = _frameBackColor.R < 250;
-            Color editorBack = isBlueFrame
+            bool isAltFrame = _frameBackColor == SigRowVisualTheme.FrameBlue;
+            Color editorBack = isAltFrame
                 ? SigRowVisualTheme.ValueBackOnBlueFrame
                 : SigRowVisualTheme.ValueBackOnWhiteFrame;
 
@@ -126,94 +126,101 @@ namespace WindowsFormsApplication.UI
 
         public string GetMaxValueEditorText()
         {
-            Font font = label_SigName.Font;
             string widestText = "888888";
-            int widestWidth = TextRenderer.MeasureText(widestText, font).Width;
-
-            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
+            if (canSignalObj.sigValueTable is { Count: > 0 })
             {
                 foreach (var item in canSignalObj.sigValueTable)
                 {
                     string enumText = item.Key.ToString() + ":" + item.Value;
-                    int textWidth = TextRenderer.MeasureText(enumText, font).Width;
-                    if (textWidth > widestWidth)
-                    {
-                        widestWidth = textWidth;
+                    if (enumText.Length > widestText.Length)
                         widestText = enumText;
-                    }
                 }
             }
-
             return widestText;
         }
+
+        private Size _lastLaidOutSize;
 
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            if (label_SigName is not null)
-            {
-                LayoutRowControls();
-            }
+            if (label_SigName is null || Size == _lastLaidOutSize)
+                return;
+            _lastLaidOutSize = Size;
+            LayoutRowControls();
         }
 
         public void RefreshLayout()
         {
+            _lastLaidOutSize = Size;
             LayoutRowControls();
+        }
+
+        private static Font _sharedBoldFont;
+
+        private static Font SharedBoldFont(Control owner)
+        {
+            _sharedBoldFont ??= new Font(owner.Font, FontStyle.Bold);
+            return _sharedBoldFont;
         }
 
         public void InitSigInfo(CanSignal canSignal, bool isCanfd)
         {
-            canSignalObj = canSignal;
-            this.isCanfd = isCanfd;
-            label_SigName.Text = canSignalObj.sigName;
-            label_SigDesc.Text = canSignalObj.sigDesc;
-            label_SigName.Font = new Font(Font, FontStyle.Bold);
-
-            if (valueEditor is not null)
+            SuspendLayout();
+            try
             {
-                Controls.Remove(valueEditor);
-                valueEditor.Dispose();
-                valueEditor = null;
-            }
+                canSignalObj = canSignal;
+                this.isCanfd = isCanfd;
+                label_SigName.Text = canSignalObj.sigName;
+                label_SigDesc.Text = canSignalObj.sigDesc;
+                label_SigName.Font = SharedBoldFont(this);
 
-            if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
-            {
-                ComboBox sendValueUI_ComboBox = new ComboBox_NoWheel
+                if (valueEditor is not null)
                 {
-                    DropDownStyle = ComboBoxStyle.DropDownList,
-                    FlatStyle = FlatStyle.Flat,
-                    IntegralHeight = false
-                };
-                foreach (var item in canSignalObj.sigValueTable)
-                {
-                    sendValueUI_ComboBox.Items.Add(item.Key.ToString() + ":" + item.Value);
+                    Controls.Remove(valueEditor);
+                    valueEditor.Dispose();
+                    valueEditor = null;
                 }
-                if (sendValueUI_ComboBox.Items.Count > 0)
-                    sendValueUI_ComboBox.SelectedIndex = 0;
-                sendValueUI_ComboBox.SelectedIndexChanged +=
-                    (s, e) => { curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0"; };
-                valueEditor = sendValueUI_ComboBox;
-            }
-            else
-            {
-                TextBox sendValueUI_TextBox = new TextBox
-                {
-                    BorderStyle = BorderStyle.FixedSingle,
-                    Text = "0"
-                };
-                sendValueUI_TextBox.TextChanged +=
-                    (s, e) => { curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0"; };
-                valueEditor = sendValueUI_TextBox;
-                curSignalPhyStr = "0";
-            }
 
-            Controls.Add(valueEditor);
-            Controls.Add(label_SigName);
-            Controls.Add(label_SigDesc);
-            Controls.Add(separatorNameValue);
-            Controls.Add(separatorValueDesc);
-            ApplyValueEditorStyle();
-            RefreshLayout();
+                if ((canSignalObj.sigValueTable is not null) && (canSignalObj.sigValueTable.Count > 0))
+                {
+                    ComboBox sendValueUI_ComboBox = new ComboBox_NoWheel
+                    {
+                        DropDownStyle = ComboBoxStyle.DropDownList,
+                        FlatStyle = FlatStyle.Flat,
+                        IntegralHeight = false
+                    };
+                    foreach (var item in canSignalObj.sigValueTable)
+                    {
+                        sendValueUI_ComboBox.Items.Add(item.Key.ToString() + ":" + item.Value);
+                    }
+                    if (sendValueUI_ComboBox.Items.Count > 0)
+                        sendValueUI_ComboBox.SelectedIndex = 0;
+                    sendValueUI_ComboBox.SelectedIndexChanged +=
+                        (s, e) => { curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0"; };
+                    valueEditor = sendValueUI_ComboBox;
+                }
+                else
+                {
+                    TextBox sendValueUI_TextBox = new TextBox_NoWheel
+                    {
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Text = "0"
+                    };
+                    sendValueUI_TextBox.TextChanged +=
+                        (s, e) => { curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0"; };
+                    valueEditor = sendValueUI_TextBox;
+                    curSignalPhyStr = "0";
+                }
+
+                Controls.Add(valueEditor);
+                ApplyValueEditorStyle();
+                RefreshLayout();
+            }
+            finally
+            {
+                ResumeLayout(false);
+            }
         }
 
         public uint GetSigValue()

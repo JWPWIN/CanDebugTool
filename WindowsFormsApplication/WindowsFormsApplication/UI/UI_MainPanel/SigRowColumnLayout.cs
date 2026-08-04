@@ -25,29 +25,43 @@ namespace WindowsFormsApplication.UI
             const int minNameWidth = 80;
             const int minValueWidth = 60;
             const int minDescWidth = 100;
+            const int maxNameWidth = 280;
+            const int maxValueWidth = 220;
+            const int maxDescWidth = 420;
 
             int nameWidth = minNameWidth;
             int valueWidth = minValueWidth;
             int descWidth = minDescWidth;
             int maxTitleWidth = 0;
 
+            // 预估字符宽，避免对每个信号反复 TextRenderer.MeasureText
+            float charWidth = Math.Max(6f, TextRenderer.MeasureText("测W8", font).Width / 3f);
+
             foreach (Control control in rowControls)
             {
-                if (control is Label titleLabel)
+                if (control is Label titleLabel && control is not UI_Row_RecvSigDisplay && control is not UI_Row_SendSigDisplay)
                 {
-                    maxTitleWidth = Math.Max(maxTitleWidth, MeasureTextWidth(titleLabel.Text, font) + columnPadding);
+                    maxTitleWidth = Math.Max(maxTitleWidth, EstimateWidth(titleLabel.Text, charWidth) + columnPadding);
                     continue;
                 }
 
                 if (control is UI_Row_RecvSigDisplay recvRow)
                 {
-                    AccumulateRecvWidths(recvRow, font, columnPadding, ref nameWidth, ref valueWidth, ref descWidth);
+                    nameWidth = Math.Max(nameWidth, EstimateWidth(recvRow.GetSigNameText(), charWidth) + columnPadding);
+                    descWidth = Math.Max(descWidth, EstimateWidth(recvRow.GetSigDescText(), charWidth) + columnPadding);
+                    valueWidth = Math.Max(valueWidth, EstimateWidth(recvRow.GetMaxValueDisplayText(), charWidth) + columnPadding);
                 }
                 else if (control is UI_Row_SendSigDisplay sendRow)
                 {
-                    AccumulateSendWidths(sendRow, font, columnPadding, ref nameWidth, ref valueWidth, ref descWidth);
+                    nameWidth = Math.Max(nameWidth, EstimateWidth(sendRow.GetSigNameText(), charWidth) + columnPadding);
+                    descWidth = Math.Max(descWidth, EstimateWidth(sendRow.GetSigDescText(), charWidth) + columnPadding);
+                    valueWidth = Math.Max(valueWidth, EstimateWidth(sendRow.GetMaxValueEditorText(), charWidth) + columnPadding);
                 }
             }
+
+            nameWidth = Math.Min(Math.Max(nameWidth, minNameWidth), maxNameWidth);
+            valueWidth = Math.Min(Math.Max(valueWidth, minValueWidth), maxValueWidth);
+            descWidth = Math.Min(Math.Max(descWidth, minDescWidth), maxDescWidth);
 
             var layout = new SigRowColumnLayout(nameWidth, valueWidth, descWidth);
             int contentWidth = Math.Max(layout.TotalWidth, maxTitleWidth);
@@ -62,36 +76,14 @@ namespace WindowsFormsApplication.UI
             return layout;
         }
 
-        private static void AccumulateRecvWidths(
-            UI_Row_RecvSigDisplay recvRow,
-            Font font,
-            int columnPadding,
-            ref int nameWidth,
-            ref int valueWidth,
-            ref int descWidth)
-        {
-            nameWidth = Math.Max(nameWidth, MeasureTextWidth(recvRow.GetSigNameText(), font) + columnPadding);
-            descWidth = Math.Max(descWidth, MeasureTextWidth(recvRow.GetSigDescText(), font) + columnPadding);
-            valueWidth = Math.Max(valueWidth, MeasureTextWidth(recvRow.GetMaxValueDisplayText(), font) + columnPadding);
-        }
-
-        private static void AccumulateSendWidths(
-            UI_Row_SendSigDisplay sendRow,
-            Font font,
-            int columnPadding,
-            ref int nameWidth,
-            ref int valueWidth,
-            ref int descWidth)
-        {
-            nameWidth = Math.Max(nameWidth, MeasureTextWidth(sendRow.GetSigNameText(), font) + columnPadding);
-            descWidth = Math.Max(descWidth, MeasureTextWidth(sendRow.GetSigDescText(), font) + columnPadding);
-            valueWidth = Math.Max(valueWidth, MeasureTextWidth(sendRow.GetMaxValueEditorText(), font) + columnPadding);
-        }
-
-        private static int MeasureTextWidth(string text, Font font)
+        private static int EstimateWidth(string text, float charWidth)
         {
             if (string.IsNullOrEmpty(text)) return 0;
-            return TextRenderer.MeasureText(text, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.NoPadding | TextFormatFlags.SingleLine).Width;
+            // CJK 按满宽，ASCII 按半宽近似
+            float units = 0f;
+            foreach (char c in text)
+                units += c > 0x7F ? 1f : 0.55f;
+            return (int)Math.Ceiling(units * charWidth) + 8;
         }
     }
 }
