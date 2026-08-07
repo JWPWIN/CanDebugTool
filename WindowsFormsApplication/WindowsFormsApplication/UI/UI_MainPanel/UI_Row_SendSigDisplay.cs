@@ -197,14 +197,16 @@ namespace WindowsFormsApplication.UI
                     {
                         sendValueUI_ComboBox.Items.Add(item.Key.ToString() + ":" + item.Value);
                     }
-                    if (sendValueUI_ComboBox.Items.Count > 0)
-                        sendValueUI_ComboBox.SelectedIndex = 0;
                     sendValueUI_ComboBox.SelectedIndexChanged +=
                         (s, e) =>
                         {
                             curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0";
                             ValueEdited?.Invoke();
                         };
+                    if (sendValueUI_ComboBox.Items.Count > 0)
+                        sendValueUI_ComboBox.SelectedIndex = 0;
+                    else
+                        curSignalPhyStr = "0";
                     valueEditor = sendValueUI_ComboBox;
                 }
                 else

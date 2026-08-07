@@ -59,6 +59,12 @@ public class DeviceInterfaceMng
     //周期发送报文列表 <报文ID,周期发送报文数据>
     private Dictionary<uint, CycleSend_Canfd_Frame> task_CycleMsgSendDict = new Dictionary<uint, CycleSend_Canfd_Frame>();
 
+    /// <summary>
+    /// 周期载荷是否已由 UI 线程完成至少一次填充。
+    /// 未就绪时不发送周期帧，避免发送区未建好时一直发全 0。
+    /// </summary>
+    public volatile bool CycleSendPayloadReady;
+
     public DeviceInterfaceMng()
     {
         if (instance == null)
@@ -211,11 +217,12 @@ public class DeviceInterfaceMng
     }
 
     /// <summary>
-    /// 清空周期发送表（换矩阵后重建前调用）。
+    /// 清空周期发送表（换矩阵 / 加载中调用）。同时清除载荷就绪标志。
     /// </summary>
     public void ClearCycleMsgSendDict()
     {
         task_CycleMsgSendDict.Clear();
+        CycleSendPayloadReady = false;
     }
 
     /// <summary>
@@ -381,6 +388,10 @@ public class DeviceInterfaceMng
         }
         else//无单帧报文发送，尝试发送周期报文
         {
+            // UI 尚未把信号值填入周期载荷时，不发周期帧（避免全 0）
+            if (!CycleSendPayloadReady || task_CycleMsgSendDict.Count == 0)
+                return;
+
             //检测满足发送周期时间的报文
             foreach (var item in task_CycleMsgSendDict)
             {
@@ -396,7 +407,6 @@ public class DeviceInterfaceMng
                     break;
                 }
             }
-            
         }
 
         if (canfd_Frame_Com.can_id == 0) return;//无报文数据发送，退出

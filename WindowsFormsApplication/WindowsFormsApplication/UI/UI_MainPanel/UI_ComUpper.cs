@@ -220,6 +220,12 @@ namespace WindowsFormsApplication.UI
         public void SetMatrixLoading(bool loading)
         {
             _matrixLoading = loading;
+            if (loading)
+            {
+                // 加载期间先停周期发送，避免旧/空载荷继续上总线
+                DeviceInterfaceMng.GetInstance()?.ClearCycleMsgSendDict();
+                _cycleSendDirty = true;
+            }
             UpdateAreaStateHints();
         }
 
@@ -388,6 +394,8 @@ namespace WindowsFormsApplication.UI
                 InitSendMsgArea();
                 InitCycleSendMsgList();
                 _builtForDbcFingerprint = dbcFingerprint;
+                // 发送行已就绪：立刻填周期载荷，不必等下一拍 UI 泵
+                UiPump_FlushCycleSendPayloadsIfReady();
             }
             finally
             {
@@ -406,12 +414,19 @@ namespace WindowsFormsApplication.UI
         }
 
         /// <summary>
-        /// DBC重新导入后调用，使下次进入通信上位机页时重建UI
+        /// DBC重新导入后调用，使下次进入通信上位机页时重建UI。
+        /// 立即清空信号行索引，避免 Flush 用旧行填新周期表。
         /// </summary>
         public void InvalidateMsgAreas()
         {
             _builtForDbcFingerprint = -1;
             _lastRecvFramesById.Clear();
+            sendMsgArea_sigRowUIDict.Clear();
+            recvMsgArea_sigRowUIDict.Clear();
+            var device = DeviceInterfaceMng.GetInstance();
+            if (device is not null)
+                device.CycleSendPayloadReady = false;
+            _cycleSendDirty = true;
         }
 
         /// <summary>
@@ -981,14 +996,31 @@ namespace WindowsFormsApplication.UI
         }
 
         /// <summary>
-        /// 会话线程：仅脏时重填周期发送载荷（读信号字符串缓存，不碰控件树布局）。
+        /// UI 泵：脏时从发送区信号行重填周期载荷（必须在 UI 线程调用）。
+        /// 发送行未就绪时保持 dirty、不清零载荷，避免会话线程一直发全 0。
         /// </summary>
-        public void Session_UpdateCycleSendMsgData()
+        public void UiPump_FlushCycleSendPayloadsIfReady()
         {
             if (!_cycleSendDirty) return;
-            if (DeviceInterfaceMng.GetInstance() is null) return;
-            Dictionary<uint, CycleSend_Canfd_Frame> cycSendMsgList = DeviceInterfaceMng.GetInstance().GetCycleMsgSendDict();
-            if (cycSendMsgList.Count == 0) return;
+            if (_matrixLoading) return;
+
+            var device = DeviceInterfaceMng.GetInstance();
+            if (device is null) return;
+
+            Dictionary<uint, CycleSend_Canfd_Frame> cycSendMsgList = device.GetCycleMsgSendDict();
+            if (cycSendMsgList.Count == 0)
+            {
+                _cycleSendDirty = false;
+                device.CycleSendPayloadReady = false;
+                return;
+            }
+
+            // 任一周期报文尚无对应发送行：等 EnsureMsgAreasInitialized / InitSendMsgArea 完成后再填
+            foreach (uint msgId in cycSendMsgList.Keys)
+            {
+                if (!sendMsgArea_sigRowUIDict.ContainsKey(msgId))
+                    return;
+            }
 
             _cycleSendDirty = false;
 
@@ -1006,15 +1038,18 @@ namespace WindowsFormsApplication.UI
                     Array.Clear(payload, 0, payload.Length);
                 }
 
-                if (sendMsgArea_sigRowUIDict.TryGetValue(item.Key, out List<UI_Row_SendSigDisplay> rows))
-                {
-                    for (int i = 0; i < rows.Count; i++)
-                        rows[i].SetSigValueToMsg(payload);
-                }
+                List<UI_Row_SendSigDisplay> rows = sendMsgArea_sigRowUIDict[item.Key];
+                for (int i = 0; i < rows.Count; i++)
+                    rows[i].SetSigValueToMsg(payload);
 
                 cycSendMsgList[item.Key] = sendData;
             }
+
+            device.CycleSendPayloadReady = true;
         }
+
+        /// <summary>兼容旧入口；请改用 <see cref="UiPump_FlushCycleSendPayloadsIfReady"/>。</summary>
+        public void Session_UpdateCycleSendMsgData() => UiPump_FlushCycleSendPayloadsIfReady();
 
         /// <summary>
         /// UI 泵：拉取会话接收快照，更新模型视图与接收区显示（必须在 UI 线程调用）。

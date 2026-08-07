@@ -49,12 +49,11 @@ namespace WindowsFormsApplication
             EnableSmoothResize();
             UpdateDbcLoadStateIndicator();
 
-            // 会话线程：只做收发 + 周期载荷填充
+            // 会话线程：只做设备收发（周期载荷由 UI 泵填充）
             mainLoopThread = new LongRunningThreadService();
-            mainLoopThread.OnSession1ms = () => uI_ComUpper.Session_UpdateCycleSendMsgData();
             mainLoopThread.Start();
 
-            // UI 线程定时泵：接收显示 / FSM；状态栏降频
+            // UI 线程定时泵：周期载荷 / 接收显示 / FSM；状态栏降频
             _uiSessionTimer = new Timer { Interval = UiSessionPumpIntervalMs };
             _uiSessionTimer.Tick += UiSessionTimer_Tick;
             _uiSessionTimer.Start();
@@ -66,6 +65,7 @@ namespace WindowsFormsApplication
             if (_inSizeMove)
                 return;
 
+            uI_ComUpper.UiPump_FlushCycleSendPayloadsIfReady();
             uI_ComUpper.UiPump_ApplyRecvAndModel();
 
             _statusStripAccumMs += UiSessionPumpIntervalMs;
@@ -314,14 +314,17 @@ namespace WindowsFormsApplication
             uI_ComUpper.SetMatrixLoading(true);
             try
             {
-                bool loaded = await Task.Run(() =>
-                {
-                    Dictionary<string, List<List<string>>> excelAllData = ExcelManager.ImportDataFromFile(filePath);
-                    if (excelAllData is null || excelAllData.Count == 0)
-                        return false;
-                    return CanDbcDataManager.GetInstance().LoadCanMatrixFromExcelData(excelAllData);
-                }).ConfigureAwait(true);
+                // 后台只做 Excel I/O；解析写入 canMsgSet 必须在 UI 线程，避免与 UI/会话并发读写
+                Dictionary<string, List<List<string>>> excelAllData = await Task.Run(() =>
+                    ExcelManager.ImportDataFromFile(filePath)).ConfigureAwait(true);
 
+                if (excelAllData is null || excelAllData.Count == 0)
+                {
+                    AppLogMng.DisplayLog("未选择有效矩阵或文件无数据", false);
+                    return;
+                }
+
+                bool loaded = CanDbcDataManager.GetInstance().LoadCanMatrixFromExcelData(excelAllData);
                 if (!loaded)
                 {
                     AppLogMng.DisplayLog("未选择有效矩阵或文件无数据", false);

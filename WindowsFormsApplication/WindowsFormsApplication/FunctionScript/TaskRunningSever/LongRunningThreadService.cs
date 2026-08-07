@@ -2,7 +2,7 @@
 using System.Threading;
 
 /// <summary>
-/// 通信会话后台调度：只做收发与周期载荷填充，不直接操作 UI。
+/// 通信会话后台调度：只做收发，不直接操作 UI。
 /// 热路径说明见同目录 HOTPATH.md。
 /// </summary>
 public class LongRunningThreadService
@@ -11,7 +11,7 @@ public class LongRunningThreadService
     private readonly ManualResetEvent _pauseEvent = new(false);
     private Thread _workerThread;
 
-    /// <summary>1ms 会话回调（例如周期发送载荷重填），在工作线程执行。</summary>
+    /// <summary>1ms 会话回调（可选扩展），在工作线程执行；勿在此读写 WinForms 控件。</summary>
     public Action OnSession1ms;
 
     ulong TaskTimer_10us;
@@ -133,7 +133,7 @@ public class LongRunningThreadService
     {
         // 设备缓冲 → 会话待处理快照区
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_GetRecvMsgFromDeviceBuf();
-        // 会话侧逻辑（周期发送填数等），不碰控件树
+        // 可选会话逻辑；周期载荷填充已改到 UI 泵，避免跨线程读发送控件
         OnSession1ms?.Invoke();
     }
 
