@@ -14,70 +14,67 @@ public class ExcelManager
         //construction
     }
 
-    static public Dictionary<string, List<List<string>>> ImportData()
+    /// <summary>弹出文件选择框，返回路径；取消则返回 null。</summary>
+    static public string PickExcelFile()
     {
-        //excel总数据信息: Dictionary<sheet表名, sheet表内容>
-        Dictionary<string, List<List<string>>> excelAllData = new Dictionary<string, List<List<string>>>();
-
-        //选取读取文件路径
-        OpenFileDialog openFileDialog = new OpenFileDialog();
+        using OpenFileDialog openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "Excel Files (*.xlsx; *.xls)|*.xlsx; *.xls";
         openFileDialog.FilterIndex = 1;
         openFileDialog.Multiselect = false;
+        return openFileDialog.ShowDialog() == DialogResult.OK
+            ? openFileDialog.FileName
+            : null;
+    }
 
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
+    /// <summary>从指定 Excel 文件读取全部 sheet（可在后台线程调用）。</summary>
+    static public Dictionary<string, List<List<string>>> ImportDataFromFile(string selectedFile)
+    {
+        if (string.IsNullOrEmpty(selectedFile) || !File.Exists(selectedFile))
+            return null;
+
+        Dictionary<string, List<List<string>>> excelAllData = new Dictionary<string, List<List<string>>>();
+        ExcelPackage.License.SetNonCommercialPersonal("My Name");
+
+        using (var package = new ExcelPackage(new System.IO.FileInfo(selectedFile)))
         {
-            string selectedFile = openFileDialog.FileName;
-            //MessageBox.Show($"您选中的文件路径为：{selectedFile}");
-            ExcelPackage.License.SetNonCommercialPersonal("My Name");
-
-            using (var package = new ExcelPackage(new System.IO.FileInfo(selectedFile)))
+            for (int i = 0; i < package.Workbook.Worksheets.Count; i++)
             {
-                for (int i = 0; i < package.Workbook.Worksheets.Count; i++)
+                var worksheet = package.Workbook.Worksheets[i];
+                if (worksheet.Name.Length == 0 || worksheet.Name[0] == '#')
+                    continue;
+                if (worksheet.Dimension is null)
+                    continue;
+
+                List<List<string>> excelData = new List<List<string>>();
+                int rowCount = worksheet.Dimension.Rows;
+                int colCount = worksheet.Dimension.Columns;
+
+                for (int row = 0; row < rowCount; row++)
                 {
-                    // 获取工作簿的工作表
-                    var worksheet = package.Workbook.Worksheets[i];
-
-                    //如果sheet表名第一个字符为#，则跳过数据不读取
-                    if (worksheet.Name[0] == '#')
+                    List<string> rowData = new List<string>();
+                    for (int col = 0; col < colCount; col++)
                     {
-                        continue;
+                        if (worksheet.Cells[row + 1, col + 1].Value != null)
+                            rowData.Add(worksheet.Cells[row + 1, col + 1].Value.ToString());
+                        else
+                            rowData.Add("");
                     }
-
-                    //excel单个sheet数据信息:
-                    List<List<string>> excelData = new List<List<string>>();
-
-                    // 获取工作表的行数和列数
-                    int rowCount = worksheet.Dimension.Rows;
-                    int colCount = worksheet.Dimension.Columns;
-
-                    // 循环遍历工作表中的数据
-                    for (int row = 0; row < rowCount; row++)
-                    {
-                        List<string> rowData = new List<string>();
-                        for (int col = 0; col < colCount; col++)
-                        {
-                            if (worksheet.Cells[row + 1, col + 1].Value != null)
-                            {
-                                rowData.Add(worksheet.Cells[row + 1, col + 1].Value.ToString());
-                            }
-                            else
-                            {
-                                rowData.Add("");
-                            }
-                        }
-                        excelData.Add(rowData);
-                    }
-
-                    excelAllData.Add(worksheet.Name, excelData);
+                    excelData.Add(rowData);
                 }
 
+                excelAllData.Add(worksheet.Name, excelData);
             }
-            return excelAllData;
         }
 
+        return excelAllData.Count > 0 ? excelAllData : null;
+    }
 
-        return null;
+    static public Dictionary<string, List<List<string>>> ImportData()
+    {
+        string selectedFile = PickExcelFile();
+        if (selectedFile is null)
+            return null;
+        return ImportDataFromFile(selectedFile);
     }
 
     static public void ExportData(List<List<string>> dataList, List<string> titleList)

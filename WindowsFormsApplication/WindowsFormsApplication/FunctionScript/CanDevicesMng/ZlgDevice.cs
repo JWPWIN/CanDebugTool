@@ -291,45 +291,42 @@ public class ZlgDevice
         return (succSendMsgNum>0)?true:false;
     }
 
+    private const uint RecvBatchMax = 64;
+
     /// <summary>
-    /// 从当前设备获取接收报文-每次调用获取一帧
+    /// 从当前设备批量获取接收报文（单次最多 RecvBatchMax 帧）
     /// </summary>
     public void ReceiveMessagesFromDevice()
     {
-        //判断总线是否有报文数据
-        uint recvMsgNum = 0;
-        recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
-
+        uint recvMsgNum = ZCAN_GetReceiveNum(canChannelHandle, 2);//0=CAN，1=CANFD，2=合并接收
         if (recvMsgNum == 0)
-        {
             return;
-        }
 
-        //接收报文数据一帧
-        ZCANDataObj_CSharp cur_recv_data = new ZCANDataObj_CSharp(); // 定义报文接收结构体
+        uint toRead = recvMsgNum > RecvBatchMax ? RecvBatchMax : recvMsgNum;
+        bool gotAny = false;
 
-        //剩余可以获取的报文数量
-        uint availableDataNum = ZCAN_ReceiveData_Interface(canDeviceHandle,ref cur_recv_data);
-
-        if (cur_recv_data.dataType > 0)
+        for (uint i = 0; i < toRead; i++)
         {
+            ZCANDataObj_CSharp cur_recv_data = new ZCANDataObj_CSharp();
+            ZCAN_ReceiveData_Interface(canDeviceHandle, ref cur_recv_data);
+
             if (cur_recv_data.dataType == 1)
             {
-                //CAN或CANFD 数据
                 receiveValidFrameBuffer.Add(cur_recv_data);
-                //有效报文总数增加
                 hasRecvValidMsgNumDuringThisTime++;
+                gotAny = true;
             }
-
-            if (cur_recv_data.dataType == 2)
+            else if (cur_recv_data.dataType == 2)
             {
-                //错误数据
                 receiveErrFrameBuffer.Add(cur_recv_data);
-                //错误帧总数增加
                 hasRecvErrFrameNumDuringThisTime++;
+                gotAny = true;
             }
+        }
 
-            //状态栏显示接收报文的数量
+        // 按批节流日志，避免热路径每帧写日志
+        if (gotAny)
+        {
             AppLogMng.DisplayLog("接收有效报文数量：" + hasRecvValidMsgNumDuringThisTime.ToString() + "/"
                                 + "接收错误帧数量：" + hasRecvErrFrameNumDuringThisTime.ToString()
                                 , true);
@@ -337,25 +334,23 @@ public class ZlgDevice
     }
 
     /// <summary>
-    /// 获取当前缓存区中已接收到的有效报文
+    /// 将设备缓存有效报文合并到按 ID 索引的待处理字典（同 ID 保留最新）
     /// </summary>
-    public void GetRecvBufferValidMsg(List<Canfd_Frame_Com> getRecvMsgList)
+    public void GetRecvBufferValidMsg(Dictionary<uint, Canfd_Frame_Com> getRecvMsgById)
     {
-        if (receiveValidFrameBuffer.Count() == 0) return;//缓存区无报文，直接退出
+        if (receiveValidFrameBuffer.Count == 0 || getRecvMsgById is null)
+            return;
 
-        //获取设备缓冲区所有报文
         foreach (var item in receiveValidFrameBuffer)
         {
-            Canfd_Frame_Com _tmpMsg = new Canfd_Frame_Com();
-            _tmpMsg.can_id = item.canData.can_id;
-            _tmpMsg.len = item.canData.len;
-            _tmpMsg.data = item.canData.data;
-            _tmpMsg.is_canfd = item.frameType;
-
-            getRecvMsgList.Add(_tmpMsg);
+            Canfd_Frame_Com tmpMsg = new Canfd_Frame_Com();
+            tmpMsg.can_id = item.canData.can_id;
+            tmpMsg.len = item.canData.len;
+            tmpMsg.data = item.canData.data;
+            tmpMsg.is_canfd = item.frameType;
+            getRecvMsgById[tmpMsg.can_id] = tmpMsg;
         }
 
-        //清除缓存区报文数据
         receiveValidFrameBuffer.Clear();
     }
 

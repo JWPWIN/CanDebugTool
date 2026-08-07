@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using WindowsFormsApplication.ModelViewFsm;
@@ -72,6 +73,17 @@ namespace WindowsFormsApplication.UI.SubWin.SubWin_ModelView
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        /// <summary>UI 泵推送的接收快照（已在 UI 线程）。</summary>
+        public void OnUiPumpUpdate(List<Canfd_Frame_Com> recvFrames)
+        {
+            if (recvFrames is null || recvFrames.Count == 0)
+                return;
+
+            _runtimeEngine.UpdateFromRecvFrames(recvFrames);
+            ApplyRuntimeToUi();
+        }
+
+        /// <summary>兼容旧入口：自行取快照（不清除会话缓冲时仅只读拷贝）。</summary>
         public void OnMainLoopUpdate()
         {
             bool deviceOpen = DeviceInterfaceMng.GetInstance() is not null
@@ -81,12 +93,7 @@ namespace WindowsFormsApplication.UI.SubWin.SubWin_ModelView
                 return;
 
             var recv = DeviceInterfaceMng.GetInstance().GetCurWaitToHandleRecvMsg();
-            _runtimeEngine.UpdateFromRecvFrames(recv);
-
-            if (InvokeRequired)
-                BeginInvoke(ApplyRuntimeToUi);
-            else
-                ApplyRuntimeToUi();
+            OnUiPumpUpdate(recv);
         }
 
         private void ApplyRuntimeToUi() => modelCanvas.ApplyRuntimeState();

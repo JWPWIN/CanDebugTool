@@ -50,10 +50,19 @@ namespace WindowsFormsApplication.UI
         private Panel _sendFilterBand;
         private TextBox_NoWheel _recvFilterBox;
         private TextBox_NoWheel _sendFilterBox;
+        private Label _recvAreaStateHint;
+        private Label _sendAreaStateHint;
         private readonly List<Control> _recvAllRowControls = new List<Control>();
         private readonly List<Control> _sendAllRowControls = new List<Control>();
         private Timer _recvFilterDebounceTimer;
         private Timer _sendFilterDebounceTimer;
+        private bool _matrixLoading;
+
+        /// <summary>周期发送载荷需从 UI 重填。</summary>
+        private volatile bool _cycleSendDirty = true;
+
+        /// <summary>最近一次收到的帧（按 ID），供筛选切换后补刷可见行。</summary>
+        private readonly Dictionary<uint, Canfd_Frame_Com> _lastRecvFramesById = new Dictionary<uint, Canfd_Frame_Com>();
 
         private const float ColumnHeaderHeight = 26F;
         private const float MsgTitleRowHeight = 26F;
@@ -89,6 +98,7 @@ namespace WindowsFormsApplication.UI
             _msgTitleBoldFont = new Font(Font.FontFamily, Font.Size + 1f, FontStyle.Bold);
 
             BuildFrozenHeaderHosts();
+            UpdateAreaStateHints();
         }
 
         /// <summary>
@@ -97,9 +107,9 @@ namespace WindowsFormsApplication.UI
         private void BuildFrozenHeaderHosts()
         {
             WrapMsgAreaWithFrozenHeader(groupBox1, tableLayoutPanel_RecvMsgArea,
-                out _recvFrozenHeaderInner, out _recvFilterBand, out _recvFilterBox);
+                out _recvFrozenHeaderInner, out _recvFilterBand, out _recvFilterBox, out _recvAreaStateHint);
             WrapMsgAreaWithFrozenHeader(groupBox3, tableLayoutPanel_SendMsgArea,
-                out _sendFrozenHeaderInner, out _sendFilterBand, out _sendFilterBox);
+                out _sendFrozenHeaderInner, out _sendFilterBand, out _sendFilterBox, out _sendAreaStateHint);
 
             WireHeaderHScroll(tableLayoutPanel_RecvMsgArea, _recvFrozenHeaderInner, _recvFilterBand);
             WireHeaderHScroll(tableLayoutPanel_SendMsgArea, _sendFrozenHeaderInner, _sendFilterBand);
@@ -134,7 +144,8 @@ namespace WindowsFormsApplication.UI
             Panel scrollPanel,
             out Panel headerInner,
             out Panel filterBand,
-            out TextBox_NoWheel filterBox)
+            out TextBox_NoWheel filterBox,
+            out Label stateHint)
         {
             groupBox.Controls.Remove(scrollPanel);
 
@@ -185,12 +196,104 @@ namespace WindowsFormsApplication.UI
             };
             filterBand.Controls.Add(filterBox);
 
+            stateHint = new Label
+            {
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Color.FromArgb(100, 116, 139),
+                BackColor = Color.White,
+                Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point),
+                Visible = false,
+                Name = scrollPanel.Name + "_StateHint"
+            };
+
             scrollPanel.Dock = DockStyle.Fill;
             // Dock：先加 Fill，再加筛选带，最后加表头 → 自上而下为表头、筛选、内容
             host.Controls.Add(scrollPanel);
             host.Controls.Add(filterBand);
             host.Controls.Add(headerClip);
+            host.Controls.Add(stateHint); // 最上层，空态/加载时盖住内容区
             groupBox.Controls.Add(host);
+        }
+
+        /// <summary>矩阵异步加载中/结束时由 MainWin 调用，刷新通信区空态提示。</summary>
+        public void SetMatrixLoading(bool loading)
+        {
+            _matrixLoading = loading;
+            UpdateAreaStateHints();
+        }
+
+        private void UpdateAreaStateHints()
+        {
+            UpdateOneAreaStateHint(
+                _recvAreaStateHint,
+                _recvAllRowControls.Count,
+                CountVisibleDataRows(tableLayoutPanel_RecvMsgArea),
+                _recvFilterBox?.Text,
+                isRecv: true);
+            UpdateOneAreaStateHint(
+                _sendAreaStateHint,
+                _sendAllRowControls.Count,
+                CountVisibleDataRows(tableLayoutPanel_SendMsgArea),
+                _sendFilterBox?.Text,
+                isRecv: false);
+        }
+
+        private void UpdateOneAreaStateHint(
+            Label hint,
+            int allRowCount,
+            int visibleDataRowCount,
+            string filterText,
+            bool isRecv)
+        {
+            if (hint is null) return;
+
+            if (_matrixLoading)
+            {
+                hint.Text = "正在加载 CAN 矩阵…";
+                hint.Visible = true;
+                hint.BringToFront();
+                return;
+            }
+
+            bool loaded = CanDbcDataManager.GetInstance()?.isLoadCfg == true;
+            if (!loaded)
+            {
+                hint.Text = "未加载通信矩阵\n请点击左上角文件夹按钮导入 Excel";
+                hint.Visible = true;
+                hint.BringToFront();
+                return;
+            }
+
+            if (visibleDataRowCount > 0)
+            {
+                hint.Visible = false;
+                return;
+            }
+
+            bool filtering = !string.IsNullOrWhiteSpace(filterText);
+            if (filtering)
+                hint.Text = isRecv ? "无匹配的接收报文/信号" : "无匹配的发送报文/信号";
+            else if (allRowCount == 0)
+                hint.Text = isRecv ? "当前矩阵无接收报文" : "当前矩阵无发送报文";
+            else
+                hint.Text = isRecv ? "无匹配的接收报文/信号" : "无匹配的发送报文/信号";
+
+            hint.Visible = true;
+            hint.BringToFront();
+        }
+
+        private static int CountVisibleDataRows(Panel scrollPanel)
+        {
+            int count = 0;
+            foreach (Control c in scrollPanel.Controls)
+            {
+                if (c is UI_Row_RecvSigDisplay or UI_Row_SendSigDisplay)
+                    count++;
+                else if (c is Label lbl && lbl.Tag is MsgRowMeta)
+                    count++;
+            }
+            return count;
         }
 
         private static void WireHeaderHScroll(Panel scrollPanel, Panel headerInner, Panel filterBand)
@@ -228,6 +331,19 @@ namespace WindowsFormsApplication.UI
             int x = scrollPanel.AutoScrollPosition.X;
             if (headerInner.Left != x)
                 headerInner.Left = x;
+        }
+
+        /// <summary>收发信号行总数是否超过阈值（用于主窗口拖动性能策略）。</summary>
+        public bool IsHeavyMsgUi(int rowThreshold)
+        {
+            int n = 0;
+            foreach (var kv in recvMsgArea_sigRowUIDict)
+                n += kv.Value?.Count ?? 0;
+            if (n > rowThreshold)
+                return true;
+            foreach (var kv in sendMsgArea_sigRowUIDict)
+                n += kv.Value?.Count ?? 0;
+            return n > rowThreshold;
         }
 
         /// <summary>主窗口拖动缩放过程中调用：暂停收发区布局计算（画面由上层快照覆盖显示）。</summary>
@@ -295,6 +411,42 @@ namespace WindowsFormsApplication.UI
         public void InvalidateMsgAreas()
         {
             _builtForDbcFingerprint = -1;
+            _lastRecvFramesById.Clear();
+        }
+
+        /// <summary>
+        /// 按当前 DBC 重建周期发送表（先清空再建）。换矩阵后务必调用，不依赖收发区 UI 是否已构建。
+        /// </summary>
+        public void RebuildCycleSendMsgListFromDbc()
+        {
+            var device = DeviceInterfaceMng.GetInstance();
+            if (device is null) return;
+
+            device.ClearCycleMsgSendDict();
+
+            if (CanDbcDataManager.GetInstance()?.isLoadCfg != true)
+            {
+                _cycleSendDirty = true;
+                return;
+            }
+
+            foreach (var item in CanDbcDataManager.GetInstance().canMsgSet.Values)
+            {
+                // 与发送区一致：目标 ECU 发送的报文不作为上位机周期发送
+                if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter))
+                    continue;
+                device.AddOrDelOneCycleMsgSend(item, 1);
+            }
+
+            _cycleSendDirty = true;
+        }
+
+        /// <summary>
+        /// 初始化上位机周期发送报文列表
+        /// </summary>
+        public void InitCycleSendMsgList()
+        {
+            RebuildCycleSendMsgListFromDbc();
         }
 
         private static void SetRedraw(Control control, bool enable)
@@ -330,6 +482,7 @@ namespace WindowsFormsApplication.UI
             {
                 PopulateMsgAreaPanel(tableLayoutPanel_RecvMsgArea, groupBox1, _recvAllRowControls,
                     _recvFrozenHeaderInner, _recvFilterBand, disposeRowControls: true);
+                UpdateAreaStateHints();
                 return;
             }
 
@@ -355,6 +508,7 @@ namespace WindowsFormsApplication.UI
 
             _recvAllRowControls.AddRange(rowControls);
             ApplyMsgAreaFilter(isRecv: true, disposeRowControls: true);
+            UpdateAreaStateHints();
         }
 
         /// <summary>
@@ -371,6 +525,7 @@ namespace WindowsFormsApplication.UI
             {
                 PopulateMsgAreaPanel(tableLayoutPanel_SendMsgArea, groupBox3, _sendAllRowControls,
                     _sendFrozenHeaderInner, _sendFilterBand, disposeRowControls: true);
+                UpdateAreaStateHints();
                 return;
             }
 
@@ -379,7 +534,7 @@ namespace WindowsFormsApplication.UI
             {
                 if (CanDbcDataManager.IsMsgBelongToTargetEcu(item.transmitter)) continue;
 
-                Label tmpIdTitleLabel = CreateMsgTitleLabel(item.msgId, item.msgName);
+                Label tmpIdTitleLabel = CreateMsgTitleLabel(item.msgId, item.msgName, item.msgCycle, showNonCycleHint: true);
                 sendMsgArea_msgIdTitleUIDict.Add(item, tmpIdTitleLabel);
                 rowControls.Add(tmpIdTitleLabel);
 
@@ -388,6 +543,7 @@ namespace WindowsFormsApplication.UI
                 {
                     UI_Row_SendSigDisplay sendMsg_Row = new UI_Row_SendSigDisplay();
                     sendMsg_Row.InitSigInfo(item1, item.isCanfd);
+                    sendMsg_Row.ValueEdited += MarkCycleSendDirty;
                     tmpList.Add(sendMsg_Row);
                     rowControls.Add(sendMsg_Row);
                 }
@@ -395,8 +551,12 @@ namespace WindowsFormsApplication.UI
             }
 
             _sendAllRowControls.AddRange(rowControls);
+            _cycleSendDirty = true;
             ApplyMsgAreaFilter(isRecv: false, disposeRowControls: true);
+            UpdateAreaStateHints();
         }
+
+        private void MarkCycleSendDirty() => _cycleSendDirty = true;
 
         private void ApplyMsgAreaFilter(bool isRecv, bool disposeRowControls = false)
         {
@@ -405,12 +565,39 @@ namespace WindowsFormsApplication.UI
                 var visible = FilterMsgAreaRows(_recvAllRowControls, _recvFilterBox?.Text);
                 PopulateMsgAreaPanel(tableLayoutPanel_RecvMsgArea, groupBox1, visible,
                     _recvFrozenHeaderInner, _recvFilterBand, _recvAllRowControls, disposeRowControls);
+                RefreshVisibleRecvFromLastFrames();
             }
             else
             {
                 var visible = FilterMsgAreaRows(_sendAllRowControls, _sendFilterBox?.Text);
                 PopulateMsgAreaPanel(tableLayoutPanel_SendMsgArea, groupBox3, visible,
                     _sendFrozenHeaderInner, _sendFilterBand, _sendAllRowControls, disposeRowControls);
+            }
+
+            UpdateAreaStateHints();
+        }
+
+        /// <summary>筛选变更后，用最近接收帧补刷当前可见信号行。</summary>
+        private void RefreshVisibleRecvFromLastFrames()
+        {
+            if (_lastRecvFramesById.Count == 0 || recvMsgArea_sigRowUIDict.Count == 0)
+                return;
+
+            foreach (var kv in recvMsgArea_sigRowUIDict)
+            {
+                if (!_lastRecvFramesById.TryGetValue(kv.Key, out Canfd_Frame_Com frame))
+                    continue;
+                if (frame.data is null)
+                    continue;
+
+                List<UI_Row_RecvSigDisplay> rows = kv.Value;
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    UI_Row_RecvSigDisplay row = rows[i];
+                    if (row.Parent is null || !row.Visible)
+                        continue;
+                    row.ApplyDisplayValue(row.ComputeDisplayValue(frame));
+                }
             }
         }
 
@@ -483,32 +670,24 @@ namespace WindowsFormsApplication.UI
             return string.Empty;
         }
 
-        /// <summary>
-        /// 初始化上位机周期发送报文列表
-        /// </summary>
-        public void InitCycleSendMsgList()
-        {
-            if (CanDbcDataManager.GetInstance().isLoadCfg == false) return;
-
-            //遍历应用报文到设备周期发送列表
-            foreach (var item in sendMsgArea_msgIdTitleUIDict)
-            {
-                DeviceInterfaceMng.GetInstance()?.AddOrDelOneCycleMsgSend(item.Key, 1);
-            }
-        }
-
-        private Label CreateMsgTitleLabel(uint msgId, string msgName)
+        private Label CreateMsgTitleLabel(uint msgId, string msgName, uint msgCycle = 1, bool showNonCycleHint = false)
         {
             string name = msgName ?? string.Empty;
             string hex = msgId.ToString("X");
             string hex3 = msgId.ToString("X3");
 
+            string titleText = "  0x" + hex3.ToUpper() + "  " + name;
+            if (showNonCycleHint && msgCycle == 0)
+                titleText += "  · 不周期发送";
+
             Label titleLabel = new Label();
             titleLabel.AutoEllipsis = false;
             titleLabel.TextAlign = ContentAlignment.MiddleLeft;
-            titleLabel.Text = "  0x" + hex3.ToUpper() + "  " + name;
+            titleLabel.Text = titleText;
             titleLabel.BackColor = SigRowVisualTheme.TitleBackColor;
-            titleLabel.ForeColor = SigRowVisualTheme.TitleForeColor;
+            titleLabel.ForeColor = showNonCycleHint && msgCycle == 0
+                ? Color.FromArgb(71, 85, 105)
+                : SigRowVisualTheme.TitleForeColor;
             titleLabel.Font = _msgTitleBoldFont;
             titleLabel.Padding = new Padding(8, 0, 8, 0);
             titleLabel.Tag = new MsgRowMeta
@@ -802,88 +981,127 @@ namespace WindowsFormsApplication.UI
         }
 
         /// <summary>
-        /// 根据上位机发送报文设置值填充设备周期报文发送报文数据
+        /// 会话线程：仅脏时重填周期发送载荷（读信号字符串缓存，不碰控件树布局）。
         /// </summary>
-        public void MainLoopThread_Task_UpdateCycleSendMsgData()
+        public void Session_UpdateCycleSendMsgData()
         {
-            //获取设备周期发送报文列表
-            if (DeviceInterfaceMng.GetInstance() is null) return;//无设备退出
+            if (!_cycleSendDirty) return;
+            if (DeviceInterfaceMng.GetInstance() is null) return;
             Dictionary<uint, CycleSend_Canfd_Frame> cycSendMsgList = DeviceInterfaceMng.GetInstance().GetCycleMsgSendDict();
-            if (cycSendMsgList.Count == 0) return;//未获取到周期报文退出
+            if (cycSendMsgList.Count == 0) return;
 
-            //遍历设备周期发送报文列表 从上位机获取设置数值 填充对应的发送数据
+            _cycleSendDirty = false;
+
             foreach (var item in cycSendMsgList)
             {
                 CycleSend_Canfd_Frame sendData = item.Value;
-                byte[] tmpMsgData = new byte[64];
-
-                //从发送UI获取信号设置值填充到临时报文帧数据
-                foreach (var item1 in sendMsgArea_sigRowUIDict)
+                byte[] payload = sendData.msgData.data;
+                if (payload is null || payload.Length < 64)
                 {
-                    if (item1.Key == item.Key)
-                    {
-                        foreach (var item2 in item1.Value)
-                        {
-                            item2.SetSigValueToMsg(tmpMsgData);
-                        }
-                        break;
-                    }
+                    payload = new byte[64];
+                    sendData.msgData.data = payload;
                 }
-                //临时报文帧数据复制到周期发送报文缓存区
-                sendData.msgData.data = tmpMsgData;
+                else
+                {
+                    Array.Clear(payload, 0, payload.Length);
+                }
+
+                if (sendMsgArea_sigRowUIDict.TryGetValue(item.Key, out List<UI_Row_SendSigDisplay> rows))
+                {
+                    for (int i = 0; i < rows.Count; i++)
+                        rows[i].SetSigValueToMsg(payload);
+                }
+
                 cycSendMsgList[item.Key] = sendData;
             }
         }
 
         /// <summary>
-        /// 从设备接口对象中获取已接收待处理的报文，显示在接收报文区域
+        /// UI 泵：拉取会话接收快照，更新模型视图与接收区显示（必须在 UI 线程调用）。
         /// </summary>
-        public void MainLoopThread_Task_UpdateRecvMsgArea()
+        public void UiPump_ApplyRecvAndModel()
         {
-            //获取接收报文数据
-            List<Canfd_Frame_Com> _recvMsgList = DeviceInterfaceMng.GetInstance().GetCurWaitToHandleRecvMsg();
+            var device = DeviceInterfaceMng.GetInstance();
+            if (device is null || !device.canDeviceOpenFlag)
+                return;
 
-            //实时更新上位机中显示接收数据
-            foreach (var item in recvMsgArea_sigRowUIDict)
+            Dictionary<uint, Canfd_Frame_Com> framesById = device.TakeRecvSnapshot();
+            if (framesById is null || framesById.Count == 0)
+                return;
+
+            // 先缓存最近帧（含筛选隐藏的报文），再刷新可见行与模型视图
+            foreach (var kv in framesById)
+                _lastRecvFramesById[kv.Key] = kv.Value;
+
+            if (subWin_ModelView is { IsDisposed: false })
+                subWin_ModelView.OnUiPumpUpdate(new List<Canfd_Frame_Com>(framesById.Values));
+
+            foreach (var kv in framesById)
             {
-                //获取对应ID的报文
-                Canfd_Frame_Com _tmpMsg = new Canfd_Frame_Com();
-                foreach (var item1 in _recvMsgList)
+                if (!recvMsgArea_sigRowUIDict.TryGetValue(kv.Key, out List<UI_Row_RecvSigDisplay> rows))
+                    continue;
+                if (kv.Value.data is null)
+                    continue;
+
+                for (int i = 0; i < rows.Count; i++)
                 {
-                    if (item.Key == item1.can_id)
-                    {
-                        _tmpMsg = item1;
+                    UI_Row_RecvSigDisplay row = rows[i];
+                    // 筛选隐藏（无 Parent）或不可见行跳过刷新，显示时由 RefreshVisibleRecvFromLastFrames 补
+                    if (row.Parent is null || !row.Visible)
+                        continue;
 
-                        break;
-                    }
-                }
-
-                //无对应ID的数据，跳过
-                if (_tmpMsg.data is null) continue;
-
-                //从报文中获取信号当前值 更新UI
-                foreach (var item1 in item.Value)
-                {
-                    item1.UpdateSigValue(_tmpMsg);
+                    string text = row.ComputeDisplayValue(kv.Value);
+                    row.ApplyDisplayValue(text);
                 }
             }
-
-            //清除待处理的接收报文数据
-            DeviceInterfaceMng.GetInstance().ClearCurWaitToHandleRecvMsg();
         }
 
         private void Btn_ConnectDevice_Click(object sender, EventArgs e)
         {
-            //打开设备
-            if (deviceInterfaceMng is not null)
-                deviceInterfaceMng.OpenCanDevice(this.comboBox_CanDeviceType.SelectedIndex, this.comboBox_CanType.SelectedIndex);
+            if (deviceInterfaceMng is null)
+                return;
+
+            if (deviceInterfaceMng.canDeviceOpenFlag)
+            {
+                MessageBox.Show(FindForm(), "设备已连接，请先断开后再重新连接。", "提示",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool ok = deviceInterfaceMng.OpenCanDevice(
+                comboBox_CanDeviceType.SelectedIndex,
+                comboBox_CanType.SelectedIndex);
+            if (ok)
+            {
+                AppLogMng.DisplayLog(
+                    $"已连接 {comboBox_CanDeviceType.Text} / {comboBox_CanType.Text}", true);
+                return;
+            }
+
+            string detail = AppLogMng.GetGobalLogStr();
+            if (string.IsNullOrWhiteSpace(detail))
+                detail = "请检查设备是否插好、驱动是否正常，以及是否被其他程序占用。";
+
+            MessageBox.Show(FindForm(),
+                "连接 CAN 设备失败。\n\n" + detail,
+                "连接失败",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
         }
 
         private void Btn_DisconnectDevice_Click(object sender, EventArgs e)
         {
-            //关闭已经打开的设备
-            if (deviceInterfaceMng is not null)
-                deviceInterfaceMng.CloseCanDevice();
+            if (deviceInterfaceMng is null)
+                return;
+
+            if (!deviceInterfaceMng.canDeviceOpenFlag)
+            {
+                MessageBox.Show(FindForm(), "当前未连接设备。", "提示",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            deviceInterfaceMng.CloseCanDevice();
         }
 
         private void Btn_ModelView_Click(object sender, EventArgs e)

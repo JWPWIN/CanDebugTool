@@ -1,65 +1,45 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+using System.Diagnostics;
 
 public enum TimeUnit
-{ 
+{
     T_US = 1, //1us
     T_MS = 1000 * T_US, //1ms
     T_S = 1000 * T_MS,//1s
     T_MIN = 60 * T_S,//1min
 }
 
+/// <summary>
+/// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ó¼ï¿½Ê±ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ Stopwatchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ð£Ê±Ó°ï¿½ì£©ï¿½ï¿½
+/// </summary>
 public class TimerTool
 {
+    private static readonly double TimestampToMicroseconds = 1_000_000.0 / Stopwatch.Frequency;
+
     /// <summary>
-    /// »ñÈ¡µ±Ç°ÏµÍ³Ê±¼ä´ÁusÎ¢Ãî
+    /// ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ë£©
     /// </summary>
-    /// <returns></returns>
     public static ulong GetSysTime()
     {
-        TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        
-        return Convert.ToUInt64(ts.TotalMicroseconds);
+        return (ulong)(Stopwatch.GetTimestamp() * TimestampToMicroseconds);
     }
 
     /// <summary>
-    /// ÖØÖÃ¼ÆÊ±Æ÷Îªµ±Ç°Ê±¼ä´ÁusÎ¢Ãî
+    /// ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½Îªï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ë£©
     /// </summary>
-    /// <param name="timer">¼ÆÊ±Æ÷</param>
     public static void ResetTimer(ref ulong timer)
     {
         timer = GetSysTime();
     }
 
     /// <summary>
-    /// ¼ì²é³¬Ê±
+    /// ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ê±ï¿½ï¿½timer==0 ï¿½ï¿½ÎªÎ´ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true ï¿½Ô±ï¿½ï¿½×´Î´ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="timer">¼ÆÊ±Æ÷</param>
-    /// <param name="timeout">³¬Ê±Ê±¼ä/usÎ¢Ãî</param>
-    /// <returns>ÊÇ·ñ³¬Ê±</returns>
     public static bool CheckTimeOut(ulong timer, ulong timeout)
     {
-        ulong curTime = GetSysTime();
-        bool bRet = false;
+        if (timer == 0)
+            return true;
 
-        if (curTime > timer)
-        {
-            if (curTime - timer >= timeout)
-            {
-                bRet = true;
-            }
-            else
-            {
-                bRet = false;
-            }
-        }
-        else
-        {
-            bRet = true;
-        }
-    
-        return bRet;
+        ulong curTime = GetSysTime();
+        return curTime - timer >= timeout;
     }
 }

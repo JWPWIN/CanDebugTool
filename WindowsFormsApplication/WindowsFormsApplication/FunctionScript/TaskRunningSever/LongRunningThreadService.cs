@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using WindowsFormsApplication;
 
 /// <summary>
-/// 长时间工作线程服务
+/// 通信会话后台调度：只做收发与周期载荷填充，不直接操作 UI。
+/// 热路径说明见同目录 HOTPATH.md。
 /// </summary>
 public class LongRunningThreadService
 {
@@ -16,10 +11,9 @@ public class LongRunningThreadService
     private readonly ManualResetEvent _pauseEvent = new(false);
     private Thread _workerThread;
 
-    //主窗口对象 用于获取主窗口下的所有子对象
-    public MainWin mainWin;
+    /// <summary>1ms 会话回调（例如周期发送载荷重填），在工作线程执行。</summary>
+    public Action OnSession1ms;
 
-    //任务调度计时器(10us/100us/1ms/10ms/100ms/1s)
     ulong TaskTimer_10us;
     ulong TaskTimer_100us;
     ulong TaskTimer_1ms;
@@ -27,57 +21,65 @@ public class LongRunningThreadService
     ulong TaskTimer_100ms;
     ulong TaskTimer_1s;
 
-    public LongRunningThreadService(MainWin win)
-    {
-        mainWin = win;
-    }
-
     public void Start()
     {
-        _stopCts = new();
+        if (_workerThread is { IsAlive: true })
+            return;
+
+        _stopCts = new CancellationTokenSource();
         _pauseEvent.Set();
-        var thread = _workerThread ??= new Thread(ThreadJob) { IsBackground = true };
-        thread.Start(_stopCts.Token);
+        _workerThread = new Thread(ThreadJob)
+        {
+            IsBackground = true,
+            Name = "CanDebugMainLoop"
+        };
+        _workerThread.Start(_stopCts.Token);
     }
 
-    public void Pause()
-    {
-        MessageBox.Show("Pausing Service...");
-        _pauseEvent.Reset();
-    }
+    public void Pause() => _pauseEvent.Reset();
 
-    public void Resume()
-    {
-        MessageBox.Show("Resuming Service...");
-        _pauseEvent.Set();
-    }
+    public void Resume() => _pauseEvent.Set();
+
     public void Stop()
     {
-        MessageBox.Show("Stopping Service...");
-        _stopCts.Cancel();
-        _stopCts.Dispose();
-        _stopCts = null;
+        var cts = _stopCts;
+        if (cts is null)
+            return;
+
+        try { cts.Cancel(); }
+        catch (ObjectDisposedException) { }
+
+        _pauseEvent.Set();
+
+        Thread thread = _workerThread;
+        if (thread is not null && thread.IsAlive)
+            thread.Join(2000);
+
         _workerThread = null;
+        try { cts.Dispose(); }
+        catch (ObjectDisposedException) { }
+        _stopCts = null;
     }
-    /// <summary>
-    /// 线程委托：轮询工作
-    /// </summary>
-    /// <param name="obj"></param>
+
     private void ThreadJob(object obj)
     {
         var token = (CancellationToken)obj;
         while (!token.IsCancellationRequested)
         {
             _pauseEvent.WaitOne();
+            if (token.IsCancellationRequested)
+                break;
+
             Process();
-            //Thread.Sleep(1);
+
+            bool deviceOpen = DeviceInterfaceMng.GetInstance()?.canDeviceOpenFlag == true;
+            if (deviceOpen)
+                Thread.Sleep(0);
+            else
+                Thread.Sleep(1);
         }
-        MessageBox.Show("Service Stopped");
     }
 
-    /// <summary>
-    /// 线程主任务函数
-    /// </summary>
     private void Process()
     {
         if (TimerTool.CheckTimeOut(TaskTimer_10us, 10 * (ulong)TimeUnit.T_US))
@@ -115,63 +117,35 @@ public class LongRunningThreadService
             Process_1s();
             TimerTool.ResetTimer(ref TaskTimer_1s);
         }
-
     }
 
-    /// <summary>
-    /// 10us调度函数
-    /// </summary>
     private void Process_10us()
     {
-
     }
 
-    /// <summary>
-    /// 100us调度函数
-    /// </summary>
     private void Process_100us()
     {
-        //实时获取总线设备报文数据
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_ReceiveMessagesFromDevice();
-        //尝试发送缓冲区内待发送的单帧报文 及 设置的周期发送报文
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_SendMessagesToDevice();
     }
 
-    /// <summary>
-    /// 1ms调度函数
-    /// </summary>
     private void Process_1ms()
     {
-        //获取当前待处理的接收报文
+        // 设备缓冲 → 会话待处理快照区
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_GetRecvMsgFromDeviceBuf();
-
-        //更新通信上位机窗口UI，显示接收报文/更新发送信号数据
-        mainWin.MainLoopThread_Task_UpdateComUpperUI();
+        // 会话侧逻辑（周期发送填数等），不碰控件树
+        OnSession1ms?.Invoke();
     }
 
-    /// <summary>
-    /// 10ms调度函数
-    /// </summary>
     private void Process_10ms()
     {
-        //更新状态栏信息
-        mainWin.MainLoopThread_Task_UpdateStatusStripInfo();
     }
 
-    /// <summary>
-    /// 100ms调度函数
-    /// </summary>
     private void Process_100ms()
     {
-
     }
 
-    /// <summary>
-    /// 1s调度函数
-    /// </summary>
     private void Process_1s()
     {
-
     }
 }
-

@@ -174,8 +174,14 @@ namespace WindowsFormsApplication.UI
             RefreshLayout();
         }
 
-        public void UpdateSigValue(Canfd_Frame_Com msgData)
+        /// <summary>
+        /// 在任意线程上解析信号显示文本（不触碰控件）。
+        /// </summary>
+        public string ComputeDisplayValue(Canfd_Frame_Com msgData)
         {
+            if (msgData.data is null)
+                return string.Empty;
+
             CAN_SIG_FORMAT sigFormat = (canSignalObj.sigOrderType == 0) ? CAN_SIG_FORMAT.MOTOROLA_LSB : CAN_SIG_FORMAT.INTEL_STANDARD;
             if (isCanfd)
                 curSignalRawValue = CanBitLibTool.CAN_get_frame_dataFD(msgData.data, sigFormat, (ushort)canSignalObj.sigStartBit, (ushort)canSignalObj.sigLen);
@@ -196,10 +202,26 @@ namespace WindowsFormsApplication.UI
                 }
             }
 
+            return valueStr;
+        }
+
+        /// <summary>
+        /// 在 UI 线程应用显示文本；值未变化则跳过。
+        /// </summary>
+        public void ApplyDisplayValue(string valueStr)
+        {
+            if (label_SigValue.Text == valueStr)
+                return;
+            label_SigValue.Text = valueStr;
+        }
+
+        public void UpdateSigValue(Canfd_Frame_Com msgData)
+        {
+            string valueStr = ComputeDisplayValue(msgData);
             if (label_SigValue.InvokeRequired)
-                label_SigValue.Invoke(new Action(() => label_SigValue.Text = valueStr));
+                label_SigValue.BeginInvoke(new Action(() => ApplyDisplayValue(valueStr)));
             else
-                label_SigValue.Text = valueStr;
+                ApplyDisplayValue(valueStr);
         }
     }
 }

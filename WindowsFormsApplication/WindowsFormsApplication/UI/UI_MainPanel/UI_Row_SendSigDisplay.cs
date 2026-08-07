@@ -23,6 +23,9 @@ namespace WindowsFormsApplication.UI
         string curSignalPhyStr = string.Empty;
         uint curSignalRawValue = 0;
 
+        /// <summary>发送值被用户编辑时触发，用于标记周期发送缓存需刷新。</summary>
+        public event Action ValueEdited;
+
         public UI_Row_SendSigDisplay()
         {
             InitializeComponent();
@@ -197,7 +200,11 @@ namespace WindowsFormsApplication.UI
                     if (sendValueUI_ComboBox.Items.Count > 0)
                         sendValueUI_ComboBox.SelectedIndex = 0;
                     sendValueUI_ComboBox.SelectedIndexChanged +=
-                        (s, e) => { curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0"; };
+                        (s, e) =>
+                        {
+                            curSignalPhyStr = (sendValueUI_ComboBox.Text is not null) ? sendValueUI_ComboBox.Text.Split(":")[0] : "0";
+                            ValueEdited?.Invoke();
+                        };
                     valueEditor = sendValueUI_ComboBox;
                 }
                 else
@@ -208,7 +215,11 @@ namespace WindowsFormsApplication.UI
                         Text = "0"
                     };
                     sendValueUI_TextBox.TextChanged +=
-                        (s, e) => { curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0"; };
+                        (s, e) =>
+                        {
+                            curSignalPhyStr = (sendValueUI_TextBox.Text is not null) ? sendValueUI_TextBox.Text : "0";
+                            ValueEdited?.Invoke();
+                        };
                     valueEditor = sendValueUI_TextBox;
                     curSignalPhyStr = "0";
                 }

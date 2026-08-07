@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApplication.UI;
 
@@ -8,58 +11,139 @@ namespace WindowsFormsApplication
 {
     public partial class MainWin : Form
     {
+        private const int WM_ENTERSIZEMOVE = 0x0231;
+        private const int WM_EXITSIZEMOVE = 0x0232;
+
         public readonly string AppVerStr = "-V1.0-20260206";
 
-        //主循环线程
+        //主循环线程（仅会话收发）
         public LongRunningThreadService mainLoopThread;
+
+        /// <summary>UI 泵：拉取会话快照并刷新界面。</summary>
+        private Timer _uiSessionTimer;
+        private bool _matrixLoadInProgress;
+        private int _statusStripAccumMs;
+        private bool _inSizeMove;
+
+        private const int UiSessionPumpIntervalMs = 20;
+        private const int StatusStripIntervalMs = 100;
+        /// <summary>超过该行数视为重 UI：拖动时不做全树截图。</summary>
+        private const int HeavyUiRowThreshold = 80;
+
+        // 状态栏节流：仅内容变化时写控件
+        private string _lastStatusTimeText = string.Empty;
+        private string _lastStatusPageText = string.Empty;
+        private string _lastStatusDeviceText = string.Empty;
+        private string _lastStatusLogText = string.Empty;
+        private Color _lastStatusDeviceColor;
+        private Color _lastStatusLogColor;
+        private string _lastDbcStateText = string.Empty;
 
         public MainWin()
         {
+            // 必须在 InitializeComponent 之前创建：子控件构造期会访问 GetInstance()
+            _ = new CanDbcDataManager();
+
             InitializeComponent();
             InitOpenCanMatrixButton();
             EnableSmoothResize();
+            UpdateDbcLoadStateIndicator();
 
-            //创建任务主循环线程 用于长时间持续执行的任务
-            mainLoopThread = new LongRunningThreadService(this);
-            //开启主循环线程
+            // 会话线程：只做收发 + 周期载荷填充
+            mainLoopThread = new LongRunningThreadService();
+            mainLoopThread.OnSession1ms = () => uI_ComUpper.Session_UpdateCycleSendMsgData();
             mainLoopThread.Start();
 
-            //初始化APP数据
-            CanDbcDataManager canDbcDataManager = new CanDbcDataManager();
-            UpdateDbcLoadStateIndicator();
+            // UI 线程定时泵：接收显示 / FSM；状态栏降频
+            _uiSessionTimer = new Timer { Interval = UiSessionPumpIntervalMs };
+            _uiSessionTimer.Tick += UiSessionTimer_Tick;
+            _uiSessionTimer.Start();
+        }
+
+        private void UiSessionTimer_Tick(object sender, EventArgs e)
+        {
+            // 拖动/缩放窗口期间不刷 UI，避免与 DWM 抢 UI 线程
+            if (_inSizeMove)
+                return;
+
+            uI_ComUpper.UiPump_ApplyRecvAndModel();
+
+            _statusStripAccumMs += UiSessionPumpIntervalMs;
+            if (_statusStripAccumMs >= StatusStripIntervalMs)
+            {
+                _statusStripAccumMs = 0;
+                UpdateStatusStripInfo();
+            }
         }
 
         private PictureBox _resizeFreezeOverlay;
         private Bitmap _resizeFreezeBitmap;
 
         /// <summary>
-        /// 缩放时用静态快照覆盖内容区：拖动过程保持画面可见且不逐帧重绘，松开后再整体刷新。
+        /// 移动/缩放时冻结内容区并暂停 UI 泵，避免海量子控件重绘导致拖动卡顿。
+        /// 不使用窗体级 WS_EX_COMPOSITED：状态栏定时刷新时会连带重绘页签文字，造成闪烁。
         /// </summary>
         private void EnableSmoothResize()
         {
-            typeof(Control).GetProperty("DoubleBuffered",
-                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?
-                .SetValue(this, true, null);
-            typeof(Control).GetProperty("DoubleBuffered",
-                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?
-                .SetValue(toolStripContainer1.ContentPanel, true, null);
-
-            ResizeBegin += (_, _) => BeginResizeFreezeOverlay();
-            ResizeEnd += (_, _) => EndResizeFreezeOverlay();
+            EnableDoubleBuffered(this);
+            EnableDoubleBuffered(toolStripContainer1.ContentPanel);
+            EnableDoubleBuffered(tableLayoutPanel_MainContent);
+            EnableDoubleBuffered(tabControl_AllFunsSplit);
         }
 
-        private void BeginResizeFreezeOverlay()
+        private static void EnableDoubleBuffered(Control control)
+        {
+            typeof(Control).GetProperty("DoubleBuffered",
+                    BindingFlags.Instance | BindingFlags.NonPublic)?
+                .SetValue(control, true, null);
+        }
+
+        protected override void WndProc(ref System.Windows.Forms.Message m)
+        {
+            if (m.Msg == WM_ENTERSIZEMOVE)
+                BeginSizeMoveInteraction();
+            else if (m.Msg == WM_EXITSIZEMOVE)
+                EndSizeMoveInteraction();
+
+            base.WndProc(ref m);
+        }
+
+        private void BeginSizeMoveInteraction()
+        {
+            if (_inSizeMove)
+                return;
+            _inSizeMove = true;
+            _uiSessionTimer?.Stop();
+            BeginContentFreezeOverlay();
+        }
+
+        private void EndSizeMoveInteraction()
+        {
+            if (!_inSizeMove)
+                return;
+            _inSizeMove = false;
+            EndContentFreezeOverlay();
+            if (_uiSessionTimer is not null && !_matrixLoadInProgress)
+                _uiSessionTimer.Start();
+        }
+
+        private void BeginContentFreezeOverlay()
         {
             Control target = toolStripContainer1.ContentPanel;
-            ClearResizeFreezeOverlay();
+            ClearContentFreezeOverlay();
 
             if (!target.IsHandleCreated || target.ClientSize.Width < 1 || target.ClientSize.Height < 1)
                 return;
 
-            // 先确保当前帧已画完，再截图
-            target.Update();
-            _resizeFreezeBitmap = new Bitmap(target.ClientSize.Width, target.ClientSize.Height);
-            target.DrawToBitmap(_resizeFreezeBitmap, new Rectangle(Point.Empty, target.ClientSize));
+            bool heavy = uI_ComUpper?.IsHeavyMsgUi(HeavyUiRowThreshold) == true;
+
+            // 重 UI：全树 DrawToBitmap 本身很慢，改用纯色遮罩；轻 UI：截图更自然
+            if (!heavy)
+            {
+                target.Update();
+                _resizeFreezeBitmap = new Bitmap(target.ClientSize.Width, target.ClientSize.Height);
+                target.DrawToBitmap(_resizeFreezeBitmap, new Rectangle(Point.Empty, target.ClientSize));
+            }
 
             _resizeFreezeOverlay = new PictureBox
             {
@@ -72,21 +156,20 @@ namespace WindowsFormsApplication
             target.Controls.Add(_resizeFreezeOverlay);
             _resizeFreezeOverlay.BringToFront();
 
-            // 底层暂停布局，避免拖动过程中计算海量子控件
             uI_ComUpper?.BeginLiveResize();
         }
 
-        private void EndResizeFreezeOverlay()
+        private void EndContentFreezeOverlay()
         {
             uI_ComUpper?.EndLiveResize();
-            ClearResizeFreezeOverlay();
+            ClearContentFreezeOverlay();
 
             Control target = toolStripContainer1.ContentPanel;
             target.Invalidate(true);
             target.Update();
         }
 
-        private void ClearResizeFreezeOverlay()
+        private void ClearContentFreezeOverlay()
         {
             if (_resizeFreezeOverlay is not null)
             {
@@ -101,18 +184,6 @@ namespace WindowsFormsApplication
             {
                 _resizeFreezeBitmap.Dispose();
                 _resizeFreezeBitmap = null;
-            }
-        }
-
-        /// <summary>启用窗口合成，减轻缩放时闪烁与撕裂。</summary>
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                const int WS_EX_COMPOSITED = 0x02000000;
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= WS_EX_COMPOSITED;
-                return cp;
             }
         }
 
@@ -164,6 +235,10 @@ namespace WindowsFormsApplication
         {
             bool loaded = CanDbcDataManager.GetInstance()?.isLoadCfg == true;
             string stateText = loaded ? "已加载矩阵" : "未加载矩阵";
+            if (stateText == _lastDbcStateText)
+                return;
+
+            _lastDbcStateText = stateText;
             Color stateColor = loaded ? Color.FromArgb(34, 139, 84) : Color.FromArgb(107, 114, 128);
 
             label_DbcLoadState.Text = stateText;
@@ -173,51 +248,102 @@ namespace WindowsFormsApplication
             toolStripStatusLabel_DBCState.ForeColor = stateColor;
         }
 
-        /// <summary>
-        /// 更新状态栏信息
-        /// </summary>
-        public void MainLoopThread_Task_UpdateStatusStripInfo()
+        /// <summary>在 UI 线程更新状态栏（100ms 节流 + 内容变化才写控件）。</summary>
+        private void UpdateStatusStripInfo()
         {
-            //实时更新状态栏信息
-            if (statusStrip.InvokeRequired)
+            bool deviceOpen = DeviceInterfaceMng.GetInstance()?.canDeviceOpenFlag == true;
+            string deviceTypeName = deviceOpen
+                ? DeviceInterfaceMng.GetInstance().curCanDeviceType.ToString()
+                : string.Empty;
+
+            string timeText = "{" + DateTime.Now.ToString("HH:mm:ss") + "}";
+            if (timeText != _lastStatusTimeText)
             {
-                //在UI线程上异步执行访问控件操作
-                //更新系统时间信息
-                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurSysTime.Text = "{" + DateTime.Now.ToString() + "}"));
-                //更新当前页签名称
-                statusStrip.Invoke(new Action(() => toolStripStatusLabel_CurPageName.Text = "{" + tabControl_AllFunsSplit.SelectedTab.Text + "}"));
-                //显示DBC状态
-                statusStrip.Invoke(new Action(UpdateDbcLoadStateIndicator));
-                //显示设备连接状态
-                if (DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
-                {
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{" + $"已连接设备:{DeviceInterfaceMng.GetInstance().curCanDeviceType.ToString()}" + "}"));
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.ForeColor = Color.Green));
-                }
-                else
-                {
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.Text = "{未连接设备}"));
-                    statusStrip.Invoke(new Action(() => toolStripStatusLabel_DeviceCntState.ForeColor = Color.Gray));
-                }
-                //更新全局Log信息
-                statusStrip.Invoke(new Action(() => toolStripStatusLabel_GlobalLogBox.Text = "{" + $"日志:{AppLogMng.GetGobalLogStr()}" + "}"));
-                statusStrip.Invoke(new Action(() => toolStripStatusLabel_GlobalLogBox.ForeColor = AppLogMng.GetGobalLogStrColor()));
-            }
-            else
-            {
-                //在UI线程上直接访问控件
-                //由于确认该函数是在异步线程上访问的本UI线程控件 因此该处不做处理
+                _lastStatusTimeText = timeText;
+                toolStripStatusLabel_CurSysTime.Text = timeText;
             }
 
+            if (tabControl_AllFunsSplit.SelectedTab is not null)
+            {
+                string pageText = "{" + tabControl_AllFunsSplit.SelectedTab.Text + "}";
+                if (pageText != _lastStatusPageText)
+                {
+                    _lastStatusPageText = pageText;
+                    toolStripStatusLabel_CurPageName.Text = pageText;
+                }
+            }
 
+            UpdateDbcLoadStateIndicator();
 
+            string deviceText = deviceOpen
+                ? "{" + $"已连接设备:{deviceTypeName}" + "}"
+                : "{未连接设备}";
+            Color deviceColor = deviceOpen ? Color.Green : Color.Gray;
+            if (deviceText != _lastStatusDeviceText || deviceColor != _lastStatusDeviceColor)
+            {
+                _lastStatusDeviceText = deviceText;
+                _lastStatusDeviceColor = deviceColor;
+                toolStripStatusLabel_DeviceCntState.Text = deviceText;
+                toolStripStatusLabel_DeviceCntState.ForeColor = deviceColor;
+            }
+
+            string logText = "{" + $"日志:{AppLogMng.GetGobalLogStr()}" + "}";
+            Color logColor = AppLogMng.GetGobalLogStrColor();
+            if (logText != _lastStatusLogText || logColor != _lastStatusLogColor)
+            {
+                _lastStatusLogText = logText;
+                _lastStatusLogColor = logColor;
+                toolStripStatusLabel_GlobalLogBox.Text = logText;
+                toolStripStatusLabel_GlobalLogBox.ForeColor = logColor;
+            }
         }
 
-        private void Btn_OpenCanMatrix_Click(object sender, EventArgs e)
+        private async void Btn_OpenCanMatrix_Click(object sender, EventArgs e)
         {
-            CanDbcDataManager.GetInstance().LoadCanMatrixFromExcel();
-            UpdateDbcLoadStateIndicator();
-            RefreshComUpperAfterDbcChanged();
+            if (_matrixLoadInProgress)
+                return;
+
+            string filePath = ExcelManager.PickExcelFile();
+            if (string.IsNullOrEmpty(filePath))
+                return;
+
+            _matrixLoadInProgress = true;
+            bool oldWait = UseWaitCursor;
+            UseWaitCursor = true;
+            Btn_OpenCanMatrix.Enabled = false;
+            uI_ComUpper.SetMatrixLoading(true);
+            try
+            {
+                bool loaded = await Task.Run(() =>
+                {
+                    Dictionary<string, List<List<string>>> excelAllData = ExcelManager.ImportDataFromFile(filePath);
+                    if (excelAllData is null || excelAllData.Count == 0)
+                        return false;
+                    return CanDbcDataManager.GetInstance().LoadCanMatrixFromExcelData(excelAllData);
+                }).ConfigureAwait(true);
+
+                if (!loaded)
+                {
+                    AppLogMng.DisplayLog("未选择有效矩阵或文件无数据", false);
+                    return;
+                }
+
+                UpdateDbcLoadStateIndicator();
+                RefreshComUpperAfterDbcChanged();
+            }
+            catch (Exception ex)
+            {
+                AppLogMng.DisplayLog("加载矩阵失败: " + ex.Message, false);
+                MessageBox.Show(this, "加载 CAN 矩阵失败：\n" + ex.Message, "错误",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                uI_ComUpper.SetMatrixLoading(false);
+                Btn_OpenCanMatrix.Enabled = true;
+                UseWaitCursor = oldWait;
+                _matrixLoadInProgress = false;
+            }
         }
 
         private void RefreshComUpperAfterDbcChanged()
@@ -225,6 +351,11 @@ namespace WindowsFormsApplication
             uI_ComUpper.InvalidateMsgAreas();
             uI_CanMatrix.InvalidateMatrixCache();
             uI_ComUpper.NotifyModelViewDbcChanged();
+
+            // 换矩阵：清会话缓冲并重建周期发送表（即使当前不在通信页）
+            DeviceInterfaceMng.GetInstance()?.ClearSessionRuntimeBuffers();
+            uI_ComUpper.RebuildCycleSendMsgListFromDbc();
+
             if (tabControl_AllFunsSplit.SelectedTab.Name == "tabPage_ComUpper")
             {
                 uI_ComUpper.EnsureMsgAreasInitialized();
@@ -250,32 +381,30 @@ namespace WindowsFormsApplication
             }
         }
 
-        public void MainLoopThread_Task_UpdateComUpperUI()
-        {
-            if(DeviceInterfaceMng.GetInstance()?.canDeviceOpenFlag == false) return;
-
-            //模型视图在清除接收缓冲前读取帧并评估转移
-            uI_ComUpper.TryUpdateOpenModelView();
-            //更新上位机接收报文窗口区域
-            uI_ComUpper.MainLoopThread_Task_UpdateRecvMsgArea();
-            //更新上位机发送区域数据到周期报文帧
-            uI_ComUpper.MainLoopThread_Task_UpdateCycleSendMsgData();
-        }
-
         //Form.Closing 事件：此事件在窗口关闭之前立即发生，通常用于执行一些清理工作，如保存数据或询问用户是否真的要关闭窗口
         //可以通过设置CancelEventArgs的Cancel属性来阻止窗口关闭
         private void MainWin_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
+            if (_uiSessionTimer is not null)
+            {
+                _uiSessionTimer.Stop();
+                _uiSessionTimer.Tick -= UiSessionTimer_Tick;
+                _uiSessionTimer.Dispose();
+                _uiSessionTimer = null;
+            }
+
+            // 先停主循环，避免关闭过程中继续访问设备
+            mainLoopThread?.Stop();
             uI_ComUpper.CloseModelViewIfOpen();
         }
 
         //Form.Closed 事件：此事件在窗口关闭之后发生。它主要用于执行在窗口关闭后需要进行的操作，如释放资源或启动其他窗体
         private void MainWin_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            ClearResizeFreezeOverlay();
+            ClearContentFreezeOverlay();
 
             //退出主窗口时保证关闭CAN设备
-            if(DeviceInterfaceMng.GetInstance().canDeviceOpenFlag == true)
+            if (DeviceInterfaceMng.GetInstance()?.canDeviceOpenFlag == true)
                 DeviceInterfaceMng.GetInstance().CloseCanDevice();
         }
     }

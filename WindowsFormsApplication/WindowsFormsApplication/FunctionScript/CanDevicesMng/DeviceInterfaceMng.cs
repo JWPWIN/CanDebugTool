@@ -31,8 +31,10 @@ public struct Canfd_Frame_Com
 
 public struct CycleSend_Canfd_Frame
 {
-    public ulong sendCycle;//报文发送周期
-    public ulong sendTimer;//报文发送计时器
+    /// <summary>报文发送周期（微秒，与 TimerTool 一致）。</summary>
+    public ulong sendCycle;
+    /// <summary>报文发送计时器（微秒时间戳）。</summary>
+    public ulong sendTimer;
     public Canfd_Frame_Com msgData;//发送报文数据
 }
 
@@ -48,9 +50,11 @@ public class DeviceInterfaceMng
 
     private ZlgDevice zlgDevice = null;//周立功设备实例
 
-    private List<Canfd_Frame_Com> waitToHandle_RecvCanMsgBuf = new List<Canfd_Frame_Com>();//当前等待处理的接收报文
+    /// <summary>当前等待处理的接收报文（同 ID 保留最新一帧）。</summary>
+    private readonly Dictionary<uint, Canfd_Frame_Com> waitToHandle_RecvCanMsgById = new Dictionary<uint, Canfd_Frame_Com>();
+    private readonly object _recvSync = new object();
 
-    private List<Canfd_Frame_Com> waitToHandle_SendCanMsgBuf = new List<Canfd_Frame_Com>();//当前等待处理的发送报文
+    private readonly Queue<Canfd_Frame_Com> waitToHandle_SendCanMsgBuf = new Queue<Canfd_Frame_Com>();
 
     //周期发送报文列表 <报文ID,周期发送报文数据>
     private Dictionary<uint, CycleSend_Canfd_Frame> task_CycleMsgSendDict = new Dictionary<uint, CycleSend_Canfd_Frame>();
@@ -66,26 +70,23 @@ public class DeviceInterfaceMng
 
     static public DeviceInterfaceMng GetInstance()
     {
-        if (instance == null)
-        {
-            MessageBox.Show("DeviceInterfaceMng has not instance!");
-            return null;
-        }
+        // 未初始化时静默返回 null，避免启动阶段弹框阻塞主界面
         return instance;
     }
 
     /// <summary>
     /// 打开CAN卡设备
     /// </summary>
-    /// <param name="selectCanType">下拉选项框选择的设备类型</param>
-    /// <param name="canType">下拉选项框选择的Can类型</param>
-    public void OpenCanDevice(int selectDeviceType,int selectCanType)
+    /// <param name="selectDeviceType">设备类型下拉索引</param>
+    /// <param name="selectCanType">CAN 帧类型下拉索引（0=CANFD, 1=CAN）</param>
+    /// <returns>是否打开成功</returns>
+    public bool OpenCanDevice(int selectDeviceType,int selectCanType)
     {
         //未打开设备 直接返回
         if (canDeviceOpenFlag == true)
         {
             AppLogMng.DisplayLog("已打开过设备!",false);
-            return;
+            return false;
         }
 
         //Step1: 获取设备类型 { "ZCAN_USBCANFD_100U", "ZCAN_USBCANFD_200U", "ZCAN_USBCANFD_MINI" }
@@ -105,8 +106,8 @@ public class DeviceInterfaceMng
                 break;  
         }
 
-        //Step2: 获取CAN帧类型{ "CANFD", "CAN"}
-        switch (selectDeviceType)
+        //Step2: 获取CAN帧类型{ "CANFD", "CAN"} —— 使用帧类型下拉索引，而非设备类型
+        switch (selectCanType)
         {
             case 0:
                 curCanFrameType = CanFrameType.CANFD;
@@ -136,9 +137,14 @@ public class DeviceInterfaceMng
         if (successOpenFlag == true)
         {
             canDeviceOpenFlag = true;
+            ClearSessionRuntimeBuffers();
             AppLogMng.DisplayLog("打开设备成功!", true);
+            return true;
         }
 
+        canDeviceOpenFlag = false;
+        AppLogMng.DisplayLog("打开设备失败!", false);
+        return false;
     }
 
     /// <summary>
@@ -167,15 +173,16 @@ public class DeviceInterfaceMng
                 break;
         }
 
+        // 先停会话侧标志与缓冲，避免 UI 泵在半关闭状态继续消费
+        canDeviceOpenFlag = false;
+        ClearSessionRuntimeBuffers();
+
         if (successCloseFlag == true)
-        {
-            canDeviceOpenFlag = false;
             AppLogMng.DisplayLog("关闭设备成功!",true);
+        else
+            AppLogMng.DisplayLog("关闭设备失败!", false);
 
-            //清除当前设备信息
-            ClearCurDeviceInfo();
-        }
-
+        ClearCurDeviceInfo();
     }
 
     /// <summary>
@@ -190,6 +197,25 @@ public class DeviceInterfaceMng
         canDeviceOpenFlag = false;//清除是否有设备打开
 
         zlgDevice = null;//清除周立功设备实例
+
+        ClearSessionRuntimeBuffers();
+    }
+
+    /// <summary>
+    /// 清空接收快照与单帧发送队列（关设备 / 重连 / 换矩阵时调用）。不清理周期发送表。
+    /// </summary>
+    public void ClearSessionRuntimeBuffers()
+    {
+        ClearCurWaitToHandleRecvMsg();
+        waitToHandle_SendCanMsgBuf.Clear();
+    }
+
+    /// <summary>
+    /// 清空周期发送表（换矩阵后重建前调用）。
+    /// </summary>
+    public void ClearCycleMsgSendDict()
+    {
+        task_CycleMsgSendDict.Clear();
     }
 
     /// <summary>
@@ -235,8 +261,12 @@ public class DeviceInterfaceMng
             case CanDeviceType.ZCAN_USBCANFD_100U:
             case CanDeviceType.ZCAN_USBCANFD_200U:
             case CanDeviceType.ZCAN_USBCANFD_MINI:
-                //zlg设备获取接收报文
-                if (zlgDevice is not null) zlgDevice.GetRecvBufferValidMsg(waitToHandle_RecvCanMsgBuf);
+                //zlg设备获取接收报文（按 ID 合并，保留最新）
+                if (zlgDevice is not null)
+                {
+                    lock (_recvSync)
+                        zlgDevice.GetRecvBufferValidMsg(waitToHandle_RecvCanMsgById);
+                }
                 break;
             default:
                 break;
@@ -245,21 +275,49 @@ public class DeviceInterfaceMng
     }
 
     /// <summary>
-    /// 获取当前等待处理的接收报文
+    /// 获取当前等待处理的接收报文（列表快照，不清除缓冲）
     /// </summary>
-    /// <returns></returns>
     public List<Canfd_Frame_Com> GetCurWaitToHandleRecvMsg()
     {
-        return waitToHandle_RecvCanMsgBuf;
+        lock (_recvSync)
+        {
+            if (waitToHandle_RecvCanMsgById.Count == 0)
+                return new List<Canfd_Frame_Com>();
+            return new List<Canfd_Frame_Com>(waitToHandle_RecvCanMsgById.Values);
+        }
+    }
+
+    /// <summary>
+    /// 取出并清空待处理接收报文（供 UI 泵拉取，同 ID 为最新帧）
+    /// </summary>
+    public Dictionary<uint, Canfd_Frame_Com> TakeRecvSnapshot()
+    {
+        lock (_recvSync)
+        {
+            if (waitToHandle_RecvCanMsgById.Count == 0)
+                return null;
+
+            var snapshot = new Dictionary<uint, Canfd_Frame_Com>(waitToHandle_RecvCanMsgById);
+            waitToHandle_RecvCanMsgById.Clear();
+            return snapshot;
+        }
+    }
+
+    /// <summary>
+    /// 获取当前等待处理的接收报文字典（实时引用，调用方勿长期持有；优先用 TakeRecvSnapshot）
+    /// </summary>
+    public Dictionary<uint, Canfd_Frame_Com> GetCurWaitToHandleRecvMsgById()
+    {
+        return waitToHandle_RecvCanMsgById;
     }
 
     /// <summary>
     /// 清除所有当前等待处理的接收报文
     /// </summary>
-    /// <returns></returns>
     public void ClearCurWaitToHandleRecvMsg()
     {
-        waitToHandle_RecvCanMsgBuf.Clear();
+        lock (_recvSync)
+            waitToHandle_RecvCanMsgById.Clear();
     }
 
     /// <summary>
@@ -274,12 +332,17 @@ public class DeviceInterfaceMng
         {
             if (task_CycleMsgSendDict.ContainsKey(msgInfo.msgId)) return;//已有该报文 退出
 
+            // 产品规则：MsgCycle==0 表示不参与周期发送
+            if (msgInfo.msgCycle == 0)
+                return;
+
             CycleSend_Canfd_Frame cycleSend_Canfd_Frame = new CycleSend_Canfd_Frame();
             cycleSend_Canfd_Frame.msgData = new Canfd_Frame_Com();
             cycleSend_Canfd_Frame.msgData.can_id = msgInfo.msgId;
             cycleSend_Canfd_Frame.msgData.data = new byte[64];
             cycleSend_Canfd_Frame.msgData.len = (byte)msgInfo.msgSize;
-            cycleSend_Canfd_Frame.sendCycle = msgInfo.msgCycle;
+            // Excel/矩阵中 MsgCycle 单位为 ms，TimerTool 使用 µs
+            cycleSend_Canfd_Frame.sendCycle = (ulong)msgInfo.msgCycle * (ulong)TimeUnit.T_MS;
 
             task_CycleMsgSendDict.Add(msgInfo.msgId, cycleSend_Canfd_Frame);
         }
@@ -295,7 +358,7 @@ public class DeviceInterfaceMng
     /// <param name="frame">单帧报文帧数据</param>
     public void AddOneMsgToSend(Canfd_Frame_Com frame)
     {
-        waitToHandle_SendCanMsgBuf.Add(frame);
+        waitToHandle_SendCanMsgBuf.Enqueue(frame);
     }
 
     /// <summary>
@@ -314,9 +377,7 @@ public class DeviceInterfaceMng
         //优先发送当前等待发送的单帧报文
         if (waitToHandle_SendCanMsgBuf.Count > 0)
         {
-            //设置发送帧数据，发送最早存入缓冲区的报文
-            canfd_Frame_Com = waitToHandle_SendCanMsgBuf[0];
-            waitToHandle_SendCanMsgBuf.RemoveAt(0);
+            canfd_Frame_Com = waitToHandle_SendCanMsgBuf.Dequeue();
         }
         else//无单帧报文发送，尝试发送周期报文
         {

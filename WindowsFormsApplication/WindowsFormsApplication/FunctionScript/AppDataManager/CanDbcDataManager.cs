@@ -14,27 +14,27 @@ public class CanMessage
     public string msgName = "";
     public uint msgSize = 0;
     public string transmitter = "";
-    public uint msgType = 0;//(0:APP; 1:NM; 2:Debug-¸´ÓÃÖ¡)
+    public uint msgType = 0;//(0:APP; 1:NM; 2:Debug-ï¿½ï¿½ï¿½ï¿½Ö¡)
     public List<CanSignal> signals = new List<CanSignal>();
 }
 
 public class CanSignal
 {
-    public string sigName; //ÐÅºÅÃû
-    public uint msgId;//ÐÅºÅËùÊô±¨ÎÄID
-    public string sigDesc;//ÐÅºÅÃèÊö
-    public uint sigOrderType;//0£ºMotorola-LSB£¬1£ºIntel
-    public uint sigStartBit;//ÐÅºÅÆðÊ¼Î»
-    public uint sigLen;//ÐÅºÅ³¤¶È
-    public double sigFactor; //ÐÅºÅ¾«¶È
-    public double sigOffset; //ÐÅºÅÆ«ÒÆ
-    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //ÐÅºÅÖµÁÐ±í<ÐÅºÅÖµ£¬ÐÅºÅÖµº¬Òå>
-    public uint valueType; //ÖµÀàÐÍ£º1-ÓÐ·ûºÅ£¬0£ºÎÞ·ûºÅ
-    public string recvNode;//½ÓÊÕ½Úµã
-    public uint reuseFrameID;//¸´ÓÃÖ¡ID£¬±¨ÎÄÀàÐÍÎªDebugÄ£Ê½Ê±ÆôÓÃ
+    public string sigName; //ï¿½Åºï¿½ï¿½ï¿½
+    public uint msgId;//ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+    public string sigDesc;//ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½
+    public uint sigOrderType;//0ï¿½ï¿½Motorola-LSBï¿½ï¿½1ï¿½ï¿½Intel
+    public uint sigStartBit;//ï¿½Åºï¿½ï¿½ï¿½Ê¼Î»
+    public uint sigLen;//ï¿½ÅºÅ³ï¿½ï¿½ï¿½
+    public double sigFactor; //ï¿½ÅºÅ¾ï¿½ï¿½ï¿½
+    public double sigOffset; //ï¿½Åºï¿½Æ«ï¿½ï¿½
+    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //ï¿½Åºï¿½Öµï¿½Ð±ï¿½<ï¿½Åºï¿½Öµï¿½ï¿½ï¿½Åºï¿½Öµï¿½ï¿½ï¿½ï¿½>
+    public uint valueType; //Öµï¿½ï¿½ï¿½Í£ï¿½1-ï¿½Ð·ï¿½ï¿½Å£ï¿½0ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½
+    public string recvNode;//ï¿½ï¿½ï¿½Õ½Úµï¿½
+    public uint reuseFrameID;//ï¿½ï¿½ï¿½ï¿½Ö¡IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªDebugÄ£Ê½Ê±ï¿½ï¿½ï¿½ï¿½
 }
 
-//excelÅäÖÃÎÄ¼þÖÐÃ¿ÁÐ´ú±íµÄº¬Òå
+//excelï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
 public enum CanDbcRows
 { 
     SigName,
@@ -59,22 +59,22 @@ public enum CanDbcRows
     MaxNum
 }
 
-//±¨ÎÄÀàÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public enum CanMsgType
 {
-    APP,//Ó¦ÓÃ±¨ÎÄ
-    NM,//ÍøÂç¹ÜÀí±¨ÎÄ
-    DEBUG//µ÷ÊÔ±¨ÎÄ-¸´ÓÃÖ¡
+    APP,//Ó¦ï¿½Ã±ï¿½ï¿½ï¿½
+    NM,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    DEBUG//ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½Ö¡
 }
 
 public class CanDbcDataManager
 {
     static private CanDbcDataManager instance;
 
-    //CANÍ¨ÐÅ¾ØÕóÊý¾Ý×Öµä
+    //CANÍ¨ï¿½Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½
     public Dictionary<uint,CanMessage> canMsgSet = new Dictionary<uint, CanMessage>();
 
-    //ÊÇ·ñ¼ÓÔØDBCÅäÖÃÎÄ¼þ
+    //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½DBCï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
     public bool isLoadCfg = false;
 
     public CanDbcDataManager()
@@ -87,60 +87,63 @@ public class CanDbcDataManager
 
     static public CanDbcDataManager GetInstance()
     {
-        if (instance == null)
-        {
-            MessageBox.Show("CanDbcDataManager has not instance!");
-            return null;
-        }
+        // Î´ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         return instance;
     }
 
 
-    // ´ÓExcelÖÐµ¼ÈëCAN¾ØÕóÐÅÏ¢
+    // ï¿½ï¿½Excelï¿½Ðµï¿½ï¿½ï¿½CANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ñ¡ï¿½ï¿½Ô»ï¿½ï¿½ï¿½UI ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½
     public void LoadCanMatrixFromExcel()
     {
-        //excel×ÜÊý¾ÝÐÅÏ¢: Dictionary<sheet±íÃû, sheet±íÄÚÈÝ>
         Dictionary<string, List<List<string>>> excelAllData = ExcelManager.ImportData();
+        LoadCanMatrixFromExcelData(excelAllData);
+    }
 
-        //Ä¬ÈÏÊ¹ÓÃµÚÒ»¸ösheetÊý¾Ý
+    /// <summary>
+    /// ï¿½ï¿½ï¿½Ñ¶ï¿½È¡ï¿½ï¿½ Excel ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¨¿ï¿½ï¿½Úºï¿½Ì¨ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½
+    /// </summary>
+    /// <returns>ï¿½Ç·ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½</returns>
+    public bool LoadCanMatrixFromExcelData(Dictionary<string, List<List<string>>> excelAllData)
+    {
+        //Ä¬ï¿½ï¿½Ê¹ï¿½Ãµï¿½Ò»ï¿½ï¿½sheetï¿½ï¿½ï¿½ï¿½
         List<List<string>> usedSheet = null;
         if (excelAllData != null) 
         {
             usedSheet = excelAllData.First().Value;
         }
 
-        //Èç¹ûÃ»ÓÐ¶Áµ½Êý¾Ý£¬ÔòÍË³ö
+        //ï¿½ï¿½ï¿½Ã»ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
         if (usedSheet == null)
         {
-            return;
+            return false;
         }
         else
         {
-            //Çå³ýÖ®Ç°µÄDBCÅäÖÃ
+            //ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½DBCï¿½ï¿½ï¿½ï¿½
             ResetCanDbcCfg();
         }
-        // »ñÈ¡±í¸ñÓÐ¶àÉÙÁÐ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
         int columns = usedSheet[0].Count;
-        // »ñÈ¡±í¸ñÓÐ¶àÉÙÐÐ 
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ 
         int rows = usedSheet.Count;
 
-        //µÚÒ»ÐÐÎª±íÍ·£¬²»¶ÁÈ¡¡£Ã»ÓÐ±íÍ·´Ó0¿ªÊ¼(»ñÈ¡Êý¾Ý)
-        //Ê×ÏÈ¶ÁÈ¡CAN±¨ÎÄÐÅÏ¢
+        //ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ã»ï¿½Ð±ï¿½Í·ï¿½ï¿½0ï¿½ï¿½Ê¼(ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½)
+        //ï¿½ï¿½ï¿½È¶ï¿½È¡CANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
         for (int i = 1; i < rows; i++)
         {
             bool flag = true;
             CanMessage msg = new CanMessage();
             for (int j = 0; j < columns; j++)
             {
-                // »ñÈ¡±í¸ñÖÐÖ¸¶¨ÐÐÖ¸¶¨ÁÐµÄÊý¾Ý 
+                // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ 
                 string value = usedSheet[i][j].ToString();
 
                 switch ((CanDbcRows)j)
                 {
                     case CanDbcRows.MsgId:
-                        string str = value.Remove(0, 2);//ÒÆ³ýÇ°ÃæÁ½¸ö×Ö·û0x
+                        string str = value.Remove(0, 2);//ï¿½Æ³ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½0x
                         msg.msgId = UInt32.Parse(str, System.Globalization.NumberStyles.HexNumber);
-                        //ÒÑ¾­¶ÁÈ¡ÏàÍ¬ID±¨ÎÄÐÅÏ¢,²»ÔÙÖØ¸´Ìí¼Óµ½±¨ÎÄ¼¯ºÏ
+                        //ï¿½Ñ¾ï¿½ï¿½ï¿½È¡ï¿½ï¿½Í¬IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
                         if (canMsgSet.ContainsKey(msg.msgId))
                         {
                             flag = false;
@@ -196,20 +199,20 @@ public class CanDbcDataManager
             }
             if (true == flag)
             {
-                //Ìí¼Ó±¨ÎÄÐÅÏ¢µ½±¨ÎÄÊý¾Ý¼¯ºÏ
+                //ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½
                 canMsgSet.Add(msg.msgId, msg);
             }
 
         }
 
-        //µÚÒ»ÐÐÎª±íÍ·£¬²»¶ÁÈ¡¡£Ã»ÓÐ±íÍ·´Ó0¿ªÊ¼(»ñÈ¡Êý¾Ý)
-        //¶ÁÈ¡CANÐÅºÅÊý¾Ý
+        //ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ã»ï¿½Ð±ï¿½Í·ï¿½ï¿½0ï¿½ï¿½Ê¼(ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½)
+        //ï¿½ï¿½È¡CANï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 1; i < rows; i++)
         {
             CanSignal tmpSig = new CanSignal();
             for (int j = 0; j < columns; j++)
             {
-                // »ñÈ¡±í¸ñÖÐÖ¸¶¨ÐÐÖ¸¶¨ÁÐµÄÊý¾Ý 
+                // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ 
                 string value = usedSheet[i][j].ToString();
                 
                 switch ((CanDbcRows)j)
@@ -218,7 +221,7 @@ public class CanDbcDataManager
                         tmpSig.sigName = value;
                         break;
                     case CanDbcRows.MsgId:
-                        string str = value.Remove(0, 2);//ÒÆ³ýÇ°ÃæÁ½¸ö×Ö·û0x
+                        string str = value.Remove(0, 2);//ï¿½Æ³ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½0x
                         tmpSig.msgId = UInt32.Parse(str, System.Globalization.NumberStyles.HexNumber);
                         break;
                     case CanDbcRows.SigDesc:
@@ -250,7 +253,7 @@ public class CanDbcDataManager
                                 tmpSig.sigValueTable.Add(int.Parse(tmpArr[0]), tmpArr[1]);
                             }
 
-                            //ÐÅºÅÖµÁÐ±íÅÅÐò
+                            //ï¿½Åºï¿½Öµï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
                             var _valueTableDict = tmpSig.sigValueTable.OrderBy(x => x.Key).ToDictionary<int, string>();
                             tmpSig.sigValueTable = _valueTableDict as Dictionary<int, string>;
                         }
@@ -270,35 +273,36 @@ public class CanDbcDataManager
                         break;
                 }
             }
-            //Ìí¼Ó¸ÃÐÅºÅµ½CAN±¨ÎÄÊý¾Ý¼¯ºÏ
+            //ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ÅºÅµï¿½CANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½
             canMsgSet[tmpSig.msgId].signals.Add(tmpSig);
         }
-        isLoadCfg = true;
+                isLoadCfg = true;
 
-        AppLogMng.DisplayLog("´ÓDBCÎÄ¼þµ¼ÈëÍ¨ÐÅÐ­Òé³É¹¦!",true);
+        AppLogMng.DisplayLog("ï¿½ï¿½Excelï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ð­ï¿½ï¿½É¹ï¿½!", true);
+        return true;
     }
 
-    //´ÓDBCÖÐµ¼ÈëCAN¾ØÕóÐÅÏ¢
+    //ï¿½ï¿½DBCï¿½Ðµï¿½ï¿½ï¿½CANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     public void LoadCanMatrixFromDBC()
     {
-        //Ñ¡ÔñDBCÎÄ¼þ²¢¶ÁÈ¡Êý¾Ý
+        //Ñ¡ï¿½ï¿½DBCï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
         string dbcInfo = TextOperation.ReadData();
         string[] bufferAry = dbcInfo.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        string[] bufferAry_CheckErrLine = dbcInfo.Split(new string[] { "\r\n"},StringSplitOptions.None);//ÓÃÓÚ¼ì²â´íÎóÐÐÊýµÄÔ­Ê¼·Ö¸ôÊý¾Ý,°üº¬¿ÕÐÐ
+        string[] bufferAry_CheckErrLine = dbcInfo.Split(new string[] { "\r\n"},StringSplitOptions.None);//ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (dbcInfo == null)
         {
-            MessageBox.Show("DBCÎÄ¼þÊÇ¿ÕµÄ");
+            MessageBox.Show("DBCï¿½Ä¼ï¿½ï¿½Ç¿Õµï¿½");
             return;
         }
 
         if (bufferAry.Length < 3)
         {
-            MessageBox.Show("DbcÎÄ¼þ¸ñÊ½´íÎó");
+            MessageBox.Show("Dbcï¿½Ä¼ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
-        //Ê×ÏÈÇå³ýÖ®Ç°µÄDBCÅäÖÃ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½DBCï¿½ï¿½ï¿½ï¿½
         ResetCanDbcCfg();
 
         int lineNum = bufferAry.Length;
@@ -311,7 +315,7 @@ public class CanDbcDataManager
 
             if (lineAry.Length < 1)
             {
-                MessageBox.Show("DbcÎÄ¼þÐÐ¸ñÊ½´íÎó");
+                MessageBox.Show("Dbcï¿½Ä¼ï¿½ï¿½Ð¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
             switch (lineAry[0])
@@ -320,7 +324,7 @@ public class CanDbcDataManager
                     {
                         try
                         {
-                            //¸ñÊ½¾ÙÀý£ºVAL_ 1072 HEVC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp"; 
+                            //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½VAL_ 1072 HEVC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp"; 
                             uint tmpId = uint.Parse(lineAry[1]);
                             if (canMsgSet.ContainsKey(tmpId))
                             {
@@ -328,7 +332,7 @@ public class CanDbcDataManager
                                 {
                                     if (lineAry[2] == item.sigName)
                                     {
-                                        //È¡Öµ±í¶Î×Ö·û´®
+                                        //È¡Öµï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
                                         string _valueTableStr = string.Empty;
                                         for (int j = 3; j < lineAry.Length; j++)
                                         {
@@ -341,13 +345,13 @@ public class CanDbcDataManager
                                         {
                                             int _tmpValue = int.Parse(tmpArr[tmpNum].Replace(" ", ""));
                                             string _tmpDesc = tmpArr[tmpNum + 1];
-                                            //Ìí¼ÓvalueÖµ±í
+                                            //ï¿½ï¿½ï¿½ï¿½valueÖµï¿½ï¿½
                                             item.sigValueTable.Add(_tmpValue, _tmpDesc);
 
                                             tmpNum = tmpNum + 2;
                                         }
 
-                                        //ÐÅºÅÖµÁÐ±íÅÅÐò
+                                        //ï¿½Åºï¿½Öµï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
                                         var _valueTableDict = item.sigValueTable.OrderBy(x => x.Key).ToDictionary<int, string>();
                                         item.sigValueTable = _valueTableDict as Dictionary<int, string>;
                                     }
@@ -362,10 +366,10 @@ public class CanDbcDataManager
                             {
                                 if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                             }
-                            MessageBox.Show("½âÎöVAL_×Ö¶Î¸ñÊ½Ê§°Ü£¡" +  "\r\n"
-                                             + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                             + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                             + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºVAL_ 1072 HEVC_WakeUpSleepCommand 0 \"Go to Sleep\" 1 \"reserved0\" 2 \"reserved1\" 3 \"WakeUp\";");
+                            MessageBox.Show("ï¿½ï¿½ï¿½ï¿½VAL_ï¿½Ö¶Î¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" +  "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½VAL_ 1072 HEVC_WakeUpSleepCommand 0 \"Go to Sleep\" 1 \"reserved0\" 2 \"reserved1\" 3 \"WakeUp\";");
                         }
 
                         break;
@@ -374,7 +378,7 @@ public class CanDbcDataManager
                     {
                         try 
                         {
-                            //¸ñÊ½¾ÙÀý£º CM_ SG_ 129 HVCurrentRequest "³äµçÊä³öµçÁ÷ÇëÇó";
+                            //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CM_ SG_ 129 HVCurrentRequest "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
                             uint tmpId = uint.Parse(lineAry[2]);
                             if (canMsgSet.ContainsKey(tmpId))
                             {
@@ -395,10 +399,10 @@ public class CanDbcDataManager
                             {
                                 if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                             }
-                            MessageBox.Show("½âÎöCM_×Ö¶Î¸ñÊ½Ê§°Ü£¡" + "\r\n"
-                                             + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                             + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                             + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºCM_ SG_ 129 HVCurrentRequest \"³äµçÊä³öµçÁ÷ÇëÇó\";");
+                            MessageBox.Show("ï¿½ï¿½ï¿½ï¿½CM_ï¿½Ö¶Î¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CM_ SG_ 129 HVCurrentRequest \"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\";");
                         }
 
                         break;
@@ -407,7 +411,7 @@ public class CanDbcDataManager
                     {
                         for (int j = 1; j < (lineAry.Length); j++)
                         {
-                            //TODO:´æÖü½ÚµãÐÅÏ¢
+                            //TODO:ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ï¢
                         }
                         break;
                     }
@@ -415,10 +419,10 @@ public class CanDbcDataManager
                     {
                         try
                         {
-                            //¸ñÊ½¾ÙÀý£ºBO_ 1127 CDU_DCDC_1: 24 CDU
+                            //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BO_ 1127 CDU_DCDC_1: 24 CDU
                             CanMessage message = new CanMessage();
                             uint id = Convert.ToUInt32(lineAry[1]);
-                            //Ìø¹ýÄ¬ÈÏµÄÏûÏ¢
+                            //ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½ï¿½ï¿½Ï¢
                             if (id == 0xC0000000)
                             {
                                 isMessageValid = false;
@@ -428,7 +432,7 @@ public class CanDbcDataManager
                             {
                                 isMessageValid = true;
                             }
-                            //×î¸ßÎ»Îª1µÄÎªÀ©Õ¹Ö¡
+                            //ï¿½ï¿½ï¿½Î»Îª1ï¿½ï¿½Îªï¿½ï¿½Õ¹Ö¡
                             if ((id & 0x80000000) != 0)
                             {
                                 id &= 0x7FFFFFFF;
@@ -454,10 +458,10 @@ public class CanDbcDataManager
                             {
                                 if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                             }
-                            MessageBox.Show("½âÎöBO_×Ö¶Î¸ñÊ½Ê§°Ü£¡" + "\r\n"
-                                             + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                             + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                             + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºBO_ 1127 CDU_DCDC_1: 24 CDU");
+                            MessageBox.Show("ï¿½ï¿½ï¿½ï¿½BO_ï¿½Ö¶Î¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BO_ 1127 CDU_DCDC_1: 24 CDU");
                         }
 
                         break;
@@ -466,24 +470,24 @@ public class CanDbcDataManager
                     {
                         try
                         {
-                            //¸ñÊ½¾ÙÀý£º
-                            //ÆÕÍ¨Ö¡ÐÅºÅ¸ñÊ½£º SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] "A"  Vector__XXX
-                            //¸´ÓÃÖ¡ÐÅºÅ¸ñÊ½£º SG_ AAA00_DcdcInputVolt m0 : 0|16@1+ (0.1,0) [0|6553.6] "" EXECU
+                            //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            //ï¿½ï¿½Í¨Ö¡ï¿½ÅºÅ¸ï¿½Ê½ï¿½ï¿½ SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] "A"  Vector__XXX
+                            //ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ÅºÅ¸ï¿½Ê½ï¿½ï¿½ SG_ AAA00_DcdcInputVolt m0 : 0|16@1+ (0.1,0) [0|6553.6] "" EXECU
                             if (isMessageValid)
                             {
                                 uint byteOffset = 0;
                                 CanSignal signal = new CanSignal();
 
                                 signal.sigName = lineAry[1];
-                                if (lineAry[2] == ":")//ÆÕÍ¨Ö¡
+                                if (lineAry[2] == ":")//ï¿½ï¿½Í¨Ö¡
                                 {
-                                    //TODO: ¸´ÓÃÐÅºÅ±êÖ¾Î»£ºsignal.multiplexerIndicator = -2;
+                                    //TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ±ï¿½Ö¾Î»ï¿½ï¿½signal.multiplexerIndicator = -2;
                                     byteOffset = 0;
                                 }
-                                else//¸´ÓÃÖ¡
+                                else//ï¿½ï¿½ï¿½ï¿½Ö¡
                                 {
                                     byteOffset = 1;
-                                    /* TODO: ¸´ÓÃÐÅºÅ±êÖ¾Î»
+                                    /* TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ±ï¿½Ö¾Î»
                                     if (lineAry[2][0] == 'M')
                                     {
                                         signal.multiplexerIndicator = -1;
@@ -494,7 +498,7 @@ public class CanDbcDataManager
                                     }
                                     else
                                     {
-                                        return ExceptionHandler.Report("DbcÐÅºÅ¸ñÊ½´íÎó");
+                                        return ExceptionHandler.Report("Dbcï¿½ÅºÅ¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
                                     }
                                     */
                                 }
@@ -505,7 +509,7 @@ public class CanDbcDataManager
                                 if (sp[2][0] == '0')
                                 {
                                     signal.sigOrderType = 0;
-                                    //DBCÖÐMotorolaÎªMSB£¬ÐèÒª×ª»»ÎªLSB
+                                    //DBCï¿½ï¿½MotorolaÎªMSBï¿½ï¿½ï¿½ï¿½Òª×ªï¿½ï¿½ÎªLSB
                                     signal.sigStartBit = CanOrderTool.MotorolaStartBit_Msb2Lsb(Convert.ToUInt32(sp[0]), signal.sigLen);
                                 }
                                 else if (sp[2][0] == '1')
@@ -528,14 +532,14 @@ public class CanDbcDataManager
                                 signal.sigOffset = Convert.ToDouble(sp1[1]);
 
                                 //string[] sp2 = lineAry[5 + byteOffset].Split(new char[] { '[', '|', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                //×î´ó×îÐ¡Öµ
+                                //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
                                 //signal.minimum = Convert.ToDouble(sp2[0]);
                                 //signal.maximum = Convert.ToDouble(sp2[1]);
 
-                                //ÐÅºÅµ¥Î»
+                                //ï¿½ÅºÅµï¿½Î»
                                 //signal.uintStr = lineAry[6 + byteOffset];
 
-                                //ÐÅºÅ½ÓÊÕ½Úµã
+                                //ï¿½ÅºÅ½ï¿½ï¿½Õ½Úµï¿½
                                 if (7 + byteOffset <= lineAry.Length - 1)
                                 {
                                     signal.recvNode = lineAry[7 + byteOffset].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -551,18 +555,18 @@ public class CanDbcDataManager
                             {
                                 if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                             }
-                            MessageBox.Show("½âÎöSG_×Ö¶Î¸ñÊ½Ê§°Ü£¡" + "\r\n"
-                                             + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                             + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                             + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºSG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] \"A\"  Vector__XXX");
+                            MessageBox.Show("ï¿½ï¿½ï¿½ï¿½SG_ï¿½Ö¶Î¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                             + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] \"A\"  Vector__XXX");
                         }
 
                         break;
                     }
                 case "BA_":
                     {
-                        //»ñÈ¡±¨ÎÄÊôÐÔ-±¨ÎÄÖÜÆÚ
-                        //¸ñÊ½¾ÙÀý£ºBA_ "GenMsgCycleTime" BO_ 1118 100;
+                        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                        //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BA_ "GenMsgCycleTime" BO_ 1118 100;
                         if ((lineAry[1].Replace("\"", "") == "GenMsgCycleTime") && (lineAry[2] == "BO_"))
                         {
                             try
@@ -578,16 +582,16 @@ public class CanDbcDataManager
                                 {
                                     if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                                 }
-                                MessageBox.Show("½âÎöBA_×Ö¶Î±¨ÎÄÖÜÆÚ¸ñÊ½Ê§°Ü£¡" + "\r\n"
-                                                 + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                                 + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                                 + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºBA_ \"GenMsgCycleTime\" BO_ 1118 100;");
+                                MessageBox.Show("ï¿½ï¿½ï¿½ï¿½BA_ï¿½Ö¶Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BA_ \"GenMsgCycleTime\" BO_ 1118 100;");
                             }
                         }
                         else if ((lineAry[1].Replace("\"", "") == "VFrameFormat") && (lineAry[2] == "BO_"))
                         {
-                            //»ñÈ¡±¨ÎÄÊôÐÔ-±¨ÎÄÖ¡ÀàÐÍ
-                            //¸ñÊ½¾ÙÀý£ºBA_ "VFrameFormat" BO_ 520 14;£¨0:Standard-CAN; 1:Externed-CAN; 14:Standard-CANFD; 15:Externed-CANFD£©
+                            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½
+                            //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BA_ "VFrameFormat" BO_ 520 14;ï¿½ï¿½0:Standard-CAN; 1:Externed-CAN; 14:Standard-CANFD; 15:Externed-CANFDï¿½ï¿½
                             //BA_DEF_ BO_ "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
                             try
                             {
@@ -617,7 +621,7 @@ public class CanDbcDataManager
                                 }
                                 else { }
 
-                                //À©Õ¹Ö¡IDÐèÒª´¦ÀíÒ»ÏÂ
+                                //ï¿½ï¿½Õ¹Ö¡IDï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
                                 if (_tmpIsExtended == true) tmpId &= 0x7FFFFFFF;
 
                                 canMsgSet[tmpId].isExtended = _tmpIsExtended;
@@ -631,10 +635,10 @@ public class CanDbcDataManager
                                 {
                                     if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
                                 }
-                                MessageBox.Show("½âÎöBA_×Ö¶Î±¨ÎÄÖ¡ÀàÐÍ¸ñÊ½Ê§°Ü£¡" + "\r\n"
-                                                 + "´íÎó×Ö¶ÎÐÐÊý£º" + errorLineNum + "\r\n"
-                                                 + "´íÎó×Ö¶ÎÊý¾Ý£º" + errorLineStr + "\r\n"
-                                                 + "Çë¼ì²éÊÇ·ñÂú×ã¸ñÊ½¾ÙÀý£ºBA_ \"VFrameFormat\" BO_ 520 14;");
+                                MessageBox.Show("ï¿½ï¿½ï¿½ï¿½BA_ï¿½Ö¶Î±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Í¸ï¿½Ê½Ê§ï¿½Ü£ï¿½" + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + errorLineNum + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ý£ï¿½" + errorLineStr + "\r\n"
+                                                 + "ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BA_ \"VFrameFormat\" BO_ 520 14;");
                             }
                         }
                         else { }
@@ -646,10 +650,10 @@ public class CanDbcDataManager
         }
         isLoadCfg = true;
 
-        AppLogMng.DisplayLog("´ÓExcelÎÄ¼þµ¼ÈëÍ¨ÐÅÐ­Òé³É¹¦!", true);
+        AppLogMng.DisplayLog("ï¿½ï¿½Excelï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ð­ï¿½ï¿½É¹ï¿½!", true);
     }
 
-    //Çå³ýÒÑ¾­´æÔÚµÄDBCÅäÖÃ
+    //ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Úµï¿½DBCï¿½ï¿½ï¿½ï¿½
     private void ResetCanDbcCfg()
     {
         canMsgSet.Clear();
@@ -657,7 +661,7 @@ public class CanDbcDataManager
     }
 
     /// <summary>
-    /// ¸ù¾ÝCANFDºÍÀ©Õ¹Ö¡¸ñÊ½»ñÈ¡DBCÄÚ´ú±íCANÖ¡ÀàÐÍµÄÖµ
+    /// ï¿½ï¿½ï¿½ï¿½CANFDï¿½ï¿½ï¿½ï¿½Õ¹Ö¡ï¿½ï¿½Ê½ï¿½ï¿½È¡DBCï¿½Ú´ï¿½ï¿½ï¿½CANÖ¡ï¿½ï¿½ï¿½Íµï¿½Öµ
     /// </summary>
     /// <param name="isCanfd"></param>
     /// <param name="isExtended"></param>
@@ -692,10 +696,10 @@ public class CanDbcDataManager
     }
 
     /// <summary>
-    /// ÅÐ¶Ïµ±Ç°·¢ËÍ±¨ÎÄµÄ·¢ËÍ½ÚµãÊÇ·ñÎªDBCÖÐµÄÄ¿±êECU
+    /// ï¿½Ð¶Ïµï¿½Ç°ï¿½ï¿½ï¿½Í±ï¿½ï¿½ÄµÄ·ï¿½ï¿½Í½Úµï¿½ï¿½Ç·ï¿½ÎªDBCï¿½Ðµï¿½Ä¿ï¿½ï¿½ECU
     /// </summary>
-    /// <param name="transmiter">·¢ËÍ½Úµã</param>
-    /// <returns>true ÊôÓÚÄ¿±êECU</returns>
+    /// <param name="transmiter">ï¿½ï¿½ï¿½Í½Úµï¿½</param>
+    /// <returns>true ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ECU</returns>
     static public bool IsMsgBelongToTargetEcu(string transmitter)
     {
         if (transmitter.Contains("OBC") || transmitter.Contains("DCDC") || transmitter.Contains("CDU"))
