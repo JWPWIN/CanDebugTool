@@ -2,6 +2,9 @@
 
 static public class CanOrderTool
 {
+    /// <summary>CAN FD 最大载荷 64 字节时的最高位索引。</summary>
+    public const uint MaxStartBitInclusive = 511;
+
     /// <summary>
     /// Motorola格式通过LSB起始位计算MSB起始位
     /// </summary>
@@ -18,7 +21,7 @@ static public class CanOrderTool
             //如果处于当前字节Bit7，则下一次Msb位跳到上一个字节Bit0
             if ((startBit_Msb + 1) % 8 == 0)
             {
-                if ((startBit_Msb - 15) >= 0)
+                if (startBit_Msb >= 15)
                 {
                     startBit_Msb = startBit_Msb - 15;
                 }
@@ -50,16 +53,15 @@ static public class CanOrderTool
         while (length > 1)
         {
             length--;
-            //如果处于当前字节Bit7，则下一次Lsb位跳到下一个字节Bit7
+            //如果处于当前字节Bit0，则下一次Lsb位跳到下一个字节Bit7
             if (startBit_Lsb % 8 == 0)
             {
-                if ((startBit_Lsb + 15) <= 63)//8字节报文格式，可修改
+                if ((startBit_Lsb + 15) <= MaxStartBitInclusive)
                 {
                     startBit_Lsb = startBit_Lsb + 15;
                 }
                 else
                 {
-                    //如果下一个字节Bit7大于63则退出
                     break;
                 }
             }

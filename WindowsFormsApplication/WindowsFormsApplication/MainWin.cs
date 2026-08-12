@@ -349,6 +349,19 @@ namespace WindowsFormsApplication
             }
         }
 
+        /// <summary>矩阵加载中空态提示（供工具页 DBC 导入等调用）。</summary>
+        public void SetMatrixLoadingState(bool loading)
+        {
+            uI_ComUpper.SetMatrixLoading(loading);
+        }
+
+        /// <summary>矩阵（Excel/DBC）重新加载后刷新通信区 / 矩阵页 / 模型视图。</summary>
+        public void NotifyDbcMatrixReloaded()
+        {
+            UpdateDbcLoadStateIndicator();
+            RefreshComUpperAfterDbcChanged();
+        }
+
         private void RefreshComUpperAfterDbcChanged()
         {
             uI_ComUpper.InvalidateMsgAreas();

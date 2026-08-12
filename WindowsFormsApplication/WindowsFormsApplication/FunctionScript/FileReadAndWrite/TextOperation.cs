@@ -1,11 +1,10 @@
-using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 public enum FileType
-{ 
+{
     Text,
     C_Code,
     C_Head,
@@ -15,150 +14,93 @@ public enum FileType
 
 public class TextOperation
 {
-    /// <summary>
-    /// Ğ´ÄÚÈİµ½Ñ¡ÔñÎÄµµÖĞ
-    /// </summary>
-    /// <param name="fileName">ÎÄ¼şÃû</param>
-    /// <param name="type">ÎÄ¼şÀàĞÍ-ºó×º</param>
-    /// <param name="content">ÎÄ¼ş¾ßÌåÄÚÈİ</param>
-    static public void WriteData(string fileName, FileType type, string content)
+    static private readonly Encoding Utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+
+    static private string GetSuffix(FileType type)
     {
-        StreamWriter writer;
-        string suffix = ""; //ÎÄ¼şÃûºó×º
-        if (type == FileType.Text)
+        return type switch
         {
-            suffix = ".txt";
-        }
-        else if (type == FileType.C_Code)
-        {
-            suffix = ".c";
-        }
-        else if (type == FileType.C_Head)
-        {
-            suffix = ".h";
-        }
-        else if (type == FileType.DBC)
-        {
-            suffix = ".dbc";
-        }
-        else if (type == FileType.XML)
-        {
-            suffix = ".xml";
-        }
-        else
-        {
-            suffix = ".txt";
-        }
-
-            //Ñ¡È¡±£´æÎÄ¼şÂ·¾¶
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-        folderBrowser.SelectedPath = ".";
-        folderBrowser.Description = "ÇëÑ¡Ôñ±£´æÄ¿Â¼";
-
-        if (folderBrowser.ShowDialog() == DialogResult.OK)
-        {
-            string selectedPath = folderBrowser.SelectedPath;
-
-            FileInfo file = new FileInfo(selectedPath + "\\" + fileName + suffix);
-            if (!file.Exists)
-            {
-                writer = file.CreateText();//´´½¨Ğ´ÈëĞÂÎÄ±¾ÎÄ¼şµÄStreamWriter
-            }
-            else
-            {
-                //É¾³ıºóĞÂ½¨
-                file.Delete();
-                file.Refresh();
-                writer = file.CreateText();
-            }
-            writer.Write(content);
-            writer.Flush();
-            writer.Dispose();
-            writer.Close();
-        }
+            FileType.Text => ".txt",
+            FileType.C_Code => ".c",
+            FileType.C_Head => ".h",
+            FileType.DBC => ".dbc",
+            FileType.XML => ".xml",
+            _ => ".txt"
+        };
     }
 
     /// <summary>
-    /// Ğ´ÄÚÈİµ½Ö¸¶¨Â·¾¶ÎÄµµÖĞ
+    /// å¼¹å‡ºç›®å½•é€‰æ‹©å¹¶å†™å…¥æ–‡ä»¶ã€‚æˆåŠŸè¿”å› trueï¼›å–æ¶ˆæˆ–å¤±è´¥è¿”å› falseã€‚
+    /// DBC/æ–‡æœ¬ç»Ÿä¸€æŒ‰ UTF-8ï¼ˆæ—  BOMï¼‰å†™å…¥ã€‚
     /// </summary>
-    /// <param name="path">ÎÄ¼ş±£´æÂ·¾¶</param>
-    /// <param name="fileName">ÎÄ¼şÃû</param>
-    /// <param name="type">ÎÄ¼şÀàĞÍ-ºó×º</param>
-    /// <param name="content">ÎÄ¼ş¾ßÌåÄÚÈİ</param>
-    static public void WriteData(string path, string fileName, FileType type, string content)
+    static public bool WriteData(string fileName, FileType type, string content)
     {
-        StreamWriter writer;
-        string suffix = ""; //ÎÄ¼şÃûºó×º
-        if (type == FileType.Text)
-        {
-            suffix = ".txt";
-        }
-        else if (type == FileType.C_Code)
-        {
-            suffix = ".c";
-        }
-        else if (type == FileType.C_Head)
-        {
-            suffix = ".h";
-        }
+        string suffix = GetSuffix(type);
 
-        if (path != null)
-        {
-            string selectedPath = path;
+        using FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+        folderBrowser.Description = "è¯·é€‰æ‹©ä¿å­˜ç›®å½•";
 
-            FileInfo file = new FileInfo(selectedPath + "\\" + fileName + suffix);
-            if (!file.Exists)
-            {
-                writer = file.CreateText();//´´½¨Ğ´ÈëĞÂÎÄ±¾ÎÄ¼şµÄStreamWriter
-            }
-            else
-            {
-                //É¾³ıºóĞÂ½¨
-                file.Delete();
-                file.Refresh();
-                writer = file.CreateText();
-            }
-            writer.Write(content);
-            writer.Flush();
-            writer.Dispose();
-            writer.Close();
-        }
+        if (folderBrowser.ShowDialog() != DialogResult.OK)
+            return false;
+
+        string selectedPath = folderBrowser.SelectedPath;
+        return WriteData(selectedPath, fileName, type, content);
     }
 
     /// <summary>
-    /// ¶ÁÈ¡textÖĞµÄÊı¾İ
+    /// å†™å†…å®¹åˆ°æŒ‡å®šè·¯å¾„ã€‚æˆåŠŸè¿”å› trueã€‚
+    /// </summary>
+    static public bool WriteData(string path, string fileName, FileType type, string content)
+    {
+        if (string.IsNullOrEmpty(path) || content is null)
+            return false;
+
+        try
+        {
+            string suffix = GetSuffix(type);
+            string fullPath = Path.Combine(path, fileName + suffix);
+            File.WriteAllText(fullPath, content, Utf8NoBom);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("å†™å…¥æ–‡ä»¶å¤±è´¥ï¼š\n" + ex.Message, "é”™è¯¯",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
+    }
+
+    /// <summary>å¼¹å‡ºæ–‡ä»¶é€‰æ‹©æ¡†ï¼Œé€‰æ‹© DBCï¼›å–æ¶ˆè¿”å› nullã€‚</summary>
+    static public string PickDbcFile()
+    {
+        using OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "DBC Files (*.dbc)|*.dbc|All Files (*.*)|*.*";
+        openFileDialog.FilterIndex = 1;
+        openFileDialog.Multiselect = false;
+        return openFileDialog.ShowDialog() == DialogResult.OK
+            ? openFileDialog.FileName
+            : null;
+    }
+
+    /// <summary>ä»¥ UTF-8 è¯»å–æ–‡æœ¬æ–‡ä»¶ï¼ˆå¯åœ¨åå°çº¿ç¨‹è°ƒç”¨ï¼‰ã€‚</summary>
+    static public string ReadFileUtf8(string filePath)
+    {
+        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            return null;
+        return File.ReadAllText(filePath, Utf8NoBom);
+    }
+
+    /// <summary>è¯»å– DBCï¼ˆUTF-8 / BOM / GB18030 å›é€€ï¼‰ï¼Œå¯åœ¨åå°çº¿ç¨‹è°ƒç”¨ã€‚</summary>
+    static public string ReadDbcText(string filePath) => DbcTextReader.ReadDbcFile(filePath);
+
+    /// <summary>
+    /// å¼¹å‡ºå¯¹è¯æ¡†è¯»å–æ–‡æœ¬ï¼ˆå…¼å®¹æ—§å…¥å£ï¼‰ã€‚DBC å»ºè®®ç”¨ PickDbcFile + ReadFileUtf8ã€‚
     /// </summary>
     static public string ReadData()
     {
-        string allData = "";
-        //Ñ¡È¡¶ÁÈ¡ÎÄ¼şÂ·¾¶
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Txt Files (*)|*";
-        openFileDialog.FilterIndex = 1;
-        openFileDialog.Multiselect = false;
-
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
-        {
-            string selectedFile = openFileDialog.FileName;
-            //readerµÄ»ñÈ¡·½Ê½ÓĞÁ½ÖÖ
-            //µÚÒ»ÖÖ
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            StreamReader reader = new StreamReader(selectedFile, Encoding.GetEncoding("gb2312"));
-
-            //µÚ¶şÖÖ
-            //FileInfo file = new FileInfo(Application.dataPath + "/mytxt.txt");
-            //reader = file.OpenText();//´´½¨Ê¹ÓÃUTF8±àÂë¡¢´ÓÏÖÓĞÎÄ±¾ÎÄ¼şÖĞ½øĞĞ¶ÁÈ¡µÄStreamReader
-
-            allData = reader.ReadToEnd();
-            if (allData == null)
-            {
-                MessageBox.Show("Ã»ÓĞÊı¾İ");
-            }
-            reader.Dispose();
-            reader.Close();
-
-        }
-
-        return allData;
+        string path = PickDbcFile();
+        if (path is null)
+            return string.Empty;
+        return ReadDbcText(path) ?? string.Empty;
     }
 }

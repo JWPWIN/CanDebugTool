@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Linq;
+using System.Text;
 
 public class CanMessage
 {
@@ -12,26 +14,34 @@ public class CanMessage
     public bool isExtended = false;
     public bool isCanfd = false;
     public string msgName = "";
+    /// <summary>报文注释（CM_ BO_）。</summary>
+    public string msgDesc = "";
     public uint msgSize = 0;
     public string transmitter = "";
-    public uint msgType = 0;//(0:APP; 1:NM; 2:Debug-����֡)
+    public uint msgType = 0;//(0:APP; 1:NM; 2:Debug-复用帧)
     public List<CanSignal> signals = new List<CanSignal>();
 }
 
 public class CanSignal
 {
-    public string sigName; //�ź���
-    public uint msgId;//�ź���������ID
-    public string sigDesc;//�ź�����
-    public uint sigOrderType;//0��Motorola-LSB��1��Intel
-    public uint sigStartBit;//�ź���ʼλ
-    public uint sigLen;//�źų���
-    public double sigFactor; //�źž���
-    public double sigOffset; //�ź�ƫ��
-    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //�ź�ֵ�б�<�ź�ֵ���ź�ֵ����>
-    public uint valueType; //ֵ���ͣ�1-�з��ţ�0���޷���
-    public string recvNode;//���սڵ�
-    public uint reuseFrameID;//����֡ID����������ΪDebugģʽʱ����
+    public string sigName; //信号名
+    public uint msgId;//信号所属报文ID
+    public string sigDesc;//信号描述
+    public uint sigOrderType;//0：Motorola-LSB；1：Intel
+    public uint sigStartBit;//信号起始位
+    public uint sigLen;//信号长度
+    public double sigFactor; //信号精度
+    public double sigOffset; //信号偏移
+    public Dictionary<int, string> sigValueTable = new Dictionary<int, string>(); //信号值列表
+    public uint valueType; //值类型：1-有符号；0：无符号
+    public string recvNode;//接收节点（多节点逗号拼接）
+    public uint reuseFrameID;//复用帧ID / mN 的 N
+    /// <summary>0=无复用, 1=M 复用开关, 2=mN 复用信号。</summary>
+    public uint muxType;
+    /// <summary>物理单位（SG_ 引号字段）。</summary>
+    public string sigUnit = "";
+    public double sigMin;
+    public double sigMax;
 }
 
 //excel�����ļ���ÿ�д����ĺ���
@@ -282,378 +292,56 @@ public class CanDbcDataManager
         return true;
     }
 
-    //��DBC�е���CAN������Ϣ
-    public void LoadCanMatrixFromDBC()
+    /// <summary>弹出文件选择并导入 DBC（UI 线程）。</summary>
+    /// <returns>是否成功加载</returns>
+    public bool LoadCanMatrixFromDBC()
     {
-        //ѡ��DBC�ļ�����ȡ����
-        string dbcInfo = TextOperation.ReadData();
-        string[] bufferAry = dbcInfo.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        string[] bufferAry_CheckErrLine = dbcInfo.Split(new string[] { "\r\n"},StringSplitOptions.None);//���ڼ�����������ԭʼ�ָ�����,��������
-
-        if (dbcInfo == null)
-        {
-            MessageBox.Show("DBC�ļ��ǿյ�");
-            return;
-        }
-
-        if (bufferAry.Length < 3)
-        {
-            MessageBox.Show("Dbc�ļ���ʽ����");
-            return;
-        }
-
-        //�������֮ǰ��DBC����
-        ResetCanDbcCfg();
-
-        int lineNum = bufferAry.Length;
-        bool isMessageValid = false;
-        uint lastMsgId = 0;
-
-        for (int i = 0; i < lineNum; i++)
-        {
-            string[] lineAry = bufferAry[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (lineAry.Length < 1)
-            {
-                MessageBox.Show("Dbc�ļ��и�ʽ����");
-                return;
-            }
-            switch (lineAry[0])
-            {
-                case "VAL_":
-                    {
-                        try
-                        {
-                            //��ʽ������VAL_ 1072 HEVC_WakeUpSleepCommand 0 "Go to Sleep" 1 "reserved0" 2 "reserved1" 3 "WakeUp"; 
-                            uint tmpId = uint.Parse(lineAry[1]);
-                            if (canMsgSet.ContainsKey(tmpId))
-                            {
-                                foreach (var item in canMsgSet[tmpId].signals)
-                                {
-                                    if (lineAry[2] == item.sigName)
-                                    {
-                                        //ȡֵ�����ַ���
-                                        string _valueTableStr = string.Empty;
-                                        for (int j = 3; j < lineAry.Length; j++)
-                                        {
-                                            _valueTableStr += lineAry[j];
-                                        }
-
-                                        string[] tmpArr = _valueTableStr.Replace(";", string.Empty).Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
-                                        int tmpNum = 0;
-                                        while (tmpNum < tmpArr.Length)
-                                        {
-                                            int _tmpValue = int.Parse(tmpArr[tmpNum].Replace(" ", ""));
-                                            string _tmpDesc = tmpArr[tmpNum + 1];
-                                            //����valueֵ��
-                                            item.sigValueTable.Add(_tmpValue, _tmpDesc);
-
-                                            tmpNum = tmpNum + 2;
-                                        }
-
-                                        //�ź�ֵ�б�����
-                                        var _valueTableDict = item.sigValueTable.OrderBy(x => x.Key).ToDictionary<int, string>();
-                                        item.sigValueTable = _valueTableDict as Dictionary<int, string>;
-                                    }
-                                }
-                            }
-                        }
-                        catch(Exception)
-                        {
-                            string errorLineStr = bufferAry[i];
-                            int errorLineNum = 0;
-                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                            {
-                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                            }
-                            MessageBox.Show("����VAL_�ֶθ�ʽʧ�ܣ�" +  "\r\n"
-                                             + "�����ֶ�������" + errorLineNum + "\r\n"
-                                             + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                             + "�����Ƿ������ʽ������VAL_ 1072 HEVC_WakeUpSleepCommand 0 \"Go to Sleep\" 1 \"reserved0\" 2 \"reserved1\" 3 \"WakeUp\";");
-                        }
-
-                        break;
-                    }
-                case "CM_":
-                    {
-                        try 
-                        {
-                            //��ʽ������ CM_ SG_ 129 HVCurrentRequest "��������������";
-                            uint tmpId = uint.Parse(lineAry[2]);
-                            if (canMsgSet.ContainsKey(tmpId))
-                            {
-                                foreach (var item in canMsgSet[tmpId].signals)
-                                {
-                                    if (lineAry[3] == item.sigName)
-                                    {
-                                        item.sigDesc = lineAry[4].Replace("\"", string.Empty).Replace(";", string.Empty);
-                                    }
-                                }
-                            }
-                        }
-                        catch(Exception)
-                        {
-                            string errorLineStr = bufferAry[i];
-                            int errorLineNum = 0;
-                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                            {
-                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                            }
-                            MessageBox.Show("����CM_�ֶθ�ʽʧ�ܣ�" + "\r\n"
-                                             + "�����ֶ�������" + errorLineNum + "\r\n"
-                                             + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                             + "�����Ƿ������ʽ������CM_ SG_ 129 HVCurrentRequest \"��������������\";");
-                        }
-
-                        break;
-                    }
-                case "BU_:":
-                    {
-                        for (int j = 1; j < (lineAry.Length); j++)
-                        {
-                            //TODO:�����ڵ���Ϣ
-                        }
-                        break;
-                    }
-                case "BO_":
-                    {
-                        try
-                        {
-                            //��ʽ������BO_ 1127 CDU_DCDC_1: 24 CDU
-                            CanMessage message = new CanMessage();
-                            uint id = Convert.ToUInt32(lineAry[1]);
-                            //����Ĭ�ϵ���Ϣ
-                            if (id == 0xC0000000)
-                            {
-                                isMessageValid = false;
-                                break;
-                            }
-                            else
-                            {
-                                isMessageValid = true;
-                            }
-                            //���λΪ1��Ϊ��չ֡
-                            if ((id & 0x80000000) != 0)
-                            {
-                                id &= 0x7FFFFFFF;
-                                message.isExtended = true;
-                            }
-                            else
-                            {
-                                message.isExtended = false;
-                            }
-                            message.msgId = id;
-                            message.msgName = lineAry[2].Substring(0, lineAry[2].Length - 1);
-                            message.msgSize = Convert.ToUInt32(lineAry[3]);
-                            message.transmitter = lineAry[4];
-
-                            canMsgSet.Add(message.msgId, message);
-                            lastMsgId = message.msgId;
-                        }
-                        catch (Exception)
-                        {
-                            string errorLineStr = bufferAry[i];
-                            int errorLineNum = 0;
-                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                            {
-                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                            }
-                            MessageBox.Show("����BO_�ֶθ�ʽʧ�ܣ�" + "\r\n"
-                                             + "�����ֶ�������" + errorLineNum + "\r\n"
-                                             + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                             + "�����Ƿ������ʽ������BO_ 1127 CDU_DCDC_1: 24 CDU");
-                        }
-
-                        break;
-                    }
-                case "SG_":
-                    {
-                        try
-                        {
-                            //��ʽ������
-                            //��ͨ֡�źŸ�ʽ�� SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] "A"  Vector__XXX
-                            //����֡�źŸ�ʽ�� SG_ AAA00_DcdcInputVolt m0 : 0|16@1+ (0.1,0) [0|6553.6] "" EXECU
-                            if (isMessageValid)
-                            {
-                                uint byteOffset = 0;
-                                CanSignal signal = new CanSignal();
-
-                                signal.sigName = lineAry[1];
-                                if (lineAry[2] == ":")//��ͨ֡
-                                {
-                                    //TODO: �����źű�־λ��signal.multiplexerIndicator = -2;
-                                    byteOffset = 0;
-                                }
-                                else//����֡
-                                {
-                                    byteOffset = 1;
-                                    /* TODO: �����źű�־λ
-                                    if (lineAry[2][0] == 'M')
-                                    {
-                                        signal.multiplexerIndicator = -1;
-                                    }
-                                    else if (lineAry[2][0] == 'm')
-                                    {
-                                        signal.multiplexerIndicator = Convert.ToInt32(lineAry[2].Substring(1, lineAry[2].Length - 1));
-                                    }
-                                    else
-                                    {
-                                        return ExceptionHandler.Report("Dbc�źŸ�ʽ����");
-                                    }
-                                    */
-                                }
-
-                                string[] sp = lineAry[3 + byteOffset].Split(new char[] { '|', '@' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                signal.sigLen = Convert.ToUInt32(sp[1]);
-                                if (sp[2][0] == '0')
-                                {
-                                    signal.sigOrderType = 0;
-                                    //DBC��MotorolaΪMSB����Ҫת��ΪLSB
-                                    signal.sigStartBit = CanOrderTool.MotorolaStartBit_Msb2Lsb(Convert.ToUInt32(sp[0]), signal.sigLen);
-                                }
-                                else if (sp[2][0] == '1')
-                                {
-                                    signal.sigOrderType = 1;
-                                    signal.sigStartBit = Convert.ToUInt32(sp[0]);
-                                }
-
-                                if (lineAry[3] == "+")
-                                {
-                                    signal.valueType = 0;
-                                }
-                                else if (lineAry[3] == "-")
-                                {
-                                    signal.valueType = 1;
-                                }
-
-                                string[] sp1 = lineAry[4 + byteOffset].Split(new char[] { '(', ',', ')' }, StringSplitOptions.RemoveEmptyEntries);
-                                signal.sigFactor = Convert.ToDouble(sp1[0]);
-                                signal.sigOffset = Convert.ToDouble(sp1[1]);
-
-                                //string[] sp2 = lineAry[5 + byteOffset].Split(new char[] { '[', '|', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                //�����Сֵ
-                                //signal.minimum = Convert.ToDouble(sp2[0]);
-                                //signal.maximum = Convert.ToDouble(sp2[1]);
-
-                                //�źŵ�λ
-                                //signal.uintStr = lineAry[6 + byteOffset];
-
-                                //�źŽ��սڵ�
-                                if (7 + byteOffset <= lineAry.Length - 1)
-                                {
-                                    signal.recvNode = lineAry[7 + byteOffset].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                                }
-                                canMsgSet[lastMsgId].signals.Add(signal);
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            string errorLineStr = bufferAry[i];
-                            int errorLineNum = 0;
-                            for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                            {
-                                if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                            }
-                            MessageBox.Show("����SG_�ֶθ�ʽʧ�ܣ�" + "\r\n"
-                                             + "�����ֶ�������" + errorLineNum + "\r\n"
-                                             + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                             + "�����Ƿ������ʽ������SG_ OBC_ChgCurr : 23|16@0+ (0.05,0) [0|400] \"A\"  Vector__XXX");
-                        }
-
-                        break;
-                    }
-                case "BA_":
-                    {
-                        //��ȡ��������-��������
-                        //��ʽ������BA_ "GenMsgCycleTime" BO_ 1118 100;
-                        if ((lineAry[1].Replace("\"", "") == "GenMsgCycleTime") && (lineAry[2] == "BO_"))
-                        {
-                            try
-                            {
-                                uint tmpId = uint.Parse(lineAry[3]);
-                                canMsgSet[tmpId].msgCycle = uint.Parse(lineAry[4].Replace(";",""));
-                            }
-                            catch (Exception)
-                            {
-                                string errorLineStr = bufferAry[i];
-                                int errorLineNum = 0;
-                                for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                                {
-                                    if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                                }
-                                MessageBox.Show("����BA_�ֶα������ڸ�ʽʧ�ܣ�" + "\r\n"
-                                                 + "�����ֶ�������" + errorLineNum + "\r\n"
-                                                 + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                                 + "�����Ƿ������ʽ������BA_ \"GenMsgCycleTime\" BO_ 1118 100;");
-                            }
-                        }
-                        else if ((lineAry[1].Replace("\"", "") == "VFrameFormat") && (lineAry[2] == "BO_"))
-                        {
-                            //��ȡ��������-����֡����
-                            //��ʽ������BA_ "VFrameFormat" BO_ 520 14;��0:Standard-CAN; 1:Externed-CAN; 14:Standard-CANFD; 15:Externed-CANFD��
-                            //BA_DEF_ BO_ "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
-                            try
-                            {
-                                uint tmpId = uint.Parse(lineAry[3]);
-                                string msgFrameTypeStr = lineAry[4].Replace(";", "");
-                                bool _tmpIsExtended = false;
-                                bool _tmpIsCanfd = false;
-                                if (msgFrameTypeStr == "0")//standard-can
-                                {
-                                    _tmpIsExtended = false;
-                                    _tmpIsCanfd = false;
-                                }
-                                else if (msgFrameTypeStr == "1")//externed-can
-                                {
-                                    _tmpIsExtended = true;
-                                    _tmpIsCanfd = false;
-                                }
-                                else if (msgFrameTypeStr == "14")//standard-canfd
-                                {
-                                    _tmpIsExtended = false;
-                                    _tmpIsCanfd = true;
-                                }
-                                else if (msgFrameTypeStr == "15")//externed-canfd
-                                {
-                                    _tmpIsExtended = true;
-                                    _tmpIsCanfd = true;
-                                }
-                                else { }
-
-                                //��չ֡ID��Ҫ����һ��
-                                if (_tmpIsExtended == true) tmpId &= 0x7FFFFFFF;
-
-                                canMsgSet[tmpId].isExtended = _tmpIsExtended;
-                                canMsgSet[tmpId].isCanfd = _tmpIsCanfd;
-                            }
-                            catch (Exception)
-                            {
-                                string errorLineStr = bufferAry[i];
-                                int errorLineNum = 0;
-                                for (int j = 0; j < bufferAry_CheckErrLine.Length; j++)
-                                {
-                                    if (bufferAry_CheckErrLine[j].Contains(errorLineStr)) errorLineNum = j + 1;
-                                }
-                                MessageBox.Show("����BA_�ֶα���֡���͸�ʽʧ�ܣ�" + "\r\n"
-                                                 + "�����ֶ�������" + errorLineNum + "\r\n"
-                                                 + "�����ֶ����ݣ�" + errorLineStr + "\r\n"
-                                                 + "�����Ƿ������ʽ������BA_ \"VFrameFormat\" BO_ 520 14;");
-                            }
-                        }
-                        else { }
-
-                        break;
-                    }
-
-            }
-        }
-        isLoadCfg = true;
-
-        AppLogMng.DisplayLog("��Excel�ļ�����ͨ��Э��ɹ�!", true);
+        string path = TextOperation.PickDbcFile();
+        if (string.IsNullOrEmpty(path))
+            return false;
+        string dbcInfo = DbcTextReader.ReadDbcFile(path);
+        return LoadCanMatrixFromDbcText(dbcInfo);
     }
 
-    //����Ѿ����ڵ�DBC����
+    /// <summary>
+    /// 从 DBC 文本解析 CAN 矩阵。先写入临时表，成功后再替换 canMsgSet（失败不破坏已有矩阵）。
+    /// 可在 UI 线程调用；文件 I/O 请在调用前用 DbcTextReader.ReadDbcFile 完成。
+    /// </summary>
+    public bool LoadCanMatrixFromDbcText(string dbcInfo)
+    {
+        if (string.IsNullOrWhiteSpace(dbcInfo))
+        {
+            MessageBox.Show("DBC 文件为空");
+            return false;
+        }
+
+        if (!DbcMatrixParser.TryParse(dbcInfo, out Dictionary<uint, CanMessage> parsed, out List<string> warnings))
+        {
+            MessageBox.Show("DBC 中未解析到有效报文（BO_），或文件格式错误");
+            return false;
+        }
+
+        canMsgSet.Clear();
+        foreach (var kv in parsed)
+            canMsgSet.Add(kv.Key, kv.Value);
+        isLoadCfg = true;
+
+        if (warnings.Count > 0)
+        {
+            int show = Math.Min(warnings.Count, 8);
+            var sb = new StringBuilder();
+            sb.AppendLine("DBC 已加载，但有 " + warnings.Count + " 条告警：");
+            for (int w = 0; w < show; w++)
+                sb.AppendLine(warnings[w]);
+            if (warnings.Count > show)
+                sb.AppendLine("...");
+            MessageBox.Show(sb.ToString(), "DBC 导入告警", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        AppLogMng.DisplayLog("从 DBC 文件导入通信协议成功!", true);
+        return true;
+    }
+
     private void ResetCanDbcCfg()
     {
         canMsgSet.Clear();

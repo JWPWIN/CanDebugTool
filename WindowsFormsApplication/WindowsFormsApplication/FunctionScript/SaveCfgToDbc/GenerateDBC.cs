@@ -1,355 +1,309 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Windows.Interop;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
 public class GenerateDBC
 {
     /// <summary>
-    /// 根据APP已经识别到的CAN矩阵信息生成DBC文件
+    /// ????APP???????CAN???????????DBC???
     /// </summary>
-    /// <returns>DBC内容</returns>
+    /// <returns>DBC???????????????????? null</returns>
     static public string GenerateDbcForCanMatrix()
     {
-        //如果未加载配置，则直接退出
-        if (CanDbcDataManager.GetInstance().isLoadCfg == false)
-        {
+        if (CanDbcDataManager.GetInstance()?.isLoadCfg != true)
             return null;
-        }
 
-        //生成DBC文本内容
-        string allTxt = "";
+        var sb = new StringBuilder(16 * 1024);
+        var msgSet = CanDbcDataManager.GetInstance().canMsgSet;
 
-        //生成版本号信息
-        allTxt += GntVer();
-        //生成NewSymbol新符号内容
-        allTxt += GntNS_();
-        //生成baudrate波特率相关内容
-        allTxt += GntBS_();
-        //生成ECU节点内容
-        List<string> nodes = new List<string>();
-        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        sb.Append(GntVer());
+        sb.Append(GntNS_());
+        sb.Append(GntBS_());
+
+        // ?????? + ?????????
+        var nodes = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var msg in msgSet.Values)
         {
-            //相同的节点就不重复写了
-            if (nodes.Count > 0)
+            if (!string.IsNullOrWhiteSpace(msg.transmitter))
+                nodes.Add(msg.transmitter);
+            foreach (var sig in msg.signals)
             {
-                if (item.Value.transmitter != nodes[nodes.Count - 1])
+                if (string.IsNullOrWhiteSpace(sig.recvNode) ||
+                    string.Equals(sig.recvNode, "TBD", StringComparison.OrdinalIgnoreCase))
+                    continue;
+                foreach (string n in sig.recvNode.Split(','))
                 {
-                    nodes.Add(item.Value.transmitter);
+                    string name = n.Trim();
+                    if (name.Length > 0)
+                        nodes.Add(name);
                 }
             }
-            else
-            {
-                nodes.Add(item.Value.transmitter);
-            }
         }
-        allTxt += GntBU_(nodes);
+        sb.Append(GntBU_(nodes));
 
-        //生成报文及信号内容
-        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        foreach (var item in msgSet)
         {
-            //生成报文信息
-            allTxt += GntBO_(item.Value);
-            //生成报文包含的所有信号
-            foreach (var item1 in item.Value.signals)
+            sb.Append(GntBO_(item.Value));
+            foreach (var sig in item.Value.signals)
             {
-                allTxt += " ";
-                allTxt += GntSG_(item1,item.Value);
+                sb.Append(' ');
+                sb.Append(GntSG_(sig, item.Value));
             }
             if (item.Value.msgType == (uint)CanMsgType.DEBUG)
-            {
-                allTxt += " SG_ Group_Signal M : 56|8@1+ (1,0) [0|0] \"\"  Shinry";
-            }
-
-            allTxt += "\n";
+                sb.Append(" SG_ Group_Signal M : 56|8@1+ (1,0) [0|0] \"\"  Shinry");
+            sb.Append("\r\n");
         }
 
-        //生成信号注释
-        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        foreach (var item in msgSet)
         {
-            foreach (var item1 in item.Value.signals)
-            {
-                //生成报文信息
-                allTxt += GntCM_(item.Value, item1);
-            }
+            if (!string.IsNullOrEmpty(item.Value.msgDesc))
+                sb.Append(GntCmBo_(item.Value));
+            foreach (var sig in item.Value.signals)
+                sb.Append(GntCM_(item.Value, sig));
         }
 
-        //默认设置报文为Canfd标准帧格式
-        allTxt += "\r\n";
-        allTxt += "BA_DEF_ BO_  \"VFrameFormat\" INT 0 15;" + "\r\n";
-        allTxt += "BA_DEF_DEF_  \"VFrameFormat\" 14;" + "\r\n";
-        allTxt += "\r\n";
+        // ??????? + ????
+        sb.Append("\r\n");
+        sb.Append("BA_DEF_ BO_  \"GenMsgCycleTime\" INT 0 65535;\r\n");
+        sb.Append("BA_DEF_ BO_  \"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\";\r\n");
+        sb.Append("BA_DEF_DEF_  \"GenMsgCycleTime\" 0;\r\n");
+        sb.Append("BA_DEF_DEF_  \"VFrameFormat\" 14;\r\n");
+        sb.Append("\r\n");
 
-        //生成信号值列表
-        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        // ????????????? / ??????
+        foreach (var item in msgSet.Values)
         {
-            foreach (var item1 in item.Value.signals)
-            {
-                //生成报文信息
-                allTxt += GntVAL_(item.Value, item1);
-            }
+            uint dbcId = GetDbcCanId(item);
+            sb.Append("BA_ \"GenMsgCycleTime\" BO_ ")
+              .Append(dbcId.ToString(CultureInfo.InvariantCulture))
+              .Append(' ')
+              .Append(item.msgCycle.ToString(CultureInfo.InvariantCulture))
+              .Append(";\r\n");
+
+            int frameType = CanDbcDataManager.GetMsgFrameType(item.isCanfd, item.isExtended);
+            sb.Append("BA_ \"VFrameFormat\" BO_ ")
+              .Append(dbcId.ToString(CultureInfo.InvariantCulture))
+              .Append(' ')
+              .Append(frameType.ToString(CultureInfo.InvariantCulture))
+              .Append(";\r\n");
+        }
+        sb.Append("\r\n");
+
+        foreach (var item in msgSet)
+        {
+            foreach (var sig in item.Value.signals)
+                sb.Append(GntVAL_(item.Value, sig));
         }
 
-        //如果使用Debug-复用帧模式 DBC需要添加信号组数据
-        foreach (var item in CanDbcDataManager.GetInstance().canMsgSet)
+        foreach (var item in msgSet)
         {
-            if(item.Value.msgType == (uint)CanMsgType.DEBUG)
-                allTxt += GntSigGroup_ReuseFrame(item.Value);
-        };
+            if (item.Value.msgType == (uint)CanMsgType.DEBUG)
+                sb.Append(GntSigGroup_ReuseFrame(item.Value));
+        }
 
-        //生成DBC文档
-        return allTxt;
+        return sb.ToString();
     }
 
-    /// <summary>
-    /// 生成版本内容内容
-    /// </summary>
-    /// <returns></returns>
+    /// <summary>DBC ???? CAN ID???????? DEBUG ????????? bit31??</summary>
+    static public uint GetDbcCanId(CanMessage msg)
+    {
+        uint id = msg.msgId;
+        if (msg.msgType == (uint)CanMsgType.DEBUG || msg.isExtended)
+            id |= 0x80000000u;
+        return id;
+    }
+
+    static private string EscapeDbcString(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return string.Empty;
+        return text.Replace("\"", "'");
+    }
+
     static private string GntVer()
     {
-        string ver = "VERSION" +" "+ "\"V0.0.1\"";
-        ver += "\r\n";//换行
-
-        return ver;
+        return "VERSION \"V0.0.1\"\r\n";
     }
 
-    /// <summary>
-    /// 生成NewSymbol新符号内容
-    /// </summary>
-    /// <returns></returns>
     static private string GntNS_()
     {
-        string NS_ =
+        return
               "NS_ :\r\n\t"
               + "NS_DESC_\r\n\t"
               + "CM_\r\n\t"
               + "BA_DEF_\r\n\t"
-              + "BA_\n\t"
-              + "VAL_\n\t"
-              + "CAT_DEF_\n\t"
-              + "CAT_\n\t"
-              + "FILTER\n\t"
-              + "BA_DEF_DEF_\n\t"
-              + "EV_DATA_\n\t"
-              + "ENVVAR_DATA_\n\t"
-              + "SGTYPE_\n\t"
-              + "SGTYPE_VAL_\n\t"
-              + "BA_DEF_SGTYPE_\n\t"
-              + "BA_SGTYPE_\n\t"
-              + "SIG_TYPE_REF_\n\t"
-              + "VAL_TABLE_\n\t"
-              + "SIG_GROUP_\n\t"
-              + "SIG_VALTYPE_\n\t"
-              + "SIGTYPE_VALTYPE_\n\t"
-              + "BO_TX_BU_\n\t"
-              + "BA_DEF_REL_\n\t"
-              + "BA_REL_\n\t"
-              + "BA_DEF_DEF_REL_\n\t"
-              + "BU_SG_REL_\n\t"
-              + "BU_EV_REL_\n\t"
-              + "BU_BO_REL_\n\t"
-              + "SG_MUL_VAL_";
-
-        NS_ += "\r\n";//换行
-
-        return NS_;
+              + "BA_\r\n\t"
+              + "VAL_\r\n\t"
+              + "CAT_DEF_\r\n\t"
+              + "CAT_\r\n\t"
+              + "FILTER\r\n\t"
+              + "BA_DEF_DEF_\r\n\t"
+              + "EV_DATA_\r\n\t"
+              + "ENVVAR_DATA_\r\n\t"
+              + "SGTYPE_\r\n\t"
+              + "SGTYPE_VAL_\r\n\t"
+              + "BA_DEF_SGTYPE_\r\n\t"
+              + "BA_SGTYPE_\r\n\t"
+              + "SIG_TYPE_REF_\r\n\t"
+              + "VAL_TABLE_\r\n\t"
+              + "SIG_GROUP_\r\n\t"
+              + "SIG_VALTYPE_\r\n\t"
+              + "SIGTYPE_VALTYPE_\r\n\t"
+              + "BO_TX_BU_\r\n\t"
+              + "BA_DEF_REL_\r\n\t"
+              + "BA_REL_\r\n\t"
+              + "BA_DEF_DEF_REL_\r\n\t"
+              + "BU_SG_REL_\r\n\t"
+              + "BU_EV_REL_\r\n\t"
+              + "BU_BO_REL_\r\n\t"
+              + "SG_MUL_VAL_\r\n";
     }
 
-    /// <summary>
-    /// 生成baudrate波特率相关内容
-    /// </summary>
-    /// <returns></returns>
     static private string GntBS_()
     {
-        string BS_ = "BS_ :";
-        BS_ += "\r\n";//换行
-        return BS_;
-
+        return "BS_ :\r\n";
     }
 
-    /// <summary>
-    /// 生成ECU节点内容
-    /// </summary>
-    /// <param name="ecuName">包含所有节点名的数组</param>
-    /// <returns></returns>
-    static private string GntBU_(List<string> ecuName)
+    static private string GntBU_(IEnumerable<string> ecuName)
     {
-        string BU_ = "BU_: ";
- 
+        var sb = new StringBuilder("BU_:");
         foreach (var item in ecuName)
         {
-            BU_ += item + " ";
+            if (string.IsNullOrWhiteSpace(item)) continue;
+            sb.Append(' ').Append(item);
         }
-        BU_ += "\r\n";//换行
-        return BU_;
+        sb.Append("\r\n");
+        return sb.ToString();
     }
 
-    /// <summary>
-    /// 生成DBC信号行
-    /// </summary>
-    /// <param name="sig">CAN信号结构体</param>
-    /// <returns></returns>
-    static private string GntSG_(CanSignal sig,CanMessage msg)
+    static private string GntSG_(CanSignal sig, CanMessage msg)
     {
-        string SG_ = "SG_ ";
+        var sb = new StringBuilder("SG_ ");
+        sb.Append(sig.sigName).Append(' ');
 
-        SG_ += sig.sigName + " ";
-        //调试报文需要添加复用帧信息
+        // DEBUG ??????? ?? ??? Vector mux
         if (msg.msgType == (uint)CanMsgType.DEBUG)
-        {
-            SG_ += "m" + sig.reuseFrameID + " ";
-        }
-        SG_ += ":" + " ";
-        //Motorola/Intel起始位计算
-        if (sig.sigOrderType == 0)
-        {
-            //Motorol
-            SG_ += CanOrderTool.MotorolaStartBit_Lsb2Msb(sig.sigStartBit, sig.sigLen).ToString() + "|";
-        }
-        else
-        {
-            //Intel
-            SG_ += sig.sigStartBit.ToString() + "|";
-        }
-        SG_ += sig.sigLen.ToString() + "@";
-        SG_ += sig.sigOrderType;
-        SG_ += ((sig.valueType == 0) ? "+" : "-") + " ";
-        SG_ += "(" + sig.sigFactor + "," + sig.sigOffset + ")" + " "; 
-        SG_ += "[" + "0"+ "|" +  System.Math.Pow(2, sig.sigLen)*sig.sigFactor + "]" + " ";
-        SG_ += "\"\"" + " ";  //暂不支持生成单位
-        if (sig.recvNode == null || sig.recvNode == "")
-        {
-            SG_ += "TBD";
-        }
-        else
-        {
-            SG_ += sig.recvNode;
-        }
-        SG_ += "\r\n";//换行
+            sb.Append('m').Append(sig.reuseFrameID).Append(' ');
+        else if (sig.muxType == DbcMatrixParser.MuxSwitch)
+            sb.Append("M ");
+        else if (sig.muxType == DbcMatrixParser.MuxValue)
+            sb.Append('m').Append(sig.reuseFrameID).Append(' ');
 
-        return SG_;
+        sb.Append(": ");
+
+        if (sig.sigOrderType == 0)
+            sb.Append(CanOrderTool.MotorolaStartBit_Lsb2Msb(sig.sigStartBit, sig.sigLen).ToString(CultureInfo.InvariantCulture));
+        else
+            sb.Append(sig.sigStartBit.ToString(CultureInfo.InvariantCulture));
+
+        sb.Append('|')
+          .Append(sig.sigLen.ToString(CultureInfo.InvariantCulture))
+          .Append('@')
+          .Append(sig.sigOrderType)
+          .Append(sig.valueType == 0 ? '+' : '-')
+          .Append(' ')
+          .Append('(')
+          .Append(sig.sigFactor.ToString(CultureInfo.InvariantCulture))
+          .Append(',')
+          .Append(sig.sigOffset.ToString(CultureInfo.InvariantCulture))
+          .Append(") ");
+
+        double min = sig.sigMin;
+        double max = sig.sigMax;
+        if (max == 0 && min == 0 && sig.sigLen > 0)
+            max = Math.Pow(2, sig.sigLen) * sig.sigFactor;
+
+        sb.Append('[')
+          .Append(min.ToString(CultureInfo.InvariantCulture))
+          .Append('|')
+          .Append(max.ToString(CultureInfo.InvariantCulture))
+          .Append("] \"")
+          .Append(EscapeDbcString(sig.sigUnit ?? string.Empty))
+          .Append("\" ");
+
+        if (string.IsNullOrEmpty(sig.recvNode))
+            sb.Append("TBD");
+        else
+            sb.Append(sig.recvNode);
+
+        sb.Append("\r\n");
+        return sb.ToString();
     }
 
-    /// <summary>
-    /// 生成DBC报文行
-    /// </summary>
-    /// <param name="sig">CAN报文信息结构体</param>
-    /// <returns></returns>
     static private string GntBO_(CanMessage msg)
     {
-        string BO_ = "BO_ ";
-
-        string _id = string.Empty;
-        if (msg.msgType == (uint)CanMsgType.DEBUG)
-        {
-            _id = (msg.msgId + 0x80000000).ToString();
-        }
-        else
-        {
-            _id = msg.msgId.ToString();
-        }
-           
-        BO_ += _id + " ";
-        BO_ += msg.msgName+ ":" + " ";
-        BO_ += msg.msgSize.ToString() + " ";
-        BO_ += msg.transmitter;
-        BO_ += "\r\n";//换行
-
-        return BO_;
+        return "BO_ "
+            + GetDbcCanId(msg).ToString(CultureInfo.InvariantCulture) + " "
+            + msg.msgName + ": "
+            + msg.msgSize.ToString(CultureInfo.InvariantCulture) + " "
+            + msg.transmitter
+            + "\r\n";
     }
 
-    /// <summary>
-    /// 生成DBC信号注释行
-    /// </summary>
+    static private string GntCmBo_(CanMessage msg)
+    {
+        return "CM_ BO_ "
+            + GetDbcCanId(msg).ToString(CultureInfo.InvariantCulture) + " "
+            + "\"" + EscapeDbcString(msg.msgDesc) + "\";"
+            + "\r\n";
+    }
+
     static private string GntCM_(CanMessage msg, CanSignal sig)
     {
-        string CM_ = "CM_ ";
-
-        CM_ += "SG_" + " ";
-        string _id = string.Empty;
-        if (msg.msgType == (uint)CanMsgType.DEBUG)
-        {
-            _id = (msg.msgId + 0x80000000).ToString();
-        }
-        else
-        {
-            _id = msg.msgId.ToString();
-        }
-
-        CM_ += _id + " ";
-        CM_ += sig.sigName + " ";
-        CM_ += "\"" + sig.sigDesc + "\"" + ";";
-        CM_ += "\r\n";//换行
-
-        return CM_;
+        return "CM_ SG_ "
+            + GetDbcCanId(msg).ToString(CultureInfo.InvariantCulture) + " "
+            + sig.sigName + " "
+            + "\"" + EscapeDbcString(sig.sigDesc) + "\";"
+            + "\r\n";
     }
 
-    /// <summary>
-    /// 生成DBC信号值列表
-    /// </summary>
     static private string GntVAL_(CanMessage msg, CanSignal sig)
     {
-        string VAL_ = "";
+        if (sig.sigValueTable is null || sig.sigValueTable.Count == 0)
+            return string.Empty;
 
-        if (sig.sigValueTable != null)
+        var sb = new StringBuilder("VAL_ ");
+        sb.Append(GetDbcCanId(msg).ToString(CultureInfo.InvariantCulture)).Append(' ');
+        sb.Append(sig.sigName).Append(' ');
+        foreach (var item in sig.sigValueTable.OrderBy(x => x.Key))
         {
-            VAL_ = "VAL_ ";
-
-            string _id = string.Empty;
-            if (msg.msgType == (uint)CanMsgType.DEBUG)
-            {
-                _id = (msg.msgId + 0x80000000).ToString();
-            }
-            else
-            {
-                _id = msg.msgId.ToString();
-            }
-            VAL_ += _id + " ";
-            VAL_ += sig.sigName + " ";
-            foreach (var item in sig.sigValueTable)
-            {
-                VAL_ += item.Key + " ";
-                VAL_ += "\"" + item.Value + "\"" + " ";
-            }
-            VAL_ = VAL_.Remove(VAL_.LastIndexOf(" "), 1);//去除最后一个空格
-
-            VAL_ += ";";
-            VAL_ += "\r\n";//换行
+            sb.Append(item.Key.ToString(CultureInfo.InvariantCulture)).Append(' ');
+            sb.Append('"').Append(EscapeDbcString(item.Value)).Append("\" ");
         }
-
-
-
-        return VAL_;
+        if (sb[sb.Length - 1] == ' ')
+            sb.Length--;
+        sb.Append(";\r\n");
+        return sb.ToString();
     }
 
-    /// <summary>
-    /// 适用复用帧，生成复用帧信号组信息
-    /// </summary>
     static private string GntSigGroup_ReuseFrame(CanMessage msg)
     {
-        string SIG_GROUP_ = "";
-
-        //确认最大复用帧ID
+        var sb = new StringBuilder();
         uint maxFrameID = 0;
         foreach (var item in msg.signals)
         {
-            if (item.reuseFrameID >= maxFrameID) 
+            if (item.reuseFrameID >= maxFrameID)
                 maxFrameID = item.reuseFrameID;
         }
 
-        //遍历复用帧报文数据，按照帧ID进行信号分组
+        uint dbcId = GetDbcCanId(msg);
         for (int i = 0; i <= maxFrameID; i++)
         {
-            SIG_GROUP_ += "SIG_GROUP_" + " " + (msg.msgId + 0x80000000).ToString() + " " + "Signal_Group_" + i + " 1 :";
+            sb.Append("SIG_GROUP_ ")
+              .Append(dbcId.ToString(CultureInfo.InvariantCulture))
+              .Append(" Signal_Group_")
+              .Append(i)
+              .Append(" 1 :");
             foreach (var item in msg.signals)
             {
                 if (item.reuseFrameID == i)
-                    SIG_GROUP_ += " " + item.sigName;
+                    sb.Append(' ').Append(item.sigName);
             }
-            SIG_GROUP_ += ";\r\n";
+            sb.Append(";\r\n");
         }
 
-        return SIG_GROUP_;
+        return sb.ToString();
     }
 }
