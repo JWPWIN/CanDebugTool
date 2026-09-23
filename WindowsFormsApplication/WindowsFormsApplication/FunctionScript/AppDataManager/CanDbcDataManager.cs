@@ -317,7 +317,16 @@ public class CanDbcDataManager
 
         if (!DbcMatrixParser.TryParse(dbcInfo, out Dictionary<uint, CanMessage> parsed, out List<string> warnings))
         {
-            MessageBox.Show("DBC 中未解析到有效报文（BO_），或文件格式错误");
+            string detail = warnings.Count > 0
+                ? "\n\n告警摘要：\n" + string.Join("\n", warnings.Take(5))
+                : string.Empty;
+            MessageBox.Show(
+                "DBC 中未解析到有效报文（BO_），或文件格式错误。" +
+                "\n请确认文件为 Vector/CANdb 风格 DBC（含 BO_/SG_）。" +
+                detail,
+                "导入失败",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
             return false;
         }
 

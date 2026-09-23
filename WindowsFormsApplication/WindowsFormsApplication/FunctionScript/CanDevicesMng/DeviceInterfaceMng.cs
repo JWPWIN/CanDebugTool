@@ -55,6 +55,10 @@ public class DeviceInterfaceMng
     private readonly object _recvSync = new object();
 
     private readonly Queue<Canfd_Frame_Com> waitToHandle_SendCanMsgBuf = new Queue<Canfd_Frame_Com>();
+    private readonly object _sendSync = new object();
+
+    /// <summary>UDS / ISO-TP 诊断会话（通信线程 Tick，UI 只启停与读结果）。</summary>
+    public readonly UdsDiagSession udsDiagSession = new UdsDiagSession();
 
     //周期发送报文列表 <报文ID,周期发送报文数据>
     private Dictionary<uint, CycleSend_Canfd_Frame> task_CycleMsgSendDict = new Dictionary<uint, CycleSend_Canfd_Frame>();
@@ -181,6 +185,7 @@ public class DeviceInterfaceMng
 
         // 先停会话侧标志与缓冲，避免 UI 泵在半关闭状态继续消费
         canDeviceOpenFlag = false;
+        udsDiagSession.Cancel();
         ClearSessionRuntimeBuffers();
 
         if (successCloseFlag == true)
@@ -204,6 +209,7 @@ public class DeviceInterfaceMng
 
         zlgDevice = null;//清除周立功设备实例
 
+        udsDiagSession.Cancel();
         ClearSessionRuntimeBuffers();
     }
 
@@ -213,7 +219,8 @@ public class DeviceInterfaceMng
     public void ClearSessionRuntimeBuffers()
     {
         ClearCurWaitToHandleRecvMsg();
-        waitToHandle_SendCanMsgBuf.Clear();
+        lock (_sendSync)
+            waitToHandle_SendCanMsgBuf.Clear();
     }
 
     /// <summary>
@@ -272,7 +279,12 @@ public class DeviceInterfaceMng
                 if (zlgDevice is not null)
                 {
                     lock (_recvSync)
-                        zlgDevice.GetRecvBufferValidMsg(waitToHandle_RecvCanMsgById);
+                    {
+                        zlgDevice.GetRecvBufferValidMsg(waitToHandle_RecvCanMsgById, frame =>
+                        {
+                            udsDiagSession.CaptureRx(frame);
+                        });
+                    }
                 }
                 break;
             default:
@@ -365,7 +377,8 @@ public class DeviceInterfaceMng
     /// <param name="frame">单帧报文帧数据</param>
     public void AddOneMsgToSend(Canfd_Frame_Com frame)
     {
-        waitToHandle_SendCanMsgBuf.Enqueue(frame);
+        lock (_sendSync)
+            waitToHandle_SendCanMsgBuf.Enqueue(frame);
     }
 
     /// <summary>
@@ -380,13 +393,19 @@ public class DeviceInterfaceMng
         }
 
         Canfd_Frame_Com canfd_Frame_Com = new Canfd_Frame_Com();
+        bool hasSingle = false;
 
         //优先发送当前等待发送的单帧报文
-        if (waitToHandle_SendCanMsgBuf.Count > 0)
+        lock (_sendSync)
         {
-            canfd_Frame_Com = waitToHandle_SendCanMsgBuf.Dequeue();
+            if (waitToHandle_SendCanMsgBuf.Count > 0)
+            {
+                canfd_Frame_Com = waitToHandle_SendCanMsgBuf.Dequeue();
+                hasSingle = true;
+            }
         }
-        else//无单帧报文发送，尝试发送周期报文
+
+        if (!hasSingle)
         {
             // UI 尚未把信号值填入周期载荷时，不发周期帧（避免全 0）
             if (!CycleSendPayloadReady || task_CycleMsgSendDict.Count == 0)
@@ -436,16 +455,20 @@ public class DeviceInterfaceMng
     }
 
     /// <summary>
-    /// 发送一帧诊断请求报文
+    /// 发送一帧诊断请求报文（兼容旧入口；多帧请走 <see cref="udsDiagSession"/>）。
     /// </summary>
     public void UDS_SendOneUdsDiagRequest(Canfd_Frame_Com frameData)
     {
-        //未打开设备 直接返回
         if (canDeviceOpenFlag == false)
-        {
             return;
-        }
-
         AddOneMsgToSend(frameData);
+    }
+
+    /// <summary>通信会话 1ms：推进 ISO-TP 诊断状态机。</summary>
+    public void MainLoopThread_Task_UdsDiagTick()
+    {
+        if (canDeviceOpenFlag == false)
+            return;
+        udsDiagSession.Tick(this);
     }
 }

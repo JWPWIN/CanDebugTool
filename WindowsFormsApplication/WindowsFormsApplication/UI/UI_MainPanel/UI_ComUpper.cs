@@ -1179,7 +1179,13 @@ namespace WindowsFormsApplication.UI
 
         private void Btn_DiagView_Click(object sender, EventArgs e)
         {
+            if (subWin_DiagView is { IsDisposed: false })
+            {
+                subWin_DiagView.Activate();
+                return;
+            }
             subWin_DiagView = new SubWin_DiagView();
+            subWin_DiagView.FormClosed += (_, _) => subWin_DiagView = null;
             subWin_DiagView.Show();
         }
     }

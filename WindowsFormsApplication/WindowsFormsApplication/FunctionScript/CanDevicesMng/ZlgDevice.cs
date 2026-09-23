@@ -280,10 +280,14 @@ public class ZlgDevice
         uint succSendMsgNum = 0;
         ZCANDataObj_CSharp sendData = new ZCANDataObj_CSharp();
         sendData.canData = new canfd_frame();
+        sendData.dataType = 1; // 与接收侧一致：CAN/CANFD 数据
         sendData.chnl = 0;
         sendData.canData.can_id = msgData.can_id;
         sendData.canData.len = msgData.len;
         sendData.frameType = msgData.is_canfd;
+        // CAN FD 诊断/周期帧默认开 BRS，与 500k/2M 总线及其它上位机一致
+        if (msgData.is_canfd != 0)
+            sendData.canData.flags = 0x01; // CANFD_BRS
         sendData.canData.data = msgData.data;
 
         succSendMsgNum = ZCAN_TransmitData_Interface(canDeviceHandle, sendData);
@@ -336,7 +340,9 @@ public class ZlgDevice
     /// <summary>
     /// 将设备缓存有效报文合并到按 ID 索引的待处理字典（同 ID 保留最新）
     /// </summary>
-    public void GetRecvBufferValidMsg(Dictionary<uint, Canfd_Frame_Com> getRecvMsgById)
+    public void GetRecvBufferValidMsg(
+        Dictionary<uint, Canfd_Frame_Com> getRecvMsgById,
+        Action<Canfd_Frame_Com> onEachValidFrame = null)
     {
         if (receiveValidFrameBuffer.Count == 0 || getRecvMsgById is null)
             return;
@@ -348,6 +354,7 @@ public class ZlgDevice
             tmpMsg.len = item.canData.len;
             tmpMsg.data = item.canData.data;
             tmpMsg.is_canfd = item.frameType;
+            onEachValidFrame?.Invoke(tmpMsg);
             getRecvMsgById[tmpMsg.can_id] = tmpMsg;
         }
 

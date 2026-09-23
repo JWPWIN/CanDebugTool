@@ -133,6 +133,7 @@ public class LongRunningThreadService
     {
         // 设备缓冲 → 会话待处理快照区
         DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_GetRecvMsgFromDeviceBuf();
+        DeviceInterfaceMng.GetInstance()?.MainLoopThread_Task_UdsDiagTick();
         // 可选会话逻辑；周期载荷填充已改到 UI 泵，避免跨线程读发送控件
         OnSession1ms?.Invoke();
     }

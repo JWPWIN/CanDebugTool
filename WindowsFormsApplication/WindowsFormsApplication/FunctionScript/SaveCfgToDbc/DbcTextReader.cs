@@ -90,20 +90,29 @@ public static class DbcTextReader
 
             if (pending.Length > 0)
             {
-                pending.Append(' ').Append(trimmed);
-                pendingOpenQuote = CountUnescapedQuotes(pending.ToString()) % 2 != 0;
-                if (!pendingOpenQuote && pending.ToString().TrimEnd().EndsWith(";", StringComparison.Ordinal))
+                // 若拼接到独立报文/节点行，说明之前误把 NS_ 符号当属性：丢弃 pending，改解析本行
+                if (!pendingOpenQuote && IsStructuralLine(trimmed))
                 {
-                    result.Add(NormalizeWhitespace(StripTrailingSemicolon(pending.ToString())));
                     pending.Clear();
+                    pendingOpenQuote = false;
+                    // fall through to normal handling
                 }
-                continue;
+                else
+                {
+                    pending.Append(' ').Append(trimmed);
+                    pendingOpenQuote = CountUnescapedQuotes(pending.ToString()) % 2 != 0;
+                    if (!pendingOpenQuote && pending.ToString().TrimEnd().EndsWith(";", StringComparison.Ordinal))
+                    {
+                        result.Add(NormalizeWhitespace(StripTrailingSemicolon(pending.ToString())));
+                        pending.Clear();
+                    }
+                    continue;
+                }
             }
 
             bool openQuote = CountUnescapedQuotes(trimmed) % 2 != 0;
-            bool isAttrStmt = StartsWithKeyword(trimmed,
-                "CM_", "BA_", "BA_DEF_", "BA_DEF_DEF_", "VAL_", "SIG_GROUP_", "SIG_VALTYPE_", "BO_TX_BU_");
-            // 属性语句以 ; 结束；引号未闭合或尚无 ; 则继续拼下一行
+            // 仅把「带参数的属性语句」当作跨行拼接；NS_ 列表里的裸关键字（如 BA_DEF_）不能触发
+            bool isAttrStmt = IsAttributeStatement(trimmed);
             bool needsContinue = openQuote ||
                 (isAttrStmt && !trimmed.EndsWith(";", StringComparison.Ordinal));
 
@@ -139,6 +148,28 @@ public static class DbcTextReader
                 return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// NS_ 段中的符号名常为单独一行的 BA_DEF_ / CM_ 等；只有带空格参数的才是真正属性语句。
+    /// </summary>
+    private static bool IsAttributeStatement(string trimmed)
+    {
+        if (string.IsNullOrEmpty(trimmed))
+            return false;
+
+        // 必须是关键字 + 空白 + 后续内容，避免把 NS_ 列表项当成跨行属性
+        if (!trimmed.Contains(' '))
+            return false;
+
+        return StartsWithKeyword(trimmed,
+            "CM_", "BA_", "BA_DEF_", "BA_DEF_DEF_", "VAL_", "SIG_GROUP_", "SIG_VALTYPE_", "BO_TX_BU_");
+    }
+
+    /// <summary>报文/信号/节点等结构行，遇到时应中断错误的属性拼接。</summary>
+    private static bool IsStructuralLine(string trimmed)
+    {
+        return StartsWithKeyword(trimmed, "BO_", "SG_", "BU_:", "BU_", "BS_", "VERSION", "NS_");
     }
 
     private static int CountUnescapedQuotes(string text)

@@ -30,8 +30,12 @@
         {
             panel_ToolsRoot = new System.Windows.Forms.Panel();
             groupBox2 = new System.Windows.Forms.GroupBox();
-            flowLayoutPanel_Export = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanel_Actions = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanel_Import = new System.Windows.Forms.FlowLayoutPanel();
+            label_ImportRow = new System.Windows.Forms.Label();
             Btn_ImportDbc = new System.Windows.Forms.Button();
+            flowLayoutPanel_Export = new System.Windows.Forms.FlowLayoutPanel();
+            label_ExportRow = new System.Windows.Forms.Label();
             Btn_ExportDbc = new System.Windows.Forms.Button();
             button_ExportExcelDbc = new System.Windows.Forms.Button();
             Btn_ExportXml = new System.Windows.Forms.Button();
@@ -39,6 +43,8 @@
             label_ExportHint = new System.Windows.Forms.Label();
             panel_ToolsRoot.SuspendLayout();
             groupBox2.SuspendLayout();
+            flowLayoutPanel_Actions.SuspendLayout();
+            flowLayoutPanel_Import.SuspendLayout();
             flowLayoutPanel_Export.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,52 +63,105 @@
             // groupBox2
             // 
             groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox2.Controls.Add(flowLayoutPanel_Export);
+            groupBox2.Controls.Add(flowLayoutPanel_Actions);
             groupBox2.Controls.Add(label_ExportHint);
             groupBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             groupBox2.Location = new System.Drawing.Point(0, 0);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(12, 8, 12, 12);
-            groupBox2.Size = new System.Drawing.Size(992, 148);
+            groupBox2.Size = new System.Drawing.Size(992, 168);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "导入 / 导出数据";
+            // 
+            // flowLayoutPanel_Actions
+            // 
+            flowLayoutPanel_Actions.AutoSize = true;
+            flowLayoutPanel_Actions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel_Actions.Controls.Add(flowLayoutPanel_Import);
+            flowLayoutPanel_Actions.Controls.Add(flowLayoutPanel_Export);
+            flowLayoutPanel_Actions.Dock = System.Windows.Forms.DockStyle.Bottom;
+            flowLayoutPanel_Actions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flowLayoutPanel_Actions.Location = new System.Drawing.Point(12, 58);
+            flowLayoutPanel_Actions.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel_Actions.Name = "flowLayoutPanel_Actions";
+            flowLayoutPanel_Actions.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            flowLayoutPanel_Actions.Size = new System.Drawing.Size(968, 98);
+            flowLayoutPanel_Actions.TabIndex = 1;
+            flowLayoutPanel_Actions.WrapContents = false;
+            // 
+            // flowLayoutPanel_Import
+            // 
+            flowLayoutPanel_Import.AutoSize = true;
+            flowLayoutPanel_Import.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel_Import.Controls.Add(label_ImportRow);
+            flowLayoutPanel_Import.Controls.Add(Btn_ImportDbc);
+            flowLayoutPanel_Import.Location = new System.Drawing.Point(0, 2);
+            flowLayoutPanel_Import.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            flowLayoutPanel_Import.Name = "flowLayoutPanel_Import";
+            flowLayoutPanel_Import.Size = new System.Drawing.Size(180, 39);
+            flowLayoutPanel_Import.TabIndex = 0;
+            flowLayoutPanel_Import.WrapContents = false;
+            // 
+            // label_ImportRow
+            // 
+            label_ImportRow.AutoSize = true;
+            label_ImportRow.ForeColor = System.Drawing.Color.FromArgb(75, 85, 99);
+            label_ImportRow.Location = new System.Drawing.Point(0, 10);
+            label_ImportRow.Margin = new System.Windows.Forms.Padding(0, 10, 8, 0);
+            label_ImportRow.MinimumSize = new System.Drawing.Size(40, 0);
+            label_ImportRow.Name = "label_ImportRow";
+            label_ImportRow.Size = new System.Drawing.Size(32, 17);
+            label_ImportRow.TabIndex = 0;
+            label_ImportRow.Text = "导入";
+            label_ImportRow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Btn_ImportDbc
+            // 
+            Btn_ImportDbc.AutoSize = true;
+            Btn_ImportDbc.Location = new System.Drawing.Point(40, 4);
+            Btn_ImportDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
+            Btn_ImportDbc.MinimumSize = new System.Drawing.Size(96, 31);
+            Btn_ImportDbc.Name = "Btn_ImportDbc";
+            Btn_ImportDbc.Size = new System.Drawing.Size(96, 31);
+            Btn_ImportDbc.TabIndex = 1;
+            Btn_ImportDbc.Text = "导入 DBC";
+            Btn_ImportDbc.UseVisualStyleBackColor = true;
+            Btn_ImportDbc.Click += Btn_ImportDbc_Click;
             // 
             // flowLayoutPanel_Export
             // 
             flowLayoutPanel_Export.AutoSize = true;
             flowLayoutPanel_Export.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            flowLayoutPanel_Export.Controls.Add(Btn_ImportDbc);
+            flowLayoutPanel_Export.Controls.Add(label_ExportRow);
             flowLayoutPanel_Export.Controls.Add(Btn_ExportDbc);
             flowLayoutPanel_Export.Controls.Add(button_ExportExcelDbc);
             flowLayoutPanel_Export.Controls.Add(Btn_ExportXml);
             flowLayoutPanel_Export.Controls.Add(Btn_GntCanCode);
-            flowLayoutPanel_Export.Dock = System.Windows.Forms.DockStyle.Bottom;
-            flowLayoutPanel_Export.Location = new System.Drawing.Point(12, 58);
+            flowLayoutPanel_Export.Location = new System.Drawing.Point(0, 45);
             flowLayoutPanel_Export.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutPanel_Export.Name = "flowLayoutPanel_Export";
-            flowLayoutPanel_Export.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            flowLayoutPanel_Export.Size = new System.Drawing.Size(968, 62);
+            flowLayoutPanel_Export.Size = new System.Drawing.Size(560, 39);
             flowLayoutPanel_Export.TabIndex = 1;
-            flowLayoutPanel_Export.WrapContents = true;
+            flowLayoutPanel_Export.WrapContents = false;
             // 
-            // Btn_ImportDbc
+            // label_ExportRow
             // 
-            Btn_ImportDbc.AutoSize = true;
-            Btn_ImportDbc.Location = new System.Drawing.Point(0, 8);
-            Btn_ImportDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
-            Btn_ImportDbc.MinimumSize = new System.Drawing.Size(96, 31);
-            Btn_ImportDbc.Name = "Btn_ImportDbc";
-            Btn_ImportDbc.Size = new System.Drawing.Size(96, 31);
-            Btn_ImportDbc.TabIndex = 0;
-            Btn_ImportDbc.Text = "导入 DBC";
-            Btn_ImportDbc.UseVisualStyleBackColor = true;
-            Btn_ImportDbc.Click += Btn_ImportDbc_Click;
+            label_ExportRow.AutoSize = true;
+            label_ExportRow.ForeColor = System.Drawing.Color.FromArgb(75, 85, 99);
+            label_ExportRow.Location = new System.Drawing.Point(0, 10);
+            label_ExportRow.Margin = new System.Windows.Forms.Padding(0, 10, 8, 0);
+            label_ExportRow.MinimumSize = new System.Drawing.Size(40, 0);
+            label_ExportRow.Name = "label_ExportRow";
+            label_ExportRow.Size = new System.Drawing.Size(32, 17);
+            label_ExportRow.TabIndex = 0;
+            label_ExportRow.Text = "导出";
+            label_ExportRow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Btn_ExportDbc
             // 
             Btn_ExportDbc.AutoSize = true;
-            Btn_ExportDbc.Location = new System.Drawing.Point(106, 8);
+            Btn_ExportDbc.Location = new System.Drawing.Point(40, 4);
             Btn_ExportDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
             Btn_ExportDbc.MinimumSize = new System.Drawing.Size(96, 31);
             Btn_ExportDbc.Name = "Btn_ExportDbc";
@@ -115,7 +174,7 @@
             // button_ExportExcelDbc
             // 
             button_ExportExcelDbc.AutoSize = true;
-            button_ExportExcelDbc.Location = new System.Drawing.Point(212, 8);
+            button_ExportExcelDbc.Location = new System.Drawing.Point(146, 4);
             button_ExportExcelDbc.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
             button_ExportExcelDbc.MinimumSize = new System.Drawing.Size(96, 31);
             button_ExportExcelDbc.Name = "button_ExportExcelDbc";
@@ -128,7 +187,7 @@
             // Btn_ExportXml
             // 
             Btn_ExportXml.AutoSize = true;
-            Btn_ExportXml.Location = new System.Drawing.Point(318, 8);
+            Btn_ExportXml.Location = new System.Drawing.Point(252, 4);
             Btn_ExportXml.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
             Btn_ExportXml.MinimumSize = new System.Drawing.Size(96, 31);
             Btn_ExportXml.Name = "Btn_ExportXml";
@@ -141,7 +200,7 @@
             // Btn_GntCanCode
             // 
             Btn_GntCanCode.AutoSize = true;
-            Btn_GntCanCode.Location = new System.Drawing.Point(424, 8);
+            Btn_GntCanCode.Location = new System.Drawing.Point(358, 4);
             Btn_GntCanCode.Margin = new System.Windows.Forms.Padding(0, 4, 10, 4);
             Btn_GntCanCode.MinimumSize = new System.Drawing.Size(140, 31);
             Btn_GntCanCode.Name = "Btn_GntCanCode";
@@ -175,6 +234,10 @@
             panel_ToolsRoot.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            flowLayoutPanel_Actions.ResumeLayout(false);
+            flowLayoutPanel_Actions.PerformLayout();
+            flowLayoutPanel_Import.ResumeLayout(false);
+            flowLayoutPanel_Import.PerformLayout();
             flowLayoutPanel_Export.ResumeLayout(false);
             flowLayoutPanel_Export.PerformLayout();
             ResumeLayout(false);
@@ -184,8 +247,12 @@
 
         private System.Windows.Forms.Panel panel_ToolsRoot;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Actions;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Import;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Export;
         private System.Windows.Forms.Label label_ExportHint;
+        private System.Windows.Forms.Label label_ImportRow;
+        private System.Windows.Forms.Label label_ExportRow;
         private System.Windows.Forms.Button Btn_ExportXml;
         private System.Windows.Forms.Button Btn_GntCanCode;
         private System.Windows.Forms.Button Btn_ImportDbc;
